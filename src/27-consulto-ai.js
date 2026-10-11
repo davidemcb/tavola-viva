@@ -168,6 +168,7 @@ vistaConsulto = function(arg){
     if(idx>=0) h=h.slice(0,idx)+slot+h.slice(idx).replace('<div class="cons-res">','<div class="cons-res">'+regione);
     else h+=slot+'<div class="cons-res">'+regione+'</div>';
     if(haKey && S._aiAuto!==q){ S._aiAuto=q; setTimeout(()=>consAI(q),0); }
+    setTimeout(()=>{ const r=document.querySelector(".cons-res"); if(r) r.scrollIntoView({behavior:"smooth",block:"start"}); },60);
   }
   return h;
 };

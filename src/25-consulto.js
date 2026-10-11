@@ -123,8 +123,8 @@ function vistaConsulto(arg){
    '<p style="margin:0 0 14px;color:var(--muted);max-width:64ch">Scrivi il problema con le parole del cliente: dove fa male, quale gesto non riesce, quando peggiora. L\'app ti dice che cosa guardare, quali test fare e quali muscoli possono c\'entrare.</p>'+
    '<div class="cons-box"><textarea id="cons-q" placeholder="Es. «Da due settimane mi fa male la parte bassa della schiena quando mi alzo dalla sedia, e di notte fatico a girarmi nel letto»">'+esc(q)+'</textarea>'+
    '<div class="acts"><button class="btn primary" data-act="cons-go">Analizza</button>'+
-   (q?'<button class="btn" data-act="cons-leggi">▶ Leggi ad alta voce</button>':'')+'</div>'+
-   '<div class="chips">'+esempi.map(e=>'<button class="chip sm" data-go="consulto/'+encodeURIComponent(e)+'">'+esc(e)+'</button>').join("")+'</div></div>'+
+   (q?'<button class="btn" data-act="cons-leggi">▶ Leggi ad alta voce</button><button class="btn" data-go="consulto/">Nuova domanda</button>':'')+'</div>'+
+   (q? '' : '<div class="seg" style="margin-top:4px">Prova con un esempio</div><div class="chips">'+esempi.map(e=>'<button class="chip sm" data-go="consulto/'+encodeURIComponent(e)+'">'+esc(e)+'</button>').join("")+'</div>')+'</div>'+
    (q? consHTML(q) : "");
 }
 function consLeggi(){

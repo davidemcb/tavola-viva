@@ -113,6 +113,11 @@ button.card{transition:transform .15s,border-color .15s}
 .seg{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:8px}
 .seg::after{content:"";flex:1;height:1px;background:var(--line)}
 
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{padding:5px 11px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:12.5px;line-height:1.25;text-align:left}
+.chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip.sm{padding:4px 10px;font-size:12px}
+.chip:hover{border-color:var(--fascia)}
 /* pillole di collegamento */
 .pills{display:flex;flex-wrap:wrap;gap:6px}
 .pill{padding:5px 11px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:12.5px;line-height:1.25;display:inline-flex;align-items:center;gap:6px}
