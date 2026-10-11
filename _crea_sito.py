@@ -56,7 +56,7 @@ files = ["00-doc-head.html","01-head.html","01b-head-close.html","02-shell.html"
  "17-data-problemi-a.js","18-data-problemi-b.js","17b-data-problemi-c.js","17c-data-problemi-d.js","17d-data-problemi-e.js","19-data-arterie.js","19b-data-nervi2.js","19c-data-legamenti.js","19d-data-fasce-tipi.js",
  "19e-data-plessi.js","19f-data-borse.js","19g-data-tendini.js","19h-data-nervi3.js","19i-data-vasi2.js","19j-data-tessuti2.js","20-app-core.js","20b-app-link.js","21-app-audio.js","22-app-views.js",
  "23-app-scheda.js","30-tavole-a.js","31-tavole-b.js","32-tavole-render.js","33-cranio-e-tavole.js","34-disegni-muscoli.js",
- "36-immagini-render.js","35-immagini-mappa.js","41-immagini-file.js","37-nuovi-muscoli-tavole.js","38-catene-myers.js","98-sito.js","25-consulto.js","26-allegati.js","27-consulto-ai.js","39-collegamenti.js","40-concetti.js","41-condividi.js","24-app-router.js","99-doc-foot.html"]
+ "36-immagini-render.js","35-immagini-mappa.js","41-immagini-file.js","37-nuovi-muscoli-tavole.js","38-catene-myers.js","98-sito.js","25-consulto.js","26-allegati.js","27-consulto-ai.js","39-collegamenti.js","40-concetti.js","41-condividi.js","42-posturologia.js","42b-posturologia2.js","24-app-router.js","99-doc-foot.html"]
 io.open("build.sh", "w", encoding="utf-8").write(
     '#!/bin/sh\n# Ricompila index.html dai sorgenti in src/\ncd "$(dirname "$0")"\ncat ' + " ".join("src/" + f for f in files) +
     ' > index.html\necho "index.html: $(wc -c < index.html) byte"\n')
