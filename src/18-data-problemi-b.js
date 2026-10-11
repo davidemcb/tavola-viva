@@ -1,0 +1,88 @@
+<script>
+DB.problemi = DB.problemi.concat([
+
+ {id:"p-accovacciarsi",voce:"«Non riesco ad accovacciarmi per raccogliere da terra»",zona:"Arto inferiore",
+  sintesi:"Lo squat profondo è il test più completo del corpo: chiede 20° di dorsiflessione, 120° di flessione d'anca, 140° di ginocchio e un tronco che sappia restare eretto. Il punto che cede si vede a occhio nudo.",
+  gesto:["Caviglia in dorsiflessione di almeno 20°","Ginocchio flesso oltre 120°","Anca flessa oltre 110° con leggera rotazione esterna","Tronco eretto e bacino che non si arrotola"],
+  movimenti:["mv-caviglia-dorsi","mv-ginocchio-flex","mv-anca-flex"],
+  cause:[
+   {t:"Caviglia rigida",perche:"È il limite più frequente e il meno sospettato. Senza dorsiflessione i talloni si staccano e la persona cade indietro o apre i piedi.",muscoli:["m-soleo","m-gastrocnemio"],test:"Test del ginocchio al muro: in ginocchio, il ginocchio deve toccare il muro con l'alluce a 10 cm. Meno di 8 cm è limitato."},
+   {t:"Anca che non flette e non ruota",perche:"Serve una rotazione esterna per far passare il femore: senza, il bacino si arrotola e la lombare si flette in compenso.",muscoli:["m-gluteo-massimo","m-piriforme","m-adduttori"],test:"Squat a piedi larghi e punte aperte: se migliora molto, è l'anca."},
+   {t:"Quadricipite e ginocchio",perche:"Il vasto laterale corto e la femoro-rotulea sensibile fanno fermare il movimento a metà per dolore anteriore.",muscoli:["m-quadricipite"],test:"Flessione passiva del ginocchio in prono: tallone al gluteo. Confronta i lati."},
+   {t:"Paura e memoria del dolore",perche:"Chi ha avuto mal di schiena evita di scendere: il movimento sparisce dal repertorio e i tessuti si adattano alla mancanza.",muscoli:["m-erettori"],test:"Chiedi da quanto tempo non si accovaccia. La risposta spesso spiega tutto."}],
+  catene:["c-sbl","c-profonda"],
+  trattamento:["Soleo e gastrocnemio: sono la chiave, sempre","Mobilizzazione della caviglia in dorsiflessione","Glutei e rotatori profondi","Quadricipite e retinacoli della rotula","Rifai il test del ginocchio al muro e mostra i centimetri guadagnati"],
+  rosse:["Blocco meccanico improvviso del ginocchio","Gonfiore articolare","Cedimento improvviso della gamba"],
+  segreto:"Il test del ginocchio al muro dà un numero in centimetri: è il dato più facile da migliorare e da far vedere. Dieci minuti di lavoro sul soleo fanno guadagnare 2–3 cm in una seduta. È il tipo di risultato concreto che trasforma un cliente scettico nel tuo migliore passaparola."},
+
+ {id:"p-mano-notte",voce:"«Mi si addormenta la mano di notte»",zona:"Arto superiore",
+  sintesi:"Un formicolio notturno può nascere in quattro punti diversi lungo lo stesso percorso nervoso: collo, scaleni e prima costa, piccolo pettorale, polso. Capire quale è il tuo lavoro; le prime tre zone rispondono benissimo al massaggio.",
+  gesto:["Il nervo parte dalle radici cervicali","Passa fra gli scaleni e sopra la prima costa","Passa sotto la clavicola e sotto il piccolo pettorale","Scende nel braccio fino al tunnel carpale"],
+  movimenti:["mv-collo-rot","mv-presa"],
+  cause:[
+   {t:"Tunnel carpale",perche:"Nel sonno il polso si flette e la pressione nel tunnel raddoppia: da qui il formicolio che sveglia e passa scuotendo la mano.",muscoli:[],test:"Formicolio a pollice, indice, medio e metà anulare. Phalen e Tinel al polso. Un tutore notturno neutro conferma in pochi giorni."},
+   {t:"Scaleni e prima costa alta",perche:"Chi respira di torace tiene la prima costa sollevata: lo spazio per plesso e arteria si riduce. Il formicolio riguarda tutta la mano o il bordo ulnare.",muscoli:["m-scaleni","m-scom"],test:"Palpazione della fossa sopraclaveare che riproduce i sintomi; respiro alto e corto."},
+   {t:"Piccolo pettorale corto",perche:"È il tetto sotto cui passano plesso e vasi: con le spalle chiuse li comprime, soprattutto dormendo con il braccio sopra la testa.",muscoli:["m-pettorale-piccolo"],test:"Supino: spalla staccata dal lettino oltre due dita. I sintomi peggiorano con il braccio alzato."},
+   {t:"Origine cervicale",perche:"Un conflitto radicolare dà formicolio in una fascia precisa e può accompagnarsi a perdita di forza.",muscoli:["m-elevatore","m-suboccipitali"],test:"Il formicolio segue un dermatomero e peggiora estendendo e ruotando il collo (Spurling). Se c'è deficit di forza, si invia."}],
+  catene:["c-braccio-ant-prof","c-profonda"],
+  trattamento:["Rieducazione del respiro diaframmatico: è la parte più importante","Scaleni con pressione leggera e sostenuta, mai puntata","Piccolo pettorale in espirazione","Mobilizzazione della prima costa e apertura del torace","Consigli notturni: polso neutro, niente braccio sotto il cuscino"],
+  rosse:["Perdita di forza o ipotrofia del tenar","Formicolio a entrambe le mani","Sintomi dopo un trauma cervicale"],
+  segreto:"Domanda che separa il polso dal collo: «quando ti sveglia, cosa ti dà sollievo?». Se scuotere la mano risolve, è periferico (polso). Se devi cambiare posizione del collo o del braccio, il problema è più in alto. Una domanda, dieci secondi, e sai dove lavorare."},
+
+ {id:"p-tallone",voce:"«Mi fa male il tallone al primo passo del mattino»",zona:"Piede",
+  sintesi:"È il sintomo più tipico della fascite plantare, ma la fascia è solo l'ultimo anello di una catena che parte dal polpaccio e spesso dall'anca. Trattare solo la pianta significa vederla tornare.",
+  gesto:["Durante la notte il piede sta in flessione plantare e la fascia si accorcia","Al primo carico la fascia viene stirata bruscamente","Dopo qualche passo il tessuto si adatta e il dolore diminuisce","La sera torna per accumulo di carico"],
+  movimenti:["mv-caviglia-dorsi","mv-caviglia-plantar"],
+  cause:[
+   {t:"Tricipite surale corto",perche:"Se la caviglia non dorsiflette, ad ogni passo la fascia plantare viene tirata per compensare. È la causa numero uno.",muscoli:["m-soleo","m-gastrocnemio"],test:"Test del ginocchio al muro e test a ginocchio flesso/esteso per distinguere soleo e gastrocnemio."},
+   {t:"Meccanismo dell'argano inefficiente",perche:"Se l'alluce non estende, il piede non si irrigidisce per la spinta e la fascia lavora in trazione continua.",muscoli:["m-plantare"],test:"Con il piede a terra estendi l'alluce: l'arco deve alzarsi. Se non succede, il windlass non funziona."},
+   {t:"Tibiale posteriore affaticato",perche:"È la staffa che regge l'arco: quando cede, il piede crolla in dentro e la fascia si sovraccarica.",muscoli:["m-tibiale-post"],test:"Segno delle 'troppe dita' guardando da dietro; difficoltà a salire su una punta sola."},
+   {t:"Catena posteriore globale",perche:"Ischiocrurali e fascia lombare corti aumentano la tensione su tutta la Linea Superficiale Posteriore fino al calcagno.",muscoli:["m-ischiocrurali","m-erettori"],test:"Flessione anteriore: dove si ferma la curva?"}],
+  catene:["c-sbl"],
+  trattamento:["Pianta del piede con pallina, due minuti per lato","Soleo e gastrocnemio: la parte più importante della seduta","Ischiocrurali e fascia lombare","Rinforzo dei muscoli intrinseci del piede: tre esercizi da fare a casa","Consigli: mai a piedi nudi su pavimenti duri nella fase acuta, primo passo del mattino preceduto da dieci mobilizzazioni della caviglia a letto"],
+  rosse:["Dolore notturno a riposo","Gonfiore e calore del tallone","Dolore dopo un trauma diretto: sospetto di frattura da stress"],
+  segreto:"Fai fare il test della pallina sotto un solo piede, due minuti, e poi la flessione in avanti: quel lato scende di più. Con lo stesso gesto hai dimostrato la continuità fascia-polpaccio-schiena e hai dato al cliente un esercizio che può fare ogni sera. La fascite plantare guarisce quando la persona capisce che il problema non è nel tallone."},
+
+ {id:"p-stare-in-piedi",voce:"«Non riesco a stare in piedi a lungo, mi si blocca la schiena»",zona:"Lombare",
+  sintesi:"In stazione eretta prolungata la lombare va in estensione e compressione. Chi ha bacino in antiversione, anche chiuse e addome inattivo carica le faccette articolari e la muscolatura, e dopo dieci minuti deve appoggiarsi.",
+  gesto:["Il bacino tende ad antivertersi","La lordosi lombare aumenta","Il peso scivola sui talloni","Gli erettori lavorano in continua contrazione"],
+  movimenti:["mv-anca-est","mv-rachide-est"],
+  cause:[
+   {t:"Sindrome crociata inferiore",perche:"Ileopsoas ed erettori corti, glutei e addominali profondi inibiti: la lombare regge tutto da sola.",muscoli:["m-ileopsoas","m-erettori","m-gluteo-massimo","m-trasverso"],test:"Test di Thomas positivo, ponte a glutei con crampo agli ischiocrurali invece che ai glutei."},
+   {t:"Quadrato dei lombi bilaterale",perche:"Lavora in continuo per tenere su il tronco: dà dolore a cintura sopra le creste.",muscoli:["m-quadrato-lombi"],test:"Palpazione in decubito laterale; il dolore migliora sedendosi o appoggiando un piede su un rialzo."},
+   {t:"Stenosi o sofferenza delle faccette",perche:"Il dolore compare in piedi e passa piegandosi in avanti o appoggiandosi al carrello della spesa: è il segno del carrello.",muscoli:[],test:"Se il dolore migliora nettamente in flessione e peggiora in estensione, si valuta medicalmente prima di insistere."},
+   {t:"Piedi e appoggio",perche:"Un appoggio crollato o asimmetrico modifica tutta la catena fino alla lombare.",muscoli:["m-tibiale-post","m-peronei"],test:"Osservazione dell'appoggio e del comportamento dell'arco in carico."}],
+  catene:["c-profonda","c-sbl"],
+  trattamento:["Psoas e iliaco in espirazione, lentamente","Quadrato dei lombi bilaterale","Glutei: liberare e poi riattivare","Respiro diaframmatico come base di tutto","Consiglio pratico: un piede su un rialzo alternando i lati quando si sta in piedi a lungo"],
+  rosse:["Dolore irradiato a entrambe le gambe con debolezza","Zoppia progressiva dopo pochi metri","Disturbi sfinterici: invio urgente"],
+  segreto:"Il 'segno del carrello della spesa' è uno dei più utili della professione: se al supermercato la persona sta benissimo appoggiata al carrello e malissimo in fila alla cassa, la flessione la allevia. Questo cambia completamente ciò che le farai fare a casa — e ti dice anche quando è il momento di mandarla dal medico."},
+
+ {id:"p-ginocchio-scale",voce:"«Scendendo le scale mi fa male il ginocchio davanti»",zona:"Ginocchio",
+  sintesi:"In discesa la femoro-rotulea sopporta fino a sette volte il peso corporeo, in salita tre o quattro: per questo il dolore anteriore compare scendendo. La causa raramente è nel ginocchio.",
+  gesto:["Il quadricipite lavora in eccentrica per frenare","La rotula viene schiacciata nella troclea","Il gluteo medio deve impedire al ginocchio di andare dentro","La caviglia assorbe l'impatto"],
+  movimenti:["mv-ginocchio-flex","mv-anca-abd","mv-caviglia-dorsi"],
+  cause:[
+   {t:"Gluteo medio debole",perche:"Se il bacino cade, il femore ruota dentro e la rotula si disallinea: il dolore è anteriore ma la causa è laterale, all'anca.",muscoli:["m-gluteo-medio"],test:"Single leg squat: osserva se il ginocchio crolla verso l'interno. È il test più informativo per il dolore anteriore di ginocchio."},
+   {t:"Vasto mediale inibito",perche:"Si spegne in pochi giorni dopo dolore o immobilità e la rotula scivola lateralmente.",muscoli:["m-quadricipite"],test:"Confronto visivo della massa sopra e dentro la rotula fra i due lati, con il ginocchio esteso."},
+   {t:"Bandelletta e retinacolo laterale tesi",perche:"Tirano la rotula verso l'esterno; il TFL lavora al posto di un gluteo medio assente.",muscoli:["m-tfl"],test:"Test di Ober; mobilità passiva della rotula verso il lato mediale ridotta."},
+   {t:"Caviglia rigida",perche:"Se la caviglia non dorsiflette, il ginocchio deve avanzare di più e il carico anteriore cresce.",muscoli:["m-soleo"],test:"Test del ginocchio al muro."}],
+  catene:["c-laterale","c-sfl"],
+  trattamento:["TFL e vasto laterale (non la bandelletta: non si allunga)","Retinacolo laterale e mobilizzazione della rotula","Soleo e caviglia","Riattivazione del gluteo medio a fine seduta","Consiglio: scendere le scale più lentamente e appoggiando tutto il piede"],
+  rosse:["Gonfiore che ritorna","Blocco articolare o sensazione di cedimento","Dolore notturno costante"],
+  segreto:"Falle fare uno squat su una gamba sola davanti a uno specchio. Quando la persona vede con i propri occhi il ginocchio cadere all'interno, capisce in un secondo perché le farai lavorare l'anca per un dolore al ginocchio. È la spiegazione più efficace che esista, e non richiede una parola di anatomia."},
+
+ {id:"p-cervicale-vertigini",voce:"«Quando alzo lo sguardo mi gira la testa»",zona:"Collo",
+  sintesi:"I sotto-occipitali sono un organo di senso collegato a occhi e sistema vestibolare. Quando sono in tensione mandano informazioni sbagliate e il cervello fatica a costruire l'orientamento: nascono instabilità e sbandamenti.",
+  gesto:["L'estensione del collo avviene per metà fra occipite e C1","I sotto-occipitali informano il cervello sulla posizione della testa","Gli occhi e il vestibolo confrontano quell'informazione","Se i dati non coincidono, compare la sensazione di sbandamento"],
+  movimenti:["mv-collo-rot","mv-rachide-est"],
+  cause:[
+   {t:"Tensione sotto-occipitale",perche:"36 fusi neuromuscolari per grammo: sono sensori. Se restano contratti, l'informazione è distorta.",muscoli:["m-suboccipitali"],test:"Palpazione che riproduce il sintomo; test di rotazione a testa flessa."},
+   {t:"Testa protratta",perche:"Ogni 2,5 cm di testa in avanti raddoppiano il carico sui muscoli cervicali posteriori, che restano contratti tutto il giorno.",muscoli:["m-scom","m-trapezio","m-elevatore"],test:"Di profilo, il meato acustico deve cadere sopra l'acromion. Misura lo scostamento."},
+   {t:"Respiro alto",perche:"Scaleni e sternocleidomastoideo usati come muscoli respiratori restano in contrazione permanente e affaticano tutto il sistema cervicale.",muscoli:["m-scaleni"],test:"Osserva il respiro seduto: si alza il torace o si allarga l'addome?"},
+   {t:"Vertigine di origine vestibolare o posizionale",perche:"Non tutte le vertigini sono cervicali: la VPPB dura secondi e compare girandosi nel letto.",muscoli:[],test:"Se la vertigine è rotatoria, brevissima e legata a specifici cambi di posizione, si invia per valutazione."}],
+  catene:["c-sbl","c-profonda"],
+  trattamento:["Sotto-occipitali con le dita ferme sotto la nuca, senza spingere, per due o tre minuti","Scaleni e sternocleidomastoideo con presa dolce","Mobilizzazione dorsale alta","Rieducazione del respiro","Esercizio a casa: retrazione del mento, dieci volte, tre volte al giorno"],
+  rosse:["Vertigine improvvisa con disturbi visivi, del linguaggio o dell'equilibrio: urgenza medica","Cefalea a rombo di tuono","Vertigine dopo trauma cervicale"],
+  segreto:"Test in trenta secondi: misura la rotazione del collo, poi tieni due minuti le dita sotto la nuca senza premere, poi rimisura. Il guadagno è quasi sempre visibile e il cliente resta stupito che 'non hai fatto niente'. È la dimostrazione migliore che in questa zona vince la delicatezza, non la forza."}
+]);
+</script>
