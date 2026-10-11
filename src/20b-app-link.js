@@ -44,7 +44,7 @@ const ALIAS_EXTRA = {
  "o-rotula":["rotula","patella"],
  "o-tibia":["tibia","tuberosità tibiale","condilo tibiale laterale","condilo tibiale mediale","malleolo mediale","tubercolo di Gerdy","zampa d'oca","cresta tibiale","piatti tibiali"],
  "o-perone":["perone","testa del perone","malleolo laterale","collo del perone"],
- "o-piede":["calcagno","astragalo","scafoide","cuboide","cuneiforme","cuneiformi","metatarso","metatarsi","falangi","tuberosità del calcagno","sustentaculum tali","primo metatarso","quinto metatarso"],
+ "o-piede":["ossa del piede","tarso","ossa del tarso","ossa tarsali"],
  "m-ileopsoas":["psoas","grande psoas","iliaco","ileo-psoas","ileopsoas"],
  "m-gran-dorsale":["gran dorsale","grande dorsale"],
  "m-pettorale-grande":["grande pettorale","gran pettorale"],
@@ -121,7 +121,7 @@ const ALIAS_EXTRA = {
  "t-sellare":["sellare"]
 };
 
-const STOP_TERMINI=new Set(["frontale","temporale","nasale","laterale","mediale","anteriore","posteriore","superficiale","profonda","piana","parietale","zigomatico","mascellare","occipitale","sfenoide","etmoide"]);
+const STOP_TERMINI=new Set(["mano","piede","della mano","del piede","ossa","frontale","temporale","nasale","laterale","mediale","anteriore","posteriore","superficiale","profonda","piana","parietale","zigomatico","mascellare","occipitale","sfenoide","etmoide"]);
 let TERMINI=[], TERM_MAP=null, MAXW=1;
 const PAROLE_TIPO=/^(nervo|nervi|arteria|arterie|articolazione|articolazioni|legamento|legamenti|muscolo|muscoli|fascia|fasce|linea|plesso|vertebre|ossa|osso)\s+/i;
 const RE_TOKEN=new RegExp("([A-Za-z0-9'\u00C0-\u017F\u2019\\-]+)");

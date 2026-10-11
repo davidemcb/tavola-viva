@@ -2,7 +2,7 @@
 /* Ossa della mano: scheda propria, così le tavole possono collegarla. */
 DB.ossa = DB.ossa.concat([
  {id:"o-mano",nome:"Ossa della mano",lat:"Carpus, metacarpus, phalanges",regione:"Arto superiore",
-  alias:["carpo","scafoide della mano","semilunare","piramidale","pisiforme","trapezio","trapezoide","capitato","uncinato","metacarpo","metacarpi"],
+  alias:["carpo","ossa carpali","ossa del carpo","ossa della mano"],
   dove:"Otto ossa carpali in due file, cinque metacarpi e quattordici falangi. Reperi: il pisiforme sporge sul lato del mignolo alla piega del polso; lo scafoide si palpa nella tabacchiera anatomica.",
   forma:"Fila prossimale: scafoide, semilunare, piramidale, pisiforme. Fila distale: trapezio, trapezoide, capitato, uncinato. Il capitato è al centro e fa da perno di tutto il carpo.",
   articola:["a-radio-carpica","a-mediocarpica","a-trapezio-metacarpale","a-metacarpo-falangee"],
