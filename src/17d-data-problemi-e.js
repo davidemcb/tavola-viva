@@ -1,0 +1,117 @@
+<script>
+/* Problemi — parte 5: colonna, torace, mano, esiti di trauma. */
+DB.problemi = DB.problemi.concat([
+
+ {id:"p-scoliosi",voce:"«Mio figlio ha la schiena storta, un fianco più alto»",zona:"Postura",
+  sintesi:"La domanda che decide tutto: la curva sparisce quando si piega in avanti (funzionale, da asimmetria muscolare o di bacino) o resta come un gibbo (strutturale, con rotazione delle vertebre)? La prima si tratta; la seconda si invia, e il massaggio accompagna.",
+  gesto:["In piedi da dietro: spalle, scapole, triangoli della taglia, creste iliache","Test di Adams: flessione in avanti con le mani giunte","Il gibbo è la rotazione delle vertebre vista attraverso le coste"],
+  movimenti:["mv-rachide-incl","mv-rachide-rot","mv-dorsale"],
+  cause:[
+   {t:"Scoliosi strutturale idiopatica",perche:"Rotazione e inclinazione delle vertebre, in crescita nell'adolescenza; nel test di Adams compare un gibbo costale o lombare.",muscoli:["m-erettori","m-semispinale"],test:"Adams positivo, gibbo misurabile con lo scoliometro (oltre 7° si invia), curva che non si corregge inclinandosi."},
+   {t:"Atteggiamento scoliotico (funzionale)",perche:"Curva senza rotazione, da gamba più corta, bacino asimmetrico, dolore o abitudine: scompare in flessione e da seduto.",muscoli:["m-quadrato-lombi","m-obliqui","m-gluteo-medio"],test:"Adams negativo, curva che sparisce da seduti o con un rialzo sotto il piede della gamba corta."},
+   {t:"Dismetria degli arti inferiori",perche:"Una gamba più corta di oltre 1 cm inclina il bacino e la colonna compensa.",muscoli:["m-quadrato-lombi"],test:"Creste iliache a livelli diversi in piedi, pari da seduti; misura con i rialzi."},
+   {t:"Asimmetrie del cingolo e abitudini",perche:"Zaino su una spalla, sport asimmetrici, strumento musicale: i muscoli si adattano.",muscoli:["m-trapezio","m-elevatore","m-gran-dorsale"],test:"Anamnesi: sport, strumento, zaino; palpazione del tono a confronto."}],
+  catene:["c-laterale","c-spirale"],
+  trattamento:["Nella strutturale: il massaggio allevia e accompagna, ma la cura è dello specialista (corsetto, esercizi specifici); lavoro sulla concavità, respiro nelle zone chiuse","Nella funzionale: correggere la causa (rialzo, abitudini), lavorare il lato corto, rinforzare il lato debole","Rivalutare con foto da dietro ogni 3 mesi in un adolescente in crescita"],
+  rosse:["Gibbo evidente in un adolescente in crescita: invio entro poche settimane","Curva che peggiora rapidamente","Dolore notturno o segni neurologici (scoliosi dolorosa non è idiopatica)"],
+  segreto:"Il test di Adams è l'esame più importante che puoi fare a un adolescente e dura dieci secondi: piegato in avanti, guardi la schiena dal basso, a livello degli occhi. Un lato che si solleva è un gibbo, e un gibbo in crescita va visto da uno specialista subito, perché il corsetto funziona solo finché c'è crescita."},
+
+ {id:"p-dorso-curvo",voce:"«Ho il dorso curvo e mi brucia fra le scapole»",zona:"Colonna",
+  sintesi:"Il dorso curvo da scrivania è la sindrome crociata superiore di Janda: pettorali corti davanti, romboidi e trapezio inferiore lunghi e deboli dietro, testa in avanti. Il bruciore fra le scapole è il dolore dei muscoli tenuti in allungamento, non di muscoli contratti.",
+  gesto:["Ore seduti con le braccia davanti: le spalle vanno avanti","La cifosi dorsale aumenta e le coste si bloccano","La testa va avanti per tenere lo sguardo orizzontale"],
+  movimenti:["mv-dorsale","mv-scapola","mv-cingolo"],
+  cause:[
+   {t:"Piccolo e grande pettorale corti",perche:"Tirano le scapole in avanti e in basso: tutto il dietro resta allungato.",muscoli:["m-pettorale-piccolo","m-pettorale-grande"],test:"Supino: spalle staccate dal lettino oltre due dita."},
+   {t:"Romboidi e trapezio inferiore in allungamento",perche:"Il bruciore interscapolare: muscoli lunghi in tensione eccentrica continua, non contratti.",muscoli:["m-romboidi","m-trapezio"],test:"Dolore superficiale fra le scapole che il cliente non raggiunge; test del trapezio inferiore (Y in prono) debole."},
+   {t:"Rigidità dorsale e costale",perche:"Ventiquattro costo-vertebrali bloccate: l'estensione dorsale è persa e il respiro è alto.",muscoli:["m-erettori","m-intercostali","m-dentato-post"],test:"Test al muro: la nuca non tocca senza alzare il mento; estensione dorsale sul rullo limitata."},
+   {t:"Morbo di Scheuermann o cifosi strutturale",perche:"Nell'adolescente: cifosi rigida che non si corregge sdraiandosi, con vertebre a cuneo.",muscoli:[],test:"Cifosi che resta in prono con il tronco sollevato; dolore dorsale in un adolescente: invio."}],
+  catene:["c-sfl","c-braccio-ant-prof","post-crociata-sup"],
+  trattamento:["Pettorali e fascia clavi-pettorale: è il davanti che va aperto","Mobilizzazione dorsale e costale in espirazione","Romboidi e trapezio inferiore: non impastare a lungo (sono già allungati), riattivare con Y e T in prono","Postura al lavoro: schermo all'altezza degli occhi, gomiti appoggiati, pause ogni 40 minuti"],
+  rosse:["Cifosi rigida in un adolescente con dolore","Dolore dorsale notturno, costante, con perdita di peso","Dolore dorsale a fascia con tosse e febbre"],
+  segreto:"Il cliente chiede di massaggiare «dove brucia», cioè dietro. Il bruciore passa per due giorni. Chi apre il davanti e risveglia il trapezio inferiore vede sparire il bruciore per mesi. Spiegarglielo con le mani sulle sue spalle, tirandole avanti e indietro, convince più di qualsiasi discorso."},
+
+ {id:"p-costale",voce:"«Ho una fitta al fianco quando respiro a fondo o mi giro»",zona:"Colonna",
+  sintesi:"Il dolore puntiforme fra le coste che peggiora con il respiro profondo, la tosse e la torsione è quasi sempre una costa che non si muove (costo-vertebrale bloccata) o un intercostale in spasmo. Ma il torace è anche la sede del dolore cardiaco e polmonare: la prima domanda è escludere quelli.",
+  gesto:["Ogni costa ruota a ogni respiro sulle sue due articolazioni posteriori","Nella torsione del tronco le coste scivolano l'una sull'altra","Il nervo intercostale corre sotto ogni costa"],
+  movimenti:["mv-respiro","mv-rachide-rot","mv-rachide-incl"],
+  cause:[
+   {t:"Blocco costo-vertebrale",perche:"Una costa «incastrata» dopo un movimento brusco o una notte storta: dolore a un punto preciso dietro, vicino alla colonna, che si irradia lungo la costa.",muscoli:["m-erettori","m-dentato-post"],test:"Dolore alla pressione sull'angolo costale posteriore e nell'inspirazione profonda; migliora in espirazione."},
+   {t:"Intercostale in spasmo o stirato",perche:"Dopo tosse violenta, sforzo o torsione: dolore a cintura lungo uno spazio intercostale.",muscoli:["m-intercostali","m-obliqui"],test:"Dolore alla pressione nello spazio intercostale e nella torsione; si riproduce premendo."},
+   {t:"Costocondrite (sindrome di Tietze)",perche:"Infiammazione delle cartilagini costali davanti, vicino allo sterno: dolore alla pressione sulle giunzioni.",muscoli:["m-pettorale-grande"],test:"Dolore puntiforme sulle cartilagini costali 2–5 alla pressione; a volte gonfiore."},
+   {t:"Cause non muscolari",perche:"Cuore, polmone, pleura, herpes zoster, frattura costale: dolore che non si riproduce premendo o che si accompagna ad altri segni.",muscoli:[],test:"Affanno, febbre, dolore che non cambia con la posizione, vescicole sulla pelle, trauma recente: invio."}],
+  catene:["c-laterale","c-spirale"],
+  trattamento:["Mobilizzazione della costa in espirazione, pressione lenta sull'angolo costale","Intercostali con un dito nello spazio, dal dorso verso lo sterno","Dentato posteriore e erettori","Respiro: espirazione lunga, poi inspirazione nella zona bloccata con la mano del terapista sopra"],
+  rosse:["Dolore toracico con affanno, sudore, nausea o irradiazione al braccio sinistro: 118","Febbre e tosse con dolore respiratorio","Vescicole sulla pelle lungo la costa (zoster)","Dolore dopo un trauma (frattura)"],
+  segreto:"La regola per non sbagliare: il dolore muscolare o costale si riproduce premendo e cambia con il movimento; quello cardiaco no. Ma «non cardiaco» lo decide il medico: se il cliente ha più di 40 anni e il dolore è nuovo, al centro del petto o con affanno, quel giorno non si tratta. Si manda."},
+
+ {id:"p-torace-chiuso",voce:"«Respiro corto, ho sempre il torace chiuso, come un peso»",zona:"Colonna",
+  sintesi:"Il «torace chiuso» di chi vive in tensione è un diaframma che non scende, coste basse bloccate e scaleni che respirano al posto suo: un respiro alto, corto, da allarme. Non è una malattia dei polmoni (che vanno esclusi) ma un pattern che il corpo ha imparato.",
+  gesto:["In inspirazione il diaframma dovrebbe scendere e le coste basse allargarsi","Nel respiro da stress il torace alto si alza e la pancia resta ferma","Scaleni e sternocleidomastoideo lavorano 20.000 volte al giorno"],
+  movimenti:["mv-respiro","mv-dorsale"],
+  cause:[
+   {t:"Diaframma in tensione (apnea emotiva)",perche:"Il diaframma non scende: la pancia non si muove, il respiro è nella parte alta del torace.",muscoli:["m-diaframma","m-trasverso"],test:"Mano sulla pancia e mano sul petto: quale si muove per prima? Espansione toracica sotto i 3 cm."},
+   {t:"Scaleni e sternocleidomastoideo come muscoli respiratori",perche:"Il collo respira: tensione cervicale cronica, prima costa alta, formicolii.",muscoli:["m-scaleni","m-scom"],test:"Le spalle salgono a ogni inspirazione; scaleni dolenti alla palpazione."},
+   {t:"Coste basse e dorso bloccati",perche:"Senza mobilità costale il diaframma non trova spazio.",muscoli:["m-intercostali","m-quadrato-lombi","m-erettori"],test:"Espansione delle coste basse (metro sotto lo sterno) ridotta; dorso rigido in estensione."},
+   {t:"Cause mediche",perche:"Asma, anemia, cuore, ansia panico: vanno distinti.",muscoli:[],test:"Affanno con sforzo lieve, sibili, dita blu, palpitazioni: valutazione medica prima."}],
+  catene:["c-profonda"],
+  trattamento:["Diaframma sotto-costale in espirazione, quattro o cinque respiri","Scaleni e sternocleidomastoideo a pinza","Mobilizzazione costale bassa e dorsale","Insegnare il respiro: espirazione lunga dalla bocca, inspirazione dal naso nella pancia, 5 minuti due volte al giorno","Trasverso dell'addome con il respiro: è il muscolo dell'espirazione"],
+  rosse:["Affanno improvviso o a riposo","Dolore toracico con il respiro corto","Labbra o dita bluastre","Respiro corto con gambe gonfie (cuore)"],
+  segreto:"L'espirazione lunga è l'interruttore del vago: quando l'espirazione dura il doppio dell'inspirazione, la frequenza cardiaca scende e il diaframma molla. È il motivo per cui si comincia la seduta da lì, e non dal torace: prima si cambia il respiro, poi si trattano i muscoli che lo stavano facendo male."},
+
+ {id:"p-alluce-valgo",voce:"«L'alluce mi si è storto e mi fa male la cipolla»",zona:"Piede",
+  sintesi:"L'alluce valgo è una deformità: il primo metatarso devia verso l'interno e l'alluce verso l'esterno, la testa del metatarso sporge (la «cipolla») e la borsa sopra si infiamma. Nasce da un piede pronato, da muscoli intrinseci deboli e da scarpe strette; il massaggio non raddrizza l'alluce, ma allevia il dolore e rallenta la progressione.",
+  gesto:["Il primo metatarso si apre verso l'interno (metatarso varo)","L'alluce, tirato dai tendini lunghi che ormai passano di lato, devia verso l'esterno","La testa del metatarso sfrega nella scarpa e la borsa si infiamma"],
+  movimenti:["mv-alluce","mv-dita-abd","mv-piede-inv"],
+  cause:[
+   {t:"Piede pronato e primo raggio instabile",perche:"La pronazione apre il primo metatarso e sposta il carico sull'alluce in modo obliquo.",muscoli:["m-tibiale-post","m-peronei"],test:"Segno delle troppe dita; arco che crolla in carico; primo metatarso che si solleva premendo sotto."},
+   {t:"Intrinseci deboli (abduttore dell'alluce)",perche:"L'abduttore dell'alluce dovrebbe tenere l'alluce dritto: nelle scarpe strette non lavora da anni.",muscoli:["m-intrinseci-piede"],test:"Il cliente non riesce ad allargare l'alluce dalle altre dita attivamente."},
+   {t:"Borsite della «cipolla»",perche:"Attrito della scarpa sulla testa del metatarso sporgente: rossore e dolore.",muscoli:[],test:"Rossore, calore e dolore sulla sporgenza mediale."},
+   {t:"Artrosi della metatarso-falangea",perche:"Con gli anni l'articolazione deviata si consuma: rigidità e dolore nel passo.",muscoli:["m-flessori-dita-piede"],test:"Estensione dell'alluce ridotta sotto i 40° con dolore alla fine."}],
+  catene:["c-profonda","c-spirale"],
+  trattamento:["Mobilizzazione dell'alluce in abduzione e trazione, spazi intermetatarsali","Abduttore dell'alluce e muscoli intrinseci: riattivazione (allargare le dita, short foot)","Tibiale posteriore e arco","Scarpe larghe in punta, separatore notturno, niente tacchi","Chirurgia solo se il dolore limita la vita: il massaggio non raddrizza l'osso"],
+  rosse:["Cipolla rossa, calda, con febbre (infezione della borsa)","Alluce rigido e deformato in un diabetico con pelle lesa","Dolore improvviso con gonfiore in un'articolazione rossa (gotta)"],
+  segreto:"Non dire mai «te lo raddrizzo»: l'osso ha già cambiato forma. Ma l'alluce valgo doloroso diventa indolore quando le dita riprendono a lavorare e la scarpa smette di stringere. Il separatore notturno non cura, ma il lavoro sugli intrinseci e la scarpa giusta cambiano la vita del piede."},
+
+ {id:"p-pollice-base",voce:"«Mi fa male la base del pollice quando apro un barattolo»",zona:"Arto superiore",
+  sintesi:"Il dolore alla base del pollice nelle prese forti (barattolo, chiave, strizzare) è rizoartrosi, l'artrosi dell'articolazione trapezio-metacarpale: la più frequente artrosi della mano, soprattutto nelle donne dopo i 50 anni e in chi lavora di pollice. Va distinta dal De Quervain, che sta più in alto, sul polso.",
+  gesto:["L'articolazione a sella del pollice permette l'opposizione ma è poco contenuta","Ogni pinza forte moltiplica il carico sulla base del pollice per dodici","La cartilagine si consuma e l'osso sporge (base del pollice «quadrata»)"],
+  movimenti:["mv-pollice","mv-pollice-if","mv-presa"],
+  cause:[
+   {t:"Rizoartrosi",perche:"Dolore profondo alla base del pollice, peggiore nelle prese di forza, con base che sporge.",muscoli:["m-intrinseci-mano"],test:"Grind test (compressione e rotazione del metacarpo sul trapezio): dolore e crepitio."},
+   {t:"Tendinopatia di De Quervain",perche:"Dolore sul lato del polso, sopra lo stiloide radiale, non alla base del pollice.",muscoli:["m-estensori-dita"],test:"Finkelstein positivo; dolore 2–3 cm più in alto della base del pollice."},
+   {t:"Trigger dei muscoli tenar e dell'adduttore",perche:"Dolore alla base del pollice da sovraccarico muscolare, senza artrosi.",muscoli:["m-intrinseci-mano","m-brachiale"],test:"Pressione sull'eminenza tenar e sul primo spazio che riproduce il dolore; grind test negativo."},
+   {t:"Lesione del collaterale ulnare del pollice",perche:"Dopo una caduta: instabilità della pinza.",muscoli:[],test:"Stress in valgo della metacarpo-falangea doloroso e lasso."}],
+  catene:["c-braccio-ant-prof"],
+  trattamento:["Tenar, adduttore e primo spazio con pressioni lente","Trazione e mobilizzazione dolce della trapezio-metacarpale","Tutore corto per le attività di forza","Per il massaggiatore: smettere di lavorare di pollice — nocche, avambraccio, peso del corpo"],
+  rosse:["Base del pollice gonfia, calda e rossa","Dolore dopo caduta con pinza instabile","Deformità rapida"],
+  segreto:"La rizoartrosi è la malattia professionale di chi lavora di pollice: parrucchieri, fisioterapisti, massaggiatori. Non si guarisce, si gestisce. Chi cambia tecnica a trent'anni arriva a sessanta con il pollice; chi non lo fa, no. Ogni volta che senti il pollice stanco a fine giornata, il tuo corpo ti sta dicendo questo."},
+
+ {id:"p-colpo-frusta",voce:"«Dopo l'incidente ho il collo rigido, mal di testa e mi gira la testa»",zona:"Collo",
+  sintesi:"Il colpo di frusta è uno stiramento brusco dei tessuti del collo (muscoli, legamenti, capsule, a volte il disco). Nei primi giorni domina la difesa muscolare; dopo settimane possono restare rigidità, cefalea, vertigini e disturbi della concentrazione, legati ai recettori cervicali e al sistema nervoso in allarme. Si tratta dopo l'esclusione medica delle lesioni ossee e legamentose.",
+  gesto:["Iperestensione e poi flessione brusca del collo","I flessori profondi vengono stirati e si inibiscono; i superficiali si contraggono in difesa","I recettori dei sotto-occipitali e delle capsule si disturbano"],
+  movimenti:["mv-collo-flex","mv-collo-rot","mv-collo-incl"],
+  cause:[
+   {t:"Spasmo di difesa dei muscoli superficiali",perche:"Sternocleidomastoideo, scaleni e trapezio superiore bloccano il collo per proteggerlo.",muscoli:["m-scom","m-scaleni","m-trapezio"],test:"Collo rigido in tutte le direzioni, muscoli dolenti a pinza, movimenti che migliorano nei giorni."},
+   {t:"Flessori profondi inibiti",perche:"Lunghi del collo e del capo sono stati stirati e non reggono più la testa: il collo si regge «da fuori».",muscoli:["m-lungo-collo","m-lungo-capo"],test:"Test cranio-cervicale: non riesce a tenere il mento rientrato senza che lo sternocleidomastoideo scatti."},
+   {t:"Faccette e capsule irritate",perche:"Dolore locale a un livello, peggiore in estensione; la cefalea cervicogenica parte da C2–C3.",muscoli:["m-semispinale","m-suboccipitali"],test:"Dolore alla pressione sulle faccette di un lato; rotazione a testa flessa ridotta."},
+   {t:"Vertigine e instabilità cervicogenica",perche:"I recettori disturbati mandano al cervello informazioni sbagliate.",muscoli:["m-suboccipitali"],test:"Instabilità non rotatoria legata ai movimenti del collo; se è rotatoria o con segni neurologici, invio."}],
+  catene:["c-sbl","c-profonda"],
+  trattamento:["Prima: certezza medica che non ci siano fratture o lesioni legamentose (radiografie fatte)","Fase acuta (prima settimana): calore, tocco leggero, movimento attivo dolce; nessuna manipolazione","Poi: sternocleidomastoideo, scaleni, trapezio a pinza; sotto-occipitali con le dita ferme; dorso alto","Riattivazione dei flessori profondi: è il passaggio che decide il recupero","Rassicurare: la maggior parte guarisce in 6–12 settimane; il riposo prolungato con collare peggiora"],
+  rosse:["Dolore cervicale intenso con impossibilità a sostenere la testa","Formicolio o debolezza alle braccia o alle gambe","Vertigine rotatoria, visione doppia, difficoltà a parlare","Qualsiasi sintomo in un collo non ancora valutato con imaging dopo l'incidente"],
+  segreto:"Il collare rigido oltre pochi giorni è il peggior nemico: i flessori profondi si spengono del tutto e il collo impara a non muoversi. Il recupero migliore si vede in chi muove il collo presto, dolcemente, e riattiva i flessori profondi. Il massaggiatore qui è un allenatore, non un riparatore."},
+
+ {id:"p-gambe-gonfie",voce:"«La sera ho le gambe gonfie e pesanti, soprattutto le caviglie»",zona:"Arto inferiore",
+  sintesi:"Le caviglie che si gonfiano la sera e sono normali al mattino raccontano un ritorno venoso e linfatico lento: la pompa del polpaccio non lavora abbastanza (ore in piedi ferme o seduti) e le valvole delle vene non tengono. Il gonfiore che resta al mattino, o di una gamba sola, è un'altra storia e va dal medico.",
+  gesto:["Il sangue delle gambe risale contro la gravità grazie alla contrazione del soleo e alle valvole","La linfa risale con il movimento muscolare e il respiro diaframmatico","Da fermi, in piedi o seduti, entrambe le pompe sono spente"],
+  movimenti:["mv-caviglia-plantar","mv-respiro"],
+  cause:[
+   {t:"Insufficienza venosa cronica",perche:"Valvole che cedono, vene superficiali dilatate: gonfiore serale, pesantezza, varici.",muscoli:["m-soleo"],test:"Impronta del dito sulla caviglia (fovea), varici visibili, pelle bruna alla caviglia; gonfiore bilaterale che scompare al mattino."},
+   {t:"Pompa muscolare inattiva",perche:"Lavoro in piedi fermi (commessi, parrucchieri) o seduti: il soleo non spreme le vene.",muscoli:["m-soleo","m-gastrocnemio"],test:"Anamnesi del lavoro; miglioramento camminando."},
+   {t:"Linfedema",perche:"Gonfiore duro, che non lascia l'impronta, spesso di una gamba sola, dopo interventi o infezioni.",muscoli:[],test:"Segno di Stemmer (non si pizzica la pelle sul dorso del secondo dito); gonfiore che non cala di notte: valutazione specialistica."},
+   {t:"Cause mediche",perche:"Cuore, reni, fegato, farmaci (calcio-antagonisti), trombosi: gonfiore diverso per sede e andamento.",muscoli:[],test:"Gonfiore di una sola gamba improvviso (trombosi), gonfiore con affanno (cuore), gonfiore al viso e alle mani (reni): invio."}],
+  catene:["c-sbl"],
+  trattamento:["Drenaggio: prima le stazioni a monte (inguine), poi dal basso verso l'alto, pressioni leggere e lente","Polpaccio e soleo con manovre di spremitura verso l'alto","Mobilizzazione della caviglia","Respiro diaframmatico: la pompa della linfa","Consigli: gambe sollevate 15 minuti la sera, venti sollevamenti sui talloni ogni ora, calze a compressione nei lavori in piedi"],
+  rosse:["Gonfiore di una sola gamba comparso in pochi giorni, con dolore e calore: trombosi, non si massaggia","Gonfiore con affanno o che sale oltre il ginocchio","Gonfiore duro che non lascia l'impronta e non cala la notte"],
+  segreto:"Il test del dito: premi sulla caviglia per cinque secondi. Se resta la fossetta, è liquido venoso e il drenaggio funziona; se la pelle è dura e non si pizzica sul dorso del dito, è linfa e serve un drenaggio specialistico. Se è una gamba sola e calda, non toccare: è il giorno del medico."}
+]);
+</script>

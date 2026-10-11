@@ -157,9 +157,10 @@ vistaConsulto = function(arg){
   const q=arg? decodeURIComponent(arg) : "";
   const haKey=aiHaKey();
   const pulsante = haKey
-    ? '<button class="btn primary" data-act="cons-ai">✦ Ragiona con Claude</button>'
-    : '<button class="btn" data-go="studio/" title="Serve una chiave API">✦ Ragiona con Claude (attiva nel tuo studio)</button>';
-  h=h.replace('<button class="btn primary" data-act="cons-go">Analizza</button>', pulsante+'<button class="btn" data-act="cons-go">Confronta con i quadri</button>');
+    ? '<button class="btn primary" data-act="cons-ai">✦ Ragiona con Claude</button><button class="btn" data-act="cons-go">Analizza senza Claude</button>'
+    : '<button class="btn primary" data-act="cons-go">Analizza</button>';
+  h=h.replace('<button class="btn primary" data-act="cons-go">Analizza</button>', pulsante);
+  if(!haKey) h=h.replace('</div><div class="chips">','</div><p style="margin:0;font-size:12px;color:var(--faint)">Vuoi che ragioni sulla frase con l\'intelligenza artificiale? <button class="lk" data-go="studio/">Attiva Claude nel tuo studio</button></p><div class="chips">');
   if(q){
     const idx=h.indexOf('<div class="cons-res">');
     const regione=consRegioneHTML(q);

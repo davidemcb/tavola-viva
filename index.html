@@ -2049,6 +2049,69 @@ DB.movimenti = DB.movimenti.concat([
 ]);
 </script>
 <script>
+/* Articolazioni e movimenti che mancavano. */
+DB.articolazioni = DB.articolazioni.concat([
+ {id:"a-gomito",nome:"Articolazione del gomito (unità)",tipo:"Articolazione composta: ginglimo + condiloidea + trocoide",regione:"Gomito",alias:["gomito","articolazione del gomito","cubito"],
+  superfici:"Tre articolazioni in una sola capsula: omero-ulnare (troclea), omero-radiale (capitulum), radio-ulnare prossimale (testa del radio nell'anello).",
+  legamenti:"Collaterale ulnare (il più importante per la stabilità), collaterale radiale, anulare del radio, capsula.",
+  rom:[["Flessione","0–145°"],["Estensione","0° (–5/10° di iperestensione nelle donne e nei lassi)"],["Pronazione","0–85°"],["Supinazione","0–90°"],["Angolo di carico (valgo fisiologico)","10–15°"]],
+  segreto:"L'angolo di carico: a gomito esteso e supinato, l'avambraccio devia verso l'esterno di 10–15°, così le braccia pendono senza toccare i fianchi. Un angolo più aperto dopo una frattura infantile spiega una compressione tardiva del nervo ulnare anche vent'anni dopo."},
+ {id:"a-interfalangee",nome:"Articolazioni interfalangee delle dita",tipo:"Ginglimi",regione:"Mano",alias:["interfalangee","interfalangea prossimale","interfalangea distale","IFP","IFD","noduli di Heberden","noduli di Bouchard"],
+  superfici:"Troclea della falange prossimale nella base della falange media (IFP), e della media nella distale (IFD).",
+  legamenti:"Collaterali e placca volare, molto robusti: sono articolazioni che si muovono su un solo piano.",
+  rom:[["Flessione IFP","0–110°"],["Flessione IFD","0–80°"],["Estensione","0° (iperestensione passiva possibile)"]],
+  segreto:"I noduli di Heberden (IFD) e Bouchard (IFP) sono artrosi delle dita: duri, ossei, spesso familiari, con rigidità breve al mattino. Non sono artrite: non si gonfiano in modo caldo e simmetrico. Saperli riconoscere evita un invio inutile e permette un lavoro di mobilizzazione dolce che il cliente apprezza."},
+ {id:"a-talo-navicolare",nome:"Articolazioni talo-calcaneo-navicolare e calcaneo-cuboidea",tipo:"Enartrosi (talo-navicolare) e sellare (calcaneo-cuboidea)",regione:"Piede",alias:["talo-navicolare","astragalo-scafoidea","calcaneo-cuboidea","articolazione di Chopart","mesopiede"],
+  superfici:"La testa dell'astragalo poggia sullo scafoide e sullo spring ligament, come una sfera in una coppa; il calcagno si articola con il cuboide con due superfici a sella.",
+  legamenti:"Spring ligament (calcaneo-scafoideo plantare), biforcato, plantare lungo, calcaneo-cuboideo.",
+  rom:[["Prono-supinazione dell'avampiede","15–20° in tutto"],["Blocco in supinazione","assi divergenti, piede rigido per la spinta"],["Sblocco in pronazione","assi paralleli, piede morbido per l'appoggio"]],
+  segreto:"È il meccanismo della «chiave» del mesopiede: quando il calcagno supina, gli assi delle due articolazioni divergono e il piede si blocca come una leva; quando prona, si allineano e il piede si ammorbidisce. Un piede che resta sempre pronato non si blocca mai, e la spinta esce dal bordo esterno."},
+ {id:"a-suture",nome:"Suture del cranio",tipo:"Sinartrosi fibrose",regione:"Testa",alias:["suture craniche","sutura sagittale","sutura coronale","sutura lambdoidea","sutura squamosa","bregma","lambda","pterion"],
+  superfici:"Margini dentellati delle ossa della volta incastrati fra loro: coronale (frontale-parietali), sagittale (fra i parietali), lambdoidea (parietali-occipite), squamosa (parietale-temporale).",
+  legamenti:"Tessuto fibroso sottile fra i margini, che si ossifica lentamente con l'età.",
+  rom:[["Nel neonato","fontanelle aperte: bregma chiude a 18 mesi, lambda a 3 mesi"],["Nell'adulto","mobilità minima, discussa; le suture si saldano dopo i 30–40 anni, in ordine variabile"]],
+  segreto:"Lo pterion, dove si incontrano frontale, parietale, temporale e sfenoide dietro la tempia, è il punto più sottile del cranio e sotto passa l'arteria meningea media. Un lavoro sulla tempia si fa con il palmo, mai con la pressione di un dito."},
+ {id:"a-prima-costa",nome:"Articolazione della prima costa",tipo:"Sincondrosi (con lo sterno) e artrodia (con T1)",regione:"Torace",alias:["prima costa","prima costa alta","mobilizzazione della prima costa"],
+  superfici:"La prima cartilagine costale è saldata al manubrio (unica costa senza articolazione sinoviale con lo sterno); dietro si articola con il corpo e il processo trasverso di T1.",
+  legamenti:"Costo-claveare sopra, radiato e costo-trasversario dietro; sopra passano plesso brachiale e arteria succlavia, davanti si inseriscono gli scaleni.",
+  rom:[["Movimento respiratorio","a braccio di pompa, pochi millimetri"],["Scivolamento verso il basso","valutabile in espirazione con pressione sul margine superiore"]],
+  segreto:"È il pavimento dello stretto toracico superiore: una prima costa «alta», tenuta su dagli scaleni, chiude il passaggio di plesso e vasi. La si abbassa in espirazione con una pressione lenta dal margine superiore verso il basso e in avanti: una delle manovre più efficaci sul formicolio della mano, e una delle meno conosciute."}
+]);
+
+DB.movimenti = DB.movimenti.concat([
+ {id:"mv-circonduzione",nome:"Circonduzione della spalla e dell'anca",art:"a-gleno-omerale",piano:"Tutti e tre",asse:"Combinazione di tutti gli assi",range:"Il cono descritto dalla mano o dal piede a braccio o gamba tesi",
+  alias:["circonduzione","mulinello","giro del braccio"],
+  agonisti:["m-deltoide","m-pettorale-grande","m-gran-dorsale","m-gluteo-massimo","m-ileopsoas","m-gluteo-medio"],sinergici:["m-sovraspinato","m-sottospinato","m-adduttori"],antagonisti:[],
+  serve:"Nuotare, lanciare con il mulinello, scaldarsi prima di uno sforzo; è il test visivo più rapido di tutte le enartrosi: un cono simmetrico e fluido dice che tutti i movimenti sono conservati.",
+  limite:"Un «buco» nel cono (il braccio che devia o salta in un settore) indica il movimento perso: dietro e in alto = rotazione esterna; davanti in basso = estensione e rotazione interna. Nell'anca un cono asimmetrico fra i due lati è spesso il primo segno dell'artrosi."},
+ {id:"mv-dita-abd",nome:"Abduzione e adduzione delle dita",art:"a-metacarpo-falangee",piano:"Frontale (sul piano del palmo)",asse:"Antero-posteriore",range:"Apertura a ventaglio di 20–30° fra dita contigue; nel piede pochi gradi",
+  alias:["allargare le dita","aprire le dita","abduzione delle dita","adduzione delle dita","interossei"],
+  agonisti:["m-intrinseci-mano","m-intrinseci-piede"],sinergici:["m-estensori-dita"],antagonisti:["m-intrinseci-mano"],
+  serve:"Allargare la mano per afferrare oggetti grandi, suonare, digitare; nel piede, allargare le dita stabilizza l'appoggio.",
+  limite:"Gli interossei (nervo ulnare) si atrofizzano nelle compressioni ulnari: gli spazi fra i metacarpi sul dorso si scavano e il mignolo resta «abdotto» (segno di Wartenberg). Nel piede, dita che non si allargano sono dita che non lavorano: la base dell'alluce valgo."},
+ {id:"mv-pollice-if",nome:"Flessione ed estensione del pollice",art:"a-trapezio-metacarpale",piano:"Sagittale del pollice (perpendicolare al palmo)",asse:"Trasverso del pollice",range:"Metacarpo-falangea 0–55°, interfalangea 0–80°",
+  alias:["flessione del pollice","estensione del pollice","chiudere il pollice","segno di Froment"],
+  agonisti:["m-flessori-dita","m-intrinseci-mano","m-estensori-dita"],sinergici:[],antagonisti:["m-estensori-dita"],
+  serve:"Chiudere il pollice sopra le dita nel pugno, premere un tasto, firmare, tenere un foglio fra pollice e indice.",
+  limite:"Segno di Froment: tenendo un foglio fra pollice e indice, se l'ultima falange del pollice si flette per compensare, l'adduttore (nervo ulnare) non lavora. Il flessore lungo del pollice è innervato dal nervo interosseo anteriore: un pollice che non flette la punta, senza formicolio, è quel nervo."},
+ {id:"mv-mandibola-prot",nome:"Protrusione e retrusione della mandibola",art:"a-atm",piano:"Sagittale",asse:"Traslazione del condilo sul tubercolo articolare",range:"Protrusione 6–9 mm, retrusione 1–2 mm",
+  alias:["protrusione","retrusione","mandibola in avanti","mandibola indietro"],
+  agonisti:["m-pterigoidei","m-massetere"],sinergici:["m-temporale","m-sopraioidei"],antagonisti:["m-temporale"],
+  serve:"Portare in avanti la mandibola per mordere con gli incisivi, parlare, e nel respiro durante il sonno (la mandibola in avanti apre le vie aeree).",
+  limite:"Lo pterigoideo laterale protrude; il temporale (fibre posteriori) retrude. Una protrusione asimmetrica (la mandibola devia da un lato) indica che il condilo di quel lato scorre meno: disco spostato o pterigoideo contratto. I dispositivi per l'apnea notturna lavorano proprio portando la mandibola in protrusione."},
+ {id:"mv-cingolo",nome:"Elevazione, depressione, protrazione e retrazione del cingolo scapolare",art:"a-sterno-claveare",piano:"Frontale e trasverso",asse:"Attorno al legamento costo-claveare",range:"Elevazione 45°, depressione 10°, protrazione e retrazione 15° ciascuna",
+  alias:["alzare le spalle","stringersi nelle spalle","spalle indietro","spalle avanti","elevazione del cingolo","retrazione del cingolo","protrazione del cingolo"],
+  agonisti:["m-trapezio","m-elevatore","m-dentato","m-pettorale-piccolo","m-romboidi"],sinergici:["m-succlavio","m-gran-dorsale"],antagonisti:["m-trapezio","m-pettorale-piccolo"],
+  serve:"Stringersi nelle spalle, portare le spalle indietro, allungare il braccio in avanti oltre il braccio stesso, portare un peso sulla spalla.",
+  limite:"Il cingolo si muove attorno alla sterno-claveare: una clavicola rigida blocca tutto. Spalle «alzate» croniche (elevatore e trapezio superiore) e spalle «avanti» (piccolo pettorale) sono le due posture da scrivania; la retrazione attiva (romboidi, trapezio medio) è quella che manca quasi sempre."},
+ {id:"mv-dorsale",nome:"Flessione ed estensione del rachide toracico",art:"a-zigoapofisarie",piano:"Sagittale",asse:"Trasverso",range:"Flessione 0–45°, estensione 0–25° (su tutto il tratto)",
+  alias:["flessione dorsale","estensione dorsale","dorso curvo","raddrizzare il dorso","cifosi","ipercifosi"],
+  agonisti:["m-erettori","m-semispinale","m-retto-addominale"],sinergici:["m-trapezio","m-romboidi","m-intercostali"],antagonisti:["m-pettorale-grande","m-pettorale-piccolo"],
+  serve:"Raddrizzarsi dopo ore al computer, guardare in alto, respirare a fondo, alzare le braccia sopra la testa (serve estensione dorsale).",
+  limite:"Il dorso perde l'estensione per primo: cifosi aumentata, coste bloccate, pettorali corti. Senza estensione dorsale il braccio non arriva verticale e la lombare e il collo compensano. Test: in piedi contro il muro con talloni, sacro e scapole appoggiati, la nuca deve toccare senza alzare il mento."}
+]);
+</script>
+<script>
 /* PORTA 1 — dal problema reale. Le frasi sono quelle che i clienti dicono davvero. */
 DB.problemi = DB.problemi.concat([
 
@@ -2368,6 +2431,254 @@ DB.problemi = DB.problemi.concat([
   trattamento:["Sotto-occipitali con dita ferme, lentamente","Sternocleidomastoideo e scaleni a pinza","Mobilizzazione dorsale alta","Esercizi di stabilizzazione oculo-cervicale a casa (seguire un punto con gli occhi muovendo la testa)"],
   rosse:["Vertigine rotatoria violenta improvvisa","Con disturbi visivi, della parola, debolezza o formicolio al viso","Dopo un trauma cervicale o manipolazione"],
   segreto:"Chiedi: «gira la stanza o giri tu?». Se gira la stanza è vestibolare e non è tuo. Se «è come essere su una barca» è quasi sempre cervicale e risponde benissimo a due minuti di sotto-occipitali. È la domanda più importante della valutazione del collo."}
+]);
+</script>
+<script>
+/* Problemi — parte 4: arto inferiore e bacino. */
+DB.problemi = DB.problemi.concat([
+
+ {id:"p-sciatica",voce:"«Ho un dolore che dal gluteo scende lungo la gamba»",zona:"Lombare",
+  sintesi:"Il dolore che scende nella gamba ha quattro origini possibili e il massaggiatore deve distinguerle: radice nervosa (ernia o stenosi), piriforme e rotatori profondi, trigger del piccolo gluteo, articolazione sacro-iliaca. La regola: sotto il ginocchio con formicolio in una fascia precisa = radice; sopra il ginocchio, diffuso = muscolo o articolazione.",
+  gesto:["Il nervo ischiatico esce sotto il piriforme e scende dietro la coscia","Si divide nel cavo popliteo in tibiale e peroneo","Ogni radice (L4, L5, S1) ha la sua fascia di pelle e il suo muscolo"],
+  movimenti:["mv-anca-flex","mv-rachide-flex","mv-anca-ri"],
+  cause:[
+   {t:"Compressione radicolare (ernia L4-L5 o L5-S1)",perche:"Dolore che scende sotto il ginocchio seguendo un dermatomero, con formicolio e possibile debolezza; peggiora seduti, con tosse e starnuti.",muscoli:["m-tibiale-ant","m-gastrocnemio"],test:"Lasègue positivo sotto i 45°, alluce o punte deboli, riflesso ridotto. Con deficit di forza o sintomi bilaterali: invio."},
+   {t:"Sindrome del piriforme",perche:"Il piriforme contratto comprime l'ischiatico (nel 15% delle persone lo attraversa): dolore gluteo profondo che scende dietro la coscia, peggiore da seduti su superfici dure.",muscoli:["m-piriforme","m-rotatori-anca"],test:"Dolore alla pressione fra SIPS e trocantere; FAIR test (flessione, adduzione, rotazione interna) che riproduce il dolore."},
+   {t:"Trigger del piccolo e medio gluteo",perche:"La «pseudo-sciatica» di Travell: il piccolo gluteo riferisce esattamente lungo il decorso dell'ischiatico, fino alla caviglia, senza formicolio vero.",muscoli:["m-gluteo-piccolo","m-gluteo-medio"],test:"Pressione davanti al trocantere che riproduce il dolore che scende; Lasègue negativo."},
+   {t:"Sacro-iliaca",perche:"Dolore sopra la SIPS che scende sul gluteo e sulla coscia posteriore ma non oltre il ginocchio.",muscoli:["m-ischiocrurali","m-erettori"],test:"Segno di Fortin (un dito sulla SIPS), test di compressione e distrazione, thigh thrust."}],
+  catene:["c-sbl","c-profonda"],
+  trattamento:["Se radicolare: nessun lavoro lombare in flessione, niente trazioni; si lavora su glutei, piriforme e respiro, e si consiglia estensione se allevia","Piriforme e rotatori con pressione lenta e progressiva, mai gomito puntato","Piccolo gluteo davanti al trocantere","Sacro-iliaca: ischiocrurali e glutei dello stesso lato","Rivalutare con il Lasègue e con il dermatomero a ogni seduta"],
+  rosse:["Perdita di forza al piede o all'alluce","Formicolio a entrambe le gambe o «a sella»","Disturbi di vescica o intestino: pronto soccorso","Dolore notturno costante non legato alla posizione"],
+  segreto:"Chiedi dove arriva il dolore con un dito. Se si ferma al ginocchio, quasi mai è il nervo. Se arriva al piede e il cliente ti descrive una striscia precisa (dorso del piede, o bordo esterno), è una radice, e sai anche quale: L5 o S1. Due domande, tre risposte possibili, nessuna risonanza."},
+
+ {id:"p-crampi-polpaccio",voce:"«Di notte mi vengono i crampi al polpaccio e ho le gambe pesanti»",zona:"Arto inferiore",
+  sintesi:"Il crampo notturno è una contrazione involontaria di un muscolo che è rimasto accorciato: il polpaccio dorme con il piede in flessione plantare sotto il peso delle coperte. Le gambe pesanti la sera sono il ritorno venoso che non riceve l'aiuto della pompa del soleo.",
+  gesto:["Nel sonno il piede cade in flessione plantare e il polpaccio resta corto per ore","Il soleo è la pompa venosa: fermo, non spinge il sangue in alto","Il flessore lungo dell'alluce dà i crampi alle dita"],
+  movimenti:["mv-caviglia-dorsi","mv-caviglia-plantar","mv-alluce"],
+  cause:[
+   {t:"Tricipite surale corto e affaticato",perche:"Scarpe con tacco, molte ore in piedi, nessun allungamento: il polpaccio va a letto già accorciato.",muscoli:["m-gastrocnemio","m-soleo"],test:"Dorsiflessione passiva ridotta (test del ginocchio al muro), polpaccio dolente alla palpazione."},
+   {t:"Flessori lunghi delle dita e dell'alluce",perche:"Danno i crampi alle dita e alla pianta, spesso scambiati per «mancanza di magnesio».",muscoli:["m-flessori-dita-piede","m-intrinseci-piede"],test:"Crampo riprodotto flettendo le dita contro resistenza; dolore dietro il malleolo mediale."},
+   {t:"Insufficienza venosa",perche:"Gambe pesanti la sera, caviglie gonfie, varici: la pompa muscolare non basta e le valvole cedono.",muscoli:["m-soleo"],test:"Gonfiore alla caviglia che lascia l'impronta del dito, varici, pelle scura alla caviglia."},
+   {t:"Cause mediche",perche:"Farmaci (statine, diuretici), diabete, problemi di tiroide, arteriopatia: crampi diversi, spesso a entrambe le gambe.",muscoli:[],test:"Crampi bilaterali, frequenti, con polsi del piede deboli o pelle fredda: invio al medico."}],
+  catene:["c-sbl","c-profonda"],
+  trattamento:["Polpaccio e soleo con impastamento lento, dal basso verso l'alto","Flessori lunghi dal bordo mediale della tibia","Mai manovre profonde su polpaccio gonfio, caldo e dolente da un solo lato (trombosi)","A casa: allungamento del polpaccio prima di dormire, coperte che non schiaccino il piede, venti sollevamenti sui talloni ogni ora","Gambe sollevate la sera"],
+  rosse:["Polpaccio gonfio, caldo, dolente da un solo lato: trombosi fino a prova contraria","Crampi con polsi del piede assenti e dolore camminando (claudicatio)","Crampi diffusi a tutto il corpo con debolezza"],
+  segreto:"Il crampo notturno si ferma in dieci secondi tirando il piede verso il ginocchio: è il riflesso miotatico inverso, il Golgi che inibisce il muscolo. Insegnarlo al cliente gli fa dormire la notte prima ancora della seconda seduta."},
+
+ {id:"p-caviglia-recidiva",voce:"«Mi si gira sempre la caviglia, dalla prima distorsione»",zona:"Piede",
+  sintesi:"Dopo una distorsione in inversione i legamenti laterali guariscono, ma i peronei restano inibiti e la propriocezione della caviglia è persa: la caviglia non è «lassa», è lenta. È il problema che la riabilitazione propriocettiva risolve e il massaggio da solo no.",
+  gesto:["L'inversione forzata stira i legamenti laterali (peroneo-astragalico anteriore per primo)","I recettori della capsula si danneggiano con il gonfiore","I peronei, che dovrebbero frenare l'inversione, arrivano in ritardo"],
+  movimenti:["mv-piede-inv","mv-caviglia-dorsi"],
+  cause:[
+   {t:"Instabilità funzionale (propriocettiva)",perche:"I peronei sono forti ma il cervello li chiama tardi: la caviglia cede prima che reagiscano.",muscoli:["m-peronei"],test:"Appoggio monopodalico a occhi chiusi: meno di 10 secondi o oscillazioni evidenti rispetto all'altro lato."},
+   {t:"Instabilità meccanica (legamenti allungati)",perche:"Dopo più distorsioni i legamenti sono lassi: cassetto anteriore e inclinazione dell'astragalo eccessivi.",muscoli:[],test:"Cassetto anteriore della caviglia e talar tilt positivi rispetto all'altro lato: valutazione ortopedica."},
+   {t:"Caviglia rigida in dorsiflessione",perche:"L'astragalo è rimasto bloccato in avanti dopo il trauma: la caviglia compensa con l'inversione.",muscoli:["m-soleo","m-gastrocnemio"],test:"Test del ginocchio al muro ridotto dal lato della distorsione."},
+   {t:"Retropiede varo e piede cavo",perche:"Un tallone che guarda verso l'interno predispone a girarsi a ogni appoggio irregolare.",muscoli:["m-tibiale-post"],test:"Osservazione del tallone da dietro in piedi; impronta a terra con arco alto."}],
+  catene:["c-laterale","c-spirale"],
+  trattamento:["Peronei lungo il perone, evitando la testa (nervo peroneo)","Mobilizzazione dell'astragalo verso dietro in dorsiflessione","Legamenti laterali con frizioni leggere fuori dalla fase acuta","Il vero trattamento: equilibrio su una gamba sola, occhi chiusi, superfici instabili, 5 minuti al giorno per 8 settimane","Scarpe con contrafforte stabile"],
+  rosse:["Impossibilità a caricare per 4 passi dopo il trauma, dolore sul malleolo o sulla base del quinto metatarso: radiografia (regole di Ottawa)","Dolore mediale dopo distorsione in inversione","Distorsione «alta», sopra la caviglia: sindesmosi"],
+  segreto:"Il test a occhi chiusi su una gamba sola è il più onesto: una caviglia che si gira «sempre» quasi sempre non regge dieci secondi. E la cura costa zero: lo stesso esercizio, ogni giorno. Chi lo fa non si gira più la caviglia; chi compra la cavigliera sì."},
+
+ {id:"p-pubalgia",voce:"«Mi fa male l'inguine quando corro, calcio o salgo in auto»",zona:"Anca",
+  sintesi:"La pubalgia è un conflitto fra adduttori e addominali sullo stesso osso, il pube: due tiranti opposti che si sfiancano quando il bacino non è stabile. Nasce quasi sempre da un'anca che ruota poco e da glutei che non estendono.",
+  gesto:["L'adduttore lungo e il retto dell'addome si inseriscono a pochi millimetri sul pube","Nel calcio e nel cambio di direzione tirano in direzioni opposte","Se l'anca non ruota, il carico si scarica tutto sull'entesi"],
+  movimenti:["mv-anca-add","mv-anca-ri","mv-anca-est"],
+  cause:[
+   {t:"Tendinopatia degli adduttori",perche:"Dolore inguinale che peggiora stringendo le ginocchia e nel calcio; dolente l'inserzione sul pube.",muscoli:["m-adduttore-lungo","m-gracile","m-pettineo"],test:"Squeeze test con ginocchia flesse a 90°: dolore all'inguine; adduzione resistita dolorosa."},
+   {t:"Componente addominale (retto e obliqui)",perche:"Dolore sopra il pube, nella tosse e nel sit-up; spesso con debolezza della parete.",muscoli:["m-retto-addominale","m-obliqui","m-trasverso"],test:"Dolore al sit-up resistito e alla pressione sopra il tubercolo pubico."},
+   {t:"Anca che non ruota (conflitto femoro-acetabolare)",perche:"Senza rotazione interna, ogni cambio di direzione sforza il pube.",muscoli:["m-rotatori-anca","m-piriforme"],test:"Rotazione interna d'anca sotto i 20° in prono; FADIR positivo."},
+   {t:"Glutei spenti e grande adduttore che estende al posto loro",perche:"Il grande adduttore lavora come ischiocrurale e si sfianca.",muscoli:["m-gluteo-massimo","m-adduttore-grande"],test:"Ponte monopodalico con crampo all'adduttore invece che al gluteo."}],
+  catene:["c-funzionale-ant","c-profonda"],
+  trattamento:["Adduttori nel terzo medio e distale, mai sull'inserzione in fase acuta","Rotatori profondi e mobilità dell'anca in rotazione","Trasverso e respiro per la parete addominale","Glutei: liberare e riattivare","Carico progressivo: isometrie in adduzione, poi copenhagen plank; lo stop totale peggiora"],
+  rosse:["Dolore inguinale con febbre o gonfiore","Tumefazione che aumenta con la tosse (ernia inguinale)","Dolore a riposo e notturno in un adolescente (anca: epifisiolisi)"],
+  segreto:"La pubalgia dello sportivo non si cura con il riposo: dopo tre settimane fermi il tendine è più debole di prima. Si cura con il carico giusto e con un'anca che torna a ruotare. Il test della rotazione interna in prono, con il confronto dei due lati, è il primo che fai e l'ultimo che rifai."},
+
+ {id:"p-sacroiliaca",voce:"«Ho un dolore su un lato, proprio sopra il sedere, sulla fossetta»",zona:"Lombare",
+  sintesi:"Il dolore puntiforme sulla fossetta sopra il gluteo (la SIPS) che il cliente indica con un dito è il quadro tipico della sacro-iliaca. Non sale sopra L5, può scendere sul gluteo e sulla coscia posteriore, e si distingue dalla lombalgia perché peggiora nei passaggi (girarsi nel letto, scendere dall'auto, salire un gradino con quella gamba).",
+  gesto:["Il sacro si incunea fra gli ilii a ogni passo (nutazione)","Legamenti sacro-iliaci, sacro-tuberoso e sacro-spinoso tengono l'incastro","Ischiocrurali, piriforme e psoas tirano sull'articolazione"],
+  movimenti:["mv-sacro","mv-anca-est","mv-rachide-incl"],
+  cause:[
+   {t:"Blocco o irritazione sacro-iliaca",perche:"Un'asimmetria dei tiranti (ischiocrurale corto da un lato, psoas dall'altro) tiene il sacro in posizione forzata.",muscoli:["m-ischiocrurali","m-ileopsoas","m-piriforme"],test:"Segno di Fortin, test di compressione e distrazione, thigh thrust, Gaenslen: tre positivi su cinque confermano."},
+   {t:"Instabilità (gravidanza, post-parto, lassità)",perche:"Legamenti allentati dagli ormoni o da parti ripetuti: dolore in piedi su una gamba e nel passo.",muscoli:["m-trasverso","m-pavimento-pelvico","m-gluteo-massimo"],test:"Active straight leg raise difficoltoso che migliora comprimendo il bacino con le mani."},
+   {t:"Dismetria e bacino asimmetrico",perche:"Una gamba più corta carica la sacro-iliaca dal lato lungo a ogni passo.",muscoli:["m-quadrato-lombi","m-gluteo-medio"],test:"Confronto di creste iliache, SIAS, SIPS e malleoli."},
+   {t:"Sacroileite infiammatoria",perche:"Rigidità mattutina lunga, dolore notturno che migliora muovendosi, in persone giovani: spondiloartrite.",muscoli:[],test:"Rigidità > 1 ora, dolore che sveglia nella seconda metà della notte, età sotto i 40: invio reumatologico."}],
+  catene:["c-sbl","c-funzionale-post"],
+  trattamento:["Ischiocrurali e glutei del lato dolente","Piriforme e rotatori profondi","Psoas e quadrato dei lombi del lato opposto se c'è asimmetria","Riattivazione di trasverso e gluteo massimo (stabilizzatori)","Cintura pelvica temporanea nelle instabilità post-parto"],
+  rosse:["Rigidità mattutina superiore a un'ora in un giovane","Dolore notturno che migliora alzandosi","Febbre o infezione recente"],
+  segreto:"Il segno di Fortin vale più di una risonanza: se il cliente mette un dito solo, sulla fossetta, e dice «qui», è la sacro-iliaca nel 90% dei casi. Poi non trattare l'articolazione: tratta i muscoli che la tirano."},
+
+ {id:"p-ginocchio-cede",voce:"«Il ginocchio mi cede all'improvviso, come se mancasse»",zona:"Ginocchio",
+  sintesi:"Il cedimento può essere vero (legamentoso: il ginocchio si sposta davvero) o riflesso (il quadricipite si spegne per un attimo per dolore). La distinzione è la prima cosa da fare: nel primo caso serve l'ortopedico, nel secondo il lavoro sul vasto mediale e sul dolore che lo inibisce.",
+  gesto:["Il crociato anteriore impedisce alla tibia di scivolare avanti","Il vasto mediale tiene la rotula centrata e blocca gli ultimi gradi di estensione","Un versamento o un dolore inibiscono il quadricipite in un decimo di secondo"],
+  movimenti:["mv-ginocchio-flex","mv-ginocchio-rot"],
+  cause:[
+   {t:"Lesione del crociato anteriore",perche:"Dopo un trauma con schiocco e gonfiore rapido; cedimento nei cambi di direzione.",muscoli:["m-ischiocrurali"],test:"Lachman e cassetto anteriore positivi; storia di gonfiore entro due ore dal trauma: invio."},
+   {t:"Inibizione del quadricipite (versamento o dolore)",perche:"Il ginocchio «manca» scendendo le scale o girandosi: il vasto mediale si spegne per riflesso artrogeno.",muscoli:["m-vasto-mediale","m-quadricipite"],test:"Ballottamento rotuleo (versamento), vasto mediale ipotrofico, estensione completa attiva che manca."},
+   {t:"Lesione meniscale con blocco",perche:"Un frammento di menisco si incastra: il ginocchio si blocca o cede con dolore sulla rima.",muscoli:["m-popliteo"],test:"McMurray, Thessaly, dolore sulla rima articolare, blocco in estensione."},
+   {t:"Instabilità rotulea",perche:"La rotula esce o quasi dalla troclea: sensazione di cedimento con dolore anteriore.",muscoli:["m-vasto-mediale","m-tfl"],test:"Test dell'apprensione rotulea; rotula che scivola lateralmente oltre metà larghezza."}],
+  catene:["c-sfl","c-laterale"],
+  trattamento:["Se c'è versamento o trauma recente: valutazione medica prima di tutto","Riattivazione del vasto mediale: contrazioni isometriche a ginocchio quasi esteso, 10 secondi × 10, più volte al giorno","Lavoro su vasto laterale e retinacolo laterale","Gluteo medio per il controllo del valgo","Ischiocrurali come stabilizzatori attivi del crociato"],
+  rosse:["Gonfiore entro due ore da un trauma (sangue nell'articolazione)","Blocco meccanico che non si sblocca","Ginocchio caldo, rosso, con febbre"],
+  segreto:"Chiedi: «quando cede, senti che si sposta, o senti che la gamba non tiene?». «Si sposta» è il legamento; «non tiene» è il quadricipite che si spegne. La seconda risposta è la più frequente e la più trattabile: il vasto mediale si riaccende in due settimane, se lo si chiama tutti i giorni."},
+
+ {id:"p-dietro-ginocchio",voce:"«Mi fa male dietro il ginocchio, soprattutto in discesa»",zona:"Ginocchio",
+  sintesi:"Il cavo popliteo è affollato: popliteo, inserzioni degli ischiocrurali, capi del gastrocnemio, cisti di Baker, vasi e nervi. Il dolore in discesa punta al popliteo; la tensione dietro con gonfiore alla cisti; il dolore dopo lo sforzo agli ischiocrurali distali.",
+  gesto:["In discesa il popliteo frena la rotazione e lo scivolamento del femore","I capi del gastrocnemio nascono sopra il ginocchio","Una cisti di Baker è liquido articolare uscito dietro"],
+  movimenti:["mv-ginocchio-flex","mv-ginocchio-rot","mv-caviglia-plantar"],
+  cause:[
+   {t:"Popliteo",perche:"Dolore dietro il ginocchio in discesa e accovacciandosi, nei primi gradi di flessione.",muscoli:["m-popliteo"],test:"Pressione sulla faccia posteriore della tibia in prono con ginocchio flesso; rotazione interna resistita della tibia dolorosa."},
+   {t:"Cisti di Baker",perche:"Tumefazione morbida dietro il ginocchio, più dura in estensione; segnala un problema dentro l'articolazione.",muscoli:["m-gastrocnemio","m-semimembranoso"],test:"Segno di Foucher; ispezione a ginocchio esteso e flesso."},
+   {t:"Ischiocrurali distali e gastrocnemio prossimale",perche:"Dopo corsa o allungamenti forzati: dolore sulle inserzioni ai lati del cavo popliteo.",muscoli:["m-bicipite-femorale","m-semitendinoso","m-gastrocnemio"],test:"Palpazione delle corde ai lati del cavo; flessione resistita del ginocchio dolorosa."},
+   {t:"Trombosi venosa o aneurisma popliteo",perche:"Dolore e gonfiore del polpaccio sotto il cavo, oppure massa pulsante.",muscoli:[],test:"Polpaccio gonfio, caldo, da un lato solo; o massa che pulsa: invio immediato."}],
+  catene:["c-sbl"],
+  trattamento:["Popliteo con pressione lenta sulla tibia posteriore, evitando il centro del cavo","Inserzioni degli ischiocrurali e capi del gastrocnemio","Niente compressione sulla cisti di Baker: si tratta la causa dentro il ginocchio","Scendere le scale appoggiando tutto il piede, lentamente"],
+  rosse:["Polpaccio gonfio e caldo sotto il ginocchio","Massa pulsante nel cavo popliteo","Gonfiore improvviso del polpaccio dopo una «fitta» dietro il ginocchio (cisti rotta vs trombosi: va distinto dal medico)"],
+  segreto:"Il centro del cavo popliteo è zona di rispetto: arteria, vena, nervo tibiale. Si lavora ai lati e sulla tibia, mai al centro. E un popliteo che fa male in discesa è uno dei dolori più soddisfacenti da trattare: nessuno lo cerca, e risponde in una seduta."},
+
+ {id:"p-anca-laterale-notte",voce:"«Non riesco a dormire su quel fianco, l'anca fa male di lato»",zona:"Anca",
+  sintesi:"Il dolore laterale d'anca che impedisce di dormire sul fianco è la sindrome dolorosa del grande trocantere: nella maggior parte dei casi non è la borsa, ma i tendini del gluteo medio e minimo che si inseriscono sul trocantere e che soffrono per un bacino instabile.",
+  gesto:["Dormendo sul fianco il trocantere viene compresso dal materasso","Sul fianco opposto l'anca sopra cade in adduzione e tira i tendini glutei","In appoggio su una gamba il gluteo medio tiene il bacino: se è debole, i tendini si sovraccaricano"],
+  movimenti:["mv-anca-abd","mv-anca-add"],
+  cause:[
+   {t:"Tendinopatia dei glutei medio e minimo",perche:"Dolore laterale che peggiora su una gamba sola, salendo le scale, e di notte; dolente la palpazione del trocantere.",muscoli:["m-gluteo-medio","m-gluteo-piccolo"],test:"Appoggio monopodalico 30 secondi che riproduce il dolore; resistenza all'abduzione dolorosa; Trendelenburg."},
+   {t:"Borsite trocanterica",perche:"Vera borsite nel 20% dei casi: dolore puntiforme sul trocantere anche a riposo.",muscoli:["m-tfl"],test:"Dolore alla pressione diretta sul trocantere che non cambia con la contrazione."},
+   {t:"Tensore della fascia lata e bandelletta",perche:"La bandelletta scavalca il trocantere e lo comprime se il TFL è corto.",muscoli:["m-tfl","m-vasto-laterale"],test:"Test di Ober positivo; TFL dolente sotto la SIAS."},
+   {t:"Anca (artrosi) o lombare (L5)",perche:"L'artrosi dà dolore inguinale e laterale con rotazione interna ridotta; una radice L5 dà dolore laterale con formicolio.",muscoli:[],test:"Rotazione interna d'anca ridotta e dolorosa; Lasègue; dermatomero."}],
+  catene:["c-laterale"],
+  trattamento:["Nessuna pressione diretta e prolungata sul trocantere in fase acuta","TFL e vasto laterale in decubito laterale sul lato sano","Gluteo medio: liberare i trigger, poi riattivare con carico progressivo (il trattamento vero)","Dormire sul lato sano con un cuscino fra le ginocchia; evitare le gambe accavallate e lo stare in piedi su una gamba","Niente stretching del gluteo medio in adduzione: comprime il tendine"],
+  rosse:["Dolore inguinale con rotazione interna persa (artrosi avanzata)","Dolore laterale con formicolio che scende sotto il ginocchio","Febbre o anca gonfia"],
+  segreto:"Lo stretching «del piriforme» con la gamba incrociata, che tutti fanno, peggiora questa condizione: porta l'anca in adduzione e schiaccia i tendini glutei sul trocantere. Dire al cliente di smettere è spesso il primo miglioramento."},
+
+ {id:"p-piede-piatto",voce:"«Il mio piede si è appiattito e la caviglia cede verso l'interno»",zona:"Piede",
+  sintesi:"Il piede piatto dell'adulto che compare dopo i 40 anni è quasi sempre una disfunzione del tibiale posteriore: il tendine che regge l'arco si logora dietro il malleolo e l'arco crolla progressivamente. Preso presto si recupera; preso tardi la deformità diventa rigida.",
+  gesto:["Il tibiale posteriore sostiene l'arco e supina il piede nella spinta","Lo spring ligament fa da amaca alla testa dell'astragalo","Se il tendine cede, l'astragalo scivola in dentro e in basso"],
+  movimenti:["mv-piede-inv","mv-caviglia-plantar","mv-alluce"],
+  cause:[
+   {t:"Disfunzione del tibiale posteriore",perche:"Dolore dietro e sotto il malleolo mediale, arco che si abbassa, piede che prona.",muscoli:["m-tibiale-post","m-flessori-dita-piede"],test:"Segno delle «troppe dita» da dietro; incapacità di sollevarsi su una punta sola; dolore all'inversione resistita."},
+   {t:"Muscoli intrinseci deboli",perche:"Venti muscoli nella pianta che nelle scarpe non lavorano mai: l'arco perde il suo sostegno attivo.",muscoli:["m-intrinseci-piede"],test:"Test dello short foot: il cliente non riesce ad accorciare il piede senza arricciare le dita."},
+   {t:"Polpaccio corto",perche:"Una caviglia che non dorsiflette obbliga il mesopiede a cedere per far avanzare la tibia.",muscoli:["m-gastrocnemio","m-soleo"],test:"Test del ginocchio al muro ridotto; il piede si apre in fuori accovacciandosi."},
+   {t:"Catena ascendente: ginocchio valgo e anca ruotata",perche:"Il piede pronato ruota tibia e femore verso l'interno a ogni passo.",muscoli:["m-gluteo-medio"],test:"Squat monopodalico con ginocchio che cade dentro; Trendelenburg."}],
+  catene:["c-profonda","c-spirale"],
+  trattamento:["Tibiale posteriore lungo la tibia mediale e dietro il malleolo","Polpaccio e caviglia in dorsiflessione","Short foot e sollevamenti su una punta: il tibiale posteriore si rinforza","Plantare di sostegno temporaneo nelle fasi dolorose","Scarpe con contrafforte rigido"],
+  rosse:["Piede piatto comparso rapidamente con gonfiore e dolore intenso (rottura del tendine)","Piede piatto rigido che non si corregge sulle punte","Piede piatto doloroso in un bambino o adolescente"],
+  segreto:"Il test del single heel raise, dieci sollevamenti su una punta sola con il tallone che deve ruotare verso l'interno, è l'esame più importante del piede adulto: se il tallone non ruota, il tibiale posteriore sta cedendo, anche se l'arco sembra ancora lì. Lo prendi anni prima del crollo."}
+]);
+</script>
+<script>
+/* Problemi — parte 5: colonna, torace, mano, esiti di trauma. */
+DB.problemi = DB.problemi.concat([
+
+ {id:"p-scoliosi",voce:"«Mio figlio ha la schiena storta, un fianco più alto»",zona:"Postura",
+  sintesi:"La domanda che decide tutto: la curva sparisce quando si piega in avanti (funzionale, da asimmetria muscolare o di bacino) o resta come un gibbo (strutturale, con rotazione delle vertebre)? La prima si tratta; la seconda si invia, e il massaggio accompagna.",
+  gesto:["In piedi da dietro: spalle, scapole, triangoli della taglia, creste iliache","Test di Adams: flessione in avanti con le mani giunte","Il gibbo è la rotazione delle vertebre vista attraverso le coste"],
+  movimenti:["mv-rachide-incl","mv-rachide-rot","mv-dorsale"],
+  cause:[
+   {t:"Scoliosi strutturale idiopatica",perche:"Rotazione e inclinazione delle vertebre, in crescita nell'adolescenza; nel test di Adams compare un gibbo costale o lombare.",muscoli:["m-erettori","m-semispinale"],test:"Adams positivo, gibbo misurabile con lo scoliometro (oltre 7° si invia), curva che non si corregge inclinandosi."},
+   {t:"Atteggiamento scoliotico (funzionale)",perche:"Curva senza rotazione, da gamba più corta, bacino asimmetrico, dolore o abitudine: scompare in flessione e da seduto.",muscoli:["m-quadrato-lombi","m-obliqui","m-gluteo-medio"],test:"Adams negativo, curva che sparisce da seduti o con un rialzo sotto il piede della gamba corta."},
+   {t:"Dismetria degli arti inferiori",perche:"Una gamba più corta di oltre 1 cm inclina il bacino e la colonna compensa.",muscoli:["m-quadrato-lombi"],test:"Creste iliache a livelli diversi in piedi, pari da seduti; misura con i rialzi."},
+   {t:"Asimmetrie del cingolo e abitudini",perche:"Zaino su una spalla, sport asimmetrici, strumento musicale: i muscoli si adattano.",muscoli:["m-trapezio","m-elevatore","m-gran-dorsale"],test:"Anamnesi: sport, strumento, zaino; palpazione del tono a confronto."}],
+  catene:["c-laterale","c-spirale"],
+  trattamento:["Nella strutturale: il massaggio allevia e accompagna, ma la cura è dello specialista (corsetto, esercizi specifici); lavoro sulla concavità, respiro nelle zone chiuse","Nella funzionale: correggere la causa (rialzo, abitudini), lavorare il lato corto, rinforzare il lato debole","Rivalutare con foto da dietro ogni 3 mesi in un adolescente in crescita"],
+  rosse:["Gibbo evidente in un adolescente in crescita: invio entro poche settimane","Curva che peggiora rapidamente","Dolore notturno o segni neurologici (scoliosi dolorosa non è idiopatica)"],
+  segreto:"Il test di Adams è l'esame più importante che puoi fare a un adolescente e dura dieci secondi: piegato in avanti, guardi la schiena dal basso, a livello degli occhi. Un lato che si solleva è un gibbo, e un gibbo in crescita va visto da uno specialista subito, perché il corsetto funziona solo finché c'è crescita."},
+
+ {id:"p-dorso-curvo",voce:"«Ho il dorso curvo e mi brucia fra le scapole»",zona:"Colonna",
+  sintesi:"Il dorso curvo da scrivania è la sindrome crociata superiore di Janda: pettorali corti davanti, romboidi e trapezio inferiore lunghi e deboli dietro, testa in avanti. Il bruciore fra le scapole è il dolore dei muscoli tenuti in allungamento, non di muscoli contratti.",
+  gesto:["Ore seduti con le braccia davanti: le spalle vanno avanti","La cifosi dorsale aumenta e le coste si bloccano","La testa va avanti per tenere lo sguardo orizzontale"],
+  movimenti:["mv-dorsale","mv-scapola","mv-cingolo"],
+  cause:[
+   {t:"Piccolo e grande pettorale corti",perche:"Tirano le scapole in avanti e in basso: tutto il dietro resta allungato.",muscoli:["m-pettorale-piccolo","m-pettorale-grande"],test:"Supino: spalle staccate dal lettino oltre due dita."},
+   {t:"Romboidi e trapezio inferiore in allungamento",perche:"Il bruciore interscapolare: muscoli lunghi in tensione eccentrica continua, non contratti.",muscoli:["m-romboidi","m-trapezio"],test:"Dolore superficiale fra le scapole che il cliente non raggiunge; test del trapezio inferiore (Y in prono) debole."},
+   {t:"Rigidità dorsale e costale",perche:"Ventiquattro costo-vertebrali bloccate: l'estensione dorsale è persa e il respiro è alto.",muscoli:["m-erettori","m-intercostali","m-dentato-post"],test:"Test al muro: la nuca non tocca senza alzare il mento; estensione dorsale sul rullo limitata."},
+   {t:"Morbo di Scheuermann o cifosi strutturale",perche:"Nell'adolescente: cifosi rigida che non si corregge sdraiandosi, con vertebre a cuneo.",muscoli:[],test:"Cifosi che resta in prono con il tronco sollevato; dolore dorsale in un adolescente: invio."}],
+  catene:["c-sfl","c-braccio-ant-prof","post-crociata-sup"],
+  trattamento:["Pettorali e fascia clavi-pettorale: è il davanti che va aperto","Mobilizzazione dorsale e costale in espirazione","Romboidi e trapezio inferiore: non impastare a lungo (sono già allungati), riattivare con Y e T in prono","Postura al lavoro: schermo all'altezza degli occhi, gomiti appoggiati, pause ogni 40 minuti"],
+  rosse:["Cifosi rigida in un adolescente con dolore","Dolore dorsale notturno, costante, con perdita di peso","Dolore dorsale a fascia con tosse e febbre"],
+  segreto:"Il cliente chiede di massaggiare «dove brucia», cioè dietro. Il bruciore passa per due giorni. Chi apre il davanti e risveglia il trapezio inferiore vede sparire il bruciore per mesi. Spiegarglielo con le mani sulle sue spalle, tirandole avanti e indietro, convince più di qualsiasi discorso."},
+
+ {id:"p-costale",voce:"«Ho una fitta al fianco quando respiro a fondo o mi giro»",zona:"Colonna",
+  sintesi:"Il dolore puntiforme fra le coste che peggiora con il respiro profondo, la tosse e la torsione è quasi sempre una costa che non si muove (costo-vertebrale bloccata) o un intercostale in spasmo. Ma il torace è anche la sede del dolore cardiaco e polmonare: la prima domanda è escludere quelli.",
+  gesto:["Ogni costa ruota a ogni respiro sulle sue due articolazioni posteriori","Nella torsione del tronco le coste scivolano l'una sull'altra","Il nervo intercostale corre sotto ogni costa"],
+  movimenti:["mv-respiro","mv-rachide-rot","mv-rachide-incl"],
+  cause:[
+   {t:"Blocco costo-vertebrale",perche:"Una costa «incastrata» dopo un movimento brusco o una notte storta: dolore a un punto preciso dietro, vicino alla colonna, che si irradia lungo la costa.",muscoli:["m-erettori","m-dentato-post"],test:"Dolore alla pressione sull'angolo costale posteriore e nell'inspirazione profonda; migliora in espirazione."},
+   {t:"Intercostale in spasmo o stirato",perche:"Dopo tosse violenta, sforzo o torsione: dolore a cintura lungo uno spazio intercostale.",muscoli:["m-intercostali","m-obliqui"],test:"Dolore alla pressione nello spazio intercostale e nella torsione; si riproduce premendo."},
+   {t:"Costocondrite (sindrome di Tietze)",perche:"Infiammazione delle cartilagini costali davanti, vicino allo sterno: dolore alla pressione sulle giunzioni.",muscoli:["m-pettorale-grande"],test:"Dolore puntiforme sulle cartilagini costali 2–5 alla pressione; a volte gonfiore."},
+   {t:"Cause non muscolari",perche:"Cuore, polmone, pleura, herpes zoster, frattura costale: dolore che non si riproduce premendo o che si accompagna ad altri segni.",muscoli:[],test:"Affanno, febbre, dolore che non cambia con la posizione, vescicole sulla pelle, trauma recente: invio."}],
+  catene:["c-laterale","c-spirale"],
+  trattamento:["Mobilizzazione della costa in espirazione, pressione lenta sull'angolo costale","Intercostali con un dito nello spazio, dal dorso verso lo sterno","Dentato posteriore e erettori","Respiro: espirazione lunga, poi inspirazione nella zona bloccata con la mano del terapista sopra"],
+  rosse:["Dolore toracico con affanno, sudore, nausea o irradiazione al braccio sinistro: 118","Febbre e tosse con dolore respiratorio","Vescicole sulla pelle lungo la costa (zoster)","Dolore dopo un trauma (frattura)"],
+  segreto:"La regola per non sbagliare: il dolore muscolare o costale si riproduce premendo e cambia con il movimento; quello cardiaco no. Ma «non cardiaco» lo decide il medico: se il cliente ha più di 40 anni e il dolore è nuovo, al centro del petto o con affanno, quel giorno non si tratta. Si manda."},
+
+ {id:"p-torace-chiuso",voce:"«Respiro corto, ho sempre il torace chiuso, come un peso»",zona:"Colonna",
+  sintesi:"Il «torace chiuso» di chi vive in tensione è un diaframma che non scende, coste basse bloccate e scaleni che respirano al posto suo: un respiro alto, corto, da allarme. Non è una malattia dei polmoni (che vanno esclusi) ma un pattern che il corpo ha imparato.",
+  gesto:["In inspirazione il diaframma dovrebbe scendere e le coste basse allargarsi","Nel respiro da stress il torace alto si alza e la pancia resta ferma","Scaleni e sternocleidomastoideo lavorano 20.000 volte al giorno"],
+  movimenti:["mv-respiro","mv-dorsale"],
+  cause:[
+   {t:"Diaframma in tensione (apnea emotiva)",perche:"Il diaframma non scende: la pancia non si muove, il respiro è nella parte alta del torace.",muscoli:["m-diaframma","m-trasverso"],test:"Mano sulla pancia e mano sul petto: quale si muove per prima? Espansione toracica sotto i 3 cm."},
+   {t:"Scaleni e sternocleidomastoideo come muscoli respiratori",perche:"Il collo respira: tensione cervicale cronica, prima costa alta, formicolii.",muscoli:["m-scaleni","m-scom"],test:"Le spalle salgono a ogni inspirazione; scaleni dolenti alla palpazione."},
+   {t:"Coste basse e dorso bloccati",perche:"Senza mobilità costale il diaframma non trova spazio.",muscoli:["m-intercostali","m-quadrato-lombi","m-erettori"],test:"Espansione delle coste basse (metro sotto lo sterno) ridotta; dorso rigido in estensione."},
+   {t:"Cause mediche",perche:"Asma, anemia, cuore, ansia panico: vanno distinti.",muscoli:[],test:"Affanno con sforzo lieve, sibili, dita blu, palpitazioni: valutazione medica prima."}],
+  catene:["c-profonda"],
+  trattamento:["Diaframma sotto-costale in espirazione, quattro o cinque respiri","Scaleni e sternocleidomastoideo a pinza","Mobilizzazione costale bassa e dorsale","Insegnare il respiro: espirazione lunga dalla bocca, inspirazione dal naso nella pancia, 5 minuti due volte al giorno","Trasverso dell'addome con il respiro: è il muscolo dell'espirazione"],
+  rosse:["Affanno improvviso o a riposo","Dolore toracico con il respiro corto","Labbra o dita bluastre","Respiro corto con gambe gonfie (cuore)"],
+  segreto:"L'espirazione lunga è l'interruttore del vago: quando l'espirazione dura il doppio dell'inspirazione, la frequenza cardiaca scende e il diaframma molla. È il motivo per cui si comincia la seduta da lì, e non dal torace: prima si cambia il respiro, poi si trattano i muscoli che lo stavano facendo male."},
+
+ {id:"p-alluce-valgo",voce:"«L'alluce mi si è storto e mi fa male la cipolla»",zona:"Piede",
+  sintesi:"L'alluce valgo è una deformità: il primo metatarso devia verso l'interno e l'alluce verso l'esterno, la testa del metatarso sporge (la «cipolla») e la borsa sopra si infiamma. Nasce da un piede pronato, da muscoli intrinseci deboli e da scarpe strette; il massaggio non raddrizza l'alluce, ma allevia il dolore e rallenta la progressione.",
+  gesto:["Il primo metatarso si apre verso l'interno (metatarso varo)","L'alluce, tirato dai tendini lunghi che ormai passano di lato, devia verso l'esterno","La testa del metatarso sfrega nella scarpa e la borsa si infiamma"],
+  movimenti:["mv-alluce","mv-dita-abd","mv-piede-inv"],
+  cause:[
+   {t:"Piede pronato e primo raggio instabile",perche:"La pronazione apre il primo metatarso e sposta il carico sull'alluce in modo obliquo.",muscoli:["m-tibiale-post","m-peronei"],test:"Segno delle troppe dita; arco che crolla in carico; primo metatarso che si solleva premendo sotto."},
+   {t:"Intrinseci deboli (abduttore dell'alluce)",perche:"L'abduttore dell'alluce dovrebbe tenere l'alluce dritto: nelle scarpe strette non lavora da anni.",muscoli:["m-intrinseci-piede"],test:"Il cliente non riesce ad allargare l'alluce dalle altre dita attivamente."},
+   {t:"Borsite della «cipolla»",perche:"Attrito della scarpa sulla testa del metatarso sporgente: rossore e dolore.",muscoli:[],test:"Rossore, calore e dolore sulla sporgenza mediale."},
+   {t:"Artrosi della metatarso-falangea",perche:"Con gli anni l'articolazione deviata si consuma: rigidità e dolore nel passo.",muscoli:["m-flessori-dita-piede"],test:"Estensione dell'alluce ridotta sotto i 40° con dolore alla fine."}],
+  catene:["c-profonda","c-spirale"],
+  trattamento:["Mobilizzazione dell'alluce in abduzione e trazione, spazi intermetatarsali","Abduttore dell'alluce e muscoli intrinseci: riattivazione (allargare le dita, short foot)","Tibiale posteriore e arco","Scarpe larghe in punta, separatore notturno, niente tacchi","Chirurgia solo se il dolore limita la vita: il massaggio non raddrizza l'osso"],
+  rosse:["Cipolla rossa, calda, con febbre (infezione della borsa)","Alluce rigido e deformato in un diabetico con pelle lesa","Dolore improvviso con gonfiore in un'articolazione rossa (gotta)"],
+  segreto:"Non dire mai «te lo raddrizzo»: l'osso ha già cambiato forma. Ma l'alluce valgo doloroso diventa indolore quando le dita riprendono a lavorare e la scarpa smette di stringere. Il separatore notturno non cura, ma il lavoro sugli intrinseci e la scarpa giusta cambiano la vita del piede."},
+
+ {id:"p-pollice-base",voce:"«Mi fa male la base del pollice quando apro un barattolo»",zona:"Arto superiore",
+  sintesi:"Il dolore alla base del pollice nelle prese forti (barattolo, chiave, strizzare) è rizoartrosi, l'artrosi dell'articolazione trapezio-metacarpale: la più frequente artrosi della mano, soprattutto nelle donne dopo i 50 anni e in chi lavora di pollice. Va distinta dal De Quervain, che sta più in alto, sul polso.",
+  gesto:["L'articolazione a sella del pollice permette l'opposizione ma è poco contenuta","Ogni pinza forte moltiplica il carico sulla base del pollice per dodici","La cartilagine si consuma e l'osso sporge (base del pollice «quadrata»)"],
+  movimenti:["mv-pollice","mv-pollice-if","mv-presa"],
+  cause:[
+   {t:"Rizoartrosi",perche:"Dolore profondo alla base del pollice, peggiore nelle prese di forza, con base che sporge.",muscoli:["m-intrinseci-mano"],test:"Grind test (compressione e rotazione del metacarpo sul trapezio): dolore e crepitio."},
+   {t:"Tendinopatia di De Quervain",perche:"Dolore sul lato del polso, sopra lo stiloide radiale, non alla base del pollice.",muscoli:["m-estensori-dita"],test:"Finkelstein positivo; dolore 2–3 cm più in alto della base del pollice."},
+   {t:"Trigger dei muscoli tenar e dell'adduttore",perche:"Dolore alla base del pollice da sovraccarico muscolare, senza artrosi.",muscoli:["m-intrinseci-mano","m-brachiale"],test:"Pressione sull'eminenza tenar e sul primo spazio che riproduce il dolore; grind test negativo."},
+   {t:"Lesione del collaterale ulnare del pollice",perche:"Dopo una caduta: instabilità della pinza.",muscoli:[],test:"Stress in valgo della metacarpo-falangea doloroso e lasso."}],
+  catene:["c-braccio-ant-prof"],
+  trattamento:["Tenar, adduttore e primo spazio con pressioni lente","Trazione e mobilizzazione dolce della trapezio-metacarpale","Tutore corto per le attività di forza","Per il massaggiatore: smettere di lavorare di pollice — nocche, avambraccio, peso del corpo"],
+  rosse:["Base del pollice gonfia, calda e rossa","Dolore dopo caduta con pinza instabile","Deformità rapida"],
+  segreto:"La rizoartrosi è la malattia professionale di chi lavora di pollice: parrucchieri, fisioterapisti, massaggiatori. Non si guarisce, si gestisce. Chi cambia tecnica a trent'anni arriva a sessanta con il pollice; chi non lo fa, no. Ogni volta che senti il pollice stanco a fine giornata, il tuo corpo ti sta dicendo questo."},
+
+ {id:"p-colpo-frusta",voce:"«Dopo l'incidente ho il collo rigido, mal di testa e mi gira la testa»",zona:"Collo",
+  sintesi:"Il colpo di frusta è uno stiramento brusco dei tessuti del collo (muscoli, legamenti, capsule, a volte il disco). Nei primi giorni domina la difesa muscolare; dopo settimane possono restare rigidità, cefalea, vertigini e disturbi della concentrazione, legati ai recettori cervicali e al sistema nervoso in allarme. Si tratta dopo l'esclusione medica delle lesioni ossee e legamentose.",
+  gesto:["Iperestensione e poi flessione brusca del collo","I flessori profondi vengono stirati e si inibiscono; i superficiali si contraggono in difesa","I recettori dei sotto-occipitali e delle capsule si disturbano"],
+  movimenti:["mv-collo-flex","mv-collo-rot","mv-collo-incl"],
+  cause:[
+   {t:"Spasmo di difesa dei muscoli superficiali",perche:"Sternocleidomastoideo, scaleni e trapezio superiore bloccano il collo per proteggerlo.",muscoli:["m-scom","m-scaleni","m-trapezio"],test:"Collo rigido in tutte le direzioni, muscoli dolenti a pinza, movimenti che migliorano nei giorni."},
+   {t:"Flessori profondi inibiti",perche:"Lunghi del collo e del capo sono stati stirati e non reggono più la testa: il collo si regge «da fuori».",muscoli:["m-lungo-collo","m-lungo-capo"],test:"Test cranio-cervicale: non riesce a tenere il mento rientrato senza che lo sternocleidomastoideo scatti."},
+   {t:"Faccette e capsule irritate",perche:"Dolore locale a un livello, peggiore in estensione; la cefalea cervicogenica parte da C2–C3.",muscoli:["m-semispinale","m-suboccipitali"],test:"Dolore alla pressione sulle faccette di un lato; rotazione a testa flessa ridotta."},
+   {t:"Vertigine e instabilità cervicogenica",perche:"I recettori disturbati mandano al cervello informazioni sbagliate.",muscoli:["m-suboccipitali"],test:"Instabilità non rotatoria legata ai movimenti del collo; se è rotatoria o con segni neurologici, invio."}],
+  catene:["c-sbl","c-profonda"],
+  trattamento:["Prima: certezza medica che non ci siano fratture o lesioni legamentose (radiografie fatte)","Fase acuta (prima settimana): calore, tocco leggero, movimento attivo dolce; nessuna manipolazione","Poi: sternocleidomastoideo, scaleni, trapezio a pinza; sotto-occipitali con le dita ferme; dorso alto","Riattivazione dei flessori profondi: è il passaggio che decide il recupero","Rassicurare: la maggior parte guarisce in 6–12 settimane; il riposo prolungato con collare peggiora"],
+  rosse:["Dolore cervicale intenso con impossibilità a sostenere la testa","Formicolio o debolezza alle braccia o alle gambe","Vertigine rotatoria, visione doppia, difficoltà a parlare","Qualsiasi sintomo in un collo non ancora valutato con imaging dopo l'incidente"],
+  segreto:"Il collare rigido oltre pochi giorni è il peggior nemico: i flessori profondi si spengono del tutto e il collo impara a non muoversi. Il recupero migliore si vede in chi muove il collo presto, dolcemente, e riattiva i flessori profondi. Il massaggiatore qui è un allenatore, non un riparatore."},
+
+ {id:"p-gambe-gonfie",voce:"«La sera ho le gambe gonfie e pesanti, soprattutto le caviglie»",zona:"Arto inferiore",
+  sintesi:"Le caviglie che si gonfiano la sera e sono normali al mattino raccontano un ritorno venoso e linfatico lento: la pompa del polpaccio non lavora abbastanza (ore in piedi ferme o seduti) e le valvole delle vene non tengono. Il gonfiore che resta al mattino, o di una gamba sola, è un'altra storia e va dal medico.",
+  gesto:["Il sangue delle gambe risale contro la gravità grazie alla contrazione del soleo e alle valvole","La linfa risale con il movimento muscolare e il respiro diaframmatico","Da fermi, in piedi o seduti, entrambe le pompe sono spente"],
+  movimenti:["mv-caviglia-plantar","mv-respiro"],
+  cause:[
+   {t:"Insufficienza venosa cronica",perche:"Valvole che cedono, vene superficiali dilatate: gonfiore serale, pesantezza, varici.",muscoli:["m-soleo"],test:"Impronta del dito sulla caviglia (fovea), varici visibili, pelle bruna alla caviglia; gonfiore bilaterale che scompare al mattino."},
+   {t:"Pompa muscolare inattiva",perche:"Lavoro in piedi fermi (commessi, parrucchieri) o seduti: il soleo non spreme le vene.",muscoli:["m-soleo","m-gastrocnemio"],test:"Anamnesi del lavoro; miglioramento camminando."},
+   {t:"Linfedema",perche:"Gonfiore duro, che non lascia l'impronta, spesso di una gamba sola, dopo interventi o infezioni.",muscoli:[],test:"Segno di Stemmer (non si pizzica la pelle sul dorso del secondo dito); gonfiore che non cala di notte: valutazione specialistica."},
+   {t:"Cause mediche",perche:"Cuore, reni, fegato, farmaci (calcio-antagonisti), trombosi: gonfiore diverso per sede e andamento.",muscoli:[],test:"Gonfiore di una sola gamba improvviso (trombosi), gonfiore con affanno (cuore), gonfiore al viso e alle mani (reni): invio."}],
+  catene:["c-sbl"],
+  trattamento:["Drenaggio: prima le stazioni a monte (inguine), poi dal basso verso l'alto, pressioni leggere e lente","Polpaccio e soleo con manovre di spremitura verso l'alto","Mobilizzazione della caviglia","Respiro diaframmatico: la pompa della linfa","Consigli: gambe sollevate 15 minuti la sera, venti sollevamenti sui talloni ogni ora, calze a compressione nei lavori in piedi"],
+  rosse:["Gonfiore di una sola gamba comparso in pochi giorni, con dolore e calore: trombosi, non si massaggia","Gonfiore con affanno o che sale oltre il ginocchio","Gonfiore duro che non lascia l'impronta e non cala la notte"],
+  segreto:"Il test del dito: premi sulla caviglia per cinque secondi. Se resta la fossetta, è liquido venoso e il drenaggio funziona; se la pelle è dura e non si pizzica sul dorso del dito, è linfa e serve un drenaggio specialistico. Se è una gamba sola e calda, non toccare: è il giorno del medico."}
 ]);
 </script>
 <script>
@@ -3277,6 +3588,238 @@ DB.tendini = [
   tratt:"Lavoro su adduttori e ischiocrurali mediali, cuscino fra le ginocchia la notte, rinforzo del gluteo medio, correzione del ginocchio valgo dinamico.",
   segreto:"Tre muscoli, tre nervi diversi: sartorio dal femorale, gracile dall'otturatorio, semitendinoso dall'ischiatico. Un dolore lì può arrivare dall'anca, dal bacino o dalla colonna. È il punto che insegna a non trattare mai solo dove fa male."}
 ];
+</script>
+<script>
+/* Nervi — parte 3: cranici e periferici che mancavano. */
+DB.nervi = DB.nervi.concat([
+ {id:"n-vago",nome:"Nervo vago",lat:"N. vagus (X)",regione:"Collo",radici:"Nervo cranico X, dal bulbo",
+  alias:["vago","nervo vago","vagale","tono vagale","parasimpatico"],
+  origine:"Dal bulbo, esce dal cranio attraverso il forame giugulare insieme a glossofaringeo e accessorio.",
+  decorso:"Scende nel collo dentro la guaina carotidea, fra carotide e giugulare interna, dietro lo sternocleidomastoideo; entra nel torace, dà i rami laringei e cardiaci, passa dietro il polmone, attraversa il diaframma con l'esofago e si distribuisce a stomaco, fegato, intestino fino al colon trasverso.",
+  motorio:"Muscoli della faringe e della laringe (voce, deglutizione), muscolatura liscia di bronchi, cuore (rallenta), stomaco e intestino (attiva).",
+  sensitivo:"Faringe, laringe, visceri toracici e addominali, una piccola zona del padiglione auricolare e del meato acustico.",
+  segno:"Voce rauca, difficoltà a deglutire, tachicardia a riposo, digestione lenta: segni di ridotto tono vagale.",
+  segreto:"È il nervo del «riposo e digestione», il freno del sistema nervoso. L'80% delle sue fibre va dal corpo al cervello, non viceversa: il vago racconta al cervello come sta il corpo. Un massaggio lento, il respiro con espirazione lunga, il tocco sul collo laterale e sull'addome aumentano il tono vagale — è il motivo fisiologico per cui una seduta ben fatta abbassa la pressione e fa venire sonno."},
+
+ {id:"n-facciale",nome:"Nervo facciale",lat:"N. facialis (VII)",regione:"Testa",radici:"Nervo cranico VII, dal ponte",
+  alias:["facciale","nervo facciale","paralisi di Bell"],
+  origine:"Dal ponte, entra nel meato acustico interno, attraversa l'osso temporale in un canale lungo e tortuoso ed esce dal forame stilo-mastoideo, davanti alla mastoide.",
+  decorso:"Attraversa la parotide dividendosi in cinque rami a ventaglio (temporale, zigomatico, buccale, mandibolare, cervicale) che raggiungono tutti i muscoli del viso.",
+  motorio:"Tutti i muscoli mimici, il platisma, il ventre posteriore del digastrico, lo stiloioideo, lo stapedio nell'orecchio.",
+  sensitivo:"Gusto dei due terzi anteriori della lingua (corda del timpano); secrezione lacrimale e salivare.",
+  segno:"Paralisi di Bell: metà viso che cade, occhio che non si chiude, bocca storta, gusto alterato; spesso preceduta da dolore dietro l'orecchio.",
+  segreto:"Esce dal cranio a un centimetro dalla mastoide, dove si inserisce lo sternocleidomastoideo: un lavoro profondo e prolungato in quel punto, soprattutto in una paralisi facciale in fase di recupero, va fatto con delicatezza. Nel massaggio del viso si lavora dal centro verso l'esterno, nel verso dei suoi rami."},
+
+ {id:"n-trigemino",nome:"Nervo trigemino e nervo mandibolare",lat:"N. trigeminus (V), n. mandibularis (V3)",regione:"Testa",radici:"Nervo cranico V, dal ponte",
+  alias:["trigemino","nervo trigemino","mandibolare","nervo mandibolare","V3","nevralgia del trigemino","oftalmico","mascellare superiore"],
+  origine:"Dal ponte, con il ganglio di Gasser nella fossa cranica media; tre rami: oftalmico (V1), mascellare (V2), mandibolare (V3).",
+  decorso:"V3 esce dal forame ovale dello sfenoide e scende fra i due pterigoidei: dà i nervi ai masticatori, l'alveolare inferiore (denti inferiori, mento), il linguale e l'auricolo-temporale.",
+  motorio:"Massetere, temporale, pterigoidei, miloioideo, ventre anteriore del digastrico, tensore del timpano.",
+  sensitivo:"Tutto il viso in tre fasce (fronte e occhio, guancia e naso, mandibola e tempia), i denti, le meningi anteriori, l'ATM.",
+  segno:"Nevralgia del trigemino: scosse di dolore lancinante su metà viso scatenate da tocco, masticazione, vento; invio neurologico.",
+  segreto:"Il suo nucleo scende fino a C2–C3 e si confonde con quello dei nervi cervicali alti: è il complesso trigemino-cervicale. È il motivo per cui mandibola e nuca si parlano, e per cui nessuna valutazione di cefalea è completa senza aprire la bocca del cliente e palpare i masseteri."},
+
+ {id:"n-ipoglosso",nome:"Nervo ipoglosso",lat:"N. hypoglossus (XII)",regione:"Collo",radici:"Nervo cranico XII, dal bulbo",
+  alias:["ipoglosso","nervo ipoglosso"],
+  origine:"Dal bulbo, esce dal canale dell'ipoglosso nell'occipite.",
+  decorso:"Scende nel collo fra carotide e giugulare, curva in avanti sopra l'osso ioide e raggiunge la lingua. Porta con sé le fibre di C1 che vanno al genioioideo e al tiroioideo (ansa cervicale).",
+  motorio:"Tutti i muscoli della lingua, più genioioideo e tiroioideo tramite C1.",sensitivo:"Nessuno.",
+  segno:"Lingua che devia verso il lato leso quando viene tirata fuori; difficoltà a parlare e a deglutire.",
+  segreto:"Passa a contatto con l'osso ioide e con i muscoli sopraioidei: la posizione della lingua a riposo (sul palato, dietro gli incisivi) dipende da lui, e la lingua sul palato è la prima regola della postura della testa. «Lingua sul palato, denti staccati, labbra chiuse»: un consiglio che passa dall'ipoglosso."},
+
+ {id:"n-cutaneo-laterale",nome:"Nervo cutaneo laterale della coscia",lat:"N. cutaneus femoris lateralis",regione:"Anca",radici:"L2, L3",
+  alias:["cutaneo laterale della coscia","femoro-cutaneo","meralgia parestesica","meralgia"],
+  origine:"Plesso lombare, dal margine laterale dello psoas.",
+  decorso:"Attraversa la fossa iliaca sopra l'iliaco, passa sotto (o attraverso) il legamento inguinale a un dito dalla spina iliaca antero-superiore, perfora la fascia lata e si distribuisce alla pelle della coscia laterale.",
+  motorio:"Nessuno: è puramente sensitivo.",sensitivo:"Faccia antero-laterale della coscia, dal trocantere al ginocchio.",
+  segno:"Meralgia parestesica: bruciore, formicolio e pelle «di cartone» sulla coscia esterna, senza debolezza; peggiora in piedi e con i pantaloni stretti.",
+  segreto:"Si intrappola sotto il legamento inguinale accanto alla SIAS: cinture, pantaloni a vita bassa, gravidanza, aumento di peso, cinture degli attrezzi. È il formicolio alla coscia che non è una sciatica: nessuna debolezza, nessun dolore lombare, una fascia precisa sul lato esterno. Si tratta allentando quel punto e cambiando la cintura."},
+
+ {id:"n-safeno",nome:"Nervo safeno",lat:"N. saphenus",regione:"Ginocchio",radici:"L3, L4 (ramo del femorale)",
+  alias:["safeno","nervo safeno","infrapatellare"],
+  origine:"Ramo terminale sensitivo del nervo femorale, nel triangolo femorale.",
+  decorso:"Scende nel canale degli adduttori con l'arteria femorale, lo lascia perforando la fascia, passa dietro il sartorio e sul lato mediale del ginocchio (ramo infrapatellare), poi lungo la gamba mediale con la vena safena fino al malleolo mediale.",
+  motorio:"Nessuno.",sensitivo:"Ginocchio mediale, faccia mediale della gamba e del piede fino all'alluce.",
+  segno:"Dolore e formicolio al ginocchio interno e lungo la gamba mediale, spesso dopo chirurgia del ginocchio o della safena.",
+  segreto:"Il ramo infrapatellare attraversa il ginocchio mediale proprio dove si fanno le incisioni artroscopiche e dove si inserisce la zampa d'oca: un ginocchio mediale che brucia dopo un intervento, con la pelle «strana» al tocco, è spesso questo nervo e non il menisco. Chiedi sempre: «la pelle lì è normale al tatto?»"},
+
+ {id:"n-pudendo",nome:"Nervo pudendo",lat:"N. pudendus",regione:"Perineo",radici:"S2, S3, S4",
+  alias:["pudendo","nervo pudendo","nevralgia del pudendo","canale di Alcock"],
+  origine:"Plesso sacrale, le radici più basse.",
+  decorso:"Esce dal grande forame ischiatico sotto il piriforme, gira attorno alla spina ischiatica fra i legamenti sacro-spinoso e sacro-tuberoso, rientra dal piccolo forame nel canale di Alcock (sulla faccia interna dell'otturatore interno) e si distribuisce al perineo.",
+  motorio:"Sfintere anale ed uretrale esterni, muscoli del perineo, parte del pavimento pelvico.",sensitivo:"Perineo, genitali esterni, regione anale.",
+  segno:"Nevralgia del pudendo: dolore perineale urente, peggiore da seduti, alleviato in piedi o seduti sul water; disturbi urinari e sessuali.",
+  segreto:"Il segno che distingue questa nevralgia da tutto il resto: il dolore sparisce sedendosi sul water, perché lì il perineo non appoggia. Ciclisti, chi sta seduto molte ore, esiti di parto. È una zona che non si tratta manualmente senza formazione specifica: il tuo compito è riconoscerla, chiamarla per nome e indirizzare."},
+
+ {id:"n-surale",nome:"Nervo surale",lat:"N. suralis",regione:"Gamba",radici:"S1, S2 (rami del tibiale e del peroneo)",
+  alias:["surale","nervo surale"],
+  origine:"Dall'unione di un ramo del tibiale e di uno del peroneo comune, nel cavo popliteo.",
+  decorso:"Scende sulla linea mediana del polpaccio fra i due capi del gastrocnemio, perfora la fascia a metà gamba, passa dietro il malleolo laterale con la piccola safena e arriva al bordo esterno del piede.",
+  motorio:"Nessuno.",sensitivo:"Faccia postero-laterale della gamba, malleolo laterale, bordo esterno del piede e quinto dito.",
+  segno:"Formicolio al bordo esterno del piede e dietro il malleolo laterale dopo distorsioni o interventi sull'Achille.",
+  segreto:"Corre a un centimetro dal tendine d'Achille, sul lato esterno: nelle tendinopatie achillee un dolore che brucia e formicola lateralmente è lui, irritato dal gonfiore del tendine. Si lavora sul tendine, ma si evita di comprimere il bordo laterale."},
+
+ {id:"n-interosseo-post",nome:"Nervo interosseo posteriore",lat:"N. interosseus posterior",regione:"Gomito",radici:"C7, C8 (ramo profondo del radiale)",
+  alias:["interosseo posteriore","ramo profondo del radiale","tunnel radiale","arcata di Frohse","sindrome del tunnel radiale"],
+  origine:"Ramo profondo del nervo radiale, davanti all'epicondilo laterale.",
+  decorso:"Entra nel supinatore passando sotto l'arcata di Frohse, lo attraversa avvolgendosi attorno al radio ed esce sul dorso dell'avambraccio per innervare gli estensori.",
+  motorio:"Estensori delle dita, estensore ulnare del carpo, muscoli del pollice; non il radiale breve e lungo del carpo (innervati prima).",sensitivo:"Solo la capsula del polso: nessuna zona di pelle.",
+  segno:"Dolore 3–4 cm sotto l'epicondilo laterale, sul dorso dell'avambraccio, peggiore in supinazione contro resistenza; nelle forme gravi dita che non si estendono con il polso che si estende ancora.",
+  segreto:"È la «falsa epicondilite»: stesso braccio, stesso lato, ma il dolore è più in basso e la frizione sull'epicondilo non fa nulla. Il test: supinazione contro resistenza a gomito esteso. Si tratta il supinatore con pressione piatta, mai puntata — il nervo è dentro."}
+]);
+</script>
+<script>
+/* Vasi — parte 2: vene e arterie che mancavano. */
+DB.arterie = DB.arterie.concat([
+ {id:"v-vene-profonde",nome:"Vene profonde degli arti e vena cava",lat:"Vv. profundae, v. cava inferior",regione:"Tutto il corpo",
+  alias:["vene profonde","vena cava","vena femorale","vena poplitea","trombosi venosa profonda","TVP","trombosi"],
+  origine:"Dalle vene plantari e del polpaccio (tibiali, peroniere) alla poplitea, alla femorale, all'iliaca e alla cava inferiore, che risale fino al cuore destro.",
+  decorso:"Accompagnano le arterie omonime dentro le logge muscolari, con valvole che permettono al sangue di salire solo verso il cuore. Il polpaccio è la pompa: ogni contrazione del soleo spreme le vene profonde verso l'alto.",
+  territorio:"Raccolgono il 90% del sangue venoso degli arti inferiori.",
+  polso:"Non palpabili. Si valuta indirettamente: gonfiore, dolore e calore del polpaccio, differenza di circonferenza fra i due lati.",
+  nota:"La trombosi venosa profonda è la controindicazione assoluta più importante del massaggio: un coagulo nella vena del polpaccio può staccarsi e arrivare al polmone.",
+  segreto:"Polpaccio gonfio, caldo, dolente, più grosso dell'altro di oltre 2 cm, in una persona che ha fatto un viaggio lungo, un intervento, un gesso, o prende la pillola: non è una contrattura e non si massaggia. Si manda dal medico lo stesso giorno. Il test di Homans è inaffidabile: conta il confronto fra i due polpacci e la storia."},
+
+ {id:"v-safena",nome:"Vena grande safena e sistema venoso superficiale",lat:"V. saphena magna, v. saphena parva",regione:"Arto inferiore",
+  alias:["safena","grande safena","piccola safena","vene superficiali","vene varicose","varici","insufficienza venosa"],
+  origine:"La grande safena nasce dal dorso del piede, davanti al malleolo mediale; la piccola safena dietro il malleolo laterale.",
+  decorso:"La grande safena risale lungo la faccia mediale di gamba e coscia, accompagnata dal nervo safeno, e si getta nella femorale all'inguine (crosse). La piccola safena risale dietro il polpaccio e si getta nella poplitea.",
+  territorio:"Raccolgono il sangue della pelle e del sottocute; lo versano nel sistema profondo attraverso le perforanti.",
+  polso:"Visibili e palpabili quando dilatate (varici): cordoni tortuosi bluastri lungo la gamba interna.",
+  nota:"Le valvole delle perforanti, quando cedono, lasciano il sangue refluire verso la pelle: gambe pesanti la sera, gonfiore alla caviglia, varici, macchie brune alla caviglia.",
+  segreto:"Sulle varici non si fanno manovre profonde né frizioni: si lavora intorno, dal basso verso l'alto, a piatto, e si solleva la gamba. Il consiglio che vale più di tutto: venti sollevamenti sui talloni ogni ora di lavoro in piedi, perché il soleo è la pompa che la safena non ha."},
+
+ {id:"v-temporale",nome:"Arteria temporale superficiale e arteria mascellare",lat:"A. temporalis superficialis, a. maxillaris",regione:"Testa",
+  alias:["temporale superficiale","polso temporale","mascellare","arterite temporale"],
+  origine:"I due rami terminali della carotide esterna, dentro la parotide.",
+  decorso:"La temporale superficiale sale davanti all'orecchio sopra l'arcata zigomatica e si divide sulla tempia; la mascellare entra in profondità dietro il collo della mandibola, fra gli pterigoidei, e irrora masticatori, denti, naso e meningi (arteria meningea media).",
+  territorio:"Cuoio capelluto, tempia, viso profondo, muscoli masticatori, denti, meningi.",
+  polso:"Davanti al trago, sopra l'arcata zigomatica: è il polso temporale, facile da sentire.",
+  nota:"Un'arteria temporale dura, dolente, con cefalea nuova in una persona oltre i 50 anni e dolore masticando può essere un'arterite temporale: urgenza medica, rischio per la vista.",
+  segreto:"Nel massaggio della tempia la sentirai pulsare sotto le dita: lavora leggero. E se un cliente anziano ha una tempia dolente al tocco, mascella che si stanca a masticare e vede «annebbiato», non è un trigger del temporale: è da mandare dal medico oggi."},
+
+ {id:"v-glutee",nome:"Arterie glutee superiore e inferiore",lat:"Aa. gluteae superior et inferior",regione:"Bacino",
+  alias:["glutea superiore","glutea inferiore","arterie glutee"],
+  origine:"Dall'arteria iliaca interna.",
+  decorso:"La superiore esce dal grande forame ischiatico sopra il piriforme (con il nervo gluteo superiore) e irrora gluteo medio e minimo; l'inferiore esce sotto il piriforme (con il nervo ischiatico e il gluteo inferiore) e irrora il grande gluteo e la coscia posteriore alta.",
+  territorio:"Tutti i glutei, i rotatori profondi, la parte alta della coscia posteriore.",
+  polso:"Non palpabili.",
+  nota:"Il forame sopra-piriforme e sotto-piriforme sono i due «passaggi» del gluteo: ognuno con un'arteria e un nervo.",
+  segreto:"Sotto il piriforme passano insieme arteria glutea inferiore, nervo ischiatico, nervo gluteo inferiore e nervo pudendo: quattro strutture nobili in due centimetri. È il motivo per cui si lavora il gluteo profondo con l'avambraccio e mai con il gomito a punta."},
+
+ {id:"v-circolo-coronarico",nome:"Cuore e grandi vasi: cosa deve sapere il massaggiatore",lat:"Cor, aorta, vv. cavae",regione:"Torace",
+  alias:["cuore","aorta toracica","coronarie","dolore cardiaco","angina","infarto"],
+  origine:"Il ventricolo sinistro pompa nell'aorta; il destro nei polmoni; le cave riportano il sangue venoso.",
+  decorso:"L'aorta sale, forma l'arco (da cui nascono i vasi per testa e braccia) e scende lungo la colonna toracica a sinistra; attraversa il diaframma a T12.",
+  territorio:"Tutto il corpo.",
+  polso:"Polso carotideo, radiale, femorale: frequenza normale a riposo 60–100.",
+  nota:"Il dolore cardiaco può imitare il dolore muscolare: oppressione al petto, dolore al braccio sinistro, alla mandibola, fra le scapole, con sudore e affanno.",
+  segreto:"Pettorale e scaleni danno dolore «al petto e al braccio sinistro» identico a quello cardiaco. La differenza: il dolore muscolare si riproduce premendo e cambia con il movimento del braccio; quello cardiaco no, e compare con lo sforzo o l'emozione. Nel dubbio, non si tratta: si chiama il 118. Un massaggiatore che sa dire «questo non è mio» salva vite."}
+]);
+</script>
+<script>
+/* Legamenti, tendini, borse e fasce che mancavano. */
+DB.legamenti = DB.legamenti.concat([
+ {id:"g-atm",nome:"Legamenti dell'articolazione temporo-mandibolare",lat:"Lig. laterale, lig. sphenomandibulare, lig. stylomandibulare",regione:"Testa",art:["a-atm"],alias:["legamento temporo-mandibolare","legamento laterale dell'ATM","sfeno-mandibolare","stilo-mandibolare"],
+  dove:"Il laterale rinforza la capsula dall'arcata zigomatica al collo del condilo; lo sfeno-mandibolare va dalla spina dello sfenoide alla faccia interna del ramo; lo stilo-mandibolare dal processo stiloideo all'angolo.",
+  funzione:"Il laterale impedisce al condilo di scivolare indietro e di lussarsi; gli altri due sospendono la mandibola e limitano la protrusione eccessiva.",
+  test:"Dolore alla pressione davanti al trago a bocca semiaperta; deviazione dell'apertura verso il lato rigido.",
+  segreto:"Il legamento laterale è il freno posteriore del condilo: quando il massetere tira la mandibola indietro, è lui a impedire che il condilo schiacci il tessuto retrodiscale, ricco di nervi. Quando non ce la fa, compare il dolore «dentro l'orecchio» che nessun otorino trova."},
+ {id:"g-costoclaveare",nome:"Legamento costo-claveare",lat:"Lig. costoclaviculare",regione:"Spalla",art:["a-sterno-claveare"],alias:["costo-claveare","costoclaveare"],
+  dove:"Dalla prima costa alla faccia inferiore della clavicola, subito lateralmente all'articolazione sterno-claveare.",
+  funzione:"È il fulcro dei movimenti della clavicola: la clavicola ruota attorno a lui nell'elevazione della spalla.",
+  test:"Dolore sotto la clavicola mediale nell'elevazione forzata della spalla.",
+  segreto:"La clavicola funziona come una leva con il fulcro qui: quando l'estremità laterale sale con la spalla, quella mediale scende. Se questo legamento è rigido, la clavicola non ruota e la spalla non arriva a 180° — nessun lavoro sulla cuffia lo risolverà."},
+ {id:"g-collaterale-pollice",nome:"Legamento collaterale ulnare del pollice",lat:"Lig. collaterale ulnare pollicis",regione:"Mano",art:["a-metacarpo-falangee"],alias:["collaterale ulnare del pollice","pollice dello sciatore","pollice del guardiacaccia","lesione di Stener"],
+  dove:"Sul lato interno della metacarpo-falangea del pollice, fra primo metacarpo e falange prossimale.",
+  funzione:"Impedisce al pollice di aprirsi troppo verso l'esterno: è il legamento della pinza.",
+  test:"Stress in valgo della metacarpo-falangea del pollice: dolore e apertura eccessiva rispetto all'altro lato.",
+  segreto:"Si rompe cadendo con il bastoncino da sci in mano o nel pallavolo. Se si rompe del tutto, il moncone può ribaltarsi sopra l'aponeurosi (lesione di Stener) e non guarisce senza chirurgia: una pinza del pollice che resta debole dopo una caduta va vista entro una settimana."},
+ {id:"g-lisfranc",nome:"Legamento di Lisfranc",lat:"Lig. tarsometatarsale interosseum",regione:"Piede",art:["a-tarso-metatarsale"],alias:["lisfranc","legamento di Lisfranc"],
+  dove:"Dal primo cuneiforme alla base del secondo metatarso, nel mesopiede.",
+  funzione:"Tiene la chiave di volta dell'arco trasverso: ancora il secondo metatarso, che non ha legamenti con il primo.",
+  test:"Dolore sul dorso del mesopiede caricando sulle punte; ecchimosi plantare dopo trauma.",
+  segreto:"Una lesione di Lisfranc viene scambiata per «distorsione» una volta su tre, e trattata tardi lascia un piede piatto doloroso per sempre. Dolore al centro del dorso del piede dopo un trauma, con lividi sulla pianta: radiografia in carico, non massaggio."},
+ {id:"g-intertrasversari",nome:"Legamenti intertrasversari e capsule delle faccette",lat:"Ligg. intertransversaria, capsulae articulares",regione:"Rachide",art:["a-zigoapofisarie","a-intervertebrale"],alias:["intertrasversari","capsula delle faccette","capsule articolari vertebrali"],
+  dove:"Fra i processi trasversi di vertebre contigue; le capsule avvolgono ogni faccetta articolare.",
+  funzione:"Limitano l'inclinazione laterale; le capsule, ricche di recettori, sono fra le principali fonti di dolore vertebrale.",
+  test:"Dolore paravertebrale locale in estensione e rotazione verso il lato dolente, senza irradiazione sotto il ginocchio.",
+  segreto:"La capsula della faccetta ha più terminazioni nervose del disco: molti dolori «da ernia» sono dolori capsulari. Il ramo posteriore del nervo spinale innerva la capsula e il muscolo sopra: ecco perché la faccetta irritata fa contrarre il multifido in riflesso."},
+ {id:"g-scafolunato",nome:"Legamento scafo-lunato e legamenti intercarpici",lat:"Lig. scapholunatum, ligg. intercarpalia",regione:"Polso",art:["a-mediocarpica","a-radio-carpica"],alias:["scafo-lunato","scafolunato","intercarpici"],
+  dove:"Fra scafoide e semilunare, nella fila prossimale; gli intercarpici uniscono tutte le ossa del carpo fra loro.",
+  funzione:"Tengono insieme le due ossa che si muovono di più nel polso; dalla loro integrità dipende tutta la meccanica del carpo.",
+  test:"Dolore sul dorso del polso al centro, test di Watson (scatto dello scafoide spingendo il tubercolo), debolezza della presa.",
+  segreto:"Si rompe nelle cadute sulla mano aperta e spesso la radiografia è normale: dopo anni, il polso si artrosizza (collasso scafo-lunato). Un dolore dorsale del polso persistente dopo una caduta merita una valutazione, non solo un massaggio dei flessori."}
+]);
+
+DB.tendini = DB.tendini.concat([
+ {id:"d-tricipite",nome:"Tendine del tricipite",lat:"Tendo m. tricipitis brachii",regione:"Gomito",alias:["tendine del tricipite","tendinopatia del tricipite"],muscoli:["m-tricipite","m-anconeo"],art:["a-omero-ulnare"],
+  dove:"Dai tre capi del tricipite all'olecrano, con la borsa olecranica sopra.",struttura:"Tendine largo e piatto, con fibre che continuano nella fascia dell'avambraccio.",
+  carico:"Spinte, appoggi sulle mani, flessioni a terra: il massaggiatore lo carica in ogni pressione a braccio teso.",
+  patologia:"Tendinopatia inserzionale: dolore sulla punta del gomito spingendo; rottura (rara) dopo caduta sul gomito flesso.",
+  test:"Estensione resistita del gomito dolorosa; palpazione dell'olecrano.",tratt:"Frizioni sull'inserzione fuori dalla fase acuta, lavoro sui tre capi, eccentrici con elastico.",
+  segreto:"Il gomito del massaggiatore: chi spinge a braccio teso e gomito bloccato in iperestensione scarica tutto sull'inserzione del tricipite. Gomito leggermente flesso e peso del corpo: il tendine ringrazia."},
+ {id:"d-pettorale",nome:"Tendine del grande pettorale",lat:"Tendo m. pectoralis majoris",regione:"Spalla",alias:["tendine del pettorale","rottura del pettorale"],muscoli:["m-pettorale-grande"],art:["a-gleno-omerale"],
+  dove:"Le fibre si avvitano e si inseriscono sulla cresta del tubercolo maggiore, lateralmente al solco bicipitale.",struttura:"Tendine corto e torto: la torsione distribuisce la trazione in ogni posizione del braccio.",
+  carico:"Panca piana, spinte, abbracci forzati; massimo carico in abduzione e rotazione esterna sotto peso.",
+  patologia:"Rottura (quasi solo in chi solleva pesi, nella panca): schiocco, ecchimosi al braccio, piega ascellare che sparisce. Tendinopatia: dolore anteriore di spalla spingendo.",
+  test:"Adduzione orizzontale resistita dolorosa; asimmetria della piega ascellare anteriore con le mani che si spingono.",tratt:"Piega ascellare a pinza, frizioni sull'inserzione, lavoro sul piccolo pettorale.",
+  segreto:"Il pettorale si rompe quasi sempre nella fase eccentrica della panca, quando il bilanciere scende: il muscolo è allungato e sotto carico massimo. Chi ha una piega ascellare «vuota» da un lato ha quasi certamente una rottura vecchia, e la spalla di quel lato compensa."},
+ {id:"d-sottoscapolare",nome:"Tendini del sottoscapolare e del sottospinato",lat:"Tendines mm. subscapularis et infraspinati",regione:"Spalla",alias:["tendine del sottoscapolare","tendine del sottospinato","lesione della cuffia anteriore","lesione della cuffia posteriore"],muscoli:["m-sottoscapolare","m-sottospinato"],art:["a-gleno-omerale"],
+  dove:"Il sottoscapolare sul tubercolo minore, davanti; il sottospinato sulla faccetta media del tubercolo maggiore, dietro.",struttura:"Insieme al sovraspinato formano il cappuccio della cuffia; il sottoscapolare è il più grosso e forte dei quattro.",
+  carico:"Il sottoscapolare lavora in ogni rotazione interna e in ogni spinta; il sottospinato in ogni rotazione esterna e nel frenare il lancio.",
+  patologia:"Lesione del sottoscapolare: perdita della rotazione interna di forza, tendine del bicipite che si lussa dal solco. Lesione del sottospinato: debolezza in rotazione esterna, fossa sottospinata scavata.",
+  test:"Sottoscapolare: lift-off e belly-press. Sottospinato: rotazione esterna resistita a gomito al fianco, segno del braccio che cade in rotazione esterna.",tratt:"Sottoscapolare dall'ascella, sottospinato nella fossa; rinforzo in rotazione con elastico.",
+  segreto:"Il test del belly-press: mano sulla pancia, gomito spinto in avanti; se il gomito cade indietro e il polso si flette per compensare, il sottoscapolare non tiene. Un test che in dieci secondi distingue una spalla «dolorante» da una spalla con la cuffia anteriore rotta."},
+ {id:"d-estensori-mano",nome:"Tendini estensori delle dita (dito a martello, boutonnière)",lat:"Tendines extensorum digitorum",regione:"Mano",alias:["dito a martello","mallet finger","boutonnière","tendini estensori delle dita"],muscoli:["m-estensori-dita","m-intrinseci-mano"],art:["a-metacarpo-falangee"],
+  dove:"Sul dorso di ogni dito, come un'espansione a cappuccio che riceve anche lombricali e interossei, con una bandeletta centrale e due laterali.",struttura:"Non un tendine ma una rete fibrosa sottile: ogni rottura altera l'equilibrio di tutto il dito.",
+  carico:"Aprire la mano, tenere le dita dritte contro un urto (pallone, lenzuolo infilato).",
+  patologia:"Dito a martello: rottura della bandeletta all'ultima falange, la punta del dito resta piegata. Boutonnière: rottura della bandeletta centrale, la falange media si piega e l'ultima si estende.",
+  test:"Impossibilità a estendere attivamente l'ultima falange (martello) o la media (boutonnière), con estensione passiva conservata.",tratt:"Non è di competenza manuale in acuto: tutore in estensione continua per 6–8 settimane (martello) o valutazione ortopedica (boutonnière). Dopo, mobilizzazione dolce.",
+  segreto:"Il dito a martello da «pallonata» o infilando il lenzuolo è una rottura del tendine, non una contusione: se il cliente arriva con la punta del dito che non si raddrizza, va in tutore oggi, non massaggiato. Dopo sei settimane di tutore corretto, nove su dieci guariscono senza chirurgia."},
+ {id:"d-tibiale-ant",nome:"Tendine del tibiale anteriore",lat:"Tendo m. tibialis anterioris",regione:"Caviglia",alias:["tendine del tibiale anteriore","tendinopatia del tibiale anteriore"],muscoli:["m-tibiale-ant"],art:["a-tibio-tarsica","a-medio-tarsica"],
+  dove:"Il tendine più mediale sul collo del piede, sotto i retinacoli, fino al primo cuneiforme e alla base del primo metatarso.",struttura:"Tendine robusto e superficiale, in guaina sinoviale sotto il retinacolo degli estensori.",
+  carico:"Frena la caduta del piede a ogni appoggio del tallone; nella discesa e nella marcia prolungata lavora in eccentrica continua.",
+  patologia:"Tendinopatia e tenosinovite: dolore e gonfiore sul dorso della caviglia mediale, peggiore in discesa; rottura (rara, negli anziani) con piede che «sbatte».",
+  test:"Dorsiflessione con inversione resistita dolorosa; crepitio sotto il retinacolo; palpazione del tendine sul collo del piede.",tratt:"Frizioni leggere sotto il retinacolo, lavoro sul ventre nella loggia anteriore, riduzione temporanea di discese e marce lunghe.",
+  segreto:"Allacciare le scarpe troppo strette sul collo del piede comprime esattamente questo tendine sotto il retinacolo: la «tendinite da lacci» esiste, e si cura allentando la scarpa. Chiedilo prima di trattare."},
+ {id:"d-glutei",nome:"Tendini dei glutei medio e minimo",lat:"Tendines mm. glutei medii et minimi",regione:"Anca",alias:["tendini glutei","tendinopatia glutea","sindrome dolorosa del grande trocantere","GTPS"],muscoli:["m-gluteo-medio","m-gluteo-piccolo"],art:["a-coxo-femorale"],
+  dove:"Sulla faccia laterale e anteriore del gran trocantere, come la cuffia dei rotatori dell'anca.",struttura:"Tendini piatti che si inseriscono su faccette distinte del trocantere, sotto la bandelletta e la borsa trocanterica.",
+  carico:"Tengono il bacino in ogni appoggio monopodalico: ottomila passi, ogni gradino, ogni volta che si sta su una gamba.",
+  patologia:"Tendinopatia glutea: la causa principale del dolore laterale d'anca, un tempo chiamato borsite trocanterica. Dolore sul trocantere, di notte sul fianco, salendo le scale e su una gamba sola.",
+  test:"Appoggio monopodalico 30 secondi doloroso; abduzione resistita dolorosa; dolore alla palpazione del trocantere; Trendelenburg.",tratt:"Nessuna compressione diretta in acuto; TFL e vasto laterale; rinforzo progressivo in abduzione; evitare adduzione (gambe accavallate, stretching del piriforme).",
+  segreto:"Si chiamava borsite e si curava con il cortisone nella borsa; oggi si sa che nell'80% dei casi è il tendine, e il cortisone lo indebolisce. La cura è il carico progressivo del gluteo medio e la fine delle posizioni in adduzione: niente gambe accavallate, cuscino fra le ginocchia la notte."}
+]);
+
+DB.borse = DB.borse.concat([
+ {id:"b-bicipitoradiale",nome:"Borsa bicipito-radiale",lat:"Bursa bicipitoradialis",regione:"Gomito",alias:["bicipito-radiale","borsa del bicipite"],art:["a-radio-ulnare","a-omero-radiale"],muscoli:["m-bicipite"],
+  dove:"Fra il tendine distale del bicipite e la tuberosità radiale, nella piega del gomito.",fra:"Fra tendine e osso, nel punto in cui il tendine si avvolge attorno al radio in pronazione.",
+  funzione:"Permette al tendine del bicipite di scorrere sulla tuberosità radiale a ogni prono-supinazione.",
+  borsite:"Dolore profondo nella piega del gomito, peggiore in pronazione forzata e flessione contro resistenza; a volte una tumefazione nel cavo cubitale.",
+  test:"Dolore alla pressione profonda nella piega del gomito con avambraccio pronato; supinazione resistita dolorosa.",tratt:"Riposo dalle prese ripetute in pronazione, lavoro sul ventre del bicipite e sul brachiale, mai pressione diretta in acuto.",
+  segreto:"Si infiamma in chi fa movimenti ripetuti di avvitamento con carico: cacciavite, massaggio con avambraccio in pronazione. È una delle poche borsiti professionali del massaggiatore, e si previene lavorando con l'avambraccio in posizione intermedia."},
+ {id:"b-gluteo-medio",nome:"Borse dei glutei medio e minimo",lat:"Bursae mm. glutei medii et minimi",regione:"Anca",alias:["borsa del gluteo medio","borsa del gluteo minimo","borse trocanteriche profonde"],art:["a-coxo-femorale"],muscoli:["m-gluteo-medio","m-gluteo-piccolo"],
+  dove:"Sotto i tendini del gluteo medio e minimo, fra tendine e trocantere, più profonde della borsa trocanterica.",fra:"Fra i tendini glutei e le faccette del trocantere.",
+  funzione:"Proteggono i tendini glutei dallo sfregamento sull'osso a ogni passo.",
+  borsite:"Fanno parte della sindrome dolorosa del grande trocantere: dolore laterale d'anca, notturno sul fianco, su una gamba sola.",
+  test:"Indistinguibili clinicamente dalla tendinopatia glutea; dolore alla palpazione del trocantere anteriore e laterale.",tratt:"Come la tendinopatia glutea: niente compressione in acuto, carico progressivo del gluteo medio, evitare l'adduzione.",
+  segreto:"L'ecografia mostra che quando queste borse sono gonfie, i tendini sopra sono quasi sempre degenerati: la borsa è il sintomo, il tendine la causa. Trattare la borsa con il ghiaccio e trascurare il tendine significa rivedere il cliente fra tre mesi."},
+ {id:"b-infrapatellare-profonda",nome:"Borsa infrapatellare profonda",lat:"Bursa infrapatellaris profunda",regione:"Ginocchio",alias:["infrapatellare profonda","borsa sotto il tendine rotuleo"],art:["a-femoro-rotulea","a-femoro-tibiale"],muscoli:["m-quadricipite"],
+  dove:"Fra il tendine rotuleo e la tibia, subito sopra la tuberosità tibiale.",fra:"Fra tendine e osso, dietro il tendine rotuleo.",
+  funzione:"Permette al tendine rotuleo di scorrere sulla tibia in flessione profonda.",
+  borsite:"Dolore ai lati del tendine rotuleo, sotto la rotula, in flessione profonda e inginocchiandosi; si confonde con la tendinopatia rotulea.",
+  test:"Dolore alla pressione ai lati del tendine rotuleo appena sopra la tuberosità, che non cambia con la contrazione isometrica (a differenza del tendine).",tratt:"Riposo dalla flessione profonda, lavoro sul quadricipite, niente frizioni sul tendine se è la borsa.",
+  segreto:"La distinzione dal tendine è la stessa regola di sempre: il tendine fa male contraendo, la borsa fa male premendo. Due dita ai lati del tendine rotuleo, sopra la tuberosità: se lì è dolente e il quadricipite contratto non peggiora, è la borsa."}
+]);
+
+DB.fasce = DB.fasce.concat([
+ {id:"f-brachiale",nome:"Fascia pettorale, brachiale e antibrachiale",lat:"Fascia pectoralis, fascia brachii, fascia antebrachii",regione:"Arto superiore",alias:["fascia brachiale","fascia antibrachiale","fascia pettorale","logge del braccio","logge dell'avambraccio"],
+  dove:"La fascia pettorale riveste il grande pettorale e continua nella fascia del braccio, che avvolge bicipite e tricipite separandoli con i due setti intermuscolari; prosegue nella fascia dell'avambraccio, ispessita ai polsi nei retinacoli.",
+  contiene:"Il lacerto fibroso del bicipite si fonde con la fascia antibrachiale; il nervo ulnare passa nel setto mediale, il radiale buca quello laterale.",
+  funzione:"Trasmette la forza del bicipite all'avambraccio attraverso il lacerto, contiene i muscoli, guida le linee del braccio di Myers.",
+  tecnica:"Scivolamenti lunghi lungo i setti (solco fra bicipite e tricipite), apertura del lacerto nella piega del gomito, lavoro sui retinacoli.",
+  segreto:"Il lacerto fibroso è il motivo per cui il bicipite flette anche se il suo tendine è rotto: scarica sulla fascia dell'avambraccio. Ed è il punto in cui la Linea Superficiale Frontale del Braccio passa dal braccio alla mano senza interrompersi."}
+]);
 </script>
 <script>
 /* =========================================================
@@ -5921,9 +6464,10 @@ vistaConsulto = function(arg){
   const q=arg? decodeURIComponent(arg) : "";
   const haKey=aiHaKey();
   const pulsante = haKey
-    ? '<button class="btn primary" data-act="cons-ai">✦ Ragiona con Claude</button>'
-    : '<button class="btn" data-go="studio/" title="Serve una chiave API">✦ Ragiona con Claude (attiva nel tuo studio)</button>';
-  h=h.replace('<button class="btn primary" data-act="cons-go">Analizza</button>', pulsante+'<button class="btn" data-act="cons-go">Confronta con i quadri</button>');
+    ? '<button class="btn primary" data-act="cons-ai">✦ Ragiona con Claude</button><button class="btn" data-act="cons-go">Analizza senza Claude</button>'
+    : '<button class="btn primary" data-act="cons-go">Analizza</button>';
+  h=h.replace('<button class="btn primary" data-act="cons-go">Analizza</button>', pulsante);
+  if(!haKey) h=h.replace('</div><div class="chips">','</div><p style="margin:0;font-size:12px;color:var(--faint)">Vuoi che ragioni sulla frase con l\'intelligenza artificiale? <button class="lk" data-go="studio/">Attiva Claude nel tuo studio</button></p><div class="chips">');
   if(q){
     const idx=h.indexOf('<div class="cons-res">');
     const regione=consRegioneHTML(q);
@@ -6319,40 +6863,108 @@ collegamenti = function(kind,it){
 <style>
 .toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:9px 14px;border-radius:999px;font-size:13px;z-index:300;box-shadow:var(--shadow);opacity:0;transition:opacity .2s}
 .toast.on{opacity:1}
+.sh-back{position:fixed;inset:0;z-index:250;background:rgba(10,14,13,.55);display:flex;align-items:flex-end;justify-content:center}
+.sh{width:100%;max-width:520px;background:var(--surface);border-radius:18px 18px 0 0;padding:14px 16px calc(18px + env(safe-area-inset-bottom,0px));box-shadow:0 -10px 40px rgba(0,0,0,.3);display:flex;flex-direction:column;gap:10px}
+.sh h3{font-size:16px}
+.sh .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sh-btn{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);font-size:12px;text-align:center}
+.sh-btn:hover{border-color:var(--fascia)}
+.sh-btn .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;color:#fff;font-weight:600;font-size:15px}
+.sh-prev{border:1px solid var(--line-soft);border-radius:10px;padding:10px 12px;font-size:12.5px;color:var(--muted);background:var(--surface-2);max-height:110px;overflow:auto;white-space:pre-wrap}
+.sh-img{display:none}
 </style>
 <script>
 /* =========================================================
-   CONDIVIDI — ogni scheda ha un indirizzo e si manda con un tocco.
+   CONDIVIDI — manda la scheda a un cliente, su WhatsApp, nello stato, per mail.
    ========================================================= */
-function urlScheda(kind,id){
-  const base=location.href.split("#")[0];
-  return base+"#/"+kind+"/"+id;
-}
+function urlScheda(kind,id){ return location.href.split("#")[0]+"#/"+kind+"/"+id; }
 function toast(msg){
   let t=document.querySelector(".toast"); if(!t){ t=el("div","toast"); document.body.appendChild(t); }
   t.textContent=msg; requestAnimationFrame(()=>t.classList.add("on"));
   clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("on"),2200);
 }
-async function condividi(kind,id){
-  const r=anyById(id); if(!r) return;
-  const nome=r.item.nome||r.item.voce;
-  const url=urlScheda(kind,id);
-  const testo=nome+" — Tavola Viva, "+KINDS[kind].label.toLowerCase();
-  if(navigator.share){
-    try{ await navigator.share({title:nome,text:testo,url:url}); return; }catch(e){ if(e&&e.name==="AbortError") return; }
+/* testo della scheda in forma di messaggio */
+function testoCondivisione(kind,it,id){
+  const nome=it.nome||it.voce;
+  const bl=renderBlocchi(blocchi(kind,it),id).speak;
+  const corpo=bl.slice(0,4).join(" ").replace(/^(Origine|Inserzione|Dove si trova e come si palpa|In due righe|Che cos'è|Dove si trova)[:.]\s*/i,"");
+  const seg=it.segreto? "\n\n◆ Il segreto del mestiere: "+it.segreto : "";
+  return nome.toUpperCase()+"\n"+(it.lat?it.lat+"\n":"")+"\n"+corpo.slice(0,420)+(corpo.length>420?"…":"")+seg+"\n\nTavola Viva · Kinesiologia Studio\n"+urlScheda(kind,id);
+}
+/* immagine della scheda (per lo stato di WhatsApp, Instagram, ecc.) */
+function wrapLines(ctx,text,maxW){
+  const out=[]; text.split("\n").forEach(par=>{ let line=""; par.split(" ").forEach(w=>{ const t=line?line+" "+w:w; if(ctx.measureText(t).width>maxW && line){ out.push(line); line=w; } else line=t; }); out.push(line); });
+  return out;
+}
+async function immagineScheda(kind,it,id){
+  const W=1080, pad=72, c=document.createElement("canvas"); c.width=W; c.height=1350; const x=c.getContext("2d");
+  x.fillStyle="#EEF1F0"; x.fillRect(0,0,W,c.height);
+  x.fillStyle="#2F7A74"; x.fillRect(0,0,W,14);
+  x.fillStyle="#8A9996"; x.font="500 26px Archivo, Arial, sans-serif"; x.fillText(("Tavola Viva · "+KINDS[kind].label).toUpperCase(),pad,90);
+  x.fillStyle="#141D1C"; x.font="600 64px Newsreader, Georgia, serif";
+  let y=170; wrapLines(x,it.nome||it.voce,W-2*pad).forEach(l=>{ x.fillText(l,pad,y); y+=72; });
+  if(it.lat){ x.fillStyle="#5B6B68"; x.font="italic 32px Newsreader, Georgia, serif"; x.fillText(it.lat,pad,y+6); y+=56; }
+  y+=24; x.fillStyle="#141D1C"; x.font="400 32px Archivo, Arial, sans-serif";
+  const bl=renderBlocchi(blocchi(kind,it),id).speak; const corpo=bl.slice(0,3).join(" ");
+  wrapLines(x,corpo,W-2*pad).slice(0,9).forEach(l=>{ x.fillText(l,pad,y); y+=46; });
+  if(it.segreto){
+    y+=30; const h0=y;
+    const lines=wrapLines(x,it.segreto,W-2*pad-48).slice(0,9);
+    x.fillStyle="#F4E9D2"; x.fillRect(pad,y-10,W-2*pad,lines.length*44+70);
+    x.fillStyle="#A9760E"; x.font="600 24px Archivo, Arial, sans-serif"; x.fillText("◆ IL SEGRETO DEL MESTIERE",pad+24,y+28); y+=70;
+    x.fillStyle="#141D1C"; x.font="400 30px Archivo, Arial, sans-serif"; lines.forEach(l=>{ x.fillText(l,pad+24,y); y+=44; });
   }
-  try{ await navigator.clipboard.writeText(url); toast("Link copiato: incollalo dove vuoi"); }
-  catch(e){ prompt("Copia il link della scheda:",url); }
+  x.fillStyle="#2F7A74"; x.fillRect(0,c.height-120,W,120);
+  x.fillStyle="#fff"; x.font="600 30px Archivo, Arial, sans-serif"; x.fillText("Tavola Viva · Kinesiologia Studio",pad,c.height-66);
+  x.font="400 24px Archivo, Arial, sans-serif"; x.fillText(urlScheda(kind,id).replace(/^https?:\/\//,""),pad,c.height-30);
+  return new Promise(r=>c.toBlob(b=>r(b),"image/png"));
+}
+async function condividiImmagine(kind,it,id){
+  toast("Preparo l'immagine…");
+  const blob=await immagineScheda(kind,it,id);
+  const file=new File([blob],(it.nome||it.voce).replace(/[^\w\s-]/g,"").trim().replace(/\s+/g,"-")+".png",{type:"image/png"});
+  if(navigator.canShare && navigator.canShare({files:[file]})){
+    try{ await navigator.share({files:[file],title:it.nome||it.voce,text:"Tavola Viva · "+(it.nome||it.voce)}); return; }catch(e){ if(e&&e.name==="AbortError") return; }
+  }
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=file.name; document.body.appendChild(a); a.click(); a.remove();
+  toast("Immagine scaricata: la trovi nei download");
+}
+function apriCondivisione(kind,id){
+  const r=anyById(id); if(!r) return;
+  const it=r.item, nome=it.nome||it.voce, url=urlScheda(kind,id), testo=testoCondivisione(kind,it,id);
+  const enc=encodeURIComponent(testo);
+  const ic=(bg,t)=>'<span class="ic" style="background:'+bg+'">'+t+'</span>';
+  const back=el("div","sh-back",
+    '<div class="sh" role="dialog" aria-label="Condividi"><h3>Condividi «'+esc(nome)+'»</h3>'+
+    '<div class="sh-prev">'+esc(testo)+'</div>'+
+    '<div class="grid">'+
+      '<a class="sh-btn" href="https://wa.me/?text='+enc+'" target="_blank" rel="noopener">'+ic("#25D366","W")+'WhatsApp</a>'+
+      '<a class="sh-btn" href="https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(testo.replace(url,"").trim())+'" target="_blank" rel="noopener">'+ic("#2AABEE","T")+'Telegram</a>'+
+      '<a class="sh-btn" href="mailto:?subject='+encodeURIComponent(nome+" — Tavola Viva")+'&body='+enc+'">'+ic("#5B6B68","@")+'E-mail</a>'+
+      '<button class="sh-btn" data-sh="img">'+ic("#A62B3F","IMG")+'Immagine<br>per lo stato</button>'+
+      '<button class="sh-btn" data-sh="copia">'+ic("#3E5F93","⎘")+'Copia testo<br>e link</button>'+
+      '<button class="sh-btn" data-sh="sys">'+ic("#2F7A74","⇪")+'Altre app</button>'+
+    '</div>'+
+    '<button class="btn sm" data-sh="chiudi" style="align-self:center">Chiudi</button></div>');
+  back.addEventListener("click",async e=>{
+    const b=e.target.closest("[data-sh]"); if(!b){ if(e.target===back) back.remove(); return; }
+    const t=b.getAttribute("data-sh");
+    if(t==="chiudi") back.remove();
+    else if(t==="copia"){ try{ await navigator.clipboard.writeText(testo); toast("Copiato: incollalo in WhatsApp o dove vuoi"); }catch(x){ prompt("Copia il testo:",testo); } }
+    else if(t==="img"){ await condividiImmagine(kind,it,id); }
+    else if(t==="sys"){ if(navigator.share){ try{ await navigator.share({title:nome,text:testo}); }catch(x){} } else toast("Usa WhatsApp, Telegram o Copia"); }
+  });
+  document.body.appendChild(back);
 }
 document.addEventListener("click",e=>{
   const b=e.target.closest("[data-act='condividi']"); if(!b) return;
-  condividi(b.getAttribute("data-kind"),b.getAttribute("data-id"));
+  apriCondivisione(b.getAttribute("data-kind"),b.getAttribute("data-id"));
 });
 const _vistaScheda_conCondividi = vistaScheda;
 vistaScheda = function(kind,id){
   return _vistaScheda_conCondividi(kind,id).replace(
     '<button class="btn'+((S.done.includes(id))?' on':'')+'" data-act="fatto"',
-    '<button class="btn" data-act="condividi" data-kind="'+kind+'" data-id="'+id+'" title="Manda il link di questa scheda">⇪ Condividi</button>'+
+    '<button class="btn" data-act="condividi" data-kind="'+kind+'" data-id="'+id+'" title="Manda questa scheda">⇪ Condividi</button>'+
     '<button class="btn'+((S.done.includes(id))?' on':'')+'" data-act="fatto"');
 };
 </script>
