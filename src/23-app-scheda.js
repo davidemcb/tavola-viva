@@ -114,6 +114,8 @@ function renderBlocchi(bs,selfId){
     }).join(" ");
   bs.forEach(b=>{
     if(b.t==="dl"){
+      if(!b.voci||!b.voci.filter(v=>v&&v[1]).length) return;
+      if(b.h) html+='<div class="seg" style="margin:10px 0 7px">'+esc(b.h)+'</div>';
       html+='<dl class="dl">'+b.voci.filter(v=>v[1]).map(v=>
         '<dt>'+esc(v[0])+'</dt><dd>'+sp(spezza(v[1]),v[0]+":")+'</dd>').join("")+'</dl>';
     } else if(b.t==="p"){
