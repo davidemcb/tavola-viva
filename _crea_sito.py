@@ -52,11 +52,11 @@ if("serviceWorker" in navigator && location.protocol.indexOf("http")===0){
 io.open("src/99-doc-foot.html", "w", encoding="utf-8").write("</body>\n</html>\n")
 
 files = ["00-doc-head.html","01-head.html","01b-head-close.html","02-shell.html","10-data-ossa.js","10b-data-articolazioni2.js","11-data-nervi.js",
- "12-data-muscoli-a.js","13-data-muscoli-b.js","14-data-muscoli-c.js","12b-data-muscoli-d.js","12c-data-muscoli-e.js","12d-data-muscoli-f.js","12e-data-muscoli-g.js","15-data-catene.js","16-data-movimenti.js",
+ "12-data-muscoli-a.js","13-data-muscoli-b.js","14-data-muscoli-c.js","12b-data-muscoli-d.js","12c-data-muscoli-e.js","12d-data-muscoli-f.js","12e-data-muscoli-g.js","15-data-catene.js","16-data-movimenti.js","16b-data-movimenti2.js",
  "17-data-problemi-a.js","18-data-problemi-b.js","17b-data-problemi-c.js","19-data-arterie.js","19b-data-nervi2.js","19c-data-legamenti.js","19d-data-fasce-tipi.js",
  "19e-data-plessi.js","19f-data-borse.js","19g-data-tendini.js","20-app-core.js","20b-app-link.js","21-app-audio.js","22-app-views.js",
  "23-app-scheda.js","30-tavole-a.js","31-tavole-b.js","32-tavole-render.js","33-cranio-e-tavole.js","34-disegni-muscoli.js",
- "36-immagini-render.js","35-immagini-mappa.js","41-immagini-file.js","37-nuovi-muscoli-tavole.js","98-sito.js","25-consulto.js","26-allegati.js","27-consulto-ai.js","24-app-router.js","99-doc-foot.html"]
+ "36-immagini-render.js","35-immagini-mappa.js","41-immagini-file.js","37-nuovi-muscoli-tavole.js","38-catene-myers.js","98-sito.js","25-consulto.js","26-allegati.js","27-consulto-ai.js","24-app-router.js","99-doc-foot.html"]
 io.open("build.sh", "w", encoding="utf-8").write(
     '#!/bin/sh\n# Ricompila index.html dai sorgenti in src/\ncd "$(dirname "$0")"\ncat ' + " ".join("src/" + f for f in files) +
     ' > index.html\necho "index.html: $(wc -c < index.html) byte"\n')
