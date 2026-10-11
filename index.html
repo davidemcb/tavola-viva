@@ -1178,6 +1178,403 @@ DB.muscoli = DB.muscoli.concat([
 ]);
 </script>
 <script>
+/* Muscoli — parte 5: collo profondo, dorso profondo, tronco, pelvi. */
+DB.muscoli = DB.muscoli.concat([
+
+ {id:"m-splenio",nome:"Splenio del capo e del collo",lat:"Mm. splenius capitis et cervicis",gruppo:"Collo",vista:"post",path:"M96,56 L88,70",w:6,alias:["splenio","spleni"],
+  origine:"Legamento nucale e processi spinosi da C7 a T6.",
+  inserzione:"Splenio del capo: processo mastoideo e linea nucale superiore. Splenio del collo: processi trasversi di C1–C3.",
+  ossaO:["o-vertebre-c","o-vertebre-t"],ossaI:["o-temporale","o-cranio","o-vertebre-c"],nervi:["Rami posteriori dei nervi cervicali (C2–C6)"],
+  vascol:"Arteria occipitale e cervicale profonda.",
+  azioni:["Estende la testa e il collo","Ruota e inclina la testa dallo stesso lato","Antagonista dello sternocleidomastoideo nella rotazione"],
+  articolazioni:["a-occipito-atlantoidea","a-intervertebrale"],catene:["c-spirale","c-laterale"],
+  palpazione:"Sotto il trapezio superiore, nel triangolo fra trapezio, sternocleidomastoideo ed elevatore della scapola: la persona ruota la testa dallo stesso lato contro una leggera resistenza e il ventre si tende sotto il dito.",
+  trigger:"Dolore al vertice del capo (splenio del capo) e dolore «dentro la testa» verso l'occhio, con visione offuscata (splenio del collo).",
+  massaggio:"Pressione sostenuta con la testa ruotata leggermente dal lato opposto; mai pressione forte verso i processi trasversi.",
+  segreto:"È il primo anello della Linea Spirale: dal cranio si incrocia con i romboidi del lato opposto. Un torcicollo che non risponde al lavoro sullo sternocleidomastoideo spesso è uno splenio: stesso movimento, lato opposto della testa."},
+
+ {id:"m-semispinale",nome:"Semispinale del capo, multifidi e rotatori",lat:"M. semispinalis capitis, mm. multifidi, mm. rotatores",gruppo:"Dorso (profondo)",vista:"post",path:"M98,60 L96,190",w:5,alias:["semispinale","multifido","multifidi","rotatori","trasverso-spinali","trasversospinali"],
+  origine:"Processi trasversi delle vertebre (strato trasverso-spinale), dal sacro fino a C2.",
+  inserzione:"Processi spinosi delle vertebre soprastanti: i rotatori saltano 1–2 vertebre, i multifidi 2–4, il semispinale 5–6 fino all'occipite.",
+  ossaO:["o-sacro","o-vertebre-l","o-vertebre-t","o-vertebre-c"],ossaI:["o-vertebre-t","o-vertebre-c","o-cranio"],nervi:["Rami posteriori dei nervi spinali"],
+  vascol:"Rami dorsali delle arterie intercostali e lombari.",
+  azioni:["Stabilizzano ogni singolo segmento vertebrale","Estensione fine e rotazione verso il lato opposto","Il semispinale del capo estende la testa: è il muscolo più spesso della nuca"],
+  articolazioni:["a-intervertebrale","a-zigoapofisarie"],catene:["c-sbl"],
+  palpazione:"Multifidi lombari: nella doccia subito a lato dei processi spinosi di L4–L5, sotto gli erettori. Semispinale: le due colonne verticali della nuca ai lati della linea mediana.",
+  trigger:"Multifidi: dolore locale profondo, puntiforme, sopra la vertebra, che la persona indica con un dito. Semispinale: cefalea a fascia dalla nuca alla fronte.",
+  massaggio:"Pressione lenta e profonda nella doccia paravertebrale, un segmento per volta; sulla nuca presa a pinza con la testa sostenuta.",
+  segreto:"Dopo un episodio di lombalgia i multifidi del segmento colpito si atrofizzano in pochi giorni e non si riprendono da soli, anche quando il dolore passa. È uno dei motivi delle recidive: il segmento resta senza il suo stabilizzatore locale. Riattivarli con esercizi a bassa intensità è parte del trattamento, non un'aggiunta."},
+
+ {id:"m-lungo-collo",nome:"Lungo del collo e lungo del capo",lat:"Mm. longus colli et longus capitis",gruppo:"Collo (profondo)",vista:"ant",path:"M98,58 L97,78",w:4,alias:["lungo del collo","lungo del capo","prevertebrali","flessori profondi del collo"],
+  origine:"Corpi e processi trasversi delle vertebre da C3 a T3.",
+  inserzione:"Arco anteriore dell'atlante, corpi delle vertebre cervicali superiori (lungo del collo); faccia inferiore dell'occipite (lungo del capo).",
+  ossaO:["o-vertebre-c","o-vertebre-t"],ossaI:["o-vertebre-c","o-cranio"],nervi:["Rami anteriori dei nervi cervicali (C1–C6)"],
+  vascol:"Arteria vertebrale e cervicale ascendente.",
+  azioni:["Flettono il collo e la testa (retrazione del mento)","Stabilizzano la colonna cervicale dall'avanti","Contrastano la lordosi cervicale eccessiva"],
+  articolazioni:["a-intervertebrale","a-occipito-atlantoidea"],catene:["c-profonda"],
+  palpazione:"Non si palpano direttamente: stanno davanti alle vertebre, dietro la faringe. Si valuta la loro funzione con il test della retrazione del mento in supino (tenere la testa sollevata di un centimetro, mento rientrato, senza che scatti lo sternocleidomastoideo).",
+  trigger:"Non danno trigger classici; la loro debolezza accompagna quasi tutte le cervicalgie croniche e il colpo di frusta.",
+  massaggio:"Non si trattano manualmente. Si riattivano con il test stesso: retrazione del mento, dieci secondi per dieci volte.",
+  segreto:"Sono il «trasverso dell'addome del collo»: il corsetto profondo. Nella cervicalgia cronica sono deboli e lo sternocleidomastoideo lavora al posto loro. Il test cranio-cervicale (tenere il mento rientrato senza che il collo scatti in avanti) dice in dieci secondi se la persona ha un collo che si regge da dentro o da fuori."},
+
+ {id:"m-platisma",nome:"Platisma",lat:"Platysma",gruppo:"Collo",vista:"ant",path:"M94,58 L80,80",w:5,alias:["platisma"],
+  origine:"Fascia della parte superiore del torace e della spalla, a livello della seconda costa.",
+  inserzione:"Margine inferiore della mandibola e cute della parte bassa del viso.",
+  ossaO:["o-clavicola"],ossaI:["o-mandibola"],nervi:["Ramo cervicale del nervo facciale (VII)"],
+  vascol:"Rami dell'arteria facciale e cervicale trasversa.",
+  azioni:["Tende la pelle del collo","Abbassa la mandibola e gli angoli della bocca","È un muscolo mimico (espressione di sforzo o disgusto)"],
+  articolazioni:["a-atm"],catene:["c-sfl"],
+  palpazione:"Chiedi di tendere il collo mostrando i denti inferiori: il platisma si disegna come una sottile lamina sotto la pelle, dalla clavicola alla mandibola.",
+  trigger:"Sensazione di pizzicore o formicolio sulla parte anteriore del collo e sul mento.",
+  massaggio:"Scivolamenti leggerissimi dal basso verso l'alto, a mani piatte: è una lamina sottocutanea, non un ventre da impastare.",
+  segreto:"È innervato dal nervo facciale, non da nervi del collo: è un muscolo del viso che è scivolato in basso. Per questo si contrae con le emozioni e per questo chi vive in tensione ha un collo «tirato» anche a riposo. Il massaggio del collo anteriore comincia da qui."},
+
+ {id:"m-sopraioidei",nome:"Muscoli sopraioidei",lat:"Mm. digastricus, mylohyoideus, geniohyoideus, stylohyoideus",gruppo:"Collo",vista:"ant",path:"M90,52 L98,56",w:4,alias:["sopraioidei","sovraioidei","digastrico","miloioideo","genioioideo","stiloioideo"],
+  origine:"Mandibola (miloioideo, genioioideo, ventre anteriore del digastrico), processo mastoideo e stiloideo (ventre posteriore del digastrico, stiloioideo).",
+  inserzione:"Osso ioide.",
+  ossaO:["o-mandibola","o-temporale"],ossaI:["o-ioide"],nervi:["Nervi trigemino (V3), facciale (VII) e ipoglosso (XII) tramite C1"],
+  vascol:"Arteria facciale e linguale.",
+  azioni:["Sollevano lo ioide nella deglutizione","Abbassano la mandibola (apertura della bocca) quando lo ioide è fisso","Formano il pavimento della bocca"],
+  articolazioni:["a-atm"],catene:["c-profonda"],
+  palpazione:"Sotto il mento, fra la mandibola e l'osso ioide: con la bocca che si apre contro una leggera resistenza il pavimento si indurisce.",
+  trigger:"Dolore alla lingua, difficoltà a deglutire, sensazione di nodo in gola; il digastrico posteriore riferisce dietro l'orecchio e sullo sternocleidomastoideo.",
+  massaggio:"Dita piatte sotto il mento, pressione leggera verso l'alto, in sincronia con una deglutizione; il ventre posteriore si raggiunge dietro l'angolo della mandibola con estrema cautela.",
+  segreto:"Aprire la bocca non è solo lasciarla cadere: sono i sopraioidei a tirarla giù. Chi tiene la mandibola serrata li tiene allungati e deboli, e si ritrova con il click dell'ATM e la gola «stretta». Un'anamnesi di reflusso, voce affaticata o difficoltà a inghiottire porta qui, non alla gola."},
+
+ {id:"m-sottoioidei",nome:"Muscoli sottoioidei",lat:"Mm. sternohyoideus, omohyoideus, sternothyroideus, thyrohyoideus",gruppo:"Collo",vista:"ant",path:"M98,62 L97,80",w:4,alias:["sottoioidei","infraioidei","sternoioideo","omoioideo","sternotiroideo","tiroioideo"],
+  origine:"Manubrio dello sterno, clavicola, margine superiore della scapola (omoioideo), cartilagine tiroidea.",
+  inserzione:"Osso ioide e cartilagine tiroidea.",
+  ossaO:["o-sterno","o-clavicola","o-scapola"],ossaI:["o-ioide"],nervi:["Ansa cervicale (C1–C3)"],
+  vascol:"Arteria tiroidea superiore.",
+  azioni:["Abbassano lo ioide e la laringe dopo la deglutizione","Fissano lo ioide per permettere ai sopraioidei di aprire la bocca","L'omoioideo tende la fascia cervicale media"],
+  articolazioni:["a-atm"],catene:["c-profonda"],
+  palpazione:"Ai lati della linea mediana del collo anteriore, sopra lo sterno. L'omoioideo si sente come una cordicella obliqua che attraversa il triangolo posteriore del collo.",
+  trigger:"Dolore e senso di costrizione alla gola, voce che si stanca, fastidio nel cantare o parlare a lungo.",
+  massaggio:"Scivolamenti leggeri verticali ai lati della trachea, mai sulla linea mediana e mai in profondità (tiroide, carotide).",
+  segreto:"L'omoioideo è il muscolo più strano del collo: nasce dalla scapola, passa sotto lo sternocleidomastoideo ed è trattenuto da una puleggia fasciale. Quando la scapola è protratta lo tira e la gola si sente «tirata». È uno dei motivi per cui raddrizzare le spalle cambia la voce."},
+
+ {id:"m-mimici",nome:"Muscoli mimici del viso",lat:"Mm. faciei (occipitofrontalis, orbicularis oculi et oris, buccinator, zygomatici)",gruppo:"Testa",vista:"ant",path:"M94,30 L92,48",w:4,alias:["mimici","occipitofrontale","frontale","orbicolare","buccinatore","zigomatico"],
+  origine:"Dalle ossa del viso e dalla fascia epicranica.",
+  inserzione:"Nella cute: sono gli unici muscoli che muovono la pelle invece delle ossa.",
+  ossaO:["o-frontale","o-zigomatico","o-mascellare","o-mandibola"],ossaI:[],nervi:["Nervo facciale (VII), tutti i rami"],
+  vascol:"Arteria facciale e temporale superficiale.",
+  azioni:["Espressione del viso","Chiusura degli occhi e della bocca","Il buccinatore tiene il cibo fra i denti e permette di soffiare","L'occipitofrontale muove il cuoio capelluto e solleva le sopracciglia"],
+  articolazioni:["a-atm"],catene:["c-sbl"],
+  palpazione:"Fronte, tempie, zigomi e contorno della bocca con polpastrelli piatti; il buccinatore si prende a pinza fra dito interno (con guanto) ed esterno, nella guancia.",
+  trigger:"Orbicolare dell'occhio: dolore sopra il naso e «gocciolamento» dell'occhio. Zigomatici: dolore lungo il naso e sotto l'occhio. Occipitofrontale: cefalea frontale.",
+  massaggio:"Manovre leggere di scivolamento e sollevamento, dal centro verso l'esterno, nel senso delle fibre; sulla fronte verso l'alto.",
+  segreto:"Il ventre frontale e quello occipitale sono lo stesso muscolo, uniti dalla galea: aggrottare la fronte tira la nuca. La fascia epicranica è il capolinea della Linea Superficiale Posteriore, quindi il massaggio del viso scioglie la nuca. È il modo più gentile di cominciare un trattamento cervicale."},
+
+ {id:"m-succlavio",nome:"Succlavio",lat:"M. subclavius",gruppo:"Cingolo scapolare",vista:"ant",path:"M88,70 L74,78",w:4,alias:["succlavio","subclavio"],
+  origine:"Prima costa e sua cartilagine.",inserzione:"Faccia inferiore del terzo medio della clavicola.",
+  ossaO:["o-coste"],ossaI:["o-clavicola"],nervi:["Nervo succlavio (C5–C6)"],
+  vascol:"Arteria toraco-acromiale (ramo clavicolare).",
+  azioni:["Abbassa e stabilizza la clavicola","Protegge i vasi succlavi sotto la clavicola","Partecipa alla depressione della spalla"],
+  articolazioni:["a-sterno-claveare","a-acromion-claveare"],catene:["c-braccio-ant-prof"],
+  palpazione:"Sotto la clavicola, fra clavicola e prima costa, lateralmente allo sterno: un piccolo ventre molto sensibile che si raggiunge spingendo il dito verso l'alto sotto l'osso.",
+  trigger:"Dolore sotto la clavicola che scende lungo il lato anteriore del braccio fino a pollice e indice, come un falso tunnel carpale.",
+  massaggio:"Pressione lenta sotto la clavicola, con la spalla sostenuta in leggera elevazione; attenzione a vasi e plesso che passano subito sotto.",
+  segreto:"Nessuno lo conosce, e invece è il muscolo chiave dello spazio costo-clavicolare: quando è corto tira la clavicola sulla prima costa e chiude il passaggio di vasi e nervi. Nelle spalle chiuse con formicolio alla mano, dopo il piccolo pettorale guarda qui."},
+
+ {id:"m-intercostali",nome:"Muscoli intercostali",lat:"Mm. intercostales externi et interni",gruppo:"Torace",vista:"ant",path:"M78,96 L80,140",w:5,alias:["intercostali","intercostale"],
+  origine:"Margine inferiore di ogni costa.",inserzione:"Margine superiore della costa sottostante; gli esterni con fibre oblique in basso e in avanti, gli interni in basso e indietro.",
+  ossaO:["o-coste"],ossaI:["o-coste"],nervi:["n-intercostali"],
+  vascol:"Arterie intercostali.",
+  azioni:["Esterni: sollevano le coste nell'inspirazione","Interni: abbassano le coste nell'espirazione forzata","Rendono rigida la parete toracica e trasmettono i movimenti respiratori"],
+  articolazioni:["a-costo-vertebrale","a-costo-sternale"],catene:["c-laterale"],
+  palpazione:"Negli spazi fra le coste, sul fianco, con il polpastrello che appoggia sul bordo superiore della costa sottostante e non su quello inferiore (dove passa il fascio vascolo-nervoso).",
+  trigger:"Dolore puntiforme fra due coste, che peggiora con il respiro profondo, la tosse e la torsione del tronco.",
+  massaggio:"Manovre con un dito lungo lo spazio intercostale, in espirazione, dal dorso verso lo sterno; sul bordo superiore della costa sotto.",
+  segreto:"Ogni spazio intercostale è un piccolo muscolo con un proprio nervo: una contrattura intercostale dà un dolore «a cintura» che spaventa, perché sembra cardiaco o pleurico. La differenza: quello muscolare si riproduce premendo e cambia con il respiro. Ma la regola resta: dolore toracico nuovo, prima si esclude il cuore."},
+
+ {id:"m-dentato-post",nome:"Dentato posteriore superiore e inferiore",lat:"Mm. serratus posterior superior et inferior",gruppo:"Dorso",vista:"post",path:"M92,84 L80,96 M92,150 L78,160",w:5,alias:["dentato posteriore","serrato posteriore"],
+  origine:"Superiore: legamento nucale e processi spinosi C7–T3. Inferiore: processi spinosi T11–L2 tramite la fascia toraco-lombare.",
+  inserzione:"Superiore: coste 2–5. Inferiore: coste 9–12.",
+  ossaO:["o-vertebre-c","o-vertebre-t","o-vertebre-l"],ossaI:["o-coste"],nervi:["n-intercostali"],
+  vascol:"Arterie intercostali posteriori.",
+  azioni:["Superiore: solleva le coste alte (inspirazione)","Inferiore: abbassa e fissa le coste basse, dando un punto fisso al diaframma","Insieme tendono la fascia toraco-lombare"],
+  articolazioni:["a-costo-vertebrale"],catene:["c-spirale"],
+  palpazione:"Superiore: sotto i romboidi, all'angolo superiore della scapola. Inferiore: sotto il gran dorsale, sulle ultime coste.",
+  trigger:"Superiore: dolore profondo sotto la scapola, come un peso, che non cambia con il movimento del braccio. Inferiore: dolore sordo sulle ultime coste, fastidioso nei respiri profondi.",
+  massaggio:"Si raggiungono attraverso i muscoli superficiali: pressione lenta e sostenuta, con il braccio del cliente posizionato per scoprire la zona.",
+  segreto:"Il dolore «sotto la scapola, dentro» che nessuno trova è spesso il dentato posteriore superiore, nascosto sotto romboidi e scapola. Si tratta con la scapola spostata in avanti: braccio del cliente che pende dal lettino e scapola che scivola di lato. Allora il muscolo è lì, sotto le dita."},
+
+ {id:"m-pavimento-pelvico",nome:"Pavimento pelvico (elevatore dell'ano)",lat:"M. levator ani, m. coccygeus, diaphragma pelvis",gruppo:"Pelvi",vista:"ant",path:"M92,204 L108,204",w:4,noMirror:true,alias:["pavimento pelvico","elevatore dell'ano","diaframma pelvico","perineo","coccigeo"],
+  origine:"Faccia interna del pube, arco tendineo della fascia pelvica, spina ischiatica.",
+  inserzione:"Coccige, legamento ano-coccigeo, pareti del retto e dell'uretra.",
+  ossaO:["o-ileo"],ossaI:["o-sacro"],nervi:["Rami diretti di S3–S4 e nervo pudendo"],
+  vascol:"Arterie pudende interne.",
+  azioni:["Sostiene i visceri pelvici","Continenza urinaria e fecale","Stabilizza il bacino insieme a trasverso e diaframma: è il fondo del «cilindro» del core","Partecipa alla funzione sessuale e al parto"],
+  articolazioni:["a-sacro-coccigea","a-sacro-iliaca"],catene:["c-profonda"],
+  palpazione:"Non rientra nel massaggio generale: la valutazione interna è di competenza specialistica. Si osserva indirettamente: chiedi un'espirazione lenta e una contrazione «come per trattenere», e guarda che la pancia non si gonfi e i glutei non si stringano.",
+  trigger:"Dolore al coccige, al perineo, alla parte bassa del sacro; dolore da seduti; urgenza urinaria.",
+  massaggio:"Lavoro esterno sui muscoli vicini (otturatori, piriforme, adduttori, glutei) e sul respiro diaframmatico. Il resto è della fisioterapia specializzata.",
+  segreto:"Diaframma e pavimento pelvico si muovono insieme: quando inspiri il diaframma scende e il pavimento si abbassa; quando espiri risalgono entrambi. Chi respira in apnea ha un pavimento pelvico sempre contratto, e da lì nascono coccigodinie, dolori da seduti e lombalgie basse che nessuno collega al respiro."},
+
+ {id:"m-trasverso-torace",nome:"Trasverso del torace",lat:"M. transversus thoracis",gruppo:"Torace",vista:"ant",path:"M94,100 L86,124",w:4,alias:["trasverso del torace","triangolare dello sterno"],
+  origine:"Faccia posteriore del corpo dello sterno e del processo xifoideo.",inserzione:"Cartilagini costali dalla 2ª alla 6ª, sulla faccia interna.",
+  ossaO:["o-sterno"],ossaI:["o-coste"],nervi:["n-intercostali"],
+  vascol:"Arteria toracica interna.",
+  azioni:["Abbassa le cartilagini costali nell'espirazione","Stabilizza lo sterno","Lavora con il trasverso dell'addome come un'unica lamina espiratoria"],
+  articolazioni:["a-costo-sternale"],catene:["c-profonda"],
+  palpazione:"Non è palpabile: sta dietro lo sterno. Si avverte la sua tensione come rigidità dello sterno e delle cartilagini costali nell'espirazione.",
+  trigger:"Dolore retrosternale sordo nelle espirazioni forzate, confuso con dolore cardiaco.",
+  massaggio:"Mobilizzazione delle cartilagini costali e dello sterno, lavoro sull'espirazione lunga.",
+  segreto:"È il prolungamento in alto del trasverso dell'addome: la stessa lamina che corre dietro lo sterno. Chi non riesce a espirare fino in fondo (e quindi a inspirare bene) ha spesso questa lamina rigida. Si lavora con la mano piatta sullo sterno che segue l'espirazione, tre o quattro respiri."},
+
+ {id:"m-psoas-minore-iliaco",nome:"Iliaco",lat:"M. iliacus",gruppo:"Anca (profondo)",vista:"ant",path:"M88,170 Q84,190 82,204",w:7,alias:["iliaco","muscolo iliaco","fossa iliaca"],
+  origine:"Due terzi superiori della fossa iliaca e cresta iliaca.",inserzione:"Piccolo trocantere, con il tendine comune dello psoas.",
+  ossaO:["o-ileo"],ossaI:["o-femore"],nervi:["n-femorale"],
+  vascol:"Arteria iliolombare.",
+  azioni:["Flessione dell'anca","Antiversione del bacino se il femore è fisso","Stabilizza l'anca nella fase di oscillazione del passo"],
+  articolazioni:["a-coxo-femorale","a-sacro-iliaca"],catene:["c-profonda"],
+  palpazione:"Nella fossa iliaca: le dita entrano medialmente alla SIAS, scivolano contro l'osso dall'interno e trovano il ventre carnoso che si tende sollevando appena il ginocchio.",
+  trigger:"Dolore lombare basso e all'inguine, difficoltà ad alzarsi in piedi dalla posizione seduta profonda.",
+  massaggio:"Pressione contro la faccia interna dell'ala iliaca, lenta, in espirazione; più accessibile e meno rischioso dello psoas.",
+  segreto:"Si tratta insieme allo psoas ma è molto più facile da raggiungere: appoggiato all'osso, lontano dall'aorta. Quando lo psoas è troppo sensibile per essere toccato, il lavoro sull'iliaco dà già metà del risultato."}
+]);
+</script>
+<script>
+/* Muscoli — parte 6: braccio, avambraccio, mano. */
+DB.muscoli = DB.muscoli.concat([
+
+ {id:"m-coracobrachiale",nome:"Coracobrachiale",lat:"M. coracobrachialis",gruppo:"Braccio",vista:"ant",path:"M74,88 L66,120",w:5,alias:["coracobrachiale","coraco-brachiale"],
+  origine:"Processo coracoideo della scapola, con il capo breve del bicipite.",inserzione:"Terzo medio della faccia mediale dell'omero.",
+  ossaO:["o-scapola"],ossaI:["o-omero"],nervi:["n-muscolocutaneo"],
+  vascol:"Arteria brachiale.",
+  azioni:["Flessione e adduzione della spalla","Stabilizza la testa omerale in avanti","Riporta il braccio al fianco dall'abduzione"],
+  articolazioni:["a-gleno-omerale"],catene:["c-braccio-ant-prof"],
+  palpazione:"Nel cavo ascellare, medialmente al capo breve del bicipite, con il braccio abdotto a 90°: una corda sottile che si tende quando il cliente spinge il braccio in avanti contro resistenza.",
+  trigger:"Dolore sulla faccia anteriore della spalla che scende lungo il braccio fino al dorso dell'avambraccio e della mano.",
+  massaggio:"Pressione lenta sul ventre nell'ascella, con il braccio sostenuto. Il nervo muscolocutaneo lo attraversa: se compare formicolio sull'avambraccio laterale, si alleggerisce.",
+  segreto:"Il nervo muscolocutaneo lo perfora letteralmente: quando il coracobrachiale è contratto, il nervo si irrita e la persona sente formicolio sul lato esterno dell'avambraccio. Un «falso radiale» che si risolve lavorando l'ascella."},
+
+ {id:"m-brachiale",nome:"Brachiale",lat:"M. brachialis",gruppo:"Braccio",vista:"ant",path:"M62,118 L58,146",w:8,alias:["brachiale","muscolo brachiale"],
+  origine:"Metà distale della faccia anteriore dell'omero.",inserzione:"Tuberosità dell'ulna e processo coronoideo.",
+  ossaO:["o-omero"],ossaI:["o-ulna"],nervi:["n-muscolocutaneo","n-radiale"],
+  vascol:"Arteria brachiale e ricorrente radiale.",
+  azioni:["Flessione del gomito in qualsiasi posizione dell'avambraccio: è il flessore puro","Lavora anche a palmo in giù, quando il bicipite è svantaggiato"],
+  articolazioni:["a-omero-ulnare"],catene:["c-braccio-ant-prof"],
+  palpazione:"Ai lati del tendine del bicipite nella parte bassa del braccio, con il gomito flesso a 90° e il palmo in giù (così il bicipite si rilassa e il brachiale lavora da solo).",
+  trigger:"Dolore alla base del pollice e sul dorso della mano fra pollice e indice; a volte dolore al gomito anteriore.",
+  massaggio:"Si raggiunge spostando il bicipite di lato: impastamento profondo con il gomito semiflesso e il palmo in giù.",
+  segreto:"È il vero motore della flessione del gomito: il bicipite lavora bene solo con il palmo in su, il brachiale sempre. Chi sente dolore al pollice senza nessun problema alla mano spesso ha un brachiale in trigger — nessuno lo cerca lì."},
+
+ {id:"m-anconeo",nome:"Anconeo",lat:"M. anconeus",gruppo:"Gomito",vista:"post",path:"M62,140 L58,152",w:4,alias:["anconeo"],
+  origine:"Epicondilo laterale dell'omero.",inserzione:"Faccia laterale dell'olecrano e parte alta dell'ulna.",
+  ossaO:["o-omero"],ossaI:["o-ulna"],nervi:["n-radiale"],
+  vascol:"Arteria interossea ricorrente.",
+  azioni:["Assiste il tricipite nell'estensione del gomito","Stabilizza l'articolazione nella prono-supinazione","Tende la capsula per evitare che venga pizzicata"],
+  articolazioni:["a-omero-ulnare","a-omero-radiale"],catene:["c-braccio-post-sup"],
+  palpazione:"Il piccolo triangolo carnoso fra epicondilo laterale e olecrano, a gomito flesso: si tende estendendo il gomito contro resistenza.",
+  trigger:"Dolore puntiforme sull'epicondilo laterale, indistinguibile dall'epicondilite.",
+  massaggio:"Frizioni trasversali brevi fra olecrano ed epicondilo.",
+  segreto:"Molte «epicondiliti» che non guariscono con il lavoro sugli estensori sono un anconeo in trigger: stesso punto di dolore, muscolo diverso. Prima di dichiarare un gomito del tennista, estendi il gomito contro resistenza e palpa il triangolo."},
+
+ {id:"m-brachioradiale",nome:"Brachioradiale",lat:"M. brachioradialis",gruppo:"Avambraccio",vista:"ant",path:"M60,130 L50,186",w:7,alias:["brachioradiale","lungo supinatore"],
+  origine:"Cresta sopracondiloidea laterale dell'omero.",inserzione:"Processo stiloideo del radio.",
+  ossaO:["o-omero"],ossaI:["o-radio"],nervi:["n-radiale"],
+  vascol:"Arteria radiale e ricorrente radiale.",
+  azioni:["Flessione del gomito, soprattutto con l'avambraccio in posizione intermedia (pollice in alto)","Riporta l'avambraccio in posizione neutra dalla pronazione o dalla supinazione"],
+  articolazioni:["a-omero-radiale","a-radio-ulnare"],catene:["c-braccio-post-sup"],
+  palpazione:"Il ventre più evidente dell'avambraccio laterale: chiedi di flettere il gomito con il pollice verso l'alto contro resistenza e salta fuori sotto la pelle.",
+  trigger:"Dolore sull'epicondilo laterale e lungo il bordo radiale dell'avambraccio fino al dorso fra pollice e indice.",
+  massaggio:"Impastamento a pinza del ventre, frizioni sull'origine. Risponde in fretta.",
+  segreto:"È il muscolo di chi porta pesi con il braccio piegato e il pollice in alto: borse, buste della spesa, bambini. Nell'epicondilite è quasi sempre coinvolto insieme agli estensori, ma si tratta molto più facilmente: è grosso, superficiale e si prende a pinza."},
+
+ {id:"m-pronatori",nome:"Pronatore rotondo e pronatore quadrato",lat:"Mm. pronator teres et pronator quadratus",gruppo:"Avambraccio",vista:"ant",path:"M64,146 L56,160 M52,186 L48,194",w:5,alias:["pronatore rotondo","pronatore quadrato","pronatori"],
+  origine:"Rotondo: epitroclea e processo coronoideo dell'ulna. Quadrato: quarto distale dell'ulna.",
+  inserzione:"Rotondo: faccia laterale del radio a metà. Quadrato: quarto distale del radio.",
+  ossaO:["o-omero","o-ulna"],ossaI:["o-radio"],nervi:["n-mediano"],
+  vascol:"Arteria ulnare e interossea anteriore.",
+  azioni:["Pronazione dell'avambraccio (il quadrato è il pronatore principale, il rotondo entra nei gesti veloci e forzati)","Il rotondo flette anche il gomito"],
+  articolazioni:["a-radio-ulnare"],catene:["c-braccio-ant-sup"],
+  palpazione:"Rotondo: dalla piega del gomito, medialmente al tendine del bicipite, obliquo verso il basso e l'esterno; si tende pronando contro resistenza. Quadrato: non palpabile, sotto i tendini flessori al polso.",
+  trigger:"Dolore sulla faccia anteriore del polso e del gomito, con formicolio a pollice e indice (il nervo mediano passa fra i due capi del rotondo).",
+  massaggio:"Frizioni oblique sul rotondo con l'avambraccio in leggera supinazione; mai pressione prolungata, il mediano è sotto.",
+  segreto:"Il nervo mediano passa fra i due capi del pronatore rotondo: un pronatore contratto dà la sindrome del pronatore, identica al tunnel carpale ma senza formicolio notturno. La distinzione: nel tunnel carpale il palmo alla base del pollice è risparmiato (il ramo palmare esce prima del tunnel); nel pronatore è coinvolto."},
+
+ {id:"m-supinatore",nome:"Supinatore",lat:"M. supinator",gruppo:"Avambraccio (profondo)",vista:"post",path:"M60,146 L56,162",w:5,alias:["supinatore","supinatore breve","arcata di Frohse"],
+  origine:"Epicondilo laterale, legamento collaterale radiale e cresta del supinatore sull'ulna.",inserzione:"Terzo superiore del radio, che avvolge come un manicotto.",
+  ossaO:["o-omero","o-ulna"],ossaI:["o-radio"],nervi:["n-radiale"],
+  vascol:"Arteria ricorrente radiale e interossea.",
+  azioni:["Supinazione dell'avambraccio, in ogni posizione del gomito (il bicipite aiuta solo a gomito flesso)","Supinazione lenta e senza carico: è il supinatore «di precisione»"],
+  articolazioni:["a-radio-ulnare","a-omero-radiale"],catene:["c-braccio-post-sup"],
+  palpazione:"Sotto gli estensori, subito sotto la testa del radio, con l'avambraccio pronato; si avverte come una massa profonda che si tende supinando lentamente contro resistenza.",
+  trigger:"Dolore all'epicondilo laterale e alla tabacchiera anatomica; dolore quando si gira una maniglia.",
+  massaggio:"Pressione lenta sotto la testa del radio con pollice piatto, mai puntato: il nervo interosseo posteriore attraversa il muscolo.",
+  segreto:"Il ramo profondo del nervo radiale entra nel supinatore passando sotto l'arcata di Frohse: se il muscolo è ipertonico, il nervo resta pizzicato. È la sindrome del tunnel radiale, scambiata per epicondilite cronica. Il segno: dolore 3–4 cm sotto l'epicondilo, non sopra."},
+
+ {id:"m-flessori-polso",nome:"Flessori del polso",lat:"Mm. flexor carpi radialis, flexor carpi ulnaris, palmaris longus",gruppo:"Avambraccio",vista:"ant",path:"M58,150 L50,196",w:8,alias:["flessori del polso","flessore radiale del carpo","flessore ulnare del carpo","palmare lungo","flessori dell'avambraccio"],
+  origine:"Epitroclea (epicondilo mediale) dell'omero con il tendine comune dei flessori; il flessore ulnare anche dall'olecrano.",
+  inserzione:"Flessore radiale: base del 2° e 3° metacarpo. Flessore ulnare: pisiforme e 5° metacarpo. Palmare lungo: aponeurosi palmare.",
+  ossaO:["o-omero","o-ulna"],ossaI:["o-mano"],nervi:["n-mediano","n-ulnare"],
+  vascol:"Arteria ulnare e radiale.",
+  azioni:["Flessione del polso","Flessore radiale: inclinazione radiale. Flessore ulnare: inclinazione ulnare","Stabilizzano il polso in ogni presa"],
+  articolazioni:["a-radio-carpica","a-omero-ulnare"],catene:["c-braccio-ant-sup"],
+  palpazione:"Al polso, con il pugno chiuso e flesso contro resistenza: al centro il tendine del palmare lungo (assente nel 15% delle persone), lateralmente il flessore radiale, medialmente il flessore ulnare sopra il pisiforme.",
+  trigger:"Dolore sulla faccia anteriore del polso e sul palmo; il flessore ulnare riferisce sul lato del mignolo.",
+  massaggio:"Impastamento longitudinale dell'avambraccio anteriore, frizioni sull'epitroclea; attenzione al solco del nervo ulnare.",
+  segreto:"Il palmare lungo manca in una persona su sette e non serve a nulla di indispensabile: i chirurghi lo prelevano per ricostruire altri tendini. Chiedi al cliente di unire pollice e mignolo e flettere il polso: se il tendine centrale non compare, non è un problema, è una variante."},
+
+ {id:"m-flessori-dita",nome:"Flessori delle dita e del pollice",lat:"Mm. flexor digitorum superficialis et profundus, flexor pollicis longus",gruppo:"Avambraccio (profondo)",vista:"ant",path:"M56,154 L48,200",w:6,alias:["flessori delle dita","flessore superficiale delle dita","flessore profondo delle dita","flessore lungo del pollice"],
+  origine:"Superficiale: epitroclea, ulna e radio. Profondo: ulna e membrana interossea. Flessore lungo del pollice: radio.",
+  inserzione:"Superficiale: falangi medie delle dita. Profondo: falangi distali. Flessore lungo del pollice: falange distale del pollice.",
+  ossaO:["o-omero","o-ulna","o-radio"],ossaI:["o-mano"],nervi:["n-mediano","n-ulnare"],
+  vascol:"Arteria ulnare e interossea anteriore.",
+  azioni:["Flessione delle dita e del pollice: sono i muscoli della presa di forza","Il superficiale flette le falangi medie, il profondo quelle distali","Partecipano alla flessione del polso"],
+  articolazioni:["a-radio-carpica","a-metacarpo-falangee"],catene:["c-braccio-ant-sup"],
+  palpazione:"Nel terzo medio dell'avambraccio anteriore, sotto i flessori del polso: chiedi di stringere il pugno e senti la massa tendersi. I tendini si seguono fino nel palmo.",
+  trigger:"Dolore e rigidità alle dita, dito a scatto, sensazione di «dita gonfie» al mattino.",
+  massaggio:"Impastamento profondo dell'avambraccio con il polso in leggera flessione per detendere; lavoro sulle guaine nel palmo.",
+  segreto:"Sono i muscoli professionali del massaggiatore, e sono anche quelli che gli rovinano la carriera: ogni impastamento li contrae. Tendini e guaine passano tutti nel tunnel carpale. Regola di sopravvivenza: la presa viene dal peso del corpo e dall'avambraccio, le dita accompagnano. Se a fine giornata hai le dita rigide, stai lavorando con i muscoli sbagliati."},
+
+ {id:"m-estensori-polso",nome:"Estensori del polso",lat:"Mm. extensor carpi radialis longus et brevis, extensor carpi ulnaris",gruppo:"Avambraccio",vista:"post",path:"M58,146 L50,196",w:8,alias:["estensori del polso","estensore radiale lungo del carpo","estensore radiale breve del carpo","estensore ulnare del carpo","estensori dell'avambraccio"],
+  origine:"Epicondilo laterale dell'omero (tendine comune degli estensori); il radiale lungo dalla cresta sopracondiloidea.",
+  inserzione:"Radiale lungo: base del 2° metacarpo. Radiale breve: base del 3°. Ulnare: base del 5°.",
+  ossaO:["o-omero"],ossaI:["o-mano"],nervi:["n-radiale"],
+  vascol:"Arteria radiale e interossea posteriore.",
+  azioni:["Estensione del polso","Stabilizzano il polso in estensione durante la presa: senza di loro il pugno è debole","Inclinazione radiale (radiali) e ulnare (ulnare)"],
+  articolazioni:["a-radio-carpica","a-omero-radiale"],catene:["c-braccio-post-sup"],
+  palpazione:"Sul dorso dell'avambraccio, subito sotto l'epicondilo laterale; stringendo il pugno si contraggono anche se il polso non si muove.",
+  trigger:"Epicondilite: dolore sull'epicondilo laterale che peggiora stringendo e girando (il radiale breve è il più colpito).",
+  massaggio:"Impastamento a pinza dell'avambraccio dorsale, frizioni trasversali sull'epicondilo fuori dalla fase acuta, lavoro sul supinatore e sull'anconeo sotto.",
+  segreto:"Per chiudere il pugno con forza il polso deve stare in leggera estensione: quindi gli estensori lavorano in ogni presa, anche quando non estendi nulla. È il motivo per cui l'«epicondilite» colpisce chi stringe, non chi estende — muratori, parrucchieri, massaggiatori."},
+
+ {id:"m-estensori-dita",nome:"Estensori delle dita e del pollice",lat:"Mm. extensor digitorum, extensor pollicis longus et brevis, abductor pollicis longus, extensor indicis",gruppo:"Avambraccio",vista:"post",path:"M56,150 L48,200",w:6,alias:["estensori delle dita","estensore comune delle dita","estensore lungo del pollice","estensore breve del pollice","abduttore lungo del pollice","tabacchiera anatomica"],
+  origine:"Epicondilo laterale (estensore comune); faccia posteriore di radio, ulna e membrana interossea (muscoli del pollice e dell'indice).",
+  inserzione:"Falangi delle dita tramite le espansioni dorsali; falangi e primo metacarpo del pollice.",
+  ossaO:["o-omero","o-radio","o-ulna"],ossaI:["o-mano"],nervi:["n-radiale"],
+  vascol:"Arteria interossea posteriore.",
+  azioni:["Estensione delle dita e del pollice","Apertura della mano dopo la presa","Abduttore lungo ed estensore breve del pollice formano il primo compartimento (De Quervain)"],
+  articolazioni:["a-metacarpo-falangee","a-trapezio-metacarpale"],catene:["c-braccio-post-sup"],
+  palpazione:"Dorso dell'avambraccio, al centro; i tendini del pollice formano i bordi della tabacchiera anatomica quando il pollice si estende.",
+  trigger:"Dolore sul dorso dell'avambraccio e del polso, dita che si «stancano» ad aprirsi; De Quervain sul lato del pollice.",
+  massaggio:"Scivolamenti lunghi dal polso al gomito, frizioni sui tendini del pollice fuori dalla fase acuta.",
+  segreto:"La mano di chi lavora si chiude mille volte al giorno e non si apre mai contro resistenza: gli estensori diventano deboli e i flessori dominanti. Un elastico attorno alle dita, dieci aperture tre volte al giorno, è la prevenzione più semplice dell'epicondilite e del tunnel carpale."},
+
+ {id:"m-intrinseci-mano",nome:"Muscoli intrinseci della mano",lat:"Eminentia thenar et hypothenar, mm. interossei, mm. lumbricales",gruppo:"Mano",vista:"ant",path:"M48,206 L44,224",w:6,alias:["intrinseci della mano","eminenza tenar","eminenza ipotenar","tenar","ipotenar","interossei","lombricali","adduttore del pollice","opponente del pollice"],
+  origine:"Ossa del carpo e retinacolo dei flessori (tenar e ipotenar), metacarpi (interossei), tendini del flessore profondo (lombricali).",
+  inserzione:"Falangi prossimali e espansioni dorsali delle dita; primo metacarpo e falange del pollice.",
+  ossaO:["o-mano"],ossaI:["o-mano"],nervi:["n-mediano","n-ulnare"],
+  vascol:"Archi palmari superficiale e profondo.",
+  azioni:["Opposizione del pollice (tenar: nervo mediano)","Abduzione e adduzione delle dita (interossei: nervo ulnare)","Flessione delle metacarpo-falangee con dita estese (lombricali): la posizione della «mano che scrive»","Presa di precisione"],
+  articolazioni:["a-trapezio-metacarpale","a-metacarpo-falangee"],catene:["c-braccio-ant-prof","c-braccio-post-prof"],
+  palpazione:"Tenar: la massa alla base del pollice, si tende opponendo il pollice al mignolo. Ipotenar: alla base del mignolo. Interossei: fra i metacarpi sul dorso, si tendono allargando le dita.",
+  trigger:"Dolore alla base del pollice (adduttore e opponente, i più frequenti), fra le dita, e rigidità mattutina.",
+  massaggio:"Pressioni e scivolamenti con il pollice sul tenar e sull'ipotenar, apertura degli spazi intermetacarpali, trazioni dolci delle dita.",
+  segreto:"L'ipotrofia del tenar (la base del pollice che si appiattisce) è il segno tardivo del tunnel carpale: significa che il nervo mediano soffre da mesi. Confronta sempre le due mani del cliente a palmo in su: se una base del pollice è più piatta, il formicolio ha già fatto danni e il massaggio non basta più — serve il medico."}
+]);
+</script>
+<script>
+/* Muscoli — parte 7: anca, coscia, gamba, piede. */
+DB.muscoli = DB.muscoli.concat([
+
+ {id:"m-rotatori-anca",nome:"Rotatori profondi dell'anca",lat:"Mm. obturatorius internus et externus, gemelli, quadratus femoris",gruppo:"Anca (rotatori profondi)",vista:"post",path:"M92,208 L76,214",w:6,alias:["rotatori profondi","otturatore interno","otturatore esterno","gemelli","quadrato del femore","pelvitrocanterici"],
+  origine:"Faccia interna ed esterna della membrana otturatoria (otturatori), spina e tuberosità ischiatica (gemelli, quadrato del femore).",
+  inserzione:"Fossa trocanterica e cresta intertrocanterica del femore.",
+  ossaO:["o-ileo"],ossaI:["o-femore"],nervi:["Rami del plesso sacrale (L5–S2) e nervo otturatorio (otturatore esterno)"],
+  vascol:"Arterie glutea inferiore e otturatoria.",
+  azioni:["Rotazione esterna dell'anca","Stabilizzano la testa del femore nell'acetabolo: sono la «cuffia dei rotatori» dell'anca","Abduzione ad anca flessa"],
+  articolazioni:["a-coxo-femorale"],catene:["c-profonda"],
+  palpazione:"Sotto il piriforme, fra tuberosità ischiatica e gran trocantere, in profondità sotto il grande gluteo: in decubito laterale con l'anca flessa, la rotazione passiva li mette in tensione.",
+  trigger:"Dolore gluteo profondo con irradiazione posteriore alla coscia, dolore da seduti, dolore con la rotazione interna.",
+  massaggio:"Pressione sostenuta e progressiva con l'avambraccio o il pollice rinforzato; mai con il gomito puntato (nervo ischiatico e vasi glutei).",
+  segreto:"Si chiamano «pelvitrocanterici» e fanno per l'anca quello che la cuffia fa per la spalla: tengono la testa centrata. Quando sono deboli o corti la testa del femore sbatte avanti e l'inguine fa male — ma la causa è dietro. Un'anca dolente davanti si tratta prima dietro."},
+
+ {id:"m-sartorio",nome:"Sartorio",lat:"M. sartorius",gruppo:"Coscia anteriore",vista:"ant",path:"M86,206 Q78,250 84,296",w:5,alias:["sartorio"],
+  origine:"Spina iliaca antero-superiore (SIAS).",inserzione:"Faccia mediale della tibia, nella zampa d'oca, il più superficiale dei tre tendini.",
+  ossaO:["o-ileo"],ossaI:["o-tibia"],nervi:["n-femorale"],
+  vascol:"Arteria femorale (rami muscolari).",
+  azioni:["Flessione, abduzione e rotazione esterna dell'anca insieme a flessione del ginocchio: il gesto di accavallare le gambe","È il muscolo più lungo del corpo"],
+  articolazioni:["a-coxo-femorale","a-femoro-tibiale"],catene:["c-sfl","c-spirale"],
+  palpazione:"Una benda obliqua dalla SIAS al ginocchio interno: si disegna chiedendo di portare il tallone verso il ginocchio opposto.",
+  trigger:"Dolore acuto e superficiale lungo la coscia anteriore, a volte formicolio sulla coscia laterale (il nervo cutaneo laterale passa sotto la sua origine).",
+  massaggio:"Scivolamenti lunghi lungo il suo decorso obliquo, presa a pinza nel terzo medio.",
+  segreto:"Il nome viene dal sarto che lavorava a gambe incrociate. È il muscolo che delimita il triangolo femorale: dentro passano nervo, arteria e vena femorale. Conoscere il sartorio significa sapere dove NON spingere nell'inguine."},
+
+ {id:"m-gracile",nome:"Gracile",lat:"M. gracilis",gruppo:"Coscia mediale",vista:"ant",path:"M98,208 L90,296",w:4,alias:["gracile","retto interno"],
+  origine:"Ramo inferiore del pube, vicino alla sinfisi.",inserzione:"Faccia mediale della tibia (zampa d'oca), fra sartorio e semitendinoso.",
+  ossaO:["o-ileo"],ossaI:["o-tibia"],nervi:["n-otturatorio"],
+  vascol:"Arteria otturatoria e femorale profonda.",
+  azioni:["Adduzione dell'anca","Flessione e rotazione interna del ginocchio","Stabilizza il ginocchio sul lato mediale con gli altri tendini della zampa d'oca"],
+  articolazioni:["a-coxo-femorale","a-femoro-tibiale"],catene:["c-funzionale-ant"],
+  palpazione:"La corda più superficiale e mediale della coscia interna: si sente dall'inguine fino al ginocchio con l'anca abdotta e il ginocchio flesso contro resistenza.",
+  trigger:"Dolore bruciante e superficiale lungo la coscia interna, dolore al ginocchio mediale.",
+  massaggio:"Scivolamenti lunghi lungo la faccia interna della coscia, nel terzo medio e distale; lavoro sulla zampa d'oca.",
+  segreto:"È l'unico adduttore che arriva sotto il ginocchio: per questo una pubalgia può dare dolore al ginocchio interno e un ginocchio valgo può dare pubalgia. Nella zampa d'oca è il dito di mezzo fra sartorio e semitendinoso: tre muscoli, tre nervi diversi."},
+
+ {id:"m-pettineo",nome:"Pettineo",lat:"M. pectineus",gruppo:"Coscia mediale",vista:"ant",path:"M94,206 L88,226",w:6,alias:["pettineo"],
+  origine:"Cresta pettinea del pube.",inserzione:"Linea pettinea del femore, sotto il piccolo trocantere.",
+  ossaO:["o-ileo"],ossaI:["o-femore"],nervi:["n-femorale","n-otturatorio"],
+  vascol:"Arteria femorale e otturatoria.",
+  azioni:["Flessione e adduzione dell'anca","Forma il pavimento del triangolo femorale insieme all'ileopsoas"],
+  articolazioni:["a-coxo-femorale"],catene:["c-profonda"],
+  palpazione:"Nel triangolo femorale, medialmente ai vasi femorali, lateralmente all'adduttore lungo: con l'anca leggermente flessa e abdotta.",
+  trigger:"Dolore inguinale profondo che peggiora accavallando le gambe o salendo in auto.",
+  massaggio:"Pressione lenta nel triangolo femorale, medialmente al polso femorale che si è prima localizzato; zona intima, si lavora con telo e consenso esplicito.",
+  segreto:"Sta esattamente fra psoas e adduttore lungo e riceve nervi da entrambi i gruppi (femorale e otturatorio): è un muscolo «di confine». Quando un dolore inguinale non risponde né al lavoro sullo psoas né sugli adduttori, è spesso lui — nel mezzo."},
+
+ {id:"m-popliteo",nome:"Popliteo",lat:"M. popliteus",gruppo:"Ginocchio",vista:"post",path:"M76,304 L84,316",w:5,alias:["popliteo"],
+  origine:"Condilo femorale laterale, con un tendine che passa dentro l'articolazione.",inserzione:"Faccia posteriore della tibia sopra la linea del soleo.",
+  ossaO:["o-femore"],ossaI:["o-tibia"],nervi:["n-tibiale"],
+  vascol:"Arteria poplitea (rami genicolari).",
+  azioni:["Sblocca il ginocchio esteso ruotando internamente la tibia: è la «chiave» del ginocchio","Stabilizza il ginocchio in flessione e in discesa","Trattiene il menisco laterale"],
+  articolazioni:["a-femoro-tibiale"],catene:["c-sbl"],
+  palpazione:"Nel cavo popliteo, in profondità, sotto il gastrocnemio: in prono con il ginocchio flesso, le dita entrano medialmente sulla faccia posteriore della tibia.",
+  trigger:"Dolore dietro il ginocchio scendendo le scale o camminando in discesa; dolore accovacciandosi.",
+  massaggio:"Pressione lenta sulla faccia posteriore della tibia, in prono con ginocchio flesso a 90° e gamba sostenuta; si evita il centro del cavo popliteo (vasi e nervo).",
+  segreto:"Per flettere un ginocchio esteso bisogna prima «girare la chiave»: è il popliteo a farlo, ruotando internamente la tibia di pochi gradi. Un dolore dietro al ginocchio che compare solo nei primi gradi di flessione, o solo in discesa, è spesso il popliteo — e nessuno lo cerca perché è nascosto."},
+
+ {id:"m-estensori-dita-piede",nome:"Estensori lunghi delle dita e dell'alluce",lat:"Mm. extensor digitorum longus, extensor hallucis longus, peroneus tertius",gruppo:"Gamba anteriore",vista:"ant",path:"M76,314 L74,396",w:6,alias:["estensore lungo delle dita","estensore lungo dell'alluce","peroneo terzo","estensori del piede","loggia anteriore"],
+  origine:"Condilo tibiale laterale, faccia mediale del perone, membrana interossea.",
+  inserzione:"Falangi medie e distali delle dita (estensore delle dita), falange distale dell'alluce; il peroneo terzo sul 5° metatarso.",
+  ossaO:["o-tibia","o-perone"],ossaI:["o-piede"],nervi:["n-peroneo"],
+  vascol:"Arteria tibiale anteriore.",
+  azioni:["Estensione delle dita e dell'alluce","Dorsiflessione della caviglia insieme al tibiale anteriore","Il peroneo terzo everte il piede"],
+  articolazioni:["a-tibio-tarsica","a-metatarso-falangee"],catene:["c-sfl"],
+  palpazione:"Lateralmente al tibiale anteriore, lungo la gamba; i tendini si vedono sul dorso del piede sollevando le dita.",
+  trigger:"Dolore sul dorso del piede e sulle dita, crampi notturni alle dita, «periostite» della gamba anteriore.",
+  massaggio:"Scivolamenti lungo la loggia anteriore, dal collo del piede verso il ginocchio; frizioni leggere sui tendini sotto il retinacolo.",
+  segreto:"Stanno in una loggia chiusa e inestensibile: la loggia anteriore della gamba. Dopo uno sforzo insolito (una marcia, una corsa in discesa) possono gonfiarsi fino a comprimere i propri vasi: la gamba diventa dura, tesa, dolorosissima, e il dorso del piede formicola. È la sindrome compartimentale, un'urgenza — e il massaggio è controindicato."},
+
+ {id:"m-flessori-dita-piede",nome:"Flessori lunghi delle dita e dell'alluce",lat:"Mm. flexor digitorum longus, flexor hallucis longus",gruppo:"Gamba profonda",vista:"post",path:"M82,332 L80,390",w:5,alias:["flessore lungo delle dita","flessore lungo dell'alluce","loggia posteriore profonda"],
+  origine:"Faccia posteriore della tibia (flessore delle dita) e del perone (flessore dell'alluce).",
+  inserzione:"Falangi distali delle quattro dita e dell'alluce, passando dietro il malleolo mediale nel tunnel tarsale.",
+  ossaO:["o-tibia","o-perone"],ossaI:["o-piede"],nervi:["n-tibiale"],
+  vascol:"Arteria tibiale posteriore e peroniera.",
+  azioni:["Flessione delle dita e dell'alluce: la presa del piede a terra","Flessione plantare e supinazione accessorie","Il flessore dell'alluce dà la spinta finale del passo"],
+  articolazioni:["a-tibio-tarsica","a-metatarso-falangee"],catene:["c-profonda"],
+  palpazione:"Dietro il malleolo mediale, nel tunnel tarsale, i tendini si sentono flettendo le dita; nella gamba stanno sotto il soleo, lungo il bordo mediale della tibia.",
+  trigger:"Dolore alla pianta sotto le dita, crampi notturni al piede, dolore dietro il malleolo mediale.",
+  massaggio:"Dal bordo mediale della tibia spingendo in profondità, con il ginocchio flesso; lavoro dolce dietro il malleolo.",
+  segreto:"Il flessore lungo dell'alluce è il muscolo della danza sulle punte e della spinta finale del passo: scorre in una doccia dietro l'astragalo e si infiamma nei ballerini e nei corridori. I crampi notturni alle dita del piede quasi sempre sono suoi, e si risolvono allungandolo — non col magnesio."},
+
+ {id:"m-intrinseci-piede",nome:"Muscoli intrinseci del piede",lat:"Mm. flexor digitorum brevis, abductor hallucis, abductor digiti minimi, quadratus plantae, lumbricales, interossei, extensor digitorum brevis",gruppo:"Piede",vista:"post",path:"M76,416 L70,426",w:5,alias:["intrinseci del piede","flessore breve delle dita","abduttore dell'alluce","abduttore del quinto dito","quadrato della pianta","estensore breve delle dita","muscoli della pianta"],
+  origine:"Calcagno (flessore breve, abduttori, quadrato della pianta), metatarsi (interossei), tendini del flessore lungo (lombricali), calcagno dorsale (estensore breve).",
+  inserzione:"Falangi delle dita.",
+  ossaO:["o-piede"],ossaI:["o-piede"],nervi:["n-tibiale","n-peroneo"],
+  vascol:"Arterie plantari mediale e laterale, arteria dorsale del piede.",
+  azioni:["Sostengono attivamente gli archi del piede","Afferrano il suolo e adattano il piede al terreno","Allargano e stringono le dita"],
+  articolazioni:["a-metatarso-falangee","a-medio-tarsica"],catene:["c-sbl","c-profonda"],
+  palpazione:"Pianta del piede, con le dita estese per tendere l'aponeurosi: la massa centrale è il flessore breve, il bordo mediale l'abduttore dell'alluce, quello laterale l'abduttore del quinto dito.",
+  trigger:"Dolore plantare diffuso, dolore sul tallone (quadrato della pianta), dolore alle dita.",
+  massaggio:"Pressioni con il pollice dal tallone verso le dita, apertura degli spazi intermetatarsali, trazione dolce delle dita.",
+  segreto:"Il piede ha venti muscoli che nelle scarpe non lavorano mai: sono addormentati nella maggior parte degli adulti. «Short foot»: accorciare il piede senza arricciare le dita, dieci secondi per dieci volte. È l'esercizio che rimette in piedi un arco plantare — prima e meglio di qualsiasi plantare."},
+
+ {id:"m-plantare-gracile",nome:"Muscolo plantare",lat:"M. plantaris",gruppo:"Gamba posteriore",vista:"post",path:"M78,306 L80,330",w:3,alias:["muscolo plantare","plantare gracile"],
+  origine:"Condilo femorale laterale, sopra il gastrocnemio.",inserzione:"Calcagno, con un tendine lunghissimo e sottile che corre medialmente al tendine d'Achille.",
+  ossaO:["o-femore"],ossaI:["o-piede"],nervi:["n-tibiale"],
+  vascol:"Arterie surali.",
+  azioni:["Assiste debolmente la flessione plantare e la flessione del ginocchio","È soprattutto un organo propriocettivo del polpaccio"],
+  articolazioni:["a-tibio-tarsica","a-femoro-tibiale"],catene:["c-sbl"],
+  palpazione:"Il piccolo ventre nel cavo popliteo laterale, sopra il capo laterale del gastrocnemio; il tendine non si distingue dall'Achille.",
+  trigger:"Dolore dietro il ginocchio e lungo il polpaccio.",
+  massaggio:"Si tratta insieme al gastrocnemio.",
+  segreto:"La «gamba del tennista» — lo strappo improvviso al polpaccio con la sensazione di una sassata — una volta era attribuita a questo muscolo; oggi sappiamo che quasi sempre è il capo mediale del gastrocnemio. Il plantare manca in una persona su dieci, e non se ne accorge nessuno."}
+]);
+</script>
+<script>
 /* Meridiani miofasciali (Thomas Myers, Anatomy Trains) + catene posturali. */
 DB.catene = [
  {id:"c-sbl",nome:"Linea Superficiale Posteriore",sigla:"SBL",colore:"#3E8E85",mirror:true,
@@ -1576,6 +1973,151 @@ DB.problemi = DB.problemi.concat([
   trattamento:["Sotto-occipitali con le dita ferme sotto la nuca, senza spingere, per due o tre minuti","Scaleni e sternocleidomastoideo con presa dolce","Mobilizzazione dorsale alta","Rieducazione del respiro","Esercizio a casa: retrazione del mento, dieci volte, tre volte al giorno"],
   rosse:["Vertigine improvvisa con disturbi visivi, del linguaggio o dell'equilibrio: urgenza medica","Cefalea a rombo di tuono","Vertigine dopo trauma cervicale"],
   segreto:"Test in trenta secondi: misura la rotazione del collo, poi tieni due minuti le dita sotto la nuca senza premere, poi rimisura. Il guadagno è quasi sempre visibile e il cliente resta stupito che 'non hai fatto niente'. È la dimostrazione migliore che in questa zona vince la delicatezza, non la forza."}
+]);
+</script>
+<script>
+/* Problemi — parte 3: collo, spalla, gomito, mano. */
+DB.problemi = DB.problemi.concat([
+
+ {id:"p-torcicollo",voce:"«Mi sono svegliato con il collo bloccato»",zona:"Collo",
+  sintesi:"Il torcicollo acuto è quasi sempre una faccetta cervicale irritata con i muscoli attorno in difesa. Il dolore è forte ma benigno nella grande maggioranza dei casi: il lavoro è calmare, non forzare.",
+  gesto:["La testa è ruotata e inclinata dal lato opposto al dolore","La rotazione verso il lato dolente è bloccata","Ogni tentativo di raddrizzare evoca uno spasmo"],
+  movimenti:["mv-collo-rot"],
+  cause:[
+   {t:"Blocco di una faccetta cervicale",perche:"Un movimento brusco o una posizione mantenuta nel sonno irrita la capsula della faccetta; i muscoli attorno si contraggono per proteggerla.",muscoli:["m-elevatore","m-splenio"],test:"Dolore puntiforme a un lato della colonna, a livello C2–C5, che peggiora in estensione e rotazione verso quel lato."},
+   {t:"Elevatore della scapola in spasmo",perche:"È il muscolo che più spesso «blocca» il collo: dolore all'angolo fra collo e spalla, rotazione impossibile dallo stesso lato.",muscoli:["m-elevatore"],test:"Palpazione dell'angolo superiore della scapola che riproduce il dolore; la rotazione migliora sollevando passivamente la spalla."},
+   {t:"Sternocleidomastoideo e splenio",perche:"Tengono la testa inclinata: il collo non è bloccato, è tenuto.",muscoli:["m-scom","m-splenio"],test:"Presa a pinza dei ventri: dolente e reattiva."},
+   {t:"Posizione nel sonno e cuscino",perche:"Un cuscino troppo alto o dormire a pancia in giù tengono il collo ruotato per ore.",muscoli:["m-suboccipitali"],test:"Domanda diretta: come dormi, su quale fianco, con quale cuscino?"}],
+  catene:["c-laterale","c-spirale"],
+  trattamento:["Nessuna manovra sul punto di massimo dolore nelle prime 48 ore","Calore, movimento dolce nella direzione libera, pressioni leggere su elevatore e sternocleidomastoideo","Lavoro sul dorso alto e sulla spalla per togliere carico al collo","Il torcicollo benigno passa in 3–7 giorni: dirlo al cliente è parte del trattamento"],
+  rosse:["Torcicollo con febbre e rigidità a flettere il mento sul petto","Insorto dopo un trauma","Con formicolio o debolezza a un braccio"],
+  segreto:"Nel torcicollo acuto la cosa più efficace non è trattare il collo: è trattare la spalla e il dorso dello stesso lato, e far muovere il collo nella direzione in cui va. Chi forza la rotazione bloccata «per sbloccarla» prolunga il problema di una settimana."},
+
+ {id:"p-cefalea",voce:"«Ho spesso mal di testa, parte dalla nuca»",zona:"Collo",
+  sintesi:"La cefalea che parte dalla nuca e sale verso la fronte o l'occhio è quasi sempre muscolo-tensiva o cervicogenica: nasce da sotto-occipitali, trapezio e sternocleidomastoideo. È il problema che il massaggio risolve meglio in assoluto, se si lavora nei punti giusti.",
+  gesto:["Dolore che parte dalla nuca e sale a fascia o a casco","Spesso a fine giornata, dopo ore al computer","Peggiora con la pressione sulla nuca e migliora con il calore"],
+  movimenti:["mv-collo-rot","mv-rachide-est"],
+  cause:[
+   {t:"Sotto-occipitali in tensione",perche:"Dolore profondo «dentro la testa» che arriva all'occhio; sono i sensori di posizione del capo e con la testa protratta lavorano in continuo.",muscoli:["m-suboccipitali"],test:"Dita sotto la linea nucale per due minuti senza spingere: riproduce e poi allevia il dolore."},
+   {t:"Trapezio superiore",perche:"Il trigger più famoso: dolore che sale dietro l'orecchio fino alla tempia.",muscoli:["m-trapezio"],test:"Presa a pinza del fascio superiore: riproduce esattamente il mal di testa del cliente."},
+   {t:"Sternocleidomastoideo",perche:"Riferisce alla fronte, sopra l'occhio e all'orecchio; può dare vertigini e lacrimazione.",muscoli:["m-scom"],test:"Presa a pinza del ventre con la testa ruotata dal lato opposto."},
+   {t:"Nervo grande occipitale intrappolato",perche:"Nevralgia di Arnold: scosse dalla nuca al vertice.",muscoli:["m-semispinale"],test:"Pressione due dita sotto la linea nucale e due di lato: dolore a scossa verso l'alto."},
+   {t:"Masticazione e denti stretti",perche:"Temporale e massetere riferiscono alla tempia e alla fronte.",muscoli:["m-temporale","m-massetere"],test:"Chiedi se al mattino la mascella è stanca; palpa il temporale a denti stretti."}],
+  catene:["c-sbl","c-profonda"],
+  trattamento:["Sotto-occipitali con le dita ferme, tre minuti","Trapezio superiore e sternocleidomastoideo a pinza","Temporale e massetere se c'è serramento","Mobilizzazione dorsale alta","Casa: retrazione del mento, pause dallo schermo, postura della testa"],
+  rosse:["Mal di testa improvviso e violentissimo («il peggiore della vita»)","Con febbre e rigidità del collo","Con disturbi della vista, della parola o debolezza","Nuovo dopo i 50 anni o che cambia carattere"],
+  segreto:"Chiedi al cliente di indicare con un dito dove parte il dolore e dove arriva: il tragitto nuca→occhio è sotto-occipitali, nuca→tempia è trapezio, fronte→orecchio è sternocleidomastoideo. Tre domande e sai dove mettere le mani. Poi riproduci il suo dolore premendo: quando dice «è proprio quello», la seduta è già riuscita a metà."},
+
+ {id:"p-braccio-sopra-testa",voce:"«Non riesco a dormire sul fianco, la spalla fa male»",zona:"Spalla",
+  sintesi:"Il dolore notturno sul fianco è il sintomo-guida della cuffia dei rotatori e della borsa subacromiale: dormendo sul lato si comprime lo spazio sotto l'acromion. Va distinto dalla capsulite, che fa male anche da sveglio in tutte le direzioni.",
+  gesto:["Sdraiato sul lato dolente, lo spazio subacromiale si comprime","Il braccio sotto il cuscino tira la cuffia","Il risveglio notturno è il segno più costante"],
+  movimenti:["mv-spalla-abd","mv-spalla-re"],
+  cause:[
+   {t:"Tendinopatia del sovraspinato e borsite",perche:"Dolore laterale che scende fino a metà braccio, arco doloroso fra 60° e 120°.",muscoli:["m-sovraspinato","m-deltoide"],test:"Jobe, Neer, Hawkins; palpazione sotto il bordo dell'acromion con il braccio in estensione."},
+   {t:"Sottospinato con trigger",perche:"Dolore anteriore profondo e notturno, soprattutto dormendo sul lato: la fossa sottospinata resta compressa.",muscoli:["m-sottospinato"],test:"Pressione nella fossa sottospinata: riproduce il dolore anteriore."},
+   {t:"Capsulite adesiva",perche:"Limitazione passiva in tutte le direzioni, dolore notturno costante, rotazione esterna persa per prima.",muscoli:["m-sottoscapolare"],test:"Rotazione esterna passiva a gomito al fianco ridotta oltre il 50% rispetto all'altro lato."},
+   {t:"Spalla instabile o lesione del cercine",perche:"Dolore profondo con scatti e sensazione che la spalla «esca», in persone giovani o dopo lussazione.",muscoli:["m-rotondi","m-bicipite"],test:"Test dell'apprensione; storia di lussazione."}],
+  catene:["c-braccio-post-prof","c-braccio-ant-prof"],
+  trattamento:["Fossa sottospinata e piccolo rotondo in decubito laterale sul lato sano","Piccolo pettorale e dorso per ridare spazio","Mobilizzazione della scapola","Niente manovre dolorose sul tendine","Consiglio: dormire sul lato sano con un cuscino che sostiene il braccio dolente davanti"],
+  rosse:["Perdita di forza improvvisa dopo uno sforzo (sospetta rottura)","Spalla gonfia, calda e arrossata","Dolore che non cambia con nessuna posizione"],
+  segreto:"Il cuscino è il trattamento più sottovalutato: dormire sul lato sano abbracciando un cuscino, con il braccio dolente appoggiato sopra, toglie la compressione notturna. Molti clienti migliorano del 50% con questo consiglio prima ancora della seconda seduta."},
+
+ {id:"p-spalla-congelata",voce:"«La spalla si è bloccata, non va più in nessuna direzione»",zona:"Spalla",
+  sintesi:"La capsulite adesiva («spalla congelata») è una retrazione della capsula articolare: la spalla perde movimento anche passivo, in tutte le direzioni, con la rotazione esterna che va via per prima. Dura mesi e ha tre fasi: il trattamento cambia a seconda della fase.",
+  gesto:["Rotazione esterna persa per prima, poi abduzione, poi tutto","Limite duro anche se si muove il braccio passivamente","Dolore notturno nella fase iniziale, rigidità nella fase centrale"],
+  movimenti:["mv-spalla-re","mv-spalla-abd","mv-spalla-flex"],
+  cause:[
+   {t:"Capsula retratta (la causa vera)",perche:"La capsula e i legamenti gleno-omerali si ispessiscono e si accorciano, spesso senza un motivo evidente; più frequente in donne fra 40 e 60 anni e nei diabetici.",muscoli:["m-sottoscapolare"],test:"Rotazione esterna passiva a gomito al fianco: meno della metà dell'altro lato, con arresto duro."},
+   {t:"Sottoscapolare accorciato",perche:"Partecipa al blocco anteriore e alla perdita di rotazione esterna.",muscoli:["m-sottoscapolare","m-pettorale-grande"],test:"Accesso ascellare: dolente e rigido."},
+   {t:"Compensi della scapola",perche:"La persona alza tutta la spalla per compensare: trapezio superiore ed elevatore si sovraccaricano.",muscoli:["m-trapezio","m-elevatore"],test:"Osserva l'elevazione: la scapola parte subito, senza ritmo."},
+   {t:"Fase: dolorosa, rigida o di scongelamento",perche:"Nella fase dolorosa ogni forzatura peggiora; nella fase rigida il lavoro sulla capsula rende; nello scongelamento serve pazienza.",muscoli:[],test:"Dolore notturno dominante = fase 1; rigidità senza dolore a riposo = fase 2; recupero lento = fase 3."}],
+  catene:["c-braccio-ant-prof","c-braccio-post-prof"],
+  trattamento:["Fase dolorosa: solo lavoro sui muscoli attorno (collo, scapola, pettorali) e calore","Fase rigida: sottoscapolare dall'ascella, capsula posteriore, mobilizzazioni lente al limite senza dolore","Mai forzare in rotazione esterna","Esercizi pendolari a casa, più volte al giorno","Il recupero richiede 6–18 mesi: dirlo evita abbandoni e illusioni"],
+  rosse:["Spalla congelata bilaterale (indagare diabete e tiroide)","Dopo un trauma: escludere frattura o lussazione","Con dimagrimento o dolore notturno che cresce"],
+  segreto:"La spalla congelata non si «sblocca» con una manovra: chi lo promette fa danni. Si accompagna. Il tuo valore sta nel dire alla persona in che fase è, cosa aspettarsi e cosa fare a casa — e nel trattare il sottoscapolare, l'unico muscolo che cambia davvero la rotazione esterna."},
+
+ {id:"p-gomito-tennista",voce:"«Mi fa male il gomito quando stringo o sollevo»",zona:"Arto superiore",
+  sintesi:"Il dolore sull'epicondilo laterale che peggiora stringendo e sollevando a palmo in giù è l'epicondilite, una tendinopatia degli estensori: colpisce chi usa le mani, non chi gioca a tennis. Sul lato interno è l'epitrocleite, dei flessori.",
+  gesto:["Stringere richiede l'estensione del polso: gli estensori si contraggono in ogni presa","Sollevare a palmo in giù carica l'entesi","Girare una chiave o una maniglia riproduce il dolore"],
+  movimenti:["mv-presa","mv-supinazione"],
+  cause:[
+   {t:"Tendinopatia degli estensori (epicondilite)",perche:"Sovraccarico dell'entesi sull'epicondilo laterale, soprattutto dell'estensore radiale breve del carpo.",muscoli:["m-estensori-polso","m-estensori-dita"],test:"Test di Cozen: estensione resistita del polso a gomito esteso; dolore puntiforme sull'epicondilo."},
+   {t:"Tendinopatia dei flessori (epitrocleite)",perche:"Stesso meccanismo sul lato interno: flessori e pronatore.",muscoli:["m-flessori-polso","m-pronatori"],test:"Flessione e pronazione resistite del polso; palpazione dell'epitroclea."},
+   {t:"Anconeo e supinatore con trigger",perche:"Imitano l'epicondilite ma rispondono al lavoro muscolare; il supinatore può intrappolare il nervo radiale.",muscoli:["m-anconeo","m-supinatore","m-brachioradiale"],test:"Dolore 3–4 cm sotto l'epicondilo (supinatore) o nel triangolo fra olecrano ed epicondilo (anconeo)."},
+   {t:"Origine cervicale o di spalla",perche:"Una radice C6–C7 irritata o una spalla rigida fanno lavorare male tutto il braccio.",muscoli:["m-scaleni","m-sottospinato"],test:"Sintomi che cambiano con i movimenti del collo; spalla con rotazione esterna ridotta."}],
+  catene:["c-braccio-post-sup","c-braccio-ant-sup"],
+  trattamento:["Frizioni trasversali sull'entesi fuori dalla fase acuta","Avambraccio intero: estensori, brachioradiale, supinatore, anconeo","Spalla e collo dello stesso lato","Esercizio eccentrico con un peso leggero, ogni giorno per 8–12 settimane","Cambiare la presa: sollevare a palmo in su"],
+  rosse:["Gomito gonfio e caldo","Perdita di forza con mano cadente (nervo radiale)","Dolore notturno costante senza rapporto con l'uso"],
+  segreto:"Il consiglio che vale più del trattamento: sollevare tutto a palmo in su. Borse, pentole, sedie, bambini. Il carico sull'epicondilo crolla e il tendine può finalmente guarire. E per te che lavori: ogni impastamento fatto con le dita è un'epicondilite in arrivo."},
+
+ {id:"p-mano-gonfia-mattino",voce:"«Al mattino ho le mani gonfie e rigide, non chiudo il pugno»",zona:"Arto superiore",
+  sintesi:"Mani rigide e gonfie al risveglio che si sciolgono in venti minuti sono tipiche del sovraccarico dei flessori e delle guaine tendinee; se la rigidità dura più di un'ora e colpisce le piccole articolazioni in modo simmetrico, bisogna pensare a un'artrite e inviare.",
+  gesto:["Chiudere il pugno richiede flessori lunghi e intrinseci","Le guaine dei tendini flessori scorrono nel tunnel carpale e sotto le pulegge","Di notte il polso flesso comprime il tunnel"],
+  movimenti:["mv-presa"],
+  cause:[
+   {t:"Sovraccarico dei flessori e tenosinovite",perche:"Lavoro manuale ripetitivo infiamma le guaine: rigidità mattutina breve, dito a scatto.",muscoli:["m-flessori-dita","m-flessori-polso"],test:"Rigidità che passa in meno di 30 minuti; noduli dolenti alla base delle dita nel palmo."},
+   {t:"Tunnel carpale",perche:"Formicolio notturno alle prime tre dita, sensazione di gonfiore anche senza gonfiore vero.",muscoli:["m-intrinseci-mano"],test:"Phalen e Tinel; sollievo scuotendo la mano."},
+   {t:"Artrosi delle dita",perche:"Noduli duri sulle interfalangee, rigidità breve, dolore alla base del pollice (rizoartrosi).",muscoli:["m-intrinseci-mano"],test:"Noduli di Heberden e Bouchard; dolore alla pressione sulla base del pollice."},
+   {t:"Artrite infiammatoria",perche:"Rigidità mattutina oltre un'ora, gonfiore simmetrico delle metacarpo-falangee, stanchezza generale.",muscoli:[],test:"Rigidità > 60 minuti, calore e gonfiore delle piccole articolazioni: invio medico, niente massaggio profondo."}],
+  catene:["c-braccio-ant-sup","c-braccio-ant-prof"],
+  trattamento:["Avambraccio anteriore e guaine nel palmo","Apertura degli spazi intermetacarpali, trazioni dolci delle dita","Polso neutro di notte (tutore se serve)","Esercizio con l'elastico per gli estensori","Se la rigidità dura più di un'ora: medico prima del trattamento"],
+  rosse:["Rigidità mattutina superiore a un'ora","Gonfiore simmetrico, caldo, di più articolazioni","Febbre, stanchezza, dimagrimento"],
+  segreto:"La domanda da fare sempre: «quanto dura la rigidità al mattino?». Sotto la mezz'ora è meccanica e la tratti; sopra l'ora è infiammatoria e la invii. È la domanda che separa il massaggiatore competente da chi tratta tutto allo stesso modo."},
+
+ {id:"p-formicolio-braccio",voce:"«Mi formicola il braccio quando tengo le mani in alto»",zona:"Arto superiore",
+  sintesi:"Formicolio e stanchezza del braccio con le mani sopra la testa (stendere i panni, pettinarsi, guidare con le braccia alte) indicano una compressione del plesso brachiale e dei vasi nello stretto toracico superiore: tre punti stretti, tutti muscolari.",
+  gesto:["Con le braccia alzate la clavicola si avvicina alla prima costa","Il piccolo pettorale tira il coracoide sui vasi","Gli scaleni contratti sollevano la prima costa"],
+  movimenti:["mv-spalla-flex","mv-spalla-abd"],
+  cause:[
+   {t:"Triangolo interscalenico stretto",perche:"Scaleni accorciati da respiro alto e testa protratta: il plesso passa fra scaleno anteriore e medio.",muscoli:["m-scaleni"],test:"Test di Adson: testa ruotata verso il lato, inspirazione profonda, il polso radiale si riduce."},
+   {t:"Spazio costo-clavicolare chiuso",perche:"Spalle cadenti o zaino pesante schiacciano clavicola e prima costa.",muscoli:["m-succlavio","m-trapezio"],test:"Test militare (spalle indietro e in basso): riproduce il formicolio."},
+   {t:"Piccolo pettorale corto",perche:"Comprime plesso e vasi sotto il coracoide con il braccio alzato.",muscoli:["m-pettorale-piccolo"],test:"Test di Wright: braccio a 90° abdotto e ruotato esternamente, il polso cala e il formicolio compare."},
+   {t:"Compressione cervicale",perche:"Una radice irritata dà formicolio in una fascia precisa, non diffuso.",muscoli:["m-elevatore"],test:"Spurling; il formicolio segue un dermatomero."}],
+  catene:["c-profonda","c-braccio-ant-prof"],
+  trattamento:["Scaleni con pressione leggera e sostenuta","Piccolo pettorale e succlavio in espirazione","Prima costa: mobilizzazione verso il basso in espirazione","Respiro diaframmatico: è il trattamento vero","Postura: spalle che non cadono in avanti"],
+  rosse:["Mano fredda, pallida o bluastra con il braccio alzato","Gonfiore improvviso del braccio (trombosi venosa)","Perdita di forza nella mano"],
+  segreto:"Fai la prova dei polsi: senti il polso radiale con il braccio lungo il fianco, poi con il braccio alzato e ruotato fuori. Se il polso sparisce e il cliente dice «ecco, è questo», hai dimostrato in trenta secondi che il problema non è nella mano — e hai già scelto dove lavorare."},
+
+ {id:"p-dito-scatto",voce:"«Un dito mi si blocca piegato e poi scatta»",zona:"Arto superiore",
+  sintesi:"Il dito a scatto è un ispessimento del tendine flessore che fatica a passare sotto la puleggia alla base del dito. Il nodulo è nel palmo, non nel dito: è lì che si palpa e lì che si lavora.",
+  gesto:["Il tendine flessore scorre sotto le pulegge","Un nodulo sul tendine si incastra sotto la puleggia A1","Il dito resta flesso e scatta aprendosi, spesso al mattino"],
+  movimenti:["mv-presa"],
+  cause:[
+   {t:"Tenosinovite stenosante del flessore",perche:"Sovraccarico da presa ripetuta: il tendine si ispessisce e la puleggia si restringe.",muscoli:["m-flessori-dita"],test:"Nodulo dolente alla base del dito nel palmo; scatto riproducibile aprendo e chiudendo."},
+   {t:"Flessori dell'avambraccio sovraccarichi",perche:"Il problema parte più in alto: muscoli corti tengono il tendine in tensione.",muscoli:["m-flessori-dita","m-flessori-polso"],test:"Avambraccio anteriore dolente alla palpazione."},
+   {t:"Diabete e artrite",perche:"Aumentano il rischio di dita a scatto multiple.",muscoli:[],test:"Più dita coinvolte, entrambe le mani: chiedere e inviare."}],
+  catene:["c-braccio-ant-sup"],
+  trattamento:["Lavoro sul palmo e sulla puleggia A1 con frizioni leggere fuori dalla fase acuta","Flessori dell'avambraccio","Evitare prese strette e ripetute","Se resta bloccato o non migliora in 6 settimane: valutazione medica (infiltrazione o piccola chirurgia risolutiva)"],
+  rosse:["Dito bloccato che non si sblocca nemmeno con l'altra mano","Gonfiore e calore del dito","Più dita coinvolte in entrambe le mani"],
+  segreto:"Il cliente mostra il dito che scatta; tu devi cercare nel palmo. Metti il polpastrello alla base del dito, chiedi di flettere ed estendere: senti il nodulo passare sotto il dito. È una delle poche condizioni dove la chirurgia è semplice e risolutiva: saperlo dire è parte del servizio."},
+
+ {id:"p-click-mandibola",voce:"«La mandibola fa click e al mattino ho la mascella stanca»",zona:"Collo",
+  sintesi:"Click e dolore della mandibola con mascella stanca al risveglio indicano serramento o digrignamento notturno (bruxismo): i muscoli masticatori lavorano tutta la notte e il disco dell'ATM viene trascinato in avanti dallo pterigoideo laterale.",
+  gesto:["Chiudere la bocca: massetere, temporale, pterigoideo mediale","Aprire: pterigoideo laterale e sopraioidei","Il disco si sposta in avanti e il condilo lo scavalca con un click"],
+  movimenti:["mv-collo-rot"],
+  cause:[
+   {t:"Massetere e temporale ipertonici",perche:"Serramento notturno: dolore ai denti senza carie, cefalea temporale, viso «quadrato».",muscoli:["m-massetere","m-temporale"],test:"Palpazione a denti stretti; apertura della bocca ridotta (meno di tre dita)."},
+   {t:"Pterigoideo laterale",perche:"Trascina il disco in avanti: è l'origine del click.",muscoli:["m-pterigoidei"],test:"Dolore nella fossetta davanti al condilo a bocca semiaperta; click riproducibile."},
+   {t:"Sopraioidei deboli e collo in avanti",perche:"La testa protratta cambia la posizione della mandibola e del disco.",muscoli:["m-sopraioidei","m-suboccipitali"],test:"Il click cambia con la posizione della testa."},
+   {t:"Occlusione e denti",perche:"Un'otturazione alta o denti mancanti cambiano l'equilibrio della chiusura.",muscoli:[],test:"Chiedere lavori dentali recenti; invio al dentista o gnatologo se il quadro è occlusale."}],
+  catene:["c-profonda"],
+  trattamento:["Massetere e temporale con pressioni sostenute","Pterigoideo laterale con tocco leggero a bocca semiaperta","Sotto-occipitali e collo anteriore","Consiglio: labbra chiuse, denti staccati, lingua sul palato; bite notturno dal dentista se il serramento è forte"],
+  rosse:["Blocco della bocca aperta o chiusa","Dolore con gonfiore e febbre","Click comparso dopo un trauma al viso"],
+  segreto:"L'apertura normale è tre dita del cliente, in verticale, fra gli incisivi. Misurala sempre: è il numero che dice se stai migliorando. E ricorda che ATM e bacino si muovono in coppia: chi digrigna ha quasi sempre anche l'ileopsoas in tensione."},
+
+ {id:"p-vertigine-collo",voce:"«Ho un senso di instabilità, come se camminassi su una barca»",zona:"Collo",
+  sintesi:"L'instabilità non rotatoria («barca», «testa vuota») che compare con i movimenti del collo o dopo ore al computer è spesso cervicogenica: i sotto-occipitali danno al cervello informazioni sbagliate sulla posizione del capo. Va distinta dalla vertigine vera, rotatoria, che è vestibolare e si invia.",
+  gesto:["I sotto-occipitali informano il cervello sulla posizione della testa","Occhi e orecchio interno confrontano quell'informazione","Se i dati non coincidono, compare l'instabilità"],
+  movimenti:["mv-collo-rot","mv-rachide-est"],
+  cause:[
+   {t:"Sotto-occipitali e testa protratta",perche:"36 fusi per grammo: sono sensori; in tensione cronica distorcono il segnale.",muscoli:["m-suboccipitali","m-semispinale"],test:"Palpazione che riproduce l'instabilità; test di rotazione a testa flessa."},
+   {t:"Sternocleidomastoideo",perche:"I suoi trigger danno vertigini, nausea e visione offuscata.",muscoli:["m-scom"],test:"Pinza del ventre: riproduce i sintomi."},
+   {t:"Vertigine posizionale (VPPB)",perche:"Rotatoria, dura secondi, scatenata girandosi nel letto: è vestibolare.",muscoli:[],test:"Se è rotatoria e brevissima nei cambi di posizione, invio (manovra liberatoria dallo specialista)."},
+   {t:"Insufficienza vertebro-basilare o altro",perche:"Vertigine con disturbi visivi, della parola, formicolio al viso: urgenza.",muscoli:[],test:"Qualunque segno neurologico associato: pronto soccorso."}],
+  catene:["c-sbl","c-profonda"],
+  trattamento:["Sotto-occipitali con dita ferme, lentamente","Sternocleidomastoideo e scaleni a pinza","Mobilizzazione dorsale alta","Esercizi di stabilizzazione oculo-cervicale a casa (seguire un punto con gli occhi muovendo la testa)"],
+  rosse:["Vertigine rotatoria violenta improvvisa","Con disturbi visivi, della parola, debolezza o formicolio al viso","Dopo un trauma cervicale o manipolazione"],
+  segreto:"Chiedi: «gira la stanza o giri tu?». Se gira la stanza è vestibolare e non è tuo. Se «è come essere su una barca» è quasi sempre cervicale e risponde benissimo a due minuti di sotto-occipitali. È la domanda più importante della valutazione del collo."}
 ]);
 </script>
 <script>
@@ -4498,6 +5040,7 @@ DB.img = {
 "Gray387":"tavole/Gray387.jpg",
 "Gray388":"tavole/Gray388.jpg",
 "Gray389":"tavole/Gray389.jpg",
+"Gray390":"tavole/Gray390.jpg",
 "Gray391":"tavole/Gray391.jpg",
 "Gray392":"tavole/Gray392.jpg",
 "Gray395":"tavole/Gray395.jpg",
@@ -4506,8 +5049,12 @@ DB.img = {
 "Gray411":"tavole/Gray411.jpg",
 "Gray412":"tavole/Gray412.jpg",
 "Gray414":"tavole/Gray414.jpg",
+"Gray417":"tavole/Gray417.jpg",
 "Gray418":"tavole/Gray418.jpg",
+"Gray419":"tavole/Gray419.jpg",
+"Gray425":"tavole/Gray425.jpg",
 "Gray430":"tavole/Gray430.jpg",
+"Gray431":"tavole/Gray431.jpg",
 "Gray432":"tavole/Gray432.jpg",
 "Gray433":"tavole/Gray433.jpg",
 "Gray434":"tavole/Gray434.jpg",
@@ -4519,6 +5066,8 @@ DB.img = {
 "Gray441":"tavole/Gray441.jpg",
 "Gray442":"tavole/Gray442.jpg",
 "Gray443":"tavole/Gray443.jpg",
+"Gray444":"tavole/Gray444.jpg",
+"Gray445":"tavole/Gray445.jpg",
 "Gray507":"tavole/Gray507.jpg",
 "Gray513":"tavole/Gray513.jpg",
 "Gray520":"tavole/Gray520.jpg",
@@ -4549,6 +5098,72 @@ DB.img = {
 "Gray832":"tavole/Gray832.jpg",
 "Gray833":"tavole/Gray833.jpg"
 };
+</script>
+<script>
+/* Tavole Gray, disegni e regioni per i muscoli aggiunti nelle parti 5-7. */
+Object.assign(TAVOLA_PER_REGIONE,{"Dorso (profondo)":"rachide","Collo (profondo)":"collo","Pelvi":"bacino","Avambraccio (profondo)":"gomito","Gomito":"gomito","Testa":"collo","Mano":"mano"});
+
+Object.assign(DB.didascalie,{
+ Gray390:"Faccia posteriore dello sterno: trasverso del torace, intercostali interni, origine del diaframma",
+ Gray417:"Sezione dell'avambraccio: flessori, estensori, pronatori, nervi mediano, ulnare e radiale",
+ Gray419:"Avambraccio posteriore, strato profondo: supinatore, abduttore lungo ed estensori del pollice",
+ Gray425:"Palmo della mano: aponeurosi palmare, eminenza tenar e ipotenar, nervo ulnare",
+ Gray431:"Sezione del braccio: bicipite, brachiale, tricipite, nervi radiale, mediano e ulnare",
+ Gray444:"Pianta del piede, secondo strato: quadrato della pianta, lombricali, tendini dei flessori lunghi",
+ Gray445:"Pianta del piede, terzo strato: flessore breve dell'alluce, adduttore dell'alluce, tibiale posteriore"
+});
+const G2=(...n)=>n.map(x=>"Gray"+x);
+Object.assign(DB.immagini,{
+ "m-splenio":G2(389,385),"m-semispinale":G2(389),"m-lungo-collo":G2(387),"m-platisma":G2(378,385),"m-sopraioidei":G2(386),"m-sottoioidei":G2(386),
+ "m-mimici":G2(378),"m-succlavio":G2(411),"m-intercostali":G2(390,411),"m-dentato-post":G2(409,389),"m-pavimento-pelvico":G2(241,828),"m-trasverso-torace":G2(390),
+ "m-psoas-minore-iliaco":G2(430),"m-coracobrachiale":G2(411,525),"m-brachiale":G2(431,411),"m-anconeo":G2(418),"m-brachioradiale":G2(418,414),
+ "m-pronatori":G2(414,417),"m-supinatore":G2(419),"m-flessori-polso":G2(414,417),"m-flessori-dita":G2(414,417),"m-estensori-polso":G2(418),"m-estensori-dita":G2(418,419),
+ "m-intrinseci-mano":G2(425,219),"m-rotatori-anca":G2(434,436),"m-sartorio":G2(430,549),"m-gracile":G2(433,430),"m-pettineo":G2(433,549),"m-popliteo":G2(439),
+ "m-estensori-dita-piede":G2(437,441),"m-flessori-dita-piede":G2(439,442),"m-intrinseci-piede":G2(443,444,445),"m-plantare-gracile":G2(438),
+ "p-torcicollo":G2(385,389),"p-cefalea":G2(389,804),"p-braccio-sopra-testa":G2(412,326),"p-spalla-congelata":G2(327,411),"p-gomito-tennista":G2(418,414),
+ "p-mano-gonfia-mattino":G2(414,425),"p-formicolio-braccio":G2(387,808),"p-dito-scatto":G2(425,414),"p-click-mandibola":G2(383,309),"p-vertigine-collo":G2(389,513)
+});
+
+Object.assign(DB.disegni,{
+ /* collo */
+ "m-splenio":[{tav:"collo",d:"M124,100 L134,104 L128,176 L116,172 Z",fibre:"M128,104 L122,172"}],
+ "m-semispinale":[{tav:"collo",d:"M136,94 L146,98 L144,220 L132,218 Z",deep:true},{tav:"rachide",d:"M88,20 L96,22 L96,232 L86,230 Z",deep:true}],
+ "m-lungo-collo":[{tav:"collo",d:"M98,110 L104,110 L106,218 L98,216 Z",deep:true}],
+ "m-platisma":[{tav:"collo",d:"M52,120 L80,118 L96,226 L60,226 Z",fibre:"M60,124 L72,224 M74,120 L86,224"}],
+ "m-sopraioidei":[{tav:"collo",d:"M50,112 L84,116 L92,136 L74,138 Z",fibre:"M58,116 L78,136"}],
+ "m-sottoioidei":[{tav:"collo",d:"M74,144 L92,142 L96,226 L80,226 Z",fibre:"M80,146 L84,224 M88,145 L92,224"}],
+ "m-mimici":[{tav:"collo",d:"M56,30 L100,12 L104,30 L62,56 Z",fibre:"M64,34 L98,20 M62,46 L100,28"}],
+ /* torace e spalla */
+ "m-succlavio":[{tav:"torace",d:"M60,50 L94,40 L96,48 L64,58 Z",deep:true},{tav:"spalla",d:"M30,52 L92,56 L92,64 L32,62 Z",deep:true}],
+ "m-intercostali":[{tav:"torace",d:"M26,78 L92,60 L92,74 L18,98 Z M18,100 L92,76 L92,90 L14,120 Z M14,122 L92,92 L92,106 L14,140 Z",fibre:"M30,80 L36,92 M50,74 L56,86 M70,68 L76,80 M28,104 L34,116 M50,98 L56,110 M72,92 L78,104"}],
+ "m-dentato-post":[{tav:"spalla",d:"M206,40 L206,70 L150,80 L146,70 Z",deep:true},{tav:"rachide",d:"M86,150 L96,154 L84,180 L74,176 Z",deep:true}],
+ "m-trasverso-torace":[{tav:"torace",d:"M70,60 L96,58 L96,130 L60,116 Z",deep:true}],
+ "m-pavimento-pelvico":[{tav:"bacino",d:"M90,150 L140,150 L130,176 L100,176 Z",deep:true}],
+ "m-psoas-minore-iliaco":[{tav:"bacino",d:"M40,60 L92,52 L96,66 L64,140 L48,154 C50,120 44,90 40,60 Z",fibre:"M60,64 L52,140 M78,58 L56,146"}],
+ /* braccio e avambraccio (tavola gomito: anteriore destra, radio a sinistra) */
+ "m-coracobrachiale":[{tav:"spalla",d:"M110,66 L120,70 L112,120 L104,118 Z",deep:true}],
+ "m-brachiale":[{tav:"gomito",d:"M80,40 L120,40 L118,96 L106,100 L92,100 L82,96 Z",deep:true}],
+ "m-anconeo":[{tav:"gomito",d:"M68,96 L82,98 L104,106 L96,116 Z",deep:true}],
+ "m-brachioradiale":[{tav:"gomito",d:"M76,56 L86,58 L80,190 L66,186 Z",fibre:"M81,60 L73,186"}],
+ "m-pronatori":[{tav:"gomito",d:"M128,98 L138,104 L92,130 L88,120 Z M74,180 L108,176 L108,186 L72,190 Z",fibre:"M130,102 L92,126"}],
+ "m-supinatore":[{tav:"gomito",d:"M70,96 L86,100 L96,128 L84,136 Z",deep:true}],
+ "m-flessori-polso":[{tav:"gomito",d:"M130,100 L140,104 L114,196 L98,194 Z",fibre:"M134,104 L108,194 M128,112 L104,192"}],
+ "m-flessori-dita":[{tav:"gomito",d:"M124,106 L134,110 L112,196 L100,196 Z",deep:true}],
+ "m-estensori-polso":[{tav:"gomito",d:"M62,96 L74,102 L88,196 L72,196 Z",fibre:"M66,100 L78,194 M70,98 L84,194"}],
+ "m-estensori-dita":[{tav:"gomito",d:"M66,104 L78,108 L94,196 L82,198 Z",deep:true}],
+ "m-intrinseci-mano":[{tav:"mano",d:"M120,104 L146,96 L160,168 L128,160 Z M30,106 L48,106 L44,156 L28,152 Z M54,110 L64,110 L66,150 L56,150 Z M74,110 L84,110 L86,152 L76,152 Z M94,108 L104,108 L108,150 L98,150 Z",fibre:"M126,108 L142,160 M34,110 L34,150"}],
+ /* anca e coscia */
+ "m-rotatori-anca":[{tav:"bacino",d:"M78,120 L108,130 L108,144 L40,146 L30,138 Z",deep:true}],
+ "m-sartorio":[{tav:"bacino",d:"M20,58 L30,62 L84,198 L74,198 Z",fibre:"M25,62 L78,196"},{tav:"ginocchio",d:"M26,0 L36,0 L58,160 L48,162 Z",fibre:"M31,4 L52,160"}],
+ "m-gracile":[{tav:"bacino",d:"M108,160 L118,164 L102,198 L92,198 Z",fibre:"M112,164 L98,196"},{tav:"ginocchio",d:"M44,0 L52,0 L62,170 L54,174 Z",fibre:"M48,4 L58,170"}],
+ "m-pettineo":[{tav:"bacino",d:"M74,122 L96,130 L72,170 L56,166 Z",fibre:"M80,126 L64,166"}],
+ /* ginocchio, gamba, piede */
+ "m-popliteo":[{tav:"ginocchio",d:"M120,112 L132,116 L70,150 L60,142 Z",deep:true}],
+ "m-estensori-dita-piede":[{tav:"ginocchio",d:"M126,142 L138,146 L128,226 L114,226 Z",deep:true},{tav:"piede",d:"M110,0 L124,0 L124,60 L166,96 L158,104 L112,66 Z",fibre:"M116,4 L118,60 L160,98"}],
+ "m-flessori-dita-piede":[{tav:"piede",d:"M60,0 L72,0 L72,56 L104,92 L100,100 L62,62 Z",deep:true}],
+ "m-intrinseci-piede":[{tav:"piede",d:"M30,122 L190,132 L186,142 L34,134 Z",fibre:"M50,128 L180,138 M70,130 L172,140"}],
+ "m-plantare-gracile":[{tav:"piede",d:"M44,0 L52,0 L36,60 L30,58 Z",deep:true}]
+});
 </script>
 <script>
 /* Solo sul sito: installabile e consultabile anche senza rete, dopo la prima visita */
@@ -4696,6 +5311,326 @@ function consLeggi(){
   speechSynthesis.cancel();
   frasi.forEach(f=>{ const u=new SpeechSynthesisUtterance(f); const v=vocePreferita(); if(v) u.voice=v; u.lang="it-IT"; u.rate=S.rate; speechSynthesis.speak(u); });
 }
+</script>
+<style>
+.alleg{display:flex;flex-direction:column;gap:8px}
+.alleg-row{display:flex;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--line-soft);border-radius:10px;padding:8px 10px;font-size:13px}
+.alleg-row .ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:none;font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:#fff;background:var(--fascia)}
+.alleg-row .ic.img{background:var(--joint)}.alleg-row .ic.aud{background:var(--muscle)}.alleg-row .ic.doc{background:var(--bone)}
+.alleg-row .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.alleg-row .nm small{display:block;color:var(--faint);font-family:var(--mono);font-size:10px}
+.alleg-row audio{width:100%;height:32px}
+.alleg-row img{max-height:120px;border-radius:6px;cursor:zoom-in}
+.alleg-add{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.alleg-add input[type=file]{display:none}
+.alleg-note{font-size:12px;color:var(--faint)}
+.alleg-view{position:fixed;inset:0;z-index:200;background:rgba(10,14,13,.92);display:grid;place-items:center;padding:16px;cursor:zoom-out}
+.alleg-view img{max-width:96vw;max-height:88vh;border-radius:6px;background:#fff}
+</style>
+<script>
+/* =========================================================
+   ALLEGATI — vocali, audio, risonanze, foto, PDF, appunti.
+   Restano sul dispositivo (IndexedDB), anche chiudendo l'app.
+   ========================================================= */
+const ALL = { db:null, ok:("indexedDB" in window) };
+function allDB(){
+  return new Promise((ris,err)=>{
+    if(ALL.db) return ris(ALL.db);
+    if(!ALL.ok) return err(new Error("no idb"));
+    const r=indexedDB.open("tavola-viva",1);
+    r.onupgradeneeded=()=>{ const d=r.result; if(!d.objectStoreNames.contains("allegati")){ const s=d.createObjectStore("allegati",{keyPath:"id"}); s.createIndex("scheda","scheda"); } };
+    r.onsuccess=()=>{ ALL.db=r.result; ris(ALL.db); };
+    r.onerror=()=>err(r.error);
+  });
+}
+function allTx(mode,fn){
+  return allDB().then(d=>new Promise((ris,err)=>{ const t=d.transaction("allegati",mode); const s=t.objectStore("allegati"); const q=fn(s); t.oncomplete=()=>ris(q&&q.result); t.onerror=()=>err(t.error); }));
+}
+function allLista(scheda){
+  return allDB().then(d=>new Promise((ris,err)=>{
+    const s=d.transaction("allegati","readonly").objectStore("allegati");
+    const q=scheda? s.index("scheda").getAll(scheda) : s.getAll();
+    q.onsuccess=()=>ris((q.result||[]).sort((a,b)=>b.quando-a.quando)); q.onerror=()=>err(q.error);
+  }));
+}
+function allSalva(scheda,file,nota){
+  const rec={id:"al-"+Date.now()+"-"+Math.random().toString(36).slice(2,7),scheda:scheda||"",nome:file.name,tipo:file.type||"",dim:file.size,quando:Date.now(),nota:nota||"",blob:file};
+  return allTx("readwrite",s=>s.put(rec)).then(()=>rec);
+}
+function allElimina(id){ return allTx("readwrite",s=>s.delete(id)); }
+function allAggiornaNota(id,nota){ return allDB().then(d=>new Promise((ris,err)=>{ const s=d.transaction("allegati","readwrite").objectStore("allegati"); const g=s.get(id); g.onsuccess=()=>{ const r=g.result; if(r){ r.nota=nota; s.put(r); } ris(); }; g.onerror=()=>err(g.error); })); }
+
+function allKind(t){ t=t||""; if(t.indexOf("audio")===0) return "aud"; if(t.indexOf("image")===0) return "img"; if(t.indexOf("video")===0) return "vid"; return "doc"; }
+function allDim(n){ return n>1e6? (n/1e6).toFixed(1)+" MB" : Math.round(n/1e3)+" KB"; }
+const ALL_URL={};
+function allUrl(rec){ if(!ALL_URL[rec.id]) ALL_URL[rec.id]=URL.createObjectURL(rec.blob); return ALL_URL[rec.id]; }
+
+function allRowHTML(r,conScheda){
+  const k=allKind(r.tipo), u=allUrl(r);
+  const titolo=conScheda&&r.scheda? '<small>'+esc(nomeOf(r.scheda))+'</small>' : '';
+  let media="";
+  if(k==="aud") media='<audio controls preload="metadata" src="'+u+'"></audio>';
+  else if(k==="img") media='<img src="'+u+'" alt="'+esc(r.nome)+'" data-allview="'+r.id+'">';
+  else if(k==="vid") media='<video controls preload="metadata" src="'+u+'" style="max-height:200px;border-radius:6px"></video>';
+  else media='<a class="btn sm" href="'+u+'" target="_blank" rel="noopener">Apri</a>';
+  const lab={aud:"AUD",img:"IMG",vid:"VID",doc:"DOC"}[k];
+  return '<div class="alleg-row" data-allid="'+r.id+'"><span class="ic '+k+'">'+lab+'</span>'+
+    '<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px">'+
+      '<div class="nm" title="'+esc(r.nome)+'">'+esc(r.nome)+'<small>'+allDim(r.dim)+' · '+new Date(r.quando).toLocaleDateString("it-IT")+'</small>'+titolo+'</div>'+
+      media+
+      '<input class="alleg-nota" data-allnota="'+r.id+'" value="'+esc(r.nota)+'" placeholder="Nota (es. paziente M.R., prima seduta)" style="font:inherit;font-size:12.5px;padding:5px 8px;border:1px solid var(--line-soft);border-radius:7px;background:var(--surface-2);color:var(--ink)">'+
+    '</div>'+
+    '<button class="x" data-alldel="'+r.id+'" aria-label="Elimina" style="background:none;border:0;color:var(--faint);padding:4px 6px;cursor:pointer">✕</button></div>';
+}
+
+/* blocco "Allega" per una scheda */
+function allegatiBlocco(scheda){
+  const id="alleg-"+scheda;
+  const nota = ALL.ok? "I file restano su questo dispositivo, anche chiudendo l'app. Non vengono inviati a nessun server."
+                     : "Questo browser non permette di salvare file nell'app.";
+  const h='<section class="alleg" id="'+id+'"><div class="seg">I tuoi allegati</div>'+
+    '<div class="alleg-add"><label class="btn sm"><input type="file" multiple data-allfile="'+scheda+'" accept="audio/*,image/*,video/*,.pdf,.txt,.doc,.docx">+ Allega file</label>'+
+    '<label class="btn sm"><input type="file" data-allfile="'+scheda+'" accept="audio/*" capture>🎙 Registra vocale</label>'+
+    '<label class="btn sm"><input type="file" data-allfile="'+scheda+'" accept="image/*" capture="environment">📷 Foto</label></div>'+
+    '<div class="alleg-lista"></div><p class="alleg-note">'+nota+' Vocali, audio, risonanze, foto, referti, PDF.</p></section>';
+  setTimeout(()=>allRender(scheda),0);
+  return h;
+}
+function allRender(scheda){
+  const box=document.querySelector('#alleg-'+CSS.escape(scheda)+' .alleg-lista'); if(!box) return;
+  allLista(scheda).then(L=>{ box.innerHTML = L.length? L.map(r=>allRowHTML(r,false)).join("") : '<p style="margin:0;font-size:12.5px;color:var(--faint)">Nessun allegato per questa scheda.</p>'; }).catch(()=>{ box.innerHTML=""; });
+}
+
+/* sezione in "Il mio studio" */
+function allegatiStudio(){
+  setTimeout(()=>{ const box=document.getElementById("alleg-tutti"); if(!box) return;
+    allLista(null).then(L=>{ box.innerHTML = L.length? L.map(r=>allRowHTML(r,true)).join("") : '<p class="empty">Nessun file ancora. Apri una scheda e premi <b>Allega file</b>, oppure carica qui sotto.</p>'; }).catch(()=>{ box.innerHTML='<p class="empty">Archivio non disponibile su questo browser.</p>'; }); },0);
+  return '<div class="seg" style="margin:18px 0 10px">I miei file</div>'+
+    '<div class="alleg-add" style="margin-bottom:10px"><label class="btn sm"><input type="file" multiple data-allfile="" accept="audio/*,image/*,video/*,.pdf,.txt,.doc,.docx">+ Carica un file non legato a una scheda</label></div>'+
+    '<div class="alleg" id="alleg-tutti"></div>';
+}
+
+/* eventi */
+document.addEventListener("change",e=>{
+  const inp=e.target.closest("[data-allfile]"); if(!inp||!inp.files||!inp.files.length) return;
+  const scheda=inp.getAttribute("data-allfile");
+  const files=Array.from(inp.files); inp.value="";
+  Promise.all(files.map(f=>allSalva(scheda,f,""))).then(()=>{ if(scheda) allRender(scheda); else render(); })
+    .catch(()=>alert("Non sono riuscito a salvare il file su questo dispositivo."));
+});
+document.addEventListener("click",e=>{
+  const d=e.target.closest("[data-alldel]");
+  if(d){ const id=d.getAttribute("data-alldel"); if(confirm("Eliminare questo allegato da questo dispositivo?")) allElimina(id).then(()=>{ const row=d.closest(".alleg-row"); if(row) row.remove(); }); return; }
+  const v=e.target.closest("[data-allview]");
+  if(v){ const o=el("div","alleg-view",'<img src="'+v.getAttribute("src")+'" alt="">'); o.addEventListener("click",()=>o.remove()); document.body.appendChild(o); }
+});
+document.addEventListener("input",e=>{ const n=e.target.closest("[data-allnota]"); if(n){ clearTimeout(n._t); n._t=setTimeout(()=>allAggiornaNota(n.getAttribute("data-allnota"),n.value),400); } });
+
+/* innesto nelle schede e nello studio */
+const _vistaScheda_conAllegati = vistaScheda;
+vistaScheda = function(kind,id){
+  const h=_vistaScheda_conAllegati(kind,id);
+  return h.replace('</article>', '<div class="sheet-body" style="padding-top:0">'+allegatiBlocco(id)+'</div></article>');
+};
+const _vistaStudio_conAllegati = vistaStudio;
+vistaStudio = function(){ return _vistaStudio_conAllegati() + allegatiStudio(); };
+</script>
+<style>
+.ai-box{border:1px solid color-mix(in srgb,var(--fascia) 45%,var(--line));background:color-mix(in srgb,var(--fascia) 6%,var(--surface));border-radius:13px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.ai-box h3{font-size:17px}
+.ai-wait{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:13.5px}
+.ai-wait i{width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--fascia);border-radius:50%;animation:girasp 1s linear infinite;display:inline-block}
+@keyframes girasp{to{transform:rotate(360deg)}}
+.ai-key{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.ai-key input{flex:1;min-width:220px;padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--ink);font:inherit;font-size:13px}
+.ai-q{background:var(--surface);border:1px dashed var(--line);border-radius:10px;padding:10px 12px;font-size:13.5px}
+</style>
+<script>
+/* =========================================================
+   CONSULTO CON CLAUDE — ragiona sulla frase del cliente
+   usando le schede dell'app come base di conoscenza.
+   La chiave API resta sul dispositivo (localStorage) e non passa da nessun server nostro.
+   ========================================================= */
+const AI = { modello:"claude-opus-5-5", url:"https://api.anthropic.com/v1/messages" };
+function aiKey(){ return load("apikey",""); }
+function aiHaKey(){ return !!aiKey(); }
+
+/* base di conoscenza compatta: nomi, trigger e test già scritti nelle schede */
+function aiConoscenza(){
+  const m=DB.muscoli.map(x=>"- "+x.nome+" ["+x.id+"] · "+(x.gruppo||"")+" · dolore riferito: "+(x.trigger||"").slice(0,110)).join("\n");
+  const a=DB.articolazioni.map(x=>"- "+x.nome+" ["+x.id+"]").join("\n");
+  const v=DB.movimenti.map(x=>"- "+x.nome+" ["+x.id+"] · normale "+x.range+" · limitato da: "+(x.limite||"").slice(0,90)).join("\n");
+  const p=DB.problemi.map(x=>"- "+x.voce+" ["+x.id+"] · test: "+(x.cause||[]).map(c=>c.test).join(" / ").slice(0,160)).join("\n");
+  const n=DB.nervi.map(x=>"- "+x.nome+" ["+x.id+"] · segno: "+(x.segno||"").slice(0,80)).join("\n");
+  const g=DB.legamenti.map(x=>"- "+x.nome+" ["+x.id+"] · test: "+(x.test||"").slice(0,80)).join("\n");
+  const b=DB.borse.map(x=>"- "+x.nome+" ["+x.id+"]").join("\n");
+  const d=DB.tendini.map(x=>"- "+x.nome+" ["+x.id+"] · test: "+(x.test||"").slice(0,80)).join("\n");
+  return "MUSCOLI\n"+m+"\n\nARTICOLAZIONI\n"+a+"\n\nMOVIMENTI\n"+v+"\n\nNERVI\n"+n+"\n\nLEGAMENTI\n"+g+"\n\nTENDINI\n"+d+"\n\nBORSE\n"+b+"\n\nQUADRI CLINICI GIA' DESCRITTI\n"+p;
+}
+const AI_SISTEMA = `Sei un docente di anatomia, biomeccanica e posturologia che forma massoterapisti e massaggiatori olistici in Italia. Un allievo ti descrive un problema con le parole del cliente. Devi aiutarlo a ragionare: che cosa guardare, quali test fare, quali strutture possono c'entrare, che cosa trattare e in che ordine, quando inviare al medico.
+
+Regole:
+- Ragiona sulla biomeccanica reale del gesto descritto (quale movimento, su quale piano, quali articolazioni e quali muscoli lo producono o lo frenano), non limitarti ai quadri gia' descritti.
+- Usa la base di conoscenza qui sotto per nominare le strutture: quando citi un muscolo, un'articolazione, un nervo, un legamento, un tendine, una borsa o un movimento presenti nell'elenco, scrivi il nome ESATTO dell'elenco e aggiungi l'id fra parentesi quadre, es. "Quadrato dei lombi [m-quadrato-lombi]".
+- Dai sempre 2-4 ipotesi ordinate per probabilita', ognuna con il test pratico per confermarla o escluderla (nome del test, posizione, cosa si osserva).
+- Il massoterapista non fa diagnosi: usa "ipotesi da verificare", e indica chiaramente i segnali che richiedono l'invio al medico.
+- Rispondi in italiano, con frasi brevi e concrete. Niente premesse, niente elenchi di avvertenze generiche.
+- Rispondi SOLO con un oggetto JSON valido, senza testo prima o dopo, con questa forma:
+{"sintesi":"2-3 frasi su cosa sta succedendo biomeccanicamente",
+ "domande":["domanda da fare al cliente per orientarsi", "..."],
+ "ipotesi":[{"titolo":"...","perche":"...","test":["..."],"strutture":["Nome esatto [id]","..."],"trattamento":["..."]}],
+ "movimenti":[{"nome":"Nome esatto [id]","cosaMisurare":"..."}],
+ "bandiereRosse":["..."],
+ "segreto":"un consiglio pratico da esperto, 1-2 frasi"}
+
+BASE DI CONOSCENZA
+`;
+
+async function aiConsulto(testo){
+  const key=aiKey(); if(!key) throw new Error("nokey");
+  const corpo={
+    model:AI.modello, max_tokens:4000,
+    output_config:{effort:"high"},
+    fallbacks:"default",
+    system:[{type:"text",text:AI_SISTEMA+aiConoscenza(),cache_control:{type:"ephemeral"}}],
+    messages:[{role:"user",content:"Il cliente dice: «"+testo.trim()+"»"}]
+  };
+  const r=await fetch(AI.url,{method:"POST",headers:{
+    "content-type":"application/json","x-api-key":key,"anthropic-version":"2023-06-01",
+    "anthropic-beta":"server-side-fallback-2026-07-01",
+    "anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify(corpo)});
+  if(!r.ok){
+    let msg="Errore "+r.status; try{ const j=await r.json(); msg=(j.error&&j.error.message)||msg; }catch(e){}
+    if(r.status===401) msg="Chiave API non valida o scaduta.";
+    if(r.status===429) msg="Troppe richieste: riprova fra qualche secondo.";
+    throw new Error(msg);
+  }
+  const j=await r.json();
+  if(j.stop_reason==="refusal") throw new Error("La richiesta non e' stata elaborata (filtro di sicurezza). Riformula la frase.");
+  const txt=(j.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("\n").trim();
+  const inizio=txt.indexOf("{"), fine=txt.lastIndexOf("}");
+  if(inizio<0||fine<0) throw new Error("Risposta non leggibile. Riprova.");
+  return JSON.parse(txt.slice(inizio,fine+1));
+}
+
+/* "Nome [id]" -> pillola cliccabile, altrimenti testo con auto-link */
+function aiTesto(s){
+  s=String(s||"");
+  return autolink(esc(s).replace(/\s*\[([a-z]+-[a-z0-9-]+)\]/g,""),null)
+    .replace(/$/,"");
+}
+function aiStruttura(s){
+  const m=String(s||"").match(/^(.*?)\s*\[([a-z]+-[a-z0-9-]+)\]\s*$/);
+  if(m && anyById(m[2])) return pill(m[2],m[1].trim());
+  const t=trovaTermine(s); if(t) return pill(t.id,String(s).replace(/\s*\[[^\]]*\]/,""));
+  return '<span class="pill plain">'+esc(String(s).replace(/\s*\[[^\]]*\]/,""))+'</span>';
+}
+function aiHTML(r){
+  let h='<div class="cons-res">';
+  if((r.bandiereRosse||[]).length) h+='<div class="cons-card rosso"><h3>Quando inviare al medico</h3><ul style="margin:0;padding-left:18px;font-size:13.5px">'+r.bandiereRosse.map(x=>'<li>'+aiTesto(x)+'</li>').join("")+'</ul></div>';
+  h+='<div class="ai-box"><span class="eyebrow" style="color:var(--fascia)">Consulto con Claude · ragionamento sulla frase</span><h3>Che cosa sta succedendo</h3><p style="margin:0;font-size:14px">'+aiTesto(r.sintesi)+'</p>';
+  if((r.domande||[]).length) h+='<div class="seg" style="margin-top:4px">Domande da fare prima di toccare</div>'+r.domande.map(q=>'<div class="ai-q">'+aiTesto(q)+'</div>').join("");
+  h+='</div>';
+  (r.ipotesi||[]).forEach((ip,i)=>{
+    h+='<div class="cons-card"><span class="pct">Ipotesi '+(i+1)+'</span><h3>'+aiTesto(ip.titolo)+'</h3><p style="margin:0;font-size:13.5px;color:var(--muted)">'+aiTesto(ip.perche)+'</p>'+
+      '<div class="seg" style="margin-top:4px">Test per verificarla</div>'+(ip.test||[]).map((t,k)=>'<div class="cons-step"><i>'+(k+1)+'</i><div>'+aiTesto(t)+'</div></div>').join("")+
+      ((ip.strutture||[]).length?'<div class="seg" style="margin-top:4px">Strutture in gioco</div><div class="pills">'+ip.strutture.map(aiStruttura).join("")+'</div>':'')+
+      ((ip.trattamento||[]).length?'<div class="seg" style="margin-top:4px">Che cosa trattare</div>'+ip.trattamento.map((t,k)=>'<div class="cons-step"><i>'+(k+1)+'</i><div>'+aiTesto(t)+'</div></div>').join(""):'')+
+      '</div>';
+  });
+  if((r.movimenti||[]).length) h+='<div class="cons-card"><h3>Movimenti da misurare</h3>'+r.movimenti.map(m=>'<div class="cons-step"><i>●</i><div><b>'+aiStruttura(m.nome)+'</b><small>'+aiTesto(m.cosaMisurare)+'</small></div></div>').join("")+'</div>';
+  if(r.segreto) h+='<div class="secret"><span class="lbl">◆ Il consiglio dell\'esperto</span><p>'+aiTesto(r.segreto)+'</p></div>';
+  h+='<p style="font-size:12px;color:var(--faint);margin:0">Ragionamento generato da Claude ('+AI.modello+') sulla base delle schede dell\'app. E\' un aiuto alla valutazione, non una diagnosi: le decisioni restano tue.</p></div>';
+  return h;
+}
+
+/* ---- motore locale per regione e movimento (senza chiave) ---- */
+const CONS_REGIONI = [
+ [/collo|cervic|nuca|torcicollo|testa/, ["Collo","Collo (profondo)","Masticazione","Testa"], ["a-intervertebrale","a-occipito-atlantoidea","a-atlo-assiale","a-uncovertebrali","a-atm"], ["mv-collo-rot"]],
+ [/spalla|omero|scapol|braccio alto|deltoid/, ["Spalla","Cingolo scapolare","Cuffia dei rotatori","Braccio"], ["a-gleno-omerale","a-acromion-claveare","a-scapolo-toracica","a-sterno-claveare"], ["mv-spalla-flex","mv-spalla-abd","mv-spalla-re","mv-spalla-ri"]],
+ [/gomito|avambraccio|epicondil/, ["Gomito","Avambraccio","Avambraccio (profondo)","Braccio"], ["a-omero-ulnare","a-omero-radiale","a-radio-ulnare"], ["mv-gomito-flex","mv-supinazione"]],
+ [/polso|mano|dita|pollice|formicol.*mano|tunnel/, ["Mano","Avambraccio","Avambraccio (profondo)"], ["a-radio-carpica","a-mediocarpica","a-trapezio-metacarpale","a-metacarpo-falangee"], ["mv-presa"]],
+ [/dors|scapole|torac|costol|petto|sterno|respir/, ["Dorso","Dorso (profondo)","Torace","Respirazione"], ["a-costo-vertebrale","a-costo-trasversarie","a-costo-sternale","a-zigoapofisarie"], ["mv-rachide-rot","mv-rachide-est"]],
+ [/lombar|schiena in basso|reni|bassa schiena|parte bassa|lombalg|fianco|sacro/, ["Dorso","Dorso (profondo)","Addome","Addome (profondo)","Anca (profondo)","Pelvi"], ["a-intervertebrale","a-zigoapofisarie","a-lombo-sacrale","a-sacro-iliaca"], ["mv-rachide-flex","mv-rachide-est","mv-rachide-rot","mv-anca-est"]],
+ [/anca|inguine|gluteo|sedere|natica|trocanter|pube|adduttor/, ["Anca","Anca (profondo)","Anca (rotatori profondi)","Coscia mediale","Pelvi"], ["a-coxo-femorale","a-sacro-iliaca","a-sinfisi"], ["mv-anca-flex","mv-anca-est","mv-anca-abd","mv-anca-re"]],
+ [/coscia|quadricip|ischiocrur|femor/, ["Coscia anteriore","Coscia posteriore","Coscia mediale","Anca"], ["a-coxo-femorale","a-femoro-tibiale"], ["mv-anca-flex","mv-ginocchio-flex"]],
+ [/ginocchi|rotul|menisc|crociat/, ["Ginocchio","Coscia anteriore","Coscia posteriore"], ["a-femoro-tibiale","a-femoro-rotulea","a-tibio-fibulare"], ["mv-ginocchio-flex"]],
+ [/polpacc|gamba|tibia|stinco|peron/, ["Gamba posteriore","Gamba anteriore","Gamba profonda","Gamba laterale"], ["a-tibio-fibulare","a-tibio-tarsica"], ["mv-caviglia-dorsi","mv-caviglia-plantar"]],
+ [/cavigli|malleol|piede|tallone|pianta|alluce|dita del piede/, ["Piede","Gamba posteriore","Gamba laterale","Gamba profonda"], ["a-tibio-tarsica","a-sotto-astragalica","a-medio-tarsica","a-metatarso-falangee"], ["mv-caviglia-dorsi","mv-caviglia-plantar"]]
+];
+const CONS_MOVIMENTI_TESTO = [
+ [/inclin|piego di lato|di lato|lateral/, "inclinazione laterale"],[/ruot|gir/, "rotazione"],[/piego in avanti|in avanti|chinar|flett|allacciar/, "flessione"],
+ [/indietro|inarcar|estend|guardare in alto/, "estensione"],[/alz(o|are) il braccio|sopra la testa|in alto/, "elevazione"],[/sedut|alzarmi|sedia/, "passaggio seduto-in piedi"],
+ [/scale|gradin/, "salire o scendere le scale"],[/cammin|passo/, "cammino"],[/notte|dorm|letto/, "riposo notturno"],[/matt/, "al mattino"],[/in piedi|stare in piedi/, "stazione eretta prolungata"]
+];
+function consRegione(testo){
+  const t=consNorm(testo);
+  const reg=CONS_REGIONI.find(r=>r[0].test(t));
+  const mov=CONS_MOVIMENTI_TESTO.filter(m=>m[0].test(t)).map(m=>m[1]);
+  return {reg:reg,mov:mov};
+}
+function consRegioneHTML(testo){
+  const {reg,mov}=consRegione(testo); if(!reg) return "";
+  const gruppi=reg[1];
+  const musc=DB.muscoli.filter(m=>gruppi.indexOf(m.gruppo)>=0);
+  /* muscoli coerenti con il movimento citato: quelli le cui azioni lo nominano */
+  const chiavi=mov.map(x=>consNorm(x).split(" ")[0]);
+  const coer=musc.filter(m=>chiavi.some(k=>k&&consNorm((m.azioni||[]).join(" ")).indexOf(k)>=0));
+  const lista=(coer.length?coer:musc).slice(0,10);
+  const art=reg[2].filter(a=>anyById(a)), mv=reg[3].filter(v=>anyById(v));
+  return '<div class="cons-card"><span class="pct">Ragionamento per regione'+(mov.length?' · '+esc(mov.join(", ")):'')+'</span><h3>Che cosa guardare in questa zona</h3>'+
+    '<div class="seg" style="margin-top:4px">Movimenti da misurare</div><div class="scroller"><table class="tbl"><thead><tr><th>Movimento</th><th>Normale</th><th>Che cosa lo limita</th></tr></thead><tbody>'+
+      mv.map(v=>{ const x=anyById(v).item; return '<tr><td>'+pill(v)+'</td><td class="mono">'+esc(x.range)+'</td><td style="color:var(--muted)">'+esc(x.limite)+'</td></tr>'; }).join("")+'</tbody></table></div>'+
+    '<div class="seg" style="margin-top:4px">Muscoli '+(coer.length?'che producono o frenano questo movimento':'della regione')+'</div>'+
+      lista.map(m=>'<div class="cons-step"><i>●</i><div><b>'+pill(m.id)+'</b><small>'+esc(m.trigger)+'</small></div></div>').join("")+
+    '<div class="seg" style="margin-top:4px">Articolazioni da valutare</div><div class="pills">'+art.map(a=>pill(a)).join("")+'</div>'+
+    '<p style="font-size:12px;color:var(--faint);margin:6px 0 0">Costruito dalle schede della regione. Per un ragionamento sulla frase specifica, attiva il Consulto con Claude nel tuo studio.</p></div>';
+}
+
+/* ---- innesto nella vista Consulto ---- */
+const _vistaConsulto_base = vistaConsulto;
+vistaConsulto = function(arg){
+  let h=_vistaConsulto_base(arg);
+  const q=arg? decodeURIComponent(arg) : "";
+  const haKey=aiHaKey();
+  const pulsante = haKey
+    ? '<button class="btn primary" data-act="cons-ai">✦ Ragiona con Claude</button>'
+    : '<button class="btn" data-go="studio/" title="Serve una chiave API">✦ Ragiona con Claude (attiva nel tuo studio)</button>';
+  h=h.replace('<button class="btn primary" data-act="cons-go">Analizza</button>', pulsante+'<button class="btn" data-act="cons-go">Confronta con i quadri</button>');
+  if(q){
+    const idx=h.indexOf('<div class="cons-res">');
+    const regione=consRegioneHTML(q);
+    const slot='<div id="ai-slot"></div>';
+    if(idx>=0) h=h.slice(0,idx)+slot+h.slice(idx).replace('<div class="cons-res">','<div class="cons-res">'+regione);
+    else h+=slot+'<div class="cons-res">'+regione+'</div>';
+    if(haKey && S._aiAuto!==q){ S._aiAuto=q; setTimeout(()=>consAI(q),0); }
+  }
+  return h;
+};
+function consAI(q){
+  const slot=document.getElementById("ai-slot"); if(!slot) return;
+  slot.innerHTML='<div class="ai-box"><div class="ai-wait"><i></i> Claude sta ragionando sulla frase (10–30 secondi)…</div></div>';
+  aiConsulto(q).then(r=>{ const s=document.getElementById("ai-slot"); if(s) s.innerHTML=aiHTML(r); S._aiUltimo=r; })
+    .catch(e=>{ const s=document.getElementById("ai-slot"); if(s) s.innerHTML='<div class="ai-box"><h3>Non sono riuscito a interrogare Claude</h3><p style="margin:0;font-size:13.5px">'+esc(e.message==="nokey"?"Manca la chiave API: inseriscila nel tuo studio.":e.message)+'</p></div>'; });
+}
+
+/* ---- impostazione della chiave in "Il mio studio" ---- */
+const _vistaStudio_conAI = vistaStudio;
+vistaStudio = function(){
+  const k=aiKey();
+  return _vistaStudio_conAI()+
+   '<div class="seg" style="margin:18px 0 10px">Consulto con Claude</div>'+
+   '<div class="card" style="gap:8px"><p style="margin:0;font-size:13.5px">Con una chiave API di Anthropic il Consulto ragiona sulla frase del cliente invece di confrontarla con i quadri già scritti. La chiave resta su questo dispositivo e viene usata solo per parlare direttamente con Claude; ogni consulto costa pochi centesimi.</p>'+
+   '<div class="ai-key"><input id="ai-key" type="password" placeholder="sk-ant-…" value="'+esc(k)+'" autocomplete="off"><button class="btn sm primary" data-act="ai-salva">Salva</button>'+(k?'<button class="btn sm" data-act="ai-togli">Rimuovi</button>':'')+'</div>'+
+   '<p style="margin:0;font-size:12px;color:var(--faint)">La chiave si crea su console.anthropic.com → API keys. '+(k?'<b style="color:var(--ok)">Attivo.</b>':'Non ancora attivo.')+'</p></div>';
+};
+document.addEventListener("click",e=>{
+  const a=e.target.closest("[data-act]"); if(!a) return;
+  const t=a.getAttribute("data-act");
+  if(t==="ai-salva"){ const v=($("#ai-key")||{}).value||""; save("apikey",v.trim()); render(); }
+  else if(t==="ai-togli"){ save("apikey",""); render(); }
+  else if(t==="cons-ai"){ const q=($("#cons-q")||{}).value||""; if(!q.trim()) return; S._aiAuto=null; vai("consulto/"+encodeURIComponent(q.trim())); }
+});
 </script>
 <style>
 .figsvg{width:100%;max-width:270px;height:auto}
