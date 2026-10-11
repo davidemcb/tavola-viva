@@ -32,12 +32,13 @@ function render(){
   else if(v==="quiz") html=vistaQuiz();
   else if(v==="tavole") html=vistaTavole(a);
   else if(v==="consulto") html=vistaConsulto(a);
+  else if(v==="collegamenti") html=vistaCollegamenti();
   else if(KINDS[v]) html=vistaScheda(v,a);
   else html=vistaHome();
   page.innerHTML=html;
   window.scrollTo({top:0,behavior:"instant"in window?"instant":"auto"});
   evidenzia();
-  const titoli={consulto:"Consulto",tavole:"Tavole dei muscoli",lista:(PORTE.find(x=>x.k===a)||{}).n||"Elenco",atlante:"Atlante del corpo",studio:"Il mio studio",quiz:"Quiz"};
+  const titoli={collegamenti:"I collegamenti",consulto:"Consulto",tavole:"Tavole dei muscoli",lista:(PORTE.find(x=>x.k===a)||{}).n||"Elenco",atlante:"Atlante del corpo",studio:"Il mio studio",quiz:"Quiz"};
   document.title = (v==="home") ? "Tavola Viva"
     : ((KINDS[v] ? nomeOf(a) : (titoli[v]||"Tavola Viva")) + " · Tavola Viva");
 }

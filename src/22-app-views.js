@@ -74,6 +74,10 @@ function vistaHome(){
     '</div>'+
 
     '<div class="grid g2" style="margin-bottom:22px">'+
+      '<button class="card" data-go="collegamenti/" style="gap:10px">'+
+        '<span class="eyebrow">Perché fa male lontano</span><h3>I collegamenti</h3>'+
+        '<p>Dal massetere alla nuca, dal gran dorsale al gluteo opposto, dal piede alla lombare: i percorsi dei «segreti», tappa per tappa.</p>'+
+      '</button>'+
       '<button class="card" data-go="tavole/spalla" style="gap:10px">'+
         '<span class="eyebrow">Tavole disegnate</span><h3>Tavole dei muscoli</h3>'+
         '<p>Nove tavole ossee con i muscoli posturali disegnati sopra: passa il mouse per vedere chi è chi, tocca per aprire la scheda.</p>'+
