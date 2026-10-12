@@ -3896,7 +3896,7 @@ const rel = {
 let INDEX=[];
 function buildIndex(){
   INDEX=[];
-  const ordine=["problema","movimento","muscolo","osso","nervo","plesso","articolazione","legamento","tendine","borsa","fascia","catena","arteria","postura","tipo","concetto"];
+  const ordine=["problema","movimento","muscolo","osso","nervo","plesso","articolazione","legamento","tendine","borsa","fascia","catena","arteria","postura","tipo","concetto","test","trigger"];
   ordine.forEach(kind=>{
     (KINDS[kind].db()||[]).forEach(it=>{
       const extra=[it.lat,it.gruppo,it.regione,it.zona,it.sigla,it.classe,it.origine,it.inserzione,
@@ -8767,6 +8767,556 @@ DB.problemi = DB.problemi.concat([
   rosse:["Bozzo che sporge e non rientra, dolore acuto: ernia strozzata, urgenza","Perdite di urina o feci importanti, prolasso: invio specialistico","Dolore pelvico con febbre nelle settimane dopo il parto: infezione"],
   segreto:"Il numero di dita nel solco conta meno della qualità del tessuto: una linea alba larga tre dita ma tesa, che resiste al dito quando il trasverso si attiva, funziona; una larga due dita ma molle non tiene nulla. L'obiettivo non è «chiudere» la diastasi: è insegnare alla pancia a tendersi. E il primo esercizio è il respiro, non l'addominale."}
 ]);
+</script>
+<script>
+/* =========================================================
+   TRIGGER POINT — una scheda per ogni punto importante nella pratica (Travell & Simons semplificato).
+   xy = posizione sulla figura dell'atlante (viewBox 200x448, metà sinistra: il punto viene specchiato).
+   Parte 1: testa, collo, cingolo, braccio, tronco.
+   ========================================================= */
+DB.trigger = [
+ {id:"tp-trapezio-sup",nome:"Trigger point del trapezio superiore",muscolo:"m-trapezio",vista:"post",xy:[84,78],regione:"Collo e spalla",alias:["trigger point del trapezio","trigger trapezio superiore"],
+  dove:"Nel ventre del trapezio superiore, a metà fra C7 e l'acromion, nel bordo libero del muscolo: si pinza il bordo fra pollice e indice e si trova il cordone con il nodulo. Il più frequente di tutto il corpo.",
+  riferito:"Sale lungo il lato del collo fino alla mastoide e alla tempia, dietro l'occhio e all'angolo della mandibola: la «cefalea tensiva» classica, a volte con vertigine.",
+  attiva:"Spalle sollevate per ore (computer, freddo, stress, borsa a tracolla, telefono fra orecchio e spalla), colpo di frusta, seno abbondante con spalline strette, dormire senza sostegno del collo.",
+  cerca:"Cliente seduto o supino con la testa leggermente inclinata dallo stesso lato per detendere; si pinza il bordo del muscolo e si scorre: il nodulo salta sotto le dita e riproduce il dolore alla tempia.",
+  tratta:"Pressione in pinza mantenuta 30–60 secondi fino al rilascio, poi scorrimenti lungo le fibre; allungamento con la testa inclinata dal lato opposto e la mano sotto la sedia; calore. Niente pressione contro la prima costa (scaleni e plesso sotto).",
+  auto:"Pinzatura del bordo con pollice e indice dell'altra mano 1–2 minuti; pallina contro il muro; schermo all'altezza degli occhi e gomiti appoggiati; spalle giù ogni ora.",
+  simula:"Cefalea tensiva, emicrania, dolore dell'ATM, «cervicale».",
+  segreto:"Il trapezio superiore si contrae ogni volta che il cliente alza le spalle per proteggersi: dal freddo, dallo stress, dal dolore. Finché l'allievo lo scioglie senza chiedere «da che cosa si difendono le sue spalle?», il punto torna la settimana dopo."},
+ {id:"tp-elevatore",nome:"Trigger point dell'elevatore della scapola",muscolo:"m-elevatore",vista:"post",xy:[88,72],regione:"Collo e spalla",alias:["trigger elevatore della scapola","trigger point elevatore"],
+  dove:"All'angolo superiore della scapola, dove il muscolo si inserisce (sotto il trapezio), e più in alto lungo il suo decorso verso C1–C4, davanti al bordo del trapezio.",
+  riferito:"All'angolo del collo (la base, dove collo e spalla si incontrano) e lungo il bordo mediale della scapola: il «collo rigido» che non si gira.",
+  attiva:"Testa ruotata a lungo verso un lato (schermo di lato, dormire sul divano), stress, bastone o stampelle, zaino pesante, colpo di frusta.",
+  cerca:"Cliente seduto o prono; si scosta il trapezio e si preme sull'angolo superiore della scapola, poi si risale lungo il cordone verso le trasverse cervicali; la rotazione del collo verso il lato opposto è limitata e dolorosa.",
+  tratta:"Pressione sull'inserzione all'angolo della scapola con la spalla abbassata, poi lungo il ventre; allungamento in flessione-rotazione dal lato opposto (naso verso la tasca); trattare insieme il trapezio superiore.",
+  auto:"Pollice sull'angolo della scapola mentre la testa ruota lentamente dall'altra parte; non tenere il telefono con la spalla; mouse più vicino.",
+  simula:"Torcicollo, cervicalgia, «contrattura» del trapezio.",
+  segreto:"Il torcicollo del mattino («mi sono svegliato bloccato») è quasi sempre l'elevatore: ha lavorato tutta la notte per tenere la testa su un cuscino sbagliato. Si risolve trattando l'elevatore, non le vertebre."},
+ {id:"tp-scom",nome:"Trigger point dello sternocleidomastoideo",muscolo:"m-scom",vista:"ant",xy:[90,66],regione:"Collo e spalla",alias:["trigger sternocleidomastoideo","trigger point SCOM","trigger sternocleidomastoideo vertigini"],
+  dove:"Lungo tutto il muscolo, nei due capi: il capo sternale (anteriore) e il clavicolare (posteriore, più profondo). Si pinza il muscolo con la testa ruotata dal lato opposto e inclinata dallo stesso lato.",
+  riferito:"Capo sternale: fronte, sopra l'occhio, guancia, mento, dietro l'orecchio, vertice (e lacrimazione, naso che cola). Capo clavicolare: fronte bilaterale, dentro l'orecchio, e vertigini, nausea, instabilità posturale.",
+  attiva:"Testa in avanti (schermo, lettura a letto), respiro di torace (ansia, asma), tosse, colpo di frusta, dormire sulla pancia con la testa girata, pittori e imbianchini che guardano in alto.",
+  cerca:"Supino, testa leggermente ruotata dal lato opposto: si solleva il muscolo con una pinza fra pollice e dita e si scorre dalla mastoide allo sterno, capo per capo. Mai premere contro il collo (carotide).",
+  tratta:"Pinzatura mantenuta e scorrimenti in pinza lungo tutto il muscolo, 2–3 minuti per lato; allungamento dolce; respiro diaframmatico per togliergli il lavoro accessorio.",
+  auto:"Pinza fra pollice e indice dal basso verso l'orecchio, 1–2 minuti; respirare con la pancia; cuscino basso.",
+  simula:"Cefalea, sinusite, nevralgia del trigemino, vertigine, otite, dolore ai denti.",
+  segreto:"La vertigine «cervicale» con nausea che compare girando la testa e passa trattando il collo è spesso il capo clavicolare dello sternocleidomastoideo: i suoi fusi parlano con il vestibolo. Prima di mandare dal neurologo, chiedere se il cliente respira con il collo."},
+ {id:"tp-scaleni",nome:"Trigger point degli scaleni",muscolo:"m-scaleni",vista:"ant",xy:[93,72],regione:"Collo e spalla",alias:["trigger scaleni","trigger point scaleni braccio"],
+  dove:"Nel triangolo posteriore del collo, dietro il bordo dello sternocleidomastoideo e sopra la clavicola, nei tre scaleni (anteriore, medio, posteriore).",
+  riferito:"Davanti alla spalla e al torace, lungo il bordo esterno del braccio fino a pollice e indice, nel bordo mediale della scapola: un dolore «di braccio» che non viene dal braccio; formicolio della mano da compressione del plesso.",
+  attiva:"Respiro alto cronico (ansia, tosse, asma), portare pesi con il braccio pendente, trascinare, dormire con la testa inclinata, colpo di frusta, scoliosi cervicale.",
+  cerca:"Supino, testa leggermente inclinata dal lato opposto: le dita cercano il cordone dietro lo sternocleidomastoideo mentre il cliente inspira (si tendono); la pressione riproduce il dolore al braccio. Test di Adson per lo stretto toracico.",
+  tratta:"Pressione dolce e progressiva con due dita, mai profonda (plesso e succlavia), con espirazioni lunghe; allungamento inclinando la testa e abbassando la prima costa; respiro diaframmatico come trattamento vero.",
+  auto:"Mano sotto la sedia, testa dal lato opposto, 30 secondi espirando; 5 minuti al giorno di respiro con la pancia; niente borsa sulla spalla.",
+  simula:"Cervicobrachialgia, tunnel carpale, angina (a sinistra), epicondilite, tendinite della cuffia.",
+  segreto:"Il braccio che formicola di notte, con il tunnel carpale negativo, in una persona che respira di torace e dorme con la mano sotto il cuscino: scaleni. Travell li chiamava «i grandi imitatori»: trattarli per primi in ogni dolore di braccio senza causa chiara."},
+ {id:"tp-suboccipitali",nome:"Trigger point dei suboccipitali",muscolo:"m-suboccipitali",vista:"post",xy:[94,56],regione:"Testa",alias:["trigger suboccipitali","trigger point sotto-occipitali"],
+  dove:"Sotto la nuca, fra l'occipite e C2, in profondità sotto il trapezio e il semispinale: le dita entrano nell'incavo sotto la linea nucale e trovano una fascia dura e dolente.",
+  riferito:"Un dolore profondo «dentro la testa», dalla nuca alla fronte e dietro l'occhio, difficile da indicare con un dito («fa male tutta la testa da un lato»).",
+  attiva:"Testa in avanti e mento in su (schermo, occhiali da lettura, bifocali), gesso o collare, colpo di frusta, dormire con troppi cuscini, stress.",
+  cerca:"Supino, la testa nelle mani del terapista: le punte delle dita sotto l'occipite, lievemente sollevando; si attende che il tessuto si ammorbidisca; il cliente riconosce il «suo» mal di testa.",
+  tratta:"Pressione mantenuta e sollevamento dell'occipite (release suboccipitale) 2–3 minuti; retrazione del mento passiva e attiva; mobilizzazione di C0–C1; mai spinte in rotazione.",
+  auto:"Due palline nel calzino sotto la nuca da supini 3–5 minuti; mento in dentro 10 volte all'ora al computer; occhiali con la gradazione giusta e schermo in alto.",
+  simula:"Emicrania, cefalea cervicogenica, nevralgia occipitale, dolore retro-orbitario «da sinusite».",
+  segreto:"Sono i muscoli con più fusi neuromuscolari del corpo: non servono a muovere ma a sentire. Quando si irrigidiscono, il cervello riceve una posizione della testa sbagliata e il cliente si sente «fuori asse» o instabile. Il release suboccipitale cura anche l'equilibrio, non solo la cefalea."},
+ {id:"tp-splenio",nome:"Trigger point dello splenio",muscolo:"m-splenio",vista:"post",xy:[92,64],regione:"Testa",alias:["trigger splenio","trigger point splenio del capo"],
+  dove:"Splenio del capo: alla base del cranio, fra sternocleidomastoideo e trapezio, sotto la mastoide. Splenio del collo: più in basso, sul bordo del trapezio all'altezza di C5–C7.",
+  riferito:"Splenio del capo: al vertice della testa (il «punto in cima»). Splenio del collo: dietro l'occhio con visione annebbiata, alla nuca, all'angolo del collo.",
+  attiva:"Testa ruotata e in avanti a lungo, correnti d'aria sul collo, colpo di frusta, tirare corde (tiro con l'arco, vela).",
+  cerca:"Seduto, testa leggermente ruotata dal lato del muscolo per rilassare il trapezio: le dita scendono dalla mastoide lungo il bordo anteriore del trapezio e trovano il cordone obliquo.",
+  tratta:"Pressione e scorrimenti lungo il decorso obliquo, allungamento in flessione-rotazione dal lato opposto; trattare insieme suboccipitali ed elevatore.",
+  auto:"Pressione con le dita dietro la mastoide mentre la testa ruota lentamente; sciarpa quando c'è vento.",
+  simula:"Cefalea al vertice, dolore «dietro l'occhio», disturbi visivi senza causa oculare.",
+  segreto:"Il dolore al vertice della testa, che il cliente indica con un dito sulla sommità del cranio, ha una sola sorgente miofasciale: lo splenio del capo. Chi lo sa lo trova in dieci secondi."},
+ {id:"tp-massetere",nome:"Trigger point del massetere",muscolo:"m-massetere",vista:"ant",xy:[88,46],regione:"Testa",alias:["trigger massetere","trigger point massetere denti"],
+  dove:"Nel ventre superficiale, sotto lo zigomo e sopra l'angolo della mandibola; nel ventre profondo, vicino all'articolazione davanti all'orecchio. Si palpa dall'esterno e, meglio, dall'interno della bocca con il pollice (guanto).",
+  riferito:"Ai denti superiori e inferiori (dolore «di denti» con dentista negativo), alla mandibola, alla guancia, sopra l'occhio, dentro l'orecchio (acufene, orecchio tappato).",
+  attiva:"Bruxismo e serramento, chewing-gum, unghie, stress, lavori dentali lunghi, testa in avanti (la mandibola arretra e serra), masticazione da un solo lato.",
+  cerca:"Supino, bocca socchiusa: pinza fra pollice dentro la bocca e dita fuori, dall'alto verso l'angolo; il nodulo riproduce il dolore ai denti o all'orecchio. L'apertura della bocca è ridotta (meno di tre dita).",
+  tratta:"Pressione in pinza intraorale mantenuta 30–60 secondi su ogni punto, scorrimenti dall'alto in basso; apertura assistita; calore; bite e consapevolezza del serramento.",
+  auto:"Tre dita sull'angolo della mandibola in cerchi lenti, bocca socchiusa, 2 minuti; «labbra chiuse, denti separati, lingua sul palato» tutto il giorno.",
+  simula:"Dolore dentale, sinusite mascellare, otite, acufene, disfunzione dell'ATM.",
+  segreto:"Il dolore ai denti con la radiografia pulita, che cambia dente, che peggiora al mattino: massetere. Il dentista lo sa, ma il cliente arriva da noi dopo tre visite. Il trattamento intraorale è quello che cambia la vita, e va spiegato prima di farlo."},
+ {id:"tp-temporale",nome:"Trigger point del temporale",muscolo:"m-temporale",vista:"ant",xy:[86,36],regione:"Testa",alias:["trigger temporale","trigger point temporale cefalea"],
+  dove:"A ventaglio sulla tempia, sopra l'orecchio: le fibre anteriori davanti all'orecchio, le medie sopra, le posteriori dietro. Si trova stringendo i denti (il muscolo si gonfia) e poi rilassando.",
+  riferito:"Alla tempia e sopra il sopracciglio (anteriori), ai denti superiori e dietro l'occhio (medie), alla nuca (posteriori): la cefalea «a fascia» laterale.",
+  attiva:"Bruxismo, serramento, stress, freddo, correnti d'aria, occhiali stretti, postura della testa in avanti, trauma diretto.",
+  cerca:"Supino, bocca socchiusa: i polpastrelli percorrono le tre zone a ventaglio con pressione lieve; i noduli sono piccoli e molto dolenti, spesso bilaterali.",
+  tratta:"Pressione leggera e mantenuta, scorrimenti dal basso in alto in direzione delle fibre, calore; sempre insieme al massetere e agli pterigoidei; bite se c'è bruxismo.",
+  auto:"Massaggio delle tempie a bocca socchiusa 2 minuti, calore umido la sera, controllo del serramento ogni ora.",
+  simula:"Emicrania, arterite temporale (nell'anziano: urgenza, da escludere), cefalea tensiva, dolore dentale.",
+  segreto:"Nell'anziano con tempia dolente, cefalea nuova e mascella che si stanca masticando, prima di toccare va esclusa l'arterite temporale (esami del sangue, urgenza oculistica). Il trigger point è di gran lunga più frequente, ma quello sbagliato costa la vista."},
+ {id:"tp-pterigoidei",nome:"Trigger point degli pterigoidei",muscolo:"m-pterigoidei",vista:"ant",xy:[90,50],regione:"Testa",alias:["trigger pterigoideo laterale","trigger pterigoideo mediale","trigger point pterigoidei"],
+  dove:"Pterigoideo laterale: dall'interno della bocca, dietro l'ultimo molare superiore, verso l'alto e indietro (dolente anche nel sano: cercare la differenza fra i lati). Mediale: faccia interna dell'angolo della mandibola, da dentro e da fuori.",
+  riferito:"Laterale: nell'articolazione temporo-mandibolare e nel seno mascellare (naso chiuso, «sinusite» che non passa). Mediale: nella gola, nella lingua, sotto l'orecchio, con dolore a deglutire e orecchio tappato.",
+  attiva:"Bruxismo, serramento, malocclusione, respirazione dalla bocca, chewing-gum, trauma, apertura forzata (dentista, intubazione).",
+  cerca:"Bocca socchiusa e mandibola deviata verso il lato esaminato per fare spazio: il dito indice entra dietro i molari superiori e preme in alto e indietro (laterale); per il mediale si preme la faccia interna dell'angolo.",
+  tratta:"Pressione intraorale delicata 20–30 secondi, più volte; esercizi di apertura simmetrica davanti allo specchio; mai forzare; valutazione odontoiatrica se l'occlusione è alterata.",
+  auto:"Non si automassaggia bene; aiuta la lateralità lenta della mandibola 10 volte per lato e l'apertura con la lingua sul palato.",
+  simula:"Sinusite, disfunzione dell'ATM, otite, mal di gola, nevralgia.",
+  segreto:"Lo pterigoideo laterale tiene il disco dell'ATM: quando è contratto, tira il disco in avanti e il click compare. Quasi tutti i «click della mandibola» migliorano con due settimane di lavoro su questo muscolo e sul serramento, prima di qualunque bite."},
+ {id:"tp-sovraspinato",nome:"Trigger point del sovraspinato",muscolo:"m-sovraspinato",vista:"post",xy:[86,79],regione:"Spalla",alias:["trigger sovraspinato","trigger point sovraspinato"],
+  dove:"Nella fossa sovraspinata, sopra la spina della scapola, sotto il trapezio: si preme attraverso il trapezio rilassato (cliente seduto con il braccio in grembo o prono). Un secondo punto vicino al tendine, sotto l'acromion.",
+  riferito:"Un dolore profondo nella spalla, sul deltoide medio, lungo il braccio esterno fino all'epicondilo e a volte al polso: «mi fa male la spalla quando alzo il braccio» e anche a riposo.",
+  attiva:"Portare pesi con il braccio pendente (valigia, borse), lavorare con le braccia alzate, cani al guinzaglio che tirano, cadute sul braccio, dormire sulla spalla.",
+  cerca:"Prono o seduto: pressione con il pollice nella fossa sovraspinata attraverso il trapezio; il punto riproduce il dolore nel deltoide. Test di Jobe spesso positivo.",
+  tratta:"Pressione mantenuta nella fossa, frizioni delicate sull'inserzione, allungamento con il braccio dietro la schiena; poi carico progressivo del tendine (full can) perché la tendinopatia segue il trigger.",
+  auto:"Pallina contro il muro sulla fossa sovraspinata (tra collo e spalla, dietro) 2 minuti; non portare pesi con un braccio solo; dormire con il braccio su un cuscino.",
+  simula:"Tendinopatia della cuffia, conflitto subacromiale, borsite, epicondilite (per il riferito al gomito).",
+  segreto:"Il sovraspinato riferisce dolore al gomito esterno: una parte delle «epicondiliti» che non guariscono con il carico degli estensori sono sovraspinati mai palpati. Si verifica in un minuto premendo la fossa sovraspinata: se il gomito «risponde», il colpevole è lì."},
+ {id:"tp-sottospinato",nome:"Trigger point del sottospinato",muscolo:"m-sottospinato",vista:"post",xy:[84,92],regione:"Spalla",alias:["trigger sottospinato","trigger point infraspinato"],
+  dove:"Nella fossa sottospinata, sotto la spina della scapola: tre punti abituali, uno vicino al bordo mediale, uno al centro, uno verso il bordo laterale. Si palpano con il cliente sul fianco opposto o prono.",
+  riferito:"Davanti alla spalla, profondo, «dentro l'articolazione», e lungo la faccia anteriore e laterale del braccio fino alla mano (lato radiale); dolore a dormire sulla spalla e a portare la mano dietro la schiena.",
+  attiva:"Movimenti ripetuti del braccio in avanti (mouse, guidare, dipingere), tirare oggetti, cadute, dormire sul lato, immobilizzazione dopo un intervento.",
+  cerca:"Cliente sul fianco sano con il braccio in avanti: il pollice percorre la fossa sottospinata in tre linee parallele sotto la spina; il nodulo riproduce il dolore davanti alla spalla.",
+  tratta:"Pressione mantenuta su ciascun punto, scorrimenti lungo le fibre verso l'omero, allungamento in rotazione interna (sleeper stretch) dolce; rinforzo in rotazione esterna dopo.",
+  auto:"Pallina contro il muro sulla scapola sotto la spina, con il braccio che ruota: 2 minuti al giorno; cuscino fra le braccia la notte.",
+  simula:"Capsulite, lesione del cercine, tendinite del bicipite, cervicobrachialgia C5–C6.",
+  segreto:"Il dolore «davanti» alla spalla viene molto spesso da «dietro»: il sottospinato riferisce in avanti, e il terapista che lavora solo dove fa male non lo trova mai. Il cliente che non può dormire sulla spalla né allacciarsi il reggiseno ha quasi sempre questo punto acceso."},
+ {id:"tp-sottoscapolare",nome:"Trigger point del sottoscapolare",muscolo:"m-sottoscapolare",vista:"ant",xy:[82,92],regione:"Spalla",alias:["trigger sottoscapolare","trigger point sottoscapolare spalla congelata"],
+  dove:"Sulla faccia anteriore della scapola, raggiungibile dall'ascella: cliente supino con il braccio abdotto, le dita entrano nel cavo ascellare e premono indietro contro la scapola, lungo il bordo laterale.",
+  riferito:"Dietro la spalla, profondo, e in una «fascia» attorno al polso (dolore al polso senza causa locale); dolore nella rotazione esterna e nell'abduzione.",
+  attiva:"Immobilizzazione del braccio (tutore, frattura, dopo un ictus), movimenti ripetuti sopra la testa (nuoto, lancio), lussazione, spalla congelata.",
+  cerca:"Supino, braccio a 90° e leggermente teso dal terapista: le dita a uncino nell'ascella trovano la faccia anteriore della scapola; il punto è acutissimo e riproduce il dolore posteriore o al polso.",
+  tratta:"Pressione lenta e progressiva nell'ascella con piccoli movimenti passivi di rotazione esterna; allungamento in rotazione esterna e abduzione; sempre nella spalla congelata.",
+  auto:"Dita nell'ascella contro la scapola con il braccio rilassato, 1 minuto, con rotazioni lente; allungamento nel vano della porta.",
+  simula:"Spalla congelata, tendinite della cuffia, dolore al polso «da tunnel».",
+  segreto:"Nella spalla congelata il sottoscapolare è il muscolo più contratto e il meno trattato, perché si nasconde nell'ascella. Dieci minuti di lavoro lì valgono più di un'ora sul deltoide; e un polso che fa male senza motivo chiede di guardare questa scapola."},
+ {id:"tp-piccolo-rotondo",nome:"Trigger point del piccolo rotondo e del grande rotondo",muscolo:"m-rotondi",vista:"post",xy:[80,97],regione:"Spalla",alias:["trigger piccolo rotondo","trigger grande rotondo","trigger point rotondi"],
+  dove:"Lungo il bordo laterale della scapola: il piccolo rotondo in alto, sotto il sottospinato; il grande rotondo più in basso, vicino all'angolo inferiore, nella piega posteriore dell'ascella.",
+  riferito:"Piccolo rotondo: un dolore puntiforme profondo dietro la spalla «come una moneta», a volte formicolio del quarto e quinto dito (confuso con l'ulnare). Grande rotondo: dietro la spalla e sulla faccia posteriore del braccio.",
+  attiva:"Tirare verso di sé (rematore, tendere corde), guidare a lungo, lavori sopra la testa, cadute sul braccio.",
+  cerca:"Prono con il braccio pendente o sul fianco: si pinza il bordo laterale della scapola fra pollice e dita; il piccolo rotondo è una corda sottile vicino alla spina, il grande una massa più bassa.",
+  tratta:"Pinzatura e pressione lungo il bordo laterale, allungamento in rotazione interna (piccolo) e in flessione con adduzione (grande); con il gran dorsale.",
+  auto:"Pallina sul bordo esterno della scapola contro il muro, 2 minuti; allungamento con il braccio sopra la testa e il gomito tirato verso l'altro lato.",
+  simula:"Neuropatia ulnare, borsite subacromiale, dolore della cuffia.",
+  segreto:"Il piccolo rotondo è «l'orfano» della cuffia: tutti trattano sovra e sottospinato e nessuno lui. Il suo dolore è così localizzato che il cliente lo indica con un dito solo, dietro la spalla; e il formicolio alle ultime due dita che non viene dal gomito è il suo biglietto da visita."},
+ {id:"tp-deltoide",nome:"Trigger point del deltoide",muscolo:"m-deltoide",vista:"ant",xy:[70,90],regione:"Spalla",alias:["trigger deltoide","trigger point deltoide"],
+  dove:"Fibre anteriori (davanti, sotto la clavicola), medie (sul lato), posteriori (dietro): i punti stanno nel ventre a metà del muscolo. È quasi sempre un muscolo che riceve il dolore riferito da altri (cuffia, scaleni) più che generarlo.",
+  riferito:"Locale, nella zona del deltoide stessa: non si irradia lontano. Dolore nel sollevare il braccio di lato e nel dormire sulla spalla.",
+  attiva:"Iniezioni intramuscolari (vaccini), trauma diretto, sport di lancio, lavori sopra la testa, uso del braccio dopo un'immobilizzazione.",
+  cerca:"Seduto: si pinza o si preme il ventre nelle tre porzioni; il dolore resta locale. Se il dolore al deltoide non ha un punto nel deltoide, cercare sovraspinato, sottospinato e scaleni.",
+  tratta:"Pressione e impastamento del ventre, allungamento di ciascuna porzione; trattare i muscoli che riferiscono nel deltoide.",
+  auto:"Pallina contro il muro sulla spalla, 1–2 minuti per porzione.",
+  simula:"Tendinite della cuffia, borsite subacromiale, dolore «di spalla» generico.",
+  segreto:"Il deltoide è il grande ricevitore: sei muscoli riferiscono dolore su di lui. Quando il cliente indica il deltoide e nel deltoide non c'è nulla, il punto è altrove; chi lo massaggia per settimane sta trattando l'altoparlante invece del microfono."},
+ {id:"tp-pettorale-grande",nome:"Trigger point del grande pettorale",muscolo:"m-pettorale-grande",vista:"ant",xy:[84,90],regione:"Torace",alias:["trigger grande pettorale","trigger point pettorale"],
+  dove:"Fibre clavicolari (sotto la clavicola), sternali (al centro del petto, lato), costali e nella piega anteriore dell'ascella (pinzabile). Un punto speciale fra la quinta e sesta costa a destra dello sterno (il «punto aritmico» di Travell).",
+  riferito:"Davanti al petto e alla spalla, lungo il lato interno del braccio fino al quarto e quinto dito (a sinistra imita l'angina); fibre sternali: al seno con ipersensibilità del capezzolo.",
+  attiva:"Spalle anteposte per ore, sollevare pesi, portare borse davanti, zaino, immobilizzazione del braccio, stress con il petto chiuso, dopo intervento al seno.",
+  cerca:"Supino: pinza della piega ascellare anteriore fra pollice e dita, pressione lungo le fibre sternali e sotto la clavicola; il dolore scende lungo il braccio interno.",
+  tratta:"Pinzatura della piega ascellare, pressioni e scorrimenti verso l'omero, allungamento nel vano della porta nelle tre altezze; respiro nelle costole; lavoro leggero vicino al seno.",
+  auto:"Pallina sotto la clavicola contro il muro; allungamento nel vano della porta 3 volte al giorno; asciugamano lungo la colonna da supini.",
+  simula:"Angina e infarto (a sinistra: escludere sempre), tendinite del bicipite, costocondrite, dolore al seno.",
+  segreto:"Il dolore al petto sinistro che scende lungo il braccio interno è un infarto finché un medico non dice il contrario: si manda, non si palpa. Quando il cuore è stato escluso, lo stesso dolore è quasi sempre il grande pettorale, e si spegne in due sedute."},
+ {id:"tp-pettorale-piccolo",nome:"Trigger point del piccolo pettorale",muscolo:"m-pettorale-piccolo",vista:"ant",xy:[82,84],regione:"Torace",alias:["trigger piccolo pettorale","trigger point piccolo pettorale formicolio"],
+  dove:"Sotto il grande pettorale, dal coracoide alle coste 3–5: si raggiunge con il braccio rilassato lungo il fianco, premendo sotto la clavicola verso il coracoide e scendendo obliqui, oppure dall'ascella sollevando il grande pettorale.",
+  riferito:"Davanti alla spalla e al petto, lungo il lato ulnare del braccio e dell'avambraccio fino alle ultime tre dita; formicolio e mano fredda per compressione del fascio neurovascolare sotto il muscolo.",
+  attiva:"Spalle in avanti e respiro alto (computer, ansia), stampelle, zaino con le cinghie strette, lavori con le braccia alzate, dormire sul fianco con la spalla schiacciata.",
+  cerca:"Supino: pressione obliqua sotto il grande pettorale verso il coracoide; test di Wright (braccio alzato e indietro) che riproduce formicolio e riduce il polso.",
+  tratta:"Pressione mantenuta sul ventre attraverso il grande pettorale rilassato, allungamento con l'asciugamano lungo la colonna e le braccia aperte, respiro diaframmatico; rinforzo del trapezio inferiore.",
+  auto:"Dita sotto la clavicola verso il coracoide con respiri lenti, 1 minuto; asciugamano lungo la colonna 3 minuti la sera; respirare con la pancia.",
+  simula:"Sindrome dello stretto toracico, tunnel carpale, radicolopatia C8, angina.",
+  segreto:"Il piccolo pettorale è il muscolo delle spalle in avanti: non c'è «postura chiusa» senza un piccolo pettorale corto. Il formicolio della mano a braccia alzate (asciugarsi i capelli, mettere le tende) è la sua firma, e non c'è esercizio per la schiena che funzioni finché lui non è stato allungato."},
+ {id:"tp-gran-dorsale",nome:"Trigger point del gran dorsale",muscolo:"m-gran-dorsale",vista:"post",xy:[82,120],regione:"Torace",alias:["trigger gran dorsale","trigger point gran dorsale"],
+  dove:"Nella piega posteriore dell'ascella, pinzabile fra pollice e dita, dove il muscolo si avvolge attorno al grande rotondo; un secondo punto più in basso sulle coste laterali.",
+  riferito:"All'angolo inferiore della scapola e intorno, lungo la faccia posteriore del braccio fino al quarto e quinto dito; a volte al fianco e alla cresta iliaca.",
+  attiva:"Tirarsi su con le braccia, portare oggetti pesanti sopra la testa, reggiseno stretto, lavorare con le braccia tese avanti e in alto, nuoto, arrampicata.",
+  cerca:"Supino con il braccio sopra la testa, o sul fianco: pinza della piega ascellare posteriore; il dolore all'angolo della scapola si riproduce in pieno.",
+  tratta:"Pinzatura e scorrimenti della piega ascellare, allungamento con le braccia sopra la testa e il bacino spostato di lato; lavoro sulla fascia toraco-lombare.",
+  auto:"Rullo sul fianco sotto l'ascella con il braccio in alto; allungamento alla sbarra o alla sedia in ginocchio.",
+  simula:"Dolore «sotto la scapola» da romboidi, dorsalgia, neuropatia ulnare.",
+  segreto:"Il dolore fisso sotto l'angolo della scapola che non viene dai romboidi (si preme e non risponde) viene dal gran dorsale nella piega dell'ascella: lo si pinza e il cliente dice «è lì, dietro». Un muscolo del braccio che fa male alla schiena."},
+ {id:"tp-romboidi",nome:"Trigger point dei romboidi",muscolo:"m-romboidi",vista:"post",xy:[90,90],regione:"Torace",alias:["trigger romboidi","trigger point romboidi"],
+  dove:"Fra il bordo mediale della scapola e le spinose T2–T5, sotto il trapezio medio: si palpano con il cliente prono e la mano dietro la schiena (la scapola si alza e li espone).",
+  riferito:"Locale, lungo il bordo mediale della scapola: il dolore «fra le scapole», superficiale, bruciante, con il «crepitio» quando si muove la scapola.",
+  attiva:"Spalle in avanti e romboidi tenuti in allungamento (computer), pettorali corti, zaino, cucire e scrivere, scoliosi.",
+  cerca:"Prono, mano dietro la schiena: pollice che scorre fra scapola e spinose; i noduli sono piccoli e multipli.",
+  tratta:"Pressione e scorrimenti, con la scapola in protrazione per allungarli, ma soprattutto allungamento dei pettorali e rinforzo di romboidi e trapezio inferiore: i romboidi sono deboli, non corti.",
+  auto:"Pallina fra scapola e colonna contro il muro, braccio che si muove avanti e indietro 2 minuti; rematore con elastico ogni giorno.",
+  simula:"Dorsalgia da faccette, dolore cardiaco posteriore, dolore della cistifellea (destra).",
+  segreto:"I romboidi sono i muscoli più massaggiati e meno risolti: fanno male perché sono stirati da un pettorale corto, e ogni massaggio li rilassa ancora di più. La cura è davanti (pettorali) e nella forza (rematore), il massaggio è solo il sollievo."},
+ {id:"tp-dentato-post",nome:"Trigger point del dentato posteriore superiore",muscolo:"m-dentato-post",vista:"post",xy:[86,88],regione:"Torace",alias:["trigger dentato posteriore superiore","trigger point dentato posteriore"],
+  dove:"Sotto la scapola, in profondità, sulle coste 2–5 vicino al loro angolo: raggiungibile solo scostando la scapola (mano dietro la schiena o braccio che pende oltre il lettino).",
+  riferito:"Un dolore profondo «sotto l'osso della scapola» che il massaggio non raggiunge, con irradiazione alla faccia posteriore della spalla e del braccio fino al mignolo; a volte al petto.",
+  attiva:"Respiro alto e tosse prolungata, scoliosi, lavori con le braccia tese in avanti, stare seduti curvi, cifosi.",
+  cerca:"Prono con il braccio pendente dal lettino così la scapola scivola in fuori: pressione profonda sugli angoli costali 2–5; il cliente dice «è esattamente quello».",
+  tratta:"Pressione mantenuta con la scapola scostata, scorrimenti lungo le coste, respiro profondo durante la pressione; lavoro sul respiro alto e sul pettorale piccolo.",
+  auto:"Pallina sotto la scapola contro il muro con il braccio che abbraccia l'altra spalla (così la scapola si sposta), 2 minuti.",
+  simula:"Dolore cardiaco, dorsalgia, dolore dei romboidi, pleurite.",
+  segreto:"È il dolore «sotto la scapola» che resta dopo che hai trattato romboidi e trapezio: sta sotto l'osso, e si raggiunge solo se la scapola viene spostata. Molti clienti con «dolore intercostale cronico» hanno questo punto, mai toccato perché coperto."},
+ {id:"tp-erettori",nome:"Trigger point degli erettori spinali (iliocostale e lunghissimo)",muscolo:"m-erettori",vista:"post",xy:[92,150],regione:"Schiena",alias:["trigger erettori spinali","trigger iliocostale","trigger lunghissimo","trigger point schiena"],
+  dove:"Nelle due colonne muscolari ai lati delle spinose: l'iliocostale più laterale (sugli angoli costali e a livello di L1), il lunghissimo più mediale (T10–T11 e L1). Si palpano come cordoni tesi con noduli, prono.",
+  riferito:"Iliocostale toracico: verso l'alto alla scapola e in avanti al torace e all'addome (imita visceri); iliocostale lombare: in basso al gluteo. Lunghissimo: al gluteo e alla sacro-iliaca. Dolore che impedisce di girarsi nel letto e di alzarsi dalla sedia.",
+  attiva:"Sollevare piegando la schiena, torsioni, stare seduti curvi, scoliosi, gamba corta, raffreddamento, lombalgia acuta («il colpo della strega»).",
+  cerca:"Prono: pollici che scorrono lungo le due colonne dal sacro in su; i punti sono a livelli precisi e riproducono il dolore al gluteo o al fianco; inclinazione dal lato opposto dolorosa.",
+  tratta:"Scorrimenti profondi lungo le colonne, pressione sui punti con il respiro, lavoro sul fianco in allungamento; mobilizzazione delle faccette; poi esercizio (bird-dog, hip hinge) per non tornare.",
+  auto:"Due palline ai lati della colonna da supini, dal sacro alle scapole a tappe; ginocchia al petto; non stare seduti oltre 40 minuti.",
+  simula:"Dolore renale, colica, dolore della cistifellea, sacro-iliaca, ernia discale.",
+  segreto:"Il «dolore al rene» o «al fianco» senza febbre né sintomi urinari, che compare girandosi nel letto e si riproduce premendo sulla schiena, è l'iliocostale: Travell lo descriveva come il più confuso con un dolore interno. E il «colpo della strega» che blocca in flessione è spesso un erettore in spasmo che si spegne in una seduta, non un disco."},
+ {id:"tp-multifido",nome:"Trigger point del multifido e dei rotatori",muscolo:"m-multifido",vista:"post",xy:[97,180],regione:"Schiena",alias:["trigger multifido","trigger point multifidi","trigger rotatori"],
+  dove:"Nel solco subito a lato delle spinose, in profondità sotto gli erettori, a un livello preciso (spesso L4–L5, L5–S1 o T4–T5): punti piccoli e profondissimi, dolenti alla pressione sulla spinosa stessa.",
+  riferito:"Alla spinosa del livello (dolore «sull'osso»), al sacro e al coccige (lombare), alla parete addominale, in avanti al torace (dorsale), al collo e all'occipite (cervicale).",
+  attiva:"Torsioni improvvise, sollevare ruotando, stare seduti a lungo, dopo una lombalgia acuta (il multifido si spegne e si accorcia), ernia, gravidanza.",
+  cerca:"Prono: pressione profonda e obliqua verso la spinosa a ogni livello; il dolore «sull'osso» che il cliente indica con un dito è il multifido di quel livello, non la vertebra.",
+  tratta:"Pressione profonda e mantenuta nel solco con il pollice o il gomito morbido, lavoro segmentale, mobilizzazione della faccetta; poi riattivazione (bird-dog, contrazioni a bassa intensità) perché un multifido dolente è un multifido debole.",
+  auto:"Pallina nel solco a lato delle spinose da supini, 1–2 minuti per livello; bird-dog ogni mattina.",
+  simula:"Dolore vertebrale «osseo», frattura, spondilolistesi, dolore sacro-iliaco, coccigodinia.",
+  segreto:"Quando il cliente preme un dito su una spinosa e dice «fa male l'osso», l'osso non c'entra: è il multifido che si inserisce lì. Si preme di lato, in profondità, e il dolore si riproduce. Un livello solo, sempre lo stesso: quello che nella risonanza mostra il disco «degenerato» e che ha spento il suo multifido."},
+ {id:"tp-quadrato-lombi",nome:"Trigger point del quadrato dei lombi",muscolo:"m-quadrato-lombi",vista:"post",xy:[90,175],regione:"Schiena",alias:["trigger quadrato dei lombi","trigger point quadrato dei lombi"],
+  dove:"Nel fianco, fra l'ultima costa e la cresta iliaca, dietro e lateralmente agli erettori: punti superficiali (vicino alla cresta e alla dodicesima costa) e profondi (sulle trasverse lombari). Si palpano sul fianco, con il braccio sopra la testa e la gamba sotto flessa per aprire lo spazio.",
+  riferito:"Alla sacro-iliaca e al gluteo (superficiali), al grande trocantere e alla coscia esterna (profondi), all'inguine e al basso ventre. Dolore nel girarsi nel letto, nell'alzarsi dalla sedia, nel tossire; il cliente cammina «a pezzi».",
+  attiva:"Sollevare piegandosi e ruotando, gamba corta, bacino asimmetrico, stare seduti su un portafoglio, materasso che cede, scoliosi, giardinaggio.",
+  cerca:"Sul fianco sano con il braccio sopra la testa: pollice che entra nel fianco sotto la dodicesima costa e sopra la cresta, verso le trasverse; il cliente salta e riconosce il dolore al gluteo o al trocantere.",
+  tratta:"Pressione profonda e mantenuta sul fianco in allungamento, con il respiro; scorrimenti dalla cresta alla costa; allungamento laterale; correggere la gamba corta (rialzo) e la posizione seduta.",
+  auto:"Pallina fra costola e cresta iliaca contro il muro o a terra; side plank; portafoglio fuori dalla tasca; inclinazione laterale con il braccio in alto.",
+  simula:"Sacro-iliaca, borsite trocanterica, sciatica, dolore renale, ernia.",
+  segreto:"Travell lo chiamava «il gioiello nascosto della lombalgia»: è la causa più sottovalutata del dolore lombare cronico perché nessuno lo palpa (sta sotto gli erettori e si raggiunge solo dal fianco). Il cliente che si aggrappa al lavandino per lavarsi i denti ha un quadrato dei lombi acceso."},
+ {id:"tp-retto-addome",nome:"Trigger point del retto dell'addome e degli obliqui",muscolo:"m-retto-addominale",vista:"ant",xy:[93,150],regione:"Addome",alias:["trigger retto addominale","trigger obliqui","trigger point addome"],
+  dove:"Retto: in alto sotto le coste (vicino allo xifoide), a metà a lato dell'ombelico, in basso sopra il pube. Obliqui: sul fianco lungo le coste basse e verso la spina iliaca.",
+  riferito:"Retto alto: alla schiena in orizzontale sotto le scapole (il «dolore dorsale a fascia»), con bruciore di stomaco, nausea, senso di pienezza. Retto basso: alla lombare e al sacro, alla vescica, con dolori mestruali più forti. Obliqui: al basso ventre, all'inguine, al testicolo, con «colite», gonfiore, diarrea.",
+  attiva:"Addominali eccessivi o con la schiena inarcata, tosse, cicatrici (cesareo, appendice, laparoscopia), stress con la pancia tirata in dentro, freddo, stipsi, posture curve.",
+  cerca:"Supino con le ginocchia piegate: pressione lenta sul retto a tre altezze e lungo gli obliqui; il punto riproduce il dolore alla schiena o i sintomi «viscerali». Il segno di Carnett (dolore che aumenta sollevando la testa) dice che è la parete, non l'interno.",
+  tratta:"Pressione dolce e mantenuta con il respiro, scorrimenti lungo le fibre, lavoro sulle cicatrici, respiro diaframmatico; mai a stomaco pieno, mai profondo con dolore viscerale non chiarito.",
+  auto:"Pressione delle dita sui punti con espirazioni lunghe, 1 minuto; cobra dolce; respirare con la pancia invece di tenerla in dentro.",
+  simula:"Gastrite, colite, appendicite, dolori mestruali, cistite, dolore lombare, ernia inguinale.",
+  segreto:"Il mal di schiena a fascia «sotto le scapole» di chi fa addominali ogni mattina è il retto dell'addome alto che riferisce dietro. E il segno di Carnett (si preme il punto, il cliente solleva la testa: se fa più male è la parete, se fa meno male è dentro) è il test che ogni massaggiatore deve conoscere prima di toccare una pancia che fa male."},
+ {id:"tp-diaframma",nome:"Trigger point del diaframma e degli intercostali",muscolo:"m-diaframma",vista:"ant",xy:[84,134],regione:"Addome",alias:["trigger diaframma","trigger intercostali","trigger point diaframma"],
+  dove:"Diaframma: sotto il bordo delle costole, raggiungibile con le dita a uncino durante l'espirazione (cliente supino, ginocchia piegate). Intercostali: negli spazi fra le coste, in particolare sui lati e dietro.",
+  riferito:"Diaframma: alla spalla e al collo (attraverso il nervo frenico, C3–C5: il dolore «a mantellina»), sotto le costole con fiato corto, «punto» nel fianco durante la corsa. Intercostali: locale, lungo la costa, con dolore a respirare a fondo e a ridere.",
+  attiva:"Respiro alto cronico, tosse, vomito, corsa senza fiato, cinture strette, gravidanza, ansia, dopo interventi addominali, costola incrinata.",
+  cerca:"Supino: dita che scivolano sotto l'arcata costale mentre il cliente espira; dolenzia e rigidità, respiro che si ferma. Intercostali: pressione negli spazi, sui lati, dove il cliente indica.",
+  tratta:"Rilascio del diaframma con le dita sotto le costole in espirazione, 2–3 minuti, mai forzando; mobilizzazione delle coste; respiro diaframmatico guidato; intercostali con scorrimenti negli spazi e respiro.",
+  auto:"Dita sotto le costole da supini con espirazioni lunghe; 5 minuti di respiro con la pancia; pantaloni e cinture larghe.",
+  simula:"Dolore alla spalla senza causa nella spalla, costocondrite, dolore cardiaco, pleurite, ernia iatale.",
+  segreto:"Il diaframma riferisce dolore alla spalla: il dolore «sulla spalla» che non cambia con nessun movimento della spalla e che compare dopo pasti, tosse o stress viene da sotto le costole (nervo frenico, C4). È anche il motivo per cui un problema di fegato o di milza fa male alla spalla: stesse radici."}
+];
+</script>
+<style>
+.tpdot{fill:var(--muscle);stroke:#fff;stroke-width:1.3;cursor:pointer;transition:r .12s}
+.tpdot:hover,.tpdot.on{r:5.5;stroke-width:2}
+.tpdot.tender{fill:var(--joint)}
+.tplegend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin:8px 0 0}
+.tplegend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+</style>
+<script>
+/* Trigger point — parte 2: braccio, bacino, arto inferiore. Tender point della fibromialgia. Mappa e registrazione. */
+DB.trigger = DB.trigger.concat([
+ {id:"tp-bicipite",nome:"Trigger point del bicipite e del brachiale",muscolo:"m-bicipite",vista:"ant",xy:[62,120],regione:"Braccio",alias:["trigger bicipite","trigger brachiale","trigger point bicipite"],
+  dove:"Bicipite: nel terzo inferiore dei due capi, sopra la piega del gomito. Brachiale: sotto e a lato del bicipite nel terzo inferiore del braccio, raggiungibile scostando il bicipite verso l'interno.",
+  riferito:"Bicipite: davanti alla spalla (solco bicipitale) e alla piega del gomito; dolore nel sollevare la mano sopra la testa e nel portare pesi. Brachiale: alla base del pollice e al dorso della mano (con formicolio del pollice se comprime il radiale), davanti alla spalla.",
+  attiva:"Portare pesi con il gomito piegato (buste, bambini), sollevamenti ripetuti con supinazione (cacciavite, violino), tendinite del capo lungo, gomito tenuto flesso a lungo (telefono).",
+  cerca:"Supino, braccio rilassato: pinza del ventre del bicipite nel terzo inferiore; per il brachiale, si spinge il bicipite medialmente e si preme sull'omero laterale.",
+  tratta:"Pinzatura e scorrimenti lungo il bicipite, pressione sul brachiale con il gomito semiflesso, allungamento con il braccio dietro e il palmo in su (bicipite) e in giù (brachiale).",
+  auto:"Pollice dell'altra mano lungo il braccio dal gomito in su, 2 minuti; portare le buste con le braccia tese.",
+  simula:"Tendinite del capo lungo, epicondilite, sindrome del tunnel carpale (pollice), De Quervain.",
+  segreto:"Il dolore alla base del pollice con Finkelstein e grind test negativi, in chi porta pesi con il gomito piegato, è il brachiale: il più trascurato dei flessori perché sta nascosto sotto il bicipite. Si trova in trenta secondi spostando il bicipite di lato."},
+ {id:"tp-tricipite",nome:"Trigger point del tricipite",muscolo:"m-tricipite",vista:"post",xy:[62,118],regione:"Braccio",alias:["trigger tricipite","trigger point tricipite"],
+  dove:"Capo lungo nel terzo superiore e medio (il più frequente), capo laterale e mediale nel terzo inferiore vicino all'epicondilo e all'epitroclea.",
+  riferito:"Capo lungo: alla faccia posteriore della spalla e del braccio e al dorso dell'avambraccio; capo laterale e mediale: all'epicondilo laterale (gomito del tennista) e all'epitroclea, con dolore nel quarto e quinto dito.",
+  attiva:"Spingere (flessioni, alzarsi dai braccioli), tennis (rovescio), stampelle, portare pesi con il braccio teso, dormire con il braccio sotto la testa.",
+  cerca:"Prono o seduto con il braccio appoggiato: pinza del capo lungo nel terzo superiore, pressione dei capi laterale e mediale sopra il gomito; il dolore all'epicondilo si riproduce.",
+  tratta:"Pinzatura del capo lungo, pressione e scorrimenti sui capi bassi, allungamento con il gomito dietro la testa; frizioni sull'inserzione olecranica se dolente.",
+  auto:"Pallina sulla faccia posteriore del braccio contro il muro; allungamento con il gomito piegato dietro la nuca.",
+  simula:"Epicondilite ed epitrocleite, borsite olecranica, cervicobrachialgia C7.",
+  segreto:"Un terzo delle «epicondiliti» ha un trigger nel capo laterale del tricipite, due dita sopra il gomito: il carico degli estensori non lo tocca. Prima di dichiarare un'epicondilite resistente, premere qui."},
+ {id:"tp-brachioradiale",nome:"Trigger point del brachioradiale e degli estensori del polso",muscolo:"m-estensori-radiali-carpo",vista:"post",xy:[55,160],regione:"Avambraccio",alias:["trigger brachioradiale","trigger estensori del polso","trigger estensore radiale breve","trigger point epicondilite"],
+  dove:"Brachioradiale: sul bordo esterno dell'avambraccio, 3–4 dita sotto il gomito. Estensore radiale lungo: subito sotto, vicino all'epicondilo. Estensore radiale breve: 3–4 cm sotto l'epicondilo, in profondità (il punto dell'epicondilite). Estensore delle dita: al centro del dorso dell'avambraccio.",
+  riferito:"Brachioradiale: all'epicondilo e al dorso della mano fra pollice e indice. Estensori radiali: all'epicondilo e al dorso del polso. Estensore delle dita: al dito corrispondente (medio soprattutto) e all'epicondilo. Presa debole e dolorosa.",
+  attiva:"Stringere con il polso flesso (mouse, martello, racchetta leggera), avvitare, suonare, sollevare con il palmo in giù, prono-supinazione ripetuta.",
+  cerca:"Seduto con l'avambraccio appoggiato: pinza del brachioradiale, pressione sui ventri degli estensori sotto l'epicondilo mentre il cliente apre e chiude la mano; il punto riproduce il dolore «al gomito».",
+  tratta:"Pinzatura del brachioradiale, pressione e scorrimenti sugli estensori verso il polso, frizioni sul ventre (non solo sull'inserzione), allungamento con il polso flesso e il gomito teso; poi carico eccentrico del polso.",
+  auto:"Pollice lungo il dorso dell'avambraccio con la mano che si apre e chiude, 2 minuti; allungamento 3 volte al giorno; mouse vicino, polso dritto, impugnature grosse.",
+  simula:"Epicondilite, tunnel radiale, De Quervain, cervicobrachialgia C6.",
+  segreto:"L'epicondilite cronica è quasi sempre un trigger dell'estensore radiale breve 3–4 cm sotto l'epicondilo: chi friziona l'inserzione sull'osso lavora dove non c'è il problema. Il bracciale si mette lì, il pollice si mette lì, e il dolore «sull'osso» sparisce quando il ventre si scioglie."},
+ {id:"tp-supinatore",nome:"Trigger point del supinatore",muscolo:"m-supinatore",vista:"post",xy:[58,150],regione:"Avambraccio",alias:["trigger supinatore","trigger point supinatore"],
+  dove:"Davanti e sotto l'epicondilo laterale, nella piega del gomito, fra brachioradiale e bicipite, sulla testa del radio: si preme con il gomito leggermente piegato e l'avambraccio supinato.",
+  riferito:"All'epicondilo laterale (il dolore del «tennista»), alla piega del gomito, al dorso della mano fra pollice e indice; formicolio del pollice se comprime il nervo radiale (interosseo posteriore).",
+  attiva:"Girare la chiave, avvitare, dritto del tennis, portare valigie, lavare i vetri, remare.",
+  cerca:"Seduto: pollice nella piega del gomito a lato del tendine del bicipite, verso la testa del radio, mentre il cliente supina contro resistenza: il punto riproduce il dolore all'epicondilo.",
+  tratta:"Pressione mantenuta sulla testa del radio con piccole prono-supinazioni passive, allungamento in pronazione con il gomito teso; con il brachioradiale e gli estensori.",
+  auto:"Pollice nella piega del gomito con la mano che prona e supina, 1 minuto; avvitare con il gomito al fianco.",
+  simula:"Epicondilite, tunnel radiale, neuropatia dell'interosseo posteriore.",
+  segreto:"Travell diceva che il supinatore è la causa più frequente del gomito del tennista, non gli estensori. Il test: dolore supinando contro resistenza con il gomito teso, e un punto esquisito davanti all'epicondilo, non sopra."},
+ {id:"tp-flessori-avambraccio",nome:"Trigger point dei flessori del polso e delle dita e del pronatore rotondo",muscolo:"m-flessori-polso",vista:"ant",xy:[52,170],regione:"Avambraccio",alias:["trigger flessori avambraccio","trigger pronatore rotondo","trigger flessore radiale","trigger point epitrocleite"],
+  dove:"Pronatore rotondo: subito sotto l'epitroclea, obliquo verso il radio. Flessori del polso: nel terzo superiore dell'avambraccio anteriore. Flessori delle dita: a metà avambraccio, profondi.",
+  riferito:"Pronatore: alla piega del gomito e al polso radiale, con formicolio di pollice e indice (sindrome del pronatore). Flessori del polso: alla piega del polso. Flessori delle dita: al dito corrispondente, come «dolore nel dito» con la mano sana.",
+  attiva:"Stringere a lungo (guida, utensili, manubrio), scrivere, strizzare, avvitare, portare pesi, computer con i polsi in appoggio.",
+  cerca:"Supino con il palmo in su: pollice lungo l'avambraccio anteriore dall'epitroclea in giù mentre la mano si apre e chiude; i punti riproducono il dolore al polso o nelle dita.",
+  tratta:"Scorrimenti e pressioni lungo i flessori verso il polso, allungamento con il polso e le dita estese e il gomito teso, lavoro sul pronatore con supinazione passiva.",
+  auto:"Pollice lungo la faccia anteriore dell'avambraccio 2 minuti; palmo contro il muro con le dita in su; pause ogni 30 minuti.",
+  simula:"Tunnel carpale, epitrocleite, dito a scatto, rizoartrosi, artrite delle dita.",
+  segreto:"Il dolore «dentro il dito» che fa pensare a un'artrite, con il dito sano, viene dal flessore di quel dito nell'avambraccio: si preme a metà avambraccio e il dito «risponde». E il formicolio di pollice e indice con Phalen negativo e dolore alla piega del gomito è il pronatore, non il tunnel."},
+ {id:"tp-intrinseci-mano",nome:"Trigger point dei muscoli della mano (adduttore e opponente del pollice, interossei)",muscolo:"m-intrinseci-mano",vista:"ant",xy:[46,214],regione:"Mano",alias:["trigger adduttore del pollice","trigger opponente","trigger interossei","trigger point mano"],
+  dove:"Adduttore del pollice: nel palmo, nella membrana fra pollice e indice (pinzabile). Opponente: nell'eminenza tenar. Primo interosseo dorsale: sul dorso fra pollice e indice. Altri interossei: fra i metacarpi.",
+  riferito:"Adduttore e opponente: alla base del pollice e lungo il lato radiale del polso (imita la rizoartrosi), al pollice. Interossei: al lato del dito corrispondente, con rigidità e «dita gonfie» al mattino.",
+  attiva:"Scrivere, cucire, pinza prolungata (telefono, bisturi, pennello), strumenti musicali, artrosi, freddo.",
+  cerca:"Pinza della membrana fra pollice e indice fra pollice e indice del terapista; pressione sulla tenar e negli spazi intermetacarpali dal dorso.",
+  tratta:"Pinzatura dell'adduttore, pressione sulla tenar, scorrimenti negli spazi intermetacarpali, allungamento del pollice in abduzione ed estensione; calore e movimento.",
+  auto:"Pinzare la membrana fra pollice e indice con l'altra mano 1 minuto; aprire le dita contro un elastico.",
+  simula:"Rizoartrosi, De Quervain, artrite reumatoide delle dita, tunnel carpale.",
+  segreto:"Metà dei dolori «da rizoartrosi» nelle persone che scrivono al telefono tutto il giorno sono l'adduttore del pollice: la radiografia può mostrare l'artrosi, ma il dolore cambia in una seduta pinzando la membrana fra pollice e indice. L'artrosi resta, il dolore no."},
+ {id:"tp-ileopsoas",nome:"Trigger point dell'ileopsoas",muscolo:"m-ileopsoas",vista:"ant",xy:[88,180],regione:"Bacino",alias:["trigger ileopsoas","trigger psoas","trigger point psoas lombalgia"],
+  dove:"Psoas: nell'addome, due-tre dita a lato dell'ombelico, in profondità, con le ginocchia piegate ed espirazione (cliente supino). Iliaco: dentro la cresta iliaca, sotto la spina antero-superiore. Inserzione: nel triangolo femorale, a lato dell'arteria, sul piccolo trocantere.",
+  riferito:"Alla lombare in verticale lungo la colonna (il «mal di schiena a striscia» da un lato), all'inguine e alla faccia anteriore-interna della coscia. Dolore nell'alzarsi dalla sedia, nel raddrizzarsi, a stare in piedi; meglio sdraiati con le ginocchia piegate.",
+  attiva:"Stare seduti a lungo con le anche flesse, dormire in posizione fetale, addominali con i piedi bloccati, gravidanza, corsa in salita, gamba corta.",
+  cerca:"Supino con le ginocchia piegate: pressione lenta a lato dell'ombelico mentre il cliente espira e solleva appena il tallone (il muscolo si tende sotto le dita); test di Thomas positivo; dolore alla pressione nel triangolo femorale.",
+  tratta:"Pressione lenta e profonda con il respiro, mai contro i vasi; rilascio dell'iliaco dentro la cresta; allungamento in affondo con il bacino in retroversione; non a stomaco pieno, non in gravidanza avanzata, non con aneurisma noto.",
+  auto:"Pallina da tennis a lato dell'ombelico da proni, 2 minuti con il respiro; affondo ogni ora di seduta; non dormire rannicchiati.",
+  simula:"Ernia discale, sacro-iliaca, appendicite, dolore inguinale, pubalgia, ernia inguinale.",
+  segreto:"Il mal di schiena di chi sta seduto otto ore e si alza «piegato» sta davanti, non dietro: lo psoas accorciato tira le lombari in avanti ogni volta che la persona si raddrizza. Trattare la schiena dà un giorno di sollievo; trattare lo psoas e insegnare l'affondo lo risolve."},
+ {id:"tp-gluteo-massimo",nome:"Trigger point del grande gluteo",muscolo:"m-gluteo-massimo",vista:"post",xy:[84,207],regione:"Bacino",alias:["trigger grande gluteo","trigger point gluteo"],
+  dove:"Tre punti: vicino al sacro (bordo laterale), sopra la tuberosità ischiatica, e nella parte bassa e laterale vicino al coccige. Si palpano proni o sul fianco con il muscolo rilassato.",
+  riferito:"Locale al gluteo, al sacro e al coccige, e alla parte alta posteriore della coscia; dolore a stare seduti (sull'ischio), a salire le scale, a dormire sul lato.",
+  attiva:"Cadute a sedere, stare seduti a lungo su superfici dure, portafoglio, camminate in salita, nuoto a rana, iniezioni intramuscolari.",
+  cerca:"Prono: pressione nel gluteo lungo le tre zone; il punto vicino all'ischio riproduce il dolore «da seduti», quello vicino al coccige il dolore coccigeo.",
+  tratta:"Pressione profonda con il gomito morbido o il pugno, scorrimenti verso il trocantere, allungamento con il ginocchio al petto e verso la spalla opposta; rinforzo (ponte) perché un gluteo dolente è spesso spento.",
+  auto:"Pallina sotto il gluteo da seduti a terra, 2 minuti; ponte ogni mattina; cuscino con il vuoto se il coccige fa male.",
+  simula:"Coccigodinia, borsite ischiatica, sacro-iliaca, sciatica.",
+  segreto:"La «coccigodinia» che non viene da un trauma è spesso il trigger inferiore del grande gluteo che riferisce al coccige: si tratta il gluteo e il coccige smette di far male. Vale la pena provare prima di qualunque cosa invasiva."},
+ {id:"tp-gluteo-medio",nome:"Trigger point del gluteo medio",muscolo:"m-gluteo-medio",vista:"post",xy:[78,196],regione:"Bacino",alias:["trigger gluteo medio","trigger point gluteo medio lombalgia"],
+  dove:"Subito sotto la cresta iliaca, dietro, sopra il grande gluteo: tre punti dalla spina postero-superiore verso il trocantere. Spesso scambiati per la sacro-iliaca.",
+  riferito:"Alla cresta iliaca, al sacro, alla sacro-iliaca e al gluteo stesso, con dolore nella parte bassa della schiena (la «lombalgia» che sta nel gluteo); nel camminare, nel dormire sul fianco, nello stare seduti curvi.",
+  attiva:"Camminare a lungo, correre, stare su una gamba, gamba corta, portafoglio, iniezioni, dormire sul lato senza cuscino fra le ginocchia, gluteo medio debole che lavora sempre al limite.",
+  cerca:"Sul fianco sano o prono: pressione sotto la cresta iliaca da dietro in avanti; il punto riproduce la «lombalgia bassa»; Trendelenburg spesso positivo.",
+  tratta:"Pressione mantenuta e scorrimenti sotto la cresta, allungamento con la gamba incrociata, ma soprattutto rinforzo (conchiglia, abduzione sul fianco) per settimane; correggere la gamba corta.",
+  auto:"Pallina sotto la cresta iliaca da sdraiati sul fianco, 2 minuti; conchiglia ogni giorno; cuscino fra le ginocchia.",
+  simula:"Lombalgia, sacro-iliaca, borsite trocanterica, sciatica.",
+  segreto:"Metà delle «lombalgie» che il cliente indica con la mano aperta sul gluteo alto, sotto la cintura, sono il gluteo medio, e la schiena non c'entra. Si distingue in dieci secondi: la pressione sotto la cresta riproduce esattamente il dolore. Poi però non basta scioglierlo: è un muscolo debole che si lamenta, e vuole forza."},
+ {id:"tp-gluteo-piccolo",nome:"Trigger point del piccolo gluteo",muscolo:"m-gluteo-piccolo",vista:"post",xy:[75,202],regione:"Bacino",alias:["trigger piccolo gluteo","trigger point piccolo gluteo sciatica"],
+  dove:"Sotto il gluteo medio, davanti al trocantere e sotto la spina iliaca antero-superiore (fibre anteriori), e dietro il trocantere (posteriori); profondo, si raggiunge sul fianco con l'anca leggermente flessa.",
+  riferito:"La «falsa sciatica»: dalla natica lungo la faccia laterale (anteriori) o posteriore (posteriori) della coscia e della gamba fino alla caviglia, senza coinvolgere il piede; dolore costante, anche a riposo e di notte, che impedisce di dormire sul lato e di stare seduti a lungo.",
+  attiva:"Camminare molto, stare su una gamba, sedersi su un portafoglio, gamba corta, cadute, iniezioni, lunghe corse.",
+  cerca:"Sul fianco, anca leggermente flessa: pressione profonda davanti e dietro il trocantere; il dolore scende lungo la gamba esattamente come il cliente lo descrive; Lasègue negativo, riflessi normali.",
+  tratta:"Pressione profonda e paziente (è sotto due muscoli), con piccoli movimenti passivi dell'anca; allungamento in adduzione; rinforzo con il gluteo medio; trattare anche quadrato dei lombi e piriforme.",
+  auto:"Pallina sul fianco davanti al trocantere, da sdraiati, con la gamba che si muove avanti e indietro, 2 minuti; conchiglia.",
+  simula:"Sciatica da ernia (ma senza deficit, senza Lasègue), borsite trocanterica, sindrome del piriforme, meralgia.",
+  segreto:"È la causa più frequente di «sciatica» senza ernia e senza segni neurologici: un dolore che scende fino alla caviglia e che la risonanza non spiega. La differenza con la sciatica vera: non va nel piede, non ha formicolio, il Lasègue è negativo, e la pressione sotto il trocantere lo riproduce per intero."},
+ {id:"tp-piriforme",nome:"Trigger point del piriforme",muscolo:"m-piriforme",vista:"post",xy:[85,205],regione:"Bacino",alias:["trigger piriforme","trigger point piriforme"],
+  dove:"Lungo la linea dal bordo del sacro al trocantere, a metà e vicino al sacro, sotto il grande gluteo: si palpa prono o sul fianco con l'anca flessa a 90° e il muscolo in leggero allungamento.",
+  riferito:"Alla sacro-iliaca, al gluteo e all'anca posteriore, con dolore che scende dietro la coscia; se comprime lo sciatico, formicolio della gamba e del piede. Dolore da seduti, nel salire in auto, nei rapporti.",
+  attiva:"Stare seduti a lungo con le gambe incrociate, guidare, cadute, torsioni, gamba corta, correre su strade inclinate, piede pronato (la tibia ruota e il piriforme lavora).",
+  cerca:"Prono con il ginocchio piegato: rotazione interna passiva che tende il muscolo, poi pressione lungo la linea sacro-trocantere; test FAIR (flessione, adduzione, rotazione interna) che riproduce il dolore.",
+  tratta:"Pressione profonda e mantenuta con il gomito morbido, in allungamento, 1–2 minuti per punto; allungamento con la caviglia sul ginocchio opposto; trattare gluteo medio e piccolo e quadrato dei lombi insieme; correggere il piede.",
+  auto:"Pallina a metà fra sacro e trocantere da seduti a terra, con il piede che ruota; allungamento del piriforme 2 volte al giorno; portafoglio fuori dalla tasca.",
+  simula:"Sciatica, sacro-iliaca, borsite ischiatica, dolore pelvico.",
+  segreto:"La «sindrome del piriforme» è diagnosticata dieci volte più di quanto esista: la maggior parte delle sciatiche glutee senza ernia sono il piccolo gluteo o il gluteo medio. Si tratta il piriforme quando il FAIR è positivo e il dolore sta sulla linea sacro-trocantere; altrimenti si guarda un dito più in alto."},
+ {id:"tp-tfl",nome:"Trigger point del tensore della fascia lata",muscolo:"m-tfl",vista:"ant",xy:[76,215],regione:"Bacino",alias:["trigger tensore della fascia lata","trigger point TFL"],
+  dove:"Subito sotto e dietro la spina iliaca antero-superiore, nel ventre carnoso prima che diventi bandelletta: cliente supino o sul fianco, con l'anca leggermente abdotta.",
+  riferito:"Al grande trocantere e lungo la faccia laterale della coscia verso il ginocchio; dolore a dormire sul lato, a stare seduti con l'anca flessa, a camminare velocemente.",
+  attiva:"Camminare e correre con il gluteo medio debole (il TFL fa il suo lavoro), stare seduti con le ginocchia alte, piedi pronati, gamba corta, salite.",
+  cerca:"Supino: pressione sotto la spina iliaca antero-superiore verso l'esterno mentre il cliente abduce leggermente; il dolore al trocantere si riproduce; Ober positivo.",
+  tratta:"Pressione e scorrimenti sul ventre (non sulla bandelletta a metà coscia), allungamento in estensione-adduzione, rinforzo del gluteo medio per scaricarlo.",
+  auto:"Rullo sulla coscia alta laterale sotto la spina iliaca, 2 minuti; allungamento con la gamba incrociata dietro; conchiglia.",
+  simula:"Borsite trocanterica, sindrome della bandelletta, artrosi dell'anca, meralgia.",
+  segreto:"Il «dolore alla bandelletta» dei corridori non sta nella bandelletta (che è un tendine e non si «scioglie» con il rullo) ma nel TFL che la tende: due dita sotto la spina iliaca. E il TFL è teso perché il gluteo medio dorme: senza rinforzo torna dopo ogni corsa."},
+ {id:"tp-quadricipite",nome:"Trigger point del quadricipite (retto femorale e vasti)",muscolo:"m-quadricipite",vista:"ant",xy:[83,240],regione:"Coscia",alias:["trigger quadricipite","trigger retto femorale","trigger vasto mediale","trigger vasto laterale","trigger point ginocchio"],
+  dove:"Retto femorale: in alto, sotto la spina iliaca antero-inferiore. Vasto mediale: sopra e dentro la rotula (due punti). Vasto laterale: lungo tutta la faccia esterna della coscia (molti punti, i più dolenti vicino al ginocchio e a metà). Vasto intermedio: sotto il retto, a metà coscia.",
+  riferito:"Retto femorale: davanti al ginocchio e nella rotula (dolore nel scendere le scale e di notte). Vasto mediale: al ginocchio interno, con il ginocchio che «cede». Vasto laterale: lungo la coscia esterna fino al ginocchio esterno, con rotula bloccata e dolore a dormire sul lato. Vasto intermedio: a metà coscia, difficoltà a estendere il ginocchio.",
+  attiva:"Corsa in discesa, accovacciate, squat profondi, cadute sul ginocchio, immobilizzazione, iniezioni, stare seduti con le gambe accavallate, gamba corta.",
+  cerca:"Supino: pinza del retto femorale in alto, pressione sul vasto mediale sopra la rotula e lungo il vasto laterale con la gamba rilassata; i punti riproducono il dolore al ginocchio.",
+  tratta:"Scorrimenti e pressioni lungo i quattro capi, pinzatura del retto femorale, rullo sul vasto laterale, allungamento in flessione del ginocchio con il bacino in retroversione; isometrici del vasto mediale.",
+  auto:"Rullo sulla faccia anteriore e laterale della coscia, 2 minuti ciascuna; allungamento del quadricipite in piedi; pallina sopra la rotula interna.",
+  simula:"Condropatia rotulea, artrosi del ginocchio, tendinite rotulea, lesione meniscale (vasto mediale: ginocchio che cede).",
+  segreto:"Il ginocchio che fa male davanti e «cede» senza che il menisco sia rotto è il vasto mediale con i suoi trigger: inibiscono il muscolo e la rotula scivola. Il dolore «nel ginocchio» che non ha un punto nel ginocchio ha un punto nella coscia: si preme la coscia e il ginocchio risponde."},
+ {id:"tp-ischiocrurali",nome:"Trigger point degli ischiocrurali",muscolo:"m-ischiocrurali",vista:"post",xy:[82,250],regione:"Coscia",alias:["trigger ischiocrurali","trigger bicipite femorale","trigger semitendinoso","trigger point ischiocrurali"],
+  dove:"Bicipite femorale: nella metà inferiore della coscia laterale posteriore. Semitendinoso e semimembranoso: nella metà inferiore mediale, vicino all'ischio e sopra il ginocchio. Si palpano proni o seduti sul bordo del lettino (la sedia comprime proprio i punti).",
+  riferito:"Bicipite: dietro il ginocchio e alla faccia posteriore della coscia e della gamba. Semitendinoso e semimembranoso: alla piega glutea e dietro la coscia fino al polpaccio interno. Dolore a stare seduti (la sedia preme), a camminare, a salire le scale; «gamba che tira».",
+  attiva:"Sedie alte che premono dietro la coscia, stare seduti a lungo, corsa e scatto, gamba corta, flessione in avanti ripetuta, ischiocrurali tenuti corti da un bacino in retroversione.",
+  cerca:"Prono con il ginocchio leggermente piegato: pinza del bicipite e dei mediali nella metà inferiore; seduto, pressione dal basso dietro la coscia; il dolore dietro il ginocchio si riproduce.",
+  tratta:"Pinzatura e scorrimenti lungo i ventri, pressione sui punti con il ginocchio che si estende passivamente, allungamento dolce (senza tirare il nervo: se formicola, fermarsi), lavoro sull'ischio.",
+  auto:"Rullo o pallina sotto la coscia da seduti, 2 minuti; allungamento con la cinghia da supini; sedia con il bordo più basso o un cuscino sotto il ginocchio.",
+  simula:"Sciatica, cisti di Baker, tendinopatia prossimale, dolore della zampa d'oca.",
+  segreto:"Il dolore dietro il ginocchio in chi sta seduto su sedie alte (bar, scrivanie da bancone) è il bicipite femorale schiacciato dal bordo della sedia per ore: il cliente non si «stira abbastanza», si siede male. Un poggiapiedi vale più dello stretching."},
+ {id:"tp-adduttori",nome:"Trigger point degli adduttori e del pettineo",muscolo:"m-adduttori",vista:"ant",xy:[92,235],regione:"Coscia",alias:["trigger adduttori","trigger adduttore lungo","trigger grande adduttore","trigger pettineo","trigger point inguine"],
+  dove:"Adduttore lungo e breve: nel terzo superiore della coscia interna, vicino all'inguine. Grande adduttore: più profondo e posteriore, a metà coscia interna. Pettineo: nella piega dell'inguine, a lato dei vasi femorali.",
+  riferito:"Adduttore lungo: all'inguine e alla faccia interna della coscia fino al ginocchio interno, con rigidità dell'anca (non si apre la gamba). Grande adduttore: profondo nella pelvi (vagina, retto, pube) e alla coscia interna. Pettineo: dolore profondo all'inguine subito sotto il legamento.",
+  attiva:"Calcio e cambi di direzione, scivolate, cavalcare, sedere con le gambe accavallate, artrosi dell'anca, cadute a gambe divaricate, gravidanza.",
+  cerca:"Supino con la gamba a «4» rilassata: pinza dell'adduttore lungo vicino all'inguine, pressione sul grande adduttore a metà coscia e sul pettineo nella piega; il dolore all'inguine o pelvico si riproduce.",
+  tratta:"Pinzatura e scorrimenti dall'inguine al ginocchio, pressione mantenuta sul grande adduttore, allungamento a farfalla e in affondo laterale; rinforzo isometrico (squeeze) nella pubalgia; con cautela vicino ai vasi.",
+  auto:"Rullo sull'interno coscia da proni con la gamba aperta, 2 minuti; farfalla; squeeze del pallone.",
+  simula:"Pubalgia, ernia inguinale, artrosi dell'anca, dolore pelvico cronico, nevralgia dell'otturatorio.",
+  segreto:"Il grande adduttore riferisce dolore dentro la pelvi: dolori pelvici, «vaginali» o rettali senza causa ginecologica o proctologica hanno spesso un trigger a metà della coscia interna, e il cliente non lo collega mai. Chiederlo e cercarlo con delicatezza apre casi che girano da anni."},
+ {id:"tp-popliteo",nome:"Trigger point del popliteo",muscolo:"m-popliteo",vista:"post",xy:[82,312],regione:"Ginocchio",alias:["trigger popliteo","trigger point popliteo"],
+  dove:"Nel cavo popliteo, sotto l'interlinea, verso l'interno, in profondità sotto il gastrocnemio: si preme con il ginocchio piegato a 90° e il muscolo rilassato (prono o seduto).",
+  riferito:"Dietro il ginocchio, nell'articolazione, con dolore nel scendere le scale, nell'estendere del tutto il ginocchio e nel camminare in discesa; il ginocchio «non si sblocca» a fine estensione.",
+  attiva:"Corsa in discesa, sci, torsioni del ginocchio, lesione del crociato posteriore, piede pronato (la tibia ruota).",
+  cerca:"Prono con il ginocchio a 90°: pollice nel cavo popliteo, sotto l'interlinea mediale, mentre il cliente ruota la tibia internamente contro resistenza; il dolore dietro il ginocchio si riproduce.",
+  tratta:"Pressione mantenuta e scorrimenti trasversali con il ginocchio piegato, poi estensioni passive lente; rotazione esterna della tibia in allungamento; correggere la pronazione.",
+  auto:"Pollice nel cavo popliteo da seduti con il ginocchio piegato, 1 minuto; rotazioni della tibia; scarpe con sostegno.",
+  simula:"Cisti di Baker, lesione meniscale posteriore, tendinite del bicipite femorale, trombosi (escludere).",
+  segreto:"Il ginocchio che fa male dietro scendendo le scale e non si estende del tutto, con risonanza pulita, è il popliteo: un muscolo piccolo e introvabile che blocca lo screw-home. Un minuto di pressione nel cavo popliteo e il ginocchio «si sblocca» sotto le mani."},
+ {id:"tp-gastrocnemio",nome:"Trigger point del gastrocnemio",muscolo:"m-gastrocnemio",vista:"post",xy:[78,332],regione:"Gamba",alias:["trigger gastrocnemio","trigger polpaccio","trigger point crampi polpaccio"],
+  dove:"Nei due capi, mediale e laterale, nel terzo superiore e medio del polpaccio: il punto mediale alto è quello dei crampi notturni.",
+  riferito:"Al polpaccio stesso e alla pianta del piede (arco) con crampi notturni, dietro il ginocchio, alla caviglia; dolore nel camminare in salita e nel salire le scale.",
+  attiva:"Tacchi, sedie alte che premono dietro il polpaccio, stare in piedi su superfici dure, pedalare con il sellino basso, corsa in salita, freddo, immobilizzazione, carenza di idratazione e di sali.",
+  cerca:"Prono con il piede fuori dal lettino: pinza dei due capi nel terzo superiore; il punto mediale riproduce il crampo o il dolore all'arco; Thompson negativo.",
+  tratta:"Pinzatura e scorrimenti lungo i capi, pressione mantenuta con la caviglia in dorsiflessione passiva, allungamento a ginocchio teso; calore; attenzione al polpaccio gonfio da un lato (trombosi).",
+  auto:"Rullo sul polpaccio con l'altra gamba sopra, 2 minuti; allungamento al muro ogni sera; tacchi bassi; idratazione.",
+  simula:"Trombosi venosa (sempre da escludere), claudicatio, fascite plantare, crampi da farmaci (statine).",
+  segreto:"Il crampo notturno al polpaccio che sveglia la persona è un trigger del gastrocnemio mediale che scatta quando il piede va in flessione plantare sotto il lenzuolo: si previene con l'allungamento serale e con il piede che non resta a punta (cuscino sotto il lenzuolo). Il magnesio aiuta solo chi ne è carente."},
+ {id:"tp-soleo",nome:"Trigger point del soleo",muscolo:"m-soleo",vista:"post",xy:[79,365],regione:"Gamba",alias:["trigger soleo","trigger point soleo tallone"],
+  dove:"Nel terzo inferiore del polpaccio, ai lati del tendine d'Achille, e più in alto sotto il gastrocnemio (si palpa con il ginocchio piegato, che rilassa il gastrocnemio).",
+  riferito:"Al tallone e al tendine d'Achille (il «tallone che fa male» con fascite negativa), al polpaccio, e un punto raro alla sacro-iliaca; dolore nel salire le scale, nel correre, nel mettersi sulle punte.",
+  attiva:"Corsa (il soleo regge 6–8 volte il peso), salite, tacchi, stare in piedi, pedalare, scarpe rigide, immobilizzazione, freddo.",
+  cerca:"Prono con il ginocchio piegato a 90°: pressione ai lati del tendine nel terzo inferiore e sotto il gastrocnemio; il dolore al tallone si riproduce; ginocchio al muro ridotto.",
+  tratta:"Pressione e scorrimenti con il ginocchio piegato, allungamento con il ginocchio flesso (il soleo si allunga solo così), calore; sollevamenti sulle punte da seduti dopo.",
+  auto:"Pollici nel polpaccio basso con il ginocchio piegato, 2 minuti; allungamento del soleo al muro con il ginocchio piegato ogni giorno.",
+  simula:"Fascite plantare, tendinopatia dell'Achille, borsite retrocalcaneare, trombosi.",
+  segreto:"Il tallone che fa male «come una fascite» ma non al primo passo del mattino, bensì dopo la corsa e sulle punte, è il soleo che riferisce al calcagno. Si allunga solo a ginocchio piegato: chi allunga il polpaccio a gamba tesa non lo tocca mai, e per questo il tallone non guarisce."},
+ {id:"tp-tibiale-ant",nome:"Trigger point del tibiale anteriore e degli estensori delle dita",muscolo:"m-tibiale-ant",vista:"ant",xy:[80,340],regione:"Gamba",alias:["trigger tibiale anteriore","trigger estensori del piede","trigger point tibiale anteriore alluce"],
+  dove:"Tibiale anteriore: nel terzo superiore della gamba, a lato della cresta tibiale. Estensore lungo delle dita e dell'alluce: più laterali e più in basso, nel terzo medio.",
+  riferito:"Tibiale anteriore: all'alluce e alla faccia anteriore-interna della caviglia (dolore «all'alluce» con l'alluce sano). Estensori delle dita: al dorso del piede e alle dita, con crampi del dorso del piede e dita a griffe.",
+  attiva:"Camminare su terreni irregolari, corsa, scarpe pesanti, guidare a lungo (piede sull'acceleratore), stare accovacciati, dormire con il piede a punta, dopo una distorsione.",
+  cerca:"Supino: pressione lungo il tibiale anteriore a lato della tibia e sugli estensori più in fuori mentre il cliente solleva la punta del piede; il dolore all'alluce o al dorso si riproduce.",
+  tratta:"Scorrimenti e pressioni lungo il compartimento anteriore, allungamento con il piede in flessione plantare (in ginocchio sui talloni), lavoro sui peronei insieme; rinforzo (camminata sui talloni).",
+  auto:"Pollice lungo il bordo esterno della tibia con il piede che si muove, 2 minuti; in ginocchio sui talloni 30 secondi.",
+  simula:"Sindrome compartimentale anteriore (dolore con sforzo e gamba dura: urgenza), periostite tibiale, artrosi dell'alluce, neuroma.",
+  segreto:"Il dolore all'alluce senza alluce valgo né rigidità, che compare camminando e sparisce a riposo, è il tibiale anteriore che riferisce in basso. E il dolore «alla caviglia davanti» mesi dopo una distorsione è spesso lui, rimasto contratto da quando ha cercato di proteggere l'articolazione."},
+ {id:"tp-tibiale-post",nome:"Trigger point del tibiale posteriore e dei flessori delle dita",muscolo:"m-tibiale-post",vista:"post",xy:[83,352],regione:"Gamba",alias:["trigger tibiale posteriore","trigger flessore lungo dita","trigger flessore lungo alluce","trigger point tibiale posteriore"],
+  dove:"In profondità nel polpaccio, sotto soleo e gastrocnemio: si raggiungono dal lato mediale della tibia (dietro il bordo) con il ginocchio piegato, o dal lato laterale fra soleo e peronei. Flessore lungo dell'alluce: nel terzo inferiore laterale, dietro il perone.",
+  riferito:"Tibiale posteriore: al tendine d'Achille sopra il calcagno e alla pianta del piede, con dolore nel camminare su terreni irregolari. Flessore lungo delle dita: alla pianta e alle dita. Flessore lungo dell'alluce: sotto l'alluce e al primo metatarso.",
+  attiva:"Piede piatto o pronato, corsa su superfici irregolari o inclinate, scarpe consumate, salite, stare sulle punte (ballerini), sovrappeso.",
+  cerca:"Prono con il ginocchio a 90°: pressione profonda dietro il bordo mediale della tibia nel terzo medio e dal lato laterale fra soleo e peronei; il dolore all'Achille o alla pianta si riproduce.",
+  tratta:"Pressione profonda e lenta con il ginocchio piegato, scorrimenti lungo il bordo mediale della tibia, allungamento con il piede in eversione e dorsiflessione; rinforzo del tibiale posteriore e sostegno dell'arco.",
+  auto:"Pollici dietro il bordo interno della tibia con il ginocchio piegato, 2 minuti; pallina sotto l'arco; scarpe con sostegno nelle fasi dolorose.",
+  simula:"Tendinopatia dell'Achille, fascite plantare, tunnel tarsale, periostite mediale («shin splints»), sindrome compartimentale profonda.",
+  segreto:"Il dolore «all'Achille» che sta sopra il tendine, nel polpaccio basso, e che aumenta su terreni irregolari, è il tibiale posteriore: il tendine è sano, il muscolo che lo tira no. E la «fascite» che non risponde alle frizioni sulla pianta risponde al polpaccio profondo, perché i flessori delle dita riferiscono proprio lì."},
+ {id:"tp-peronei",nome:"Trigger point dei peronei",muscolo:"m-peronei",vista:"post",xy:[73,345],regione:"Gamba",alias:["trigger peronei","trigger peroneo lungo","trigger point peronei caviglia"],
+  dove:"Peroneo lungo: 2–4 cm sotto la testa del perone, sulla faccia laterale della gamba (vicino al nervo peroneo comune: pressione moderata). Peroneo breve: nel terzo inferiore laterale, davanti al tendine del lungo. Peroneo terzo: davanti al malleolo laterale.",
+  riferito:"Sul malleolo laterale e intorno (la «caviglia che fa ancora male» dopo la distorsione), lungo la faccia laterale della gamba, al tallone laterale; debolezza della caviglia e tendenza a girarla.",
+  attiva:"Distorsioni in inversione (la causa più frequente), gamba ingessata, piede piatto o cavo, scarpe strette, dormire con il piede a punta, gambe accavallate (compressione del nervo), stare in piedi su una gamba.",
+  cerca:"Sul fianco o supino: pressione sulla faccia laterale della gamba sotto la testa del perone e nel terzo inferiore mentre il cliente everte il piede; il dolore al malleolo si riproduce. Attenzione a non comprimere il nervo (formicolio del dorso del piede = spostarsi).",
+  tratta:"Scorrimenti e pressioni lungo il compartimento laterale, pressione mantenuta sui punti con il piede in inversione passiva, allungamento in inversione; propriocezione e rinforzo in eversione dopo.",
+  auto:"Pollice lungo la faccia esterna della gamba dalla testa del perone in giù, 2 minuti; eversione contro elastico; equilibrio su una gamba.",
+  simula:"Distorsione cronica, instabilità della caviglia, tendinopatia dei peronei, neuropatia del peroneo.",
+  segreto:"La caviglia che «fa ancora male» mesi dopo una distorsione guarita, con i legamenti sani all'ecografia, ha quasi sempre trigger nei peronei: il muscolo che ha cercato di salvare la caviglia è rimasto in guardia. Tre sedute sui peronei e sei settimane di equilibrio cambiano la storia di una caviglia «debole»."},
+ {id:"tp-piede",nome:"Trigger point dei muscoli del piede (quadrato della pianta, abduttore dell'alluce, flessore breve, interossei)",muscolo:"m-intrinseci-piede",vista:"post",xy:[74,420],regione:"Piede",alias:["trigger quadrato della pianta","trigger abduttore dell'alluce","trigger flessore breve delle dita","trigger interossei del piede","trigger point piede"],
+  dove:"Quadrato della pianta: davanti al tallone, in profondità al centro. Abduttore dell'alluce: lungo il bordo mediale. Flessore breve delle dita: al centro della pianta. Abduttore del quinto: bordo laterale. Interossei: fra i metatarsi, dal dorso. Adduttore dell'alluce: sotto le teste metatarsali.",
+  riferito:"Quadrato della pianta: al tallone (la seconda «fascite»). Abduttore dell'alluce: al bordo mediale del tallone e dell'arco. Flessore breve: alle teste metatarsali (metatarsalgia). Interossei: alle dita, con dita a martello e formicolio. Adduttore dell'alluce: sotto l'avampiede, come un «sasso».",
+  attiva:"Scarpe strette o rigide, camminare su superfici dure, correre, stare in piedi, piede piatto, dita a martello, immobilizzazione, freddo.",
+  cerca:"Supino o prono con la pianta accessibile: pressione con il pollice sul tallone anteriore (quadrato), lungo il bordo mediale, al centro e fra i metatarsi dal dorso; i punti riproducono il dolore al tallone o alle dita.",
+  tratta:"Pressione con i pollici e con le nocche sulla pianta, zona per zona, scorrimenti dal tallone alle dita, mobilizzazione dei metatarsi, allungamento delle dita in estensione; calore; poi short foot e scarpe adatte.",
+  auto:"Pallina sotto la pianta 3 minuti al mattino prima di alzarsi, dal tallone alle dita; separatori di dita; scarpe larghe in punta; camminare scalzi su superfici morbide.",
+  simula:"Fascite plantare, metatarsalgia, neuroma di Morton, tunnel tarsale, artrosi delle dita.",
+  segreto:"Un terzo delle «fasciti» che non guariscono sono il quadrato della pianta e l'abduttore dell'alluce con i loro trigger: la fascia è sana, i muscoli sotto di lei no. Si vede perché il dolore risponde alla pressione sul muscolo (più in alto e più profondo del tubercolo) e cambia in una seduta, mentre la fascia vera ci mette mesi."},
+ {id:"tp-pavimento-pelvico",nome:"Trigger point del pavimento pelvico",muscolo:"m-pavimento-pelvico",vista:"ant",xy:[100,206],centro:true,regione:"Bacino",alias:["trigger pavimento pelvico","trigger elevatore dell'ano","trigger point pelvico"],
+  dove:"Nell'elevatore dell'ano, nel coccigeo, nell'otturatore interno e nei muscoli perineali superficiali: esternamente si palpa solo il perineo e la zona attorno al coccige; il trattamento interno richiede formazione specifica e consenso scritto.",
+  riferito:"Al coccige, al sacro, al retto, alla vagina, al pene e ai testicoli, al perineo, alla vescica (urgenza), alla parte bassa della schiena; dolore da seduti, nei rapporti, nella defecazione e nella minzione.",
+  attiva:"Stress e «tenere tutto», stipsi, parto, interventi pelvici, cadute sul coccige, ciclismo, ginnastica del pavimento fatta solo in contrazione, posture sedute scorrette, dolore pelvico cronico.",
+  cerca:"Anamnesi prima di tutto: dolore da seduti, urgenza, dolore nei rapporti, stipsi. Esternamente: dolenzia del perineo e dei muscoli attorno al coccige (prono o sul fianco), otturatore interno dall'ischio. Valutazione interna solo da chi è formato.",
+  tratta:"Lavoro esterno su otturatore interno, glutei, adduttori e coccige; respiro diaframmatico con rilascio del perineo; posizioni di apertura; invio a un fisioterapista del pavimento pelvico per il trattamento interno, che è il più efficace.",
+  auto:"Respiro con la pancia e il perineo che si rilascia nell'inspirazione, 5 minuti; posizione del bambino con le ginocchia larghe; squat profondo; calore; niente «Kegel» finché il muscolo non sa rilasciarsi.",
+  simula:"Prostatite cronica, cistite interstiziale, vulvodinia, coccigodinia, emorroidi, endometriosi.",
+  segreto:"La «prostatite cronica» con esami negativi, la cistite senza batteri, il dolore vulvare senza lesioni: in gran parte sono trigger del pavimento pelvico, un muscolo che nessuno pensa di poter trattare. Il massaggiatore non lo tratta internamente, ma è spesso il primo a dirlo al cliente e a indirizzarlo bene."}
+]);
+
+/* ---- Tender point della fibromialgia (ACR 1990): 9 coppie ---- */
+DB.tender = [
+ {id:"tp-tender-occipite",nome:"Tender point: occipite",vista:"post",xy:[92,52],dove:"All'inserzione dei muscoli suboccipitali, sotto la linea nucale, bilateralmente.",nota:"Coincide con i trigger dei suboccipitali: nel fibromialgico il dolore è alla pressione leggera (4 kg: l'unghia del pollice che sbianca), senza riferimento a distanza."},
+ {id:"tp-tender-cervicale",nome:"Tender point: cervicale bassa",vista:"ant",xy:[94,76],dove:"Sulla faccia anteriore degli spazi intertrasversari C5–C7, davanti al collo basso, bilateralmente.",nota:"Si palpa con delicatezza a lato della trachea; nel sano non fa male."},
+ {id:"tp-tender-trapezio",nome:"Tender point: trapezio",vista:"post",xy:[84,76],dove:"A metà del bordo superiore del trapezio, bilateralmente.",nota:"Lo stesso punto del trigger del trapezio superiore: la differenza è che nel tender non c'è il cordone teso né il dolore riferito alla tempia."},
+ {id:"tp-tender-sovraspinato",nome:"Tender point: sovraspinato",vista:"post",xy:[86,80],dove:"All'origine del sovraspinato, sopra la spina della scapola vicino al bordo mediale, bilateralmente.",nota:"Dolente anche nei sani con spalle sovraccariche: conta la soglia bassa e la simmetria."},
+ {id:"tp-tender-seconda-costa",nome:"Tender point: seconda costa",vista:"ant",xy:[88,88],dove:"Alla seconda giunzione condro-costale, appena a lato dello sterno, sulla superficie superiore, bilateralmente.",nota:"Da distinguere dalla costocondrite (dolore anche spontaneo, a volte gonfiore) e dai trigger del pettorale."},
+ {id:"tp-tender-epicondilo",nome:"Tender point: epicondilo laterale",vista:"ant",xy:[58,148],dove:"2 cm sotto l'epicondilo laterale, sugli estensori, bilateralmente.",nota:"Lo stesso punto dell'epicondilite e del trigger dell'estensore radiale breve: bilaterale e senza storia di sovraccarico nel fibromialgico."},
+ {id:"tp-tender-gluteo",nome:"Tender point: gluteo",vista:"post",xy:[76,200],dove:"Nel quadrante supero-esterno del gluteo, nella piega anteriore del muscolo (gluteo medio e piccolo), bilateralmente.",nota:"Coincide con i trigger del gluteo medio e piccolo, ma senza il dolore riferito lungo la gamba."},
+ {id:"tp-tender-trocantere",nome:"Tender point: grande trocantere",vista:"post",xy:[72,212],dove:"Dietro la prominenza del trocantere, dove si inseriscono i rotatori, bilateralmente.",nota:"Da distinguere dalla sindrome dolorosa del trocantere (gluteo medio), che è di solito monolaterale."},
+ {id:"tp-tender-ginocchio",nome:"Tender point: ginocchio",vista:"ant",xy:[90,298],dove:"Sul cuscinetto adiposo mediale, appena sopra l'interlinea articolare interna del ginocchio, bilateralmente.",nota:"Da distinguere dalla borsite della zampa d'oca (più in basso, sotto l'interlinea) e dal trigger del vasto mediale."}
+];
+DB.tender.forEach(t=>{ t.tipo="tender"; t.alias=t.alias||[t.nome.toLowerCase()]; t.regione="Tender point (fibromialgia)";
+  t.cosa="Un tender point è un punto che fa male alla pressione leggera (circa 4 kg, quanto basta a far sbiancare l'unghia del pollice) senza cordone teso, senza scatto locale e senza dolore riferito a distanza: la soglia del dolore è abbassata in tutto il corpo, non c'è un nodo nel muscolo. I 18 punti (9 coppie) dei criteri ACR 1990 per la fibromialgia servivano alla diagnosi: 11 su 18 dolenti con dolore diffuso da oltre 3 mesi. Oggi i criteri (2010/2016) usano un indice di dolore diffuso e la gravità dei sintomi (stanchezza, sonno non ristoratore, nebbia mentale), ma i punti restano utili per capire che cosa si ha sotto le mani.";
+  t.differenza="Trigger point: nodo palpabile in un cordone teso, scatto locale alla pinzatura, dolore riferito con una mappa precisa, di solito in pochi muscoli, risponde al trattamento locale. Tender point: dolore alla pressione in punti simmetrici, nessun nodo, nessun riferimento, in tutto il corpo, con sonno, stanchezza e sensibilizzazione centrale; il trattamento locale non lo risolve e il trattamento profondo lo peggiora.";
+  t.tratta="Nel cliente con molti tender point: pressione leggera e scelta da lui, sedute brevi e regolari, calore, movimento dolce e progressivo, respiro, sonno; niente «caccia ai nodi»; collaborazione con medico (reumatologo) e, quando serve, psicologo. I trigger point veri possono coesistere e vanno trattati con delicatezza.";
+  t.segreto="Nel fibromialgico il massaggio «che fa bene perché fa male» è un errore che si paga per due giorni: il sistema nervoso è già troppo acceso. La misura giusta è la pressione che il cliente definisce piacevole; e se un punto fa male alla pressione leggera anche in zone «di controllo» (fronte, unghia del pollice, avambraccio), non si cerca un muscolo colpevole: si cambia strategia.";
+});
+
+/* ---- registrazione del tipo ---- */
+KINDS.trigger={label:"Trigger point",cls:"m",db:()=>DB.trigger.concat(DB.tender)};
+const _anyById_conTrigger = anyById;
+anyById = function(id){ if(id && id.indexOf("tp-")===0){ const it=DB.trigger.find(x=>x.id===id)||DB.tender.find(x=>x.id===id); return it?{kind:"trigger",item:it}:null; } return _anyById_conTrigger(id); };
+PORTE.push({k:"trigger",n:"Dai trigger point",d:"La mappa dei punti che riferiscono dolore lontano: dove sono, dove fanno male, come si cercano e si trattano. E i tender point della fibromialgia.",c:"var(--muscle)",i:"porta-mus"});
+PRINCIPALI.push("trigger");
+const _blocchi_conTrigger = blocchi;
+blocchi = function(kind,it){
+  if(kind!=="trigger") return _blocchi_conTrigger(kind,it);
+  if(it.tipo==="tender") return [
+    {t:"p",h:"Dove si trova",txt:it.dove},
+    {t:"p",h:"Che cos'è un tender point",txt:it.cosa},
+    {t:"p",h:"Trigger point o tender point?",txt:it.differenza},
+    {t:"p",h:"Nota su questo punto",txt:it.nota},
+    {t:"p",h:"Come si lavora",txt:it.tratta},
+    {t:"segreto",txt:it.segreto}
+  ];
+  return [
+    {t:"p",h:"Dove si trova",txt:it.dove},
+    {t:"p",h:"Dove riferisce il dolore",txt:it.riferito},
+    {t:"p",h:"Che cosa lo attiva",txt:it.attiva},
+    {t:"p",h:"Come si cerca",txt:it.cerca},
+    {t:"p",h:"Come si tratta",txt:it.tratta},
+    {t:"p",h:"Da fare a casa",txt:it.auto},
+    {t:"p",h:"Che cosa imita",txt:it.simula},
+    {t:"segreto",txt:it.segreto}
+  ];
+};
+const _collegamenti_conTrigger = collegamenti;
+collegamenti = function(kind,it){
+  const box=(titolo,html)=>'<section><div class="seg" style="margin-bottom:8px">'+titolo+'</div>'+html+'</section>';
+  if(kind==="trigger"){
+    let h="";
+    if(it.muscolo) h+=box("Muscolo",pills([it.muscolo]));
+    const P=DB.problemi.filter(p=>it.muscolo && JSON.stringify(p.cause||[]).indexOf('"'+it.muscolo+'"')>=0).map(p=>p.id);
+    if(P.length) h+=box("Problemi in cui compare",pills(P));
+    const vicini=(it.tipo==="tender"?DB.trigger:DB.tender).filter(x=>x.vista===it.vista && Math.hypot(x.xy[0]-it.xy[0],x.xy[1]-it.xy[1])<14).map(x=>x.id);
+    if(vicini.length) h+=box(it.tipo==="tender"?"Trigger point nella stessa zona":"Tender point nella stessa zona",pills(vicini));
+    h+=box("Concetti",pills(["z-trigger-point","z-dolore","z-sensibilizzazione-centrale"].filter(x=>anyById(x))));
+    h+=box("Mappa",'<button class="btn sm" data-go="lista/trigger">Apri la mappa dei trigger point</button>');
+    return h;
+  }
+  let h=_collegamenti_conTrigger(kind,it);
+  if(kind==="muscolo"){ const T=DB.trigger.filter(t=>t.muscolo===it.id).map(t=>t.id); if(T.length) h=box("Trigger point",pills(T))+h; }
+  return h;
+};
+
+/* ---- la mappa: figure anteriore e posteriore con i punti ---- */
+function mappaTriggerSVG(vista,filtro,sel){
+  const dot=(p,cls)=>{ const inner='<circle class="tpdot '+cls+(p.id===sel?" on":"")+'" cx="'+p.xy[0]+'" cy="'+p.xy[1]+'" r="4" data-go="trigger/'+p.id+'"><title>'+esc(p.nome)+'</title></circle>';
+    return p.centro?inner:mirrored(inner); };
+  let g="";
+  if(filtro!=="tender") g+=DB.trigger.filter(t=>t.vista===vista).map(t=>dot(t,"")).join("");
+  if(filtro!=="trigger") g+=DB.tender.filter(t=>t.vista===vista).map(t=>dot(t,"tender")).join("");
+  return '<svg viewBox="0 0 200 448" class="figsvg" role="img" aria-label="Mappa dei trigger point, vista '+(vista==="ant"?"anteriore":"posteriore")+'">'+figuraBase()+g+'</svg>';
+}
+let TP_FILTRO=load("tp.filtro","tutti");
+const _vistaLista_conTrigger = vistaLista;
+vistaLista = function(k){
+  if(k!=="trigger") return _vistaLista_conTrigger(k);
+  const chip=(v,n)=>'<button class="chip'+(TP_FILTRO===v?" on":"")+'" data-act="tp-filtro" data-id="'+v+'">'+n+'</button>';
+  const gruppi={}; DB.trigger.forEach(t=>{ (gruppi[t.regione]=gruppi[t.regione]||[]).push(t); });
+  const card=t=>'<button class="card" data-go="trigger/'+t.id+'" style="gap:3px"><span class="eyebrow">'+esc(nomeOf(t.muscolo))+'</span><h3 style="font-size:15px">'+esc(t.nome.replace("Trigger point del ","").replace("Trigger point dello ","").replace("Trigger point dei ","").replace("Trigger point degli ","").replace("Trigger point della ","").replace("Trigger point dell'",""))+'</h3><p style="font-size:12.8px">'+esc(t.riferito.split(/[.;]/)[0])+'.</p></button>';
+  return crumbs([["Home","home/"],["Trigger point",null]])+
+   '<h1 style="font-size:clamp(23px,5vw,32px);margin-bottom:6px">Mappa dei trigger point</h1>'+
+   '<p style="margin:0 0 14px;color:var(--muted);max-width:66ch">Tocca un punto per aprire la scheda: dove si trova, dove riferisce il dolore, che cosa lo attiva, come si cerca e si tratta. In rosso i trigger point (nodo nel muscolo, dolore riferito), in blu i tender point della fibromialgia (dolore alla pressione leggera, senza nodo).</p>'+
+   '<div class="wg"><div class="wg-head"><span class="t">Mostra</span>'+chip("tutti","Tutti")+chip("trigger","Solo trigger point")+chip("tender","Solo tender point")+
+   '<span class="t" style="margin-left:auto">'+DB.trigger.length+' trigger · '+DB.tender.length+' tender</span></div>'+
+   '<div class="wg-body"><div class="wg-split"><div class="stage">'+mappaTriggerSVG("ant",TP_FILTRO)+'<span class="eyebrow" style="margin-top:6px">Vista anteriore</span></div>'+
+   '<div class="stage">'+mappaTriggerSVG("post",TP_FILTRO)+'<span class="eyebrow" style="margin-top:6px">Vista posteriore</span></div></div>'+
+   '<div class="tplegend"><span><i style="background:var(--muscle)"></i>Trigger point</span><span><i style="background:var(--joint)"></i>Tender point (fibromialgia)</span><span>I punti sono indicativi: la posizione esatta si trova con le mani.</span></div></div></div>'+
+   '<div class="seg" style="margin:18px 0 8px">Che cosa sono</div><div class="pills">'+pills(["z-trigger-point","z-dolore","z-sensibilizzazione-centrale"].filter(x=>anyById(x)))+'</div>'+
+   Object.keys(gruppi).map(r=>'<div class="seg" style="margin:18px 0 10px">'+esc(r)+' · '+gruppi[r].length+'</div><div class="grid g3">'+gruppi[r].map(card).join("")+'</div>').join("")+
+   '<div class="seg" style="margin:18px 0 10px">Tender point della fibromialgia · '+DB.tender.length+'</div><div class="grid g3">'+DB.tender.map(t=>'<button class="card" data-go="trigger/'+t.id+'" style="gap:3px"><span class="eyebrow">Tender point</span><h3 style="font-size:15px">'+esc(t.nome.replace("Tender point: ",""))+'</h3><p style="font-size:12.8px">'+esc(t.dove)+'</p></button>').join("")+'</div>';
+};
+document.addEventListener("click",function(e){
+  const a=e.target.closest('[data-act="tp-filtro"]'); if(!a) return;
+  TP_FILTRO=a.getAttribute("data-id"); save("tp.filtro",TP_FILTRO); render();
+});
+/* la figura del trigger nella scheda: la mappa con il punto evidenziato */
+const _visual_conTrigger = visual;
+visual = function(kind,it){
+  if(kind!=="trigger") return _visual_conTrigger(kind,it);
+  const svg=mappaTriggerSVG(it.vista,it.tipo==="tender"?"tender":"trigger",it.id);
+  return '<div class="stage">'+svg+'<span class="eyebrow" style="margin-top:6px">Il punto evidenziato, vista '+(it.vista==="ant"?"anteriore":"posteriore")+'</span></div>';
+};
 </script>
 <style>
 .figsvg{width:100%;max-width:270px;height:auto}

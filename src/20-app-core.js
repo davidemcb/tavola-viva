@@ -67,7 +67,7 @@ const rel = {
 let INDEX=[];
 function buildIndex(){
   INDEX=[];
-  const ordine=["problema","movimento","muscolo","osso","nervo","plesso","articolazione","legamento","tendine","borsa","fascia","catena","arteria","postura","tipo","concetto"];
+  const ordine=["problema","movimento","muscolo","osso","nervo","plesso","articolazione","legamento","tendine","borsa","fascia","catena","arteria","postura","tipo","concetto","test","trigger"];
   ordine.forEach(kind=>{
     (KINDS[kind].db()||[]).forEach(it=>{
       const extra=[it.lat,it.gruppo,it.regione,it.zona,it.sigla,it.classe,it.origine,it.inserzione,
