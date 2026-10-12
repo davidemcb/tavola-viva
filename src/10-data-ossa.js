@@ -1,6 +1,6 @@
 <script>
 /* =========================================================
-   TAVOLA VIVA — base dati
+   ANATOMIAPRATICA — base dati
    I collegamenti osso↔muscolo e nervo↔muscolo sono derivati
    automaticamente dalle schede muscolari (vedi 12-data-muscoli).
    ========================================================= */

@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Tavola Viva: anatomia, biomeccanica e posturologia per massoterapisti. Entra dal problema, dal movimento, dal muscolo, dall'osso o dal nervo. Ogni scheda si legge e si ascolta.">
+<meta name="description" content="AnatomiaPratica, l'atlante del massaggiatore: anatomia, biomeccanica e posturologia per massoterapisti. Entra dal problema, dal movimento, dal muscolo, dall'osso o dal nervo. Ogni scheda si legge e si ascolta.">
 <meta name="theme-color" content="#2F7A74" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0E1413" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icona.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icona-192.png">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)} [hidden]{display:none!important} img{max-width:100%}</style>
-<title>Tavola Viva</title>
+<title>AnatomiaPratica</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 :root{
@@ -200,7 +200,7 @@ button.card{transition:transform .15s,border-color .15s}
         <path d="M13 3.2v19.6M6.4 7.2c3.6 2.2 3.6 9.4 0 11.6M19.6 7.2c-3.6 2.2-3.6 9.4 0 11.6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"></path>
         <circle cx="13" cy="13" r="2.6" fill="currentColor"></circle>
       </svg>
-      <span style="text-align:left"><b>Tavola Viva</b><span class="sig">Kinesiologia Studio</span></span>
+      <span style="text-align:left"><b>AnatomiaPratica</b><span class="sig">Kinesiologia Studio</span></span>
     </button>
     <div class="search">
       <svg class="mag" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><circle cx="6" cy="6" r="4.4" fill="none" stroke="currentColor" stroke-width="1.6"></circle><path d="M9.4 9.4 13 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
@@ -240,7 +240,7 @@ button.card{transition:transform .15s,border-color .15s}
 </div>
 <script>
 /* =========================================================
-   TAVOLA VIVA — base dati
+   ANATOMIAPRATICA — base dati
    I collegamenti osso↔muscolo e nervo↔muscolo sono derivati
    automaticamente dalle schede muscolari (vedi 12-data-muscoli).
    ========================================================= */
@@ -6897,7 +6897,7 @@ function testoCondivisione(kind,it,id){
   const bl=renderBlocchi(blocchi(kind,it),id).speak;
   const corpo=bl.slice(0,4).join(" ").replace(/^(Origine|Inserzione|Dove si trova e come si palpa|In due righe|Che cos'è|Dove si trova)[:.]\s*/i,"");
   const seg=it.segreto? "\n\n◆ Il segreto del mestiere: "+it.segreto : "";
-  return nome.toUpperCase()+"\n"+(it.lat?it.lat+"\n":"")+"\n"+corpo.slice(0,420)+(corpo.length>420?"…":"")+seg+"\n\nTavola Viva · Kinesiologia Studio\n"+urlScheda(kind,id);
+  return nome.toUpperCase()+"\n"+(it.lat?it.lat+"\n":"")+"\n"+corpo.slice(0,420)+(corpo.length>420?"…":"")+seg+"\n\nAnatomiaPratica · Kinesiologia Studio\n"+urlScheda(kind,id);
 }
 /* immagine della scheda (per lo stato di WhatsApp, Instagram, ecc.) */
 function wrapLines(ctx,text,maxW){
@@ -6908,7 +6908,7 @@ async function immagineScheda(kind,it,id){
   const W=1080, pad=72, c=document.createElement("canvas"); c.width=W; c.height=1350; const x=c.getContext("2d");
   x.fillStyle="#EEF1F0"; x.fillRect(0,0,W,c.height);
   x.fillStyle="#2F7A74"; x.fillRect(0,0,W,14);
-  x.fillStyle="#8A9996"; x.font="500 26px Archivo, Arial, sans-serif"; x.fillText(("Tavola Viva · "+KINDS[kind].label).toUpperCase(),pad,90);
+  x.fillStyle="#8A9996"; x.font="500 26px Archivo, Arial, sans-serif"; x.fillText(("AnatomiaPratica · "+KINDS[kind].label).toUpperCase(),pad,90);
   x.fillStyle="#141D1C"; x.font="600 64px Newsreader, Georgia, serif";
   let y=170; wrapLines(x,it.nome||it.voce,W-2*pad).forEach(l=>{ x.fillText(l,pad,y); y+=72; });
   if(it.lat){ x.fillStyle="#5B6B68"; x.font="italic 32px Newsreader, Georgia, serif"; x.fillText(it.lat,pad,y+6); y+=56; }
@@ -6923,7 +6923,7 @@ async function immagineScheda(kind,it,id){
     x.fillStyle="#141D1C"; x.font="400 30px Archivo, Arial, sans-serif"; lines.forEach(l=>{ x.fillText(l,pad+24,y); y+=44; });
   }
   x.fillStyle="#2F7A74"; x.fillRect(0,c.height-120,W,120);
-  x.fillStyle="#fff"; x.font="600 30px Archivo, Arial, sans-serif"; x.fillText("Tavola Viva · Kinesiologia Studio",pad,c.height-66);
+  x.fillStyle="#fff"; x.font="600 30px Archivo, Arial, sans-serif"; x.fillText("AnatomiaPratica · Kinesiologia Studio",pad,c.height-66);
   x.font="400 24px Archivo, Arial, sans-serif"; x.fillText(urlScheda(kind,id).replace(/^https?:\/\//,""),pad,c.height-30);
   return new Promise(r=>c.toBlob(b=>r(b),"image/png"));
 }
@@ -6932,7 +6932,7 @@ async function condividiImmagine(kind,it,id){
   const blob=await immagineScheda(kind,it,id);
   const file=new File([blob],(it.nome||it.voce).replace(/[^\w\s-]/g,"").trim().replace(/\s+/g,"-")+".png",{type:"image/png"});
   if(navigator.canShare && navigator.canShare({files:[file]})){
-    try{ await navigator.share({files:[file],title:it.nome||it.voce,text:"Tavola Viva · "+(it.nome||it.voce)}); return; }catch(e){ if(e&&e.name==="AbortError") return; }
+    try{ await navigator.share({files:[file],title:it.nome||it.voce,text:"AnatomiaPratica · "+(it.nome||it.voce)}); return; }catch(e){ if(e&&e.name==="AbortError") return; }
   }
   const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=file.name; document.body.appendChild(a); a.click(); a.remove();
   toast("Immagine scaricata: la trovi nei download");
@@ -6948,7 +6948,7 @@ function apriCondivisione(kind,id){
     '<div class="grid">'+
       '<a class="sh-btn" href="https://wa.me/?text='+enc+'" target="_blank" rel="noopener">'+ic("#25D366","W")+'WhatsApp</a>'+
       '<a class="sh-btn" href="https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(testo.replace(url,"").trim())+'" target="_blank" rel="noopener">'+ic("#2AABEE","T")+'Telegram</a>'+
-      '<a class="sh-btn" href="mailto:?subject='+encodeURIComponent(nome+" — Tavola Viva")+'&body='+enc+'">'+ic("#5B6B68","@")+'E-mail</a>'+
+      '<a class="sh-btn" href="mailto:?subject='+encodeURIComponent(nome+" — AnatomiaPratica")+'&body='+enc+'">'+ic("#5B6B68","@")+'E-mail</a>'+
       '<button class="sh-btn" data-sh="img">'+ic("#A62B3F","IMG")+'Immagine<br>per lo stato</button>'+
       '<button class="sh-btn" data-sh="copia">'+ic("#3E5F93","⎘")+'Copia testo<br>e link</button>'+
       '<button class="sh-btn" data-sh="sys">'+ic("#2F7A74","⇪")+'Altre app</button>'+
@@ -8808,8 +8808,8 @@ function render(){
   window.scrollTo({top:0,behavior:"instant"in window?"instant":"auto"});
   evidenzia();
   const titoli={collegamenti:"I collegamenti",consulto:"Consulto",tavole:"Tavole dei muscoli",lista:(PORTE.find(x=>x.k===a)||{}).n||"Elenco",atlante:"Atlante del corpo",studio:"Il mio studio",quiz:"Quiz"};
-  document.title = (v==="home") ? "Tavola Viva"
-    : ((KINDS[v] ? nomeOf(a) : (titoli[v]||"Tavola Viva")) + " · Tavola Viva");
+  document.title = (v==="home") ? "AnatomiaPratica"
+    : ((KINDS[v] ? nomeOf(a) : (titoli[v]||"AnatomiaPratica")) + " · AnatomiaPratica");
 }
 
 /* ---------- eventi globali ---------- */
@@ -9143,7 +9143,7 @@ render=function(){
   page.innerHTML = v==="percorso"? vistaPercorso(a) : vistaFlash();
   window.scrollTo({top:0,behavior:"instant"in window?"instant":"auto"});
   evidenzia();
-  document.title=(v==="percorso"?"Percorso di studio":"Flashcard")+" · Tavola Viva";
+  document.title=(v==="percorso"?"Percorso di studio":"Flashcard")+" · AnatomiaPratica";
 };
 window.addEventListener("hashchange",()=>render());
 

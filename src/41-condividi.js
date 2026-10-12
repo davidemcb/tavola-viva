@@ -27,7 +27,7 @@ function testoCondivisione(kind,it,id){
   const bl=renderBlocchi(blocchi(kind,it),id).speak;
   const corpo=bl.slice(0,4).join(" ").replace(/^(Origine|Inserzione|Dove si trova e come si palpa|In due righe|Che cos'è|Dove si trova)[:.]\s*/i,"");
   const seg=it.segreto? "\n\n◆ Il segreto del mestiere: "+it.segreto : "";
-  return nome.toUpperCase()+"\n"+(it.lat?it.lat+"\n":"")+"\n"+corpo.slice(0,420)+(corpo.length>420?"…":"")+seg+"\n\nTavola Viva · Kinesiologia Studio\n"+urlScheda(kind,id);
+  return nome.toUpperCase()+"\n"+(it.lat?it.lat+"\n":"")+"\n"+corpo.slice(0,420)+(corpo.length>420?"…":"")+seg+"\n\nAnatomiaPratica · Kinesiologia Studio\n"+urlScheda(kind,id);
 }
 /* immagine della scheda (per lo stato di WhatsApp, Instagram, ecc.) */
 function wrapLines(ctx,text,maxW){
@@ -38,7 +38,7 @@ async function immagineScheda(kind,it,id){
   const W=1080, pad=72, c=document.createElement("canvas"); c.width=W; c.height=1350; const x=c.getContext("2d");
   x.fillStyle="#EEF1F0"; x.fillRect(0,0,W,c.height);
   x.fillStyle="#2F7A74"; x.fillRect(0,0,W,14);
-  x.fillStyle="#8A9996"; x.font="500 26px Archivo, Arial, sans-serif"; x.fillText(("Tavola Viva · "+KINDS[kind].label).toUpperCase(),pad,90);
+  x.fillStyle="#8A9996"; x.font="500 26px Archivo, Arial, sans-serif"; x.fillText(("AnatomiaPratica · "+KINDS[kind].label).toUpperCase(),pad,90);
   x.fillStyle="#141D1C"; x.font="600 64px Newsreader, Georgia, serif";
   let y=170; wrapLines(x,it.nome||it.voce,W-2*pad).forEach(l=>{ x.fillText(l,pad,y); y+=72; });
   if(it.lat){ x.fillStyle="#5B6B68"; x.font="italic 32px Newsreader, Georgia, serif"; x.fillText(it.lat,pad,y+6); y+=56; }
@@ -53,7 +53,7 @@ async function immagineScheda(kind,it,id){
     x.fillStyle="#141D1C"; x.font="400 30px Archivo, Arial, sans-serif"; lines.forEach(l=>{ x.fillText(l,pad+24,y); y+=44; });
   }
   x.fillStyle="#2F7A74"; x.fillRect(0,c.height-120,W,120);
-  x.fillStyle="#fff"; x.font="600 30px Archivo, Arial, sans-serif"; x.fillText("Tavola Viva · Kinesiologia Studio",pad,c.height-66);
+  x.fillStyle="#fff"; x.font="600 30px Archivo, Arial, sans-serif"; x.fillText("AnatomiaPratica · Kinesiologia Studio",pad,c.height-66);
   x.font="400 24px Archivo, Arial, sans-serif"; x.fillText(urlScheda(kind,id).replace(/^https?:\/\//,""),pad,c.height-30);
   return new Promise(r=>c.toBlob(b=>r(b),"image/png"));
 }
@@ -62,7 +62,7 @@ async function condividiImmagine(kind,it,id){
   const blob=await immagineScheda(kind,it,id);
   const file=new File([blob],(it.nome||it.voce).replace(/[^\w\s-]/g,"").trim().replace(/\s+/g,"-")+".png",{type:"image/png"});
   if(navigator.canShare && navigator.canShare({files:[file]})){
-    try{ await navigator.share({files:[file],title:it.nome||it.voce,text:"Tavola Viva · "+(it.nome||it.voce)}); return; }catch(e){ if(e&&e.name==="AbortError") return; }
+    try{ await navigator.share({files:[file],title:it.nome||it.voce,text:"AnatomiaPratica · "+(it.nome||it.voce)}); return; }catch(e){ if(e&&e.name==="AbortError") return; }
   }
   const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=file.name; document.body.appendChild(a); a.click(); a.remove();
   toast("Immagine scaricata: la trovi nei download");
@@ -78,7 +78,7 @@ function apriCondivisione(kind,id){
     '<div class="grid">'+
       '<a class="sh-btn" href="https://wa.me/?text='+enc+'" target="_blank" rel="noopener">'+ic("#25D366","W")+'WhatsApp</a>'+
       '<a class="sh-btn" href="https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(testo.replace(url,"").trim())+'" target="_blank" rel="noopener">'+ic("#2AABEE","T")+'Telegram</a>'+
-      '<a class="sh-btn" href="mailto:?subject='+encodeURIComponent(nome+" — Tavola Viva")+'&body='+enc+'">'+ic("#5B6B68","@")+'E-mail</a>'+
+      '<a class="sh-btn" href="mailto:?subject='+encodeURIComponent(nome+" — AnatomiaPratica")+'&body='+enc+'">'+ic("#5B6B68","@")+'E-mail</a>'+
       '<button class="sh-btn" data-sh="img">'+ic("#A62B3F","IMG")+'Immagine<br>per lo stato</button>'+
       '<button class="sh-btn" data-sh="copia">'+ic("#3E5F93","⎘")+'Copia testo<br>e link</button>'+
       '<button class="sh-btn" data-sh="sys">'+ic("#2F7A74","⇪")+'Altre app</button>'+

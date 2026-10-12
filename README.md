@@ -1,4 +1,4 @@
-# Tavola Viva
+# AnatomiaPratica
 
 App di studio per allievi massoterapisti e massaggiatori olistici: anatomia, biomeccanica, posturologia e meridiani miofasciali.
 Si entra dal problema del cliente, dal movimento, dal muscolo, dall'osso, dal nervo, dal plesso, dall'articolazione, dalle catene o dalla postura.

@@ -1,5 +1,5 @@
-/* Tavola Viva - service worker: app subito disponibile, tavole in cache dopo la prima visita */
-const V="tv-v1";
+/* AnatomiaPratica - service worker: app subito disponibile, tavole in cache dopo la prima visita */
+const V="tv-v2";
 const SHELL=["./","./index.html","./manifest.webmanifest","./icona.svg","./icona-192.png"];
 self.addEventListener("install",e=>{ e.waitUntil(caches.open(V).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting())); });
 self.addEventListener("activate",e=>{ e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V).map(k=>caches.delete(k)))).then(()=>self.clients.claim())); });

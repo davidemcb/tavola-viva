@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Prepara il progetto-sito Tavola Viva: tavole come file separati, manifest, service worker, build."""
+"""Prepara il progetto-sito AnatomiaPratica: tavole come file separati, manifest, service worker, build."""
 import re, io, os, sys
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 from PIL import Image, ImageDraw
@@ -33,7 +33,7 @@ io.open("src/00-doc-head.html", "w", encoding="utf-8").write("""<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Tavola Viva: anatomia, biomeccanica e posturologia per massoterapisti. Entra dal problema, dal movimento, dal muscolo, dall'osso o dal nervo. Ogni scheda si legge e si ascolta.">
+<meta name="description" content="AnatomiaPratica, l'atlante del massaggiatore: anatomia, biomeccanica e posturologia per massoterapisti. Entra dal problema, dal movimento, dal muscolo, dall'osso o dal nervo. Ogni scheda si legge e si ascolta.">
 <meta name="theme-color" content="#2F7A74" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0E1413" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
@@ -62,8 +62,8 @@ io.open("build.sh", "w", encoding="utf-8").write(
     ' > index.html\necho "index.html: $(wc -c < index.html) byte"\n')
 
 io.open("manifest.webmanifest", "w", encoding="utf-8").write("""{
-  "name": "Tavola Viva",
-  "short_name": "Tavola Viva",
+  "name": "AnatomiaPratica",
+  "short_name": "AnatomiaPratica",
   "description": "Anatomia, biomeccanica e posturologia per massoterapisti",
   "start_url": "./index.html",
   "scope": "./",
@@ -91,8 +91,8 @@ for s in (192, 512):
     d.ellipse([c - s * 0.09, c - s * 0.09, c + s * 0.09, c + s * 0.09], fill="white")
     im.save("icona-%d.png" % s)
 
-io.open("sw.js", "w", encoding="utf-8").write(r"""/* Tavola Viva - service worker: app subito disponibile, tavole in cache dopo la prima visita */
-const V="tv-v1";
+io.open("sw.js", "w", encoding="utf-8").write(r"""/* AnatomiaPratica - service worker: app subito disponibile, tavole in cache dopo la prima visita */
+const V="tv-v2";
 const SHELL=["./","./index.html","./manifest.webmanifest","./icona.svg","./icona-192.png"];
 self.addEventListener("install",e=>{ e.waitUntil(caches.open(V).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting())); });
 self.addEventListener("activate",e=>{ e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V).map(k=>caches.delete(k)))).then(()=>self.clients.claim())); });
@@ -110,7 +110,7 @@ self.addEventListener("fetch",e=>{
 """)
 io.open(".nojekyll", "w").write("")
 io.open(".gitignore", "w", encoding="utf-8").write("tavole-originali/\n__pycache__/\n*.pyc\n")
-io.open("README.md", "w", encoding="utf-8").write("""# Tavola Viva
+io.open("README.md", "w", encoding="utf-8").write("""# AnatomiaPratica
 
 App di studio per allievi massoterapisti e massaggiatori olistici: anatomia, biomeccanica, posturologia e meridiani miofasciali.
 Si entra dal problema del cliente, dal movimento, dal muscolo, dall'osso, dal nervo, dal plesso, dall'articolazione, dalle catene o dalla postura.

@@ -190,7 +190,7 @@ render=function(){
   page.innerHTML = v==="percorso"? vistaPercorso(a) : vistaFlash();
   window.scrollTo({top:0,behavior:"instant"in window?"instant":"auto"});
   evidenzia();
-  document.title=(v==="percorso"?"Percorso di studio":"Flashcard")+" · Tavola Viva";
+  document.title=(v==="percorso"?"Percorso di studio":"Flashcard")+" · AnatomiaPratica";
 };
 window.addEventListener("hashchange",()=>render());
 

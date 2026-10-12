@@ -39,8 +39,8 @@ function render(){
   window.scrollTo({top:0,behavior:"instant"in window?"instant":"auto"});
   evidenzia();
   const titoli={collegamenti:"I collegamenti",consulto:"Consulto",tavole:"Tavole dei muscoli",lista:(PORTE.find(x=>x.k===a)||{}).n||"Elenco",atlante:"Atlante del corpo",studio:"Il mio studio",quiz:"Quiz"};
-  document.title = (v==="home") ? "Tavola Viva"
-    : ((KINDS[v] ? nomeOf(a) : (titoli[v]||"Tavola Viva")) + " · Tavola Viva");
+  document.title = (v==="home") ? "AnatomiaPratica"
+    : ((KINDS[v] ? nomeOf(a) : (titoli[v]||"AnatomiaPratica")) + " · AnatomiaPratica");
 }
 
 /* ---------- eventi globali ---------- */

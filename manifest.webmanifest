@@ -1,6 +1,6 @@
 {
-  "name": "Tavola Viva",
-  "short_name": "Tavola Viva",
+  "name": "AnatomiaPratica",
+  "short_name": "AnatomiaPratica",
   "description": "Anatomia, biomeccanica e posturologia per massoterapisti",
   "start_url": "./index.html",
   "scope": "./",
