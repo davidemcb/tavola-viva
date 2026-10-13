@@ -33,12 +33,15 @@ function render(){
   else if(v==="tavole") html=vistaTavole(a);
   else if(v==="consulto") html=vistaConsulto(a);
   else if(v==="collegamenti") html=vistaCollegamenti();
+  else if(v==="account") html=vistaAccount();
+  else if(v==="pro") html=vistaStudioPro();
+  else if(v==="mia-scheda") html=vistaMiaScheda();
   else if(KINDS[v]) html=vistaScheda(v,a);
   else html=vistaHome();
   page.innerHTML=html;
   window.scrollTo({top:0,behavior:"instant"in window?"instant":"auto"});
   evidenzia();
-  const titoli={collegamenti:"I collegamenti",consulto:"Consulto",tavole:"Tavole dei muscoli",lista:(PORTE.find(x=>x.k===a)||{}).n||"Elenco",atlante:"Atlante del corpo",studio:"Il mio studio",quiz:"Quiz"};
+  const titoli={collegamenti:"I collegamenti",consulto:"Consulto",tavole:"Tavole dei muscoli",lista:(PORTE.find(x=>x.k===a)||{}).n||"Elenco",atlante:"Atlante del corpo",studio:"Il mio studio",quiz:"Quiz",account:"Il mio account",pro:"Gestionale","mia-scheda":"La mia scheda"};
   document.title = (v==="home") ? "AnatomiaPratica"
     : ((KINDS[v] ? nomeOf(a) : (titoli[v]||"AnatomiaPratica")) + " · AnatomiaPratica");
 }
@@ -110,6 +113,7 @@ document.addEventListener("click",function(e){
 /* barra in alto */
 $("#home-btn").addEventListener("click",()=>vai("home/"));
 $("#me-btn").addEventListener("click",()=>vai("studio/"));
+$("#acc-btn").addEventListener("click",()=>vai("account/"));
 $("#queue-btn").addEventListener("click",()=>{
   mostraPlayer(); disegnaCoda();
   const q=$("#queue"); q.hidden=!q.hidden;
