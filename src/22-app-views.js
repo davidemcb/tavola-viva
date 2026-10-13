@@ -93,6 +93,12 @@ function vistaHome(){
         '<div class="bar" style="margin-top:6px"><i style="width:'+Math.round(100*studiate/tot)+'%"></i></div>'+
       '</button>'+
     '</div>'+
+    '<div class="grid g2" style="margin-bottom:12px">'+
+      '<button class="card" data-go="pro/" style="gap:8px;border-color:color-mix(in srgb,var(--fascia) 45%,var(--line))"><span class="eyebrow">Per i professionisti</span><h3>Gestionale</h3>'+
+       '<p>Clienti, analisi posturale dalle foto, report e schede da mandare ai clienti, collegati a queste schede di anatomia.</p></button>'+
+      '<button class="card" data-go="account/" style="gap:8px"><span class="eyebrow">Accesso</span><h3>Il mio account</h3>'+
+       '<p>Un solo accesso per l\'anatomia, per il Gestionale e, se sei un cliente, per la tua scheda.</p></button>'+
+    '</div>'+
 
     '<div class="grid g2">'+
       '<button class="card" data-go="quiz/" style="gap:8px"><span class="eyebrow">Verifica</span><h3>Mettiti alla prova</h3>'+
