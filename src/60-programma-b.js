@@ -9,6 +9,7 @@
 .btn.sa-big{background:var(--muscle);border-color:var(--muscle);color:#fff;font-size:15px;padding:12px 20px;border-radius:10px;font-weight:700;letter-spacing:.02em;box-shadow:0 6px 18px -8px var(--muscle)}
 .btn.sa-big:hover{filter:brightness(1.08)}
 #sa-top{margin-left:8px;white-space:nowrap}
+@media print{.topbar,#abbo-bar,.acts,.pills,#player,.secret .lbl,button,.crumbs,nav{display:none!important} body{background:#fff;color:#000} .card,.sheet{box-shadow:none;border:1px solid #ccc} #page{max-width:none} .dl dt{color:#000}}
 @media (max-width:640px){#sa-top{padding:8px 10px;font-size:12px}}
 </style>
 <script>
@@ -126,12 +127,33 @@ collegamenti = function(kind,it){
     const c=saComponi(it); const E=[],M=[];
     ["f1","f2","f3"].forEach(f=>c.voci[f].forEach(v=>{ if(v.e&&E.indexOf(v.e)<0) E.push(v.e); if(v.m&&M.indexOf(v.m)<0&&anyById(v.m)) M.push(v.m); }));
     return box("Problemi di partenza",pills(it.problemi))+box("Esercizi della scheda",pills(E))+box("Muscoli al centro del lavoro",pills(M))+
+      box("Manda la scheda al cliente",'<div class="acts" style="flex-wrap:wrap"><a class="btn sa-big" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(saTestoCompatto(it))+'">Invia su WhatsApp</a><a class="btn" href="mailto:?subject='+encodeURIComponent("La tua scheda di allenamento"+(it.cliente?" · "+it.cliente:""))+'&body='+encodeURIComponent(saTestoCompatto(it))+'">Invia per e-mail</a><button class="btn" data-act="sa-copia" data-id="'+it.id+'">Copia tutto</button><button class="btn" data-act="sa-stampa">Stampa / salva PDF</button></div><p style="font-size:12px;color:var(--faint);margin:6px 0 0">Su WhatsApp e per e-mail parte la versione compatta (fasi ed esercizi). Per la scheda completa: «Stampa / salva PDF» e poi allega il PDF, oppure «Copia tutto» e incolla.</p>')+
       box("Modifica",'<div class="acts"><button class="btn sm" data-act="sa-rifai" data-id="'+it.id+'">Rifai con altre scelte</button><button class="btn sm" data-act="sa-elimina" data-id="'+it.id+'" style="color:var(--muscle)">Elimina questa scheda</button></div>');
   }
   let h=_collegamenti_conSchede(kind,it);
   if((kind==="problema"||kind==="postura") && DB.programma[it.id]) h=box("Allenamento",'<button class="btn primary sm" data-act="fai-scheda" data-id="'+it.id+'">Fai scheda da '+(kind==="postura"?"questa postura":"questo problema")+'</button>')+h;
   return h;
 };
+/* versione compatta per WhatsApp: titolo, fasi con le righe, da evitare */
+function saTestoCompatto(it){
+  const c=saComponi(it); let s="SCHEDA DI ALLENAMENTO"+(it.cliente?" PER "+it.cliente.toUpperCase():"")+"
+"+it.problemi.map(nomeOf).join(" + ").replace(/[«»]/g,"")+"
+Livello "+(SA_LIVELLI[it.livello]||"")+" · "+it.giorni+" sedut"+(it.giorni===1?"a":"e")+" a settimana
+";
+  SA_FASI.forEach(([f,titolo])=>{ const r=c.righe[f]; if(!r.length) return; s+="
+"+titolo.toUpperCase()+"
+"; const gg=f==="f1"?[["",r]]:saGiorni(r,it.giorni); gg.forEach(([g,items])=>{ if(g&&gg.length>1) s+=g+"
+"; items.forEach(x=>{ s+="• "+x.replace(/ · versione (facile|avanzata):.*$/,"").replace(/ · con quello che hai:.*$/,"")+"
+"; }); }); });
+  const ev=[]; it.problemi.forEach(pid=>{ const P=DB.palestra[pid]; if(P&&P.evita) ev.push(P.evita.split(/[.;]/)[0]); }); if(ev.length) s+="
+DA EVITARE: "+ev.join("; ")+".
+";
+  s+="
+Se un esercizio fa male oltre 3 su 10 o il dolore resta il giorno dopo, torna alla versione più facile e dimmelo.
+
+AnatomiaPratica · "+(typeof ME!=="undefined"&&ME&&ME.utente?ME.utente.nome||"":"Kinesiologia Studio");
+  return s;
+}
 /* il testo condiviso di una scheda è la scheda intera */
 const _testoCondivisione_base = testoCondivisione;
 testoCondivisione = function(kind,it,id){
@@ -178,10 +200,12 @@ document.addEventListener("submit",function(e){
   S.schede.unshift(it); save("schede",S.schede); S.preProblema=null; vai("allenamento/"+it.id);
 });
 document.addEventListener("click",function(e){
-  const a=e.target.closest('[data-act="fai-scheda"],[data-act="sa-rifai"],[data-act="sa-elimina"]'); if(!a) return;
+  const a=e.target.closest('[data-act="fai-scheda"],[data-act="sa-rifai"],[data-act="sa-elimina"],[data-act="sa-copia"],[data-act="sa-stampa"]'); if(!a) return;
   const act=a.getAttribute("data-act"), id=a.getAttribute("data-id");
   if(act==="fai-scheda"){ S.preProblema=id; vai("allenamento/nuova"); }
   else if(act==="sa-rifai"){ S.preProblema=null; S.rifai=id; vai("allenamento/nuova"); }
+  else if(act==="sa-copia"){ const it=S.schede.find(x=>x.id===id); if(!it) return; navigator.clipboard.writeText(testoCondivisione("allenamento",it,id)).then(()=>{ a.textContent="Copiato"; setTimeout(()=>a.textContent="Copia tutto",1500); }); }
+  else if(act==="sa-stampa"){ window.print(); }
   else if(act==="sa-elimina"){ if(!confirm("Eliminare questa scheda?")) return; S.schede=S.schede.filter(x=>x.id!==id); save("schede",S.schede); vai("studio/"); }
 });
 const _vistaScheda_conFai = vistaScheda;
