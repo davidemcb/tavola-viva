@@ -33,7 +33,11 @@ io.open("src/00-doc-head.html", "w", encoding="utf-8").write("""<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="AnatomiaPratica, l'atlante del massaggiatore: anatomia, biomeccanica e posturologia per massoterapisti. Entra dal problema, dal movimento, dal muscolo, dall'osso o dal nervo. Ogni scheda si legge e si ascolta.">
+<meta name="description" content="AnatomiaPratica: l'anatomia di chi lavora sul corpo. Per massaggiatori, personal trainer e posturologi: muscoli, articolazioni, nervi, esercizi, test clinici, trigger point e postura. Ogni scheda si legge e si ascolta.">
+<meta property="og:title" content="AnatomiaPratica">
+<meta property="og:description" content="L'anatomia di chi lavora sul corpo: per massaggiatori, personal trainer e posturologi. Ogni scheda si legge e si ascolta.">
+<meta property="og:image" content="https://davidemcb.github.io/tavola-viva/icona-512.png">
+<meta property="og:type" content="website">
 <meta name="theme-color" content="#2F7A74" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0E1413" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
