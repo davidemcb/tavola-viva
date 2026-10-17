@@ -9318,6 +9318,288 @@ visual = function(kind,it){
   return '<div class="stage">'+svg+'<span class="eyebrow" style="margin-top:6px">Il punto evidenziato, vista '+(it.vista==="ant"?"anteriore":"posteriore")+'</span></div>';
 };
 </script>
+<script>
+/* =========================================================
+   IN PALESTRA — per ogni problema del cliente: cosa evitare, cosa allenare, come adattare, quando non è lavoro da trainer.
+   Parte 1: spalla, collo, arto superiore, colonna.
+   ========================================================= */
+DB.palestra = {
+ "p-reggiseno":{evita:"Trazioni dietro la nuca, military press completo, dip profondi e lat machine dietro il collo: forzano la rotazione interna e l'estensione che mancano.",
+  allena:"Rotazione interna ed esterna con elastico a gomito al fianco (sleeper stretch dolce la sera), scorrimento della mano dietro la schiena con l'asciugamano, trapezio inferiore a Y da prono, allungamento del pettorale piccolo nel vano della porta.",
+  adatta:"Rematore con presa neutra invece delle trazioni, panca con manubri e gomiti a 45°, spinte in piano con fermo prima del dolore; sopra la testa solo con il landmine (bilanciere inclinato).",
+  confine:"Spalla che perde gradi in tutte le direzioni in poche settimane (capsulite), dolore notturno costante, debolezza improvvisa: fisioterapista o ortopedico prima del programma."},
+ "p-calzino":{evita:"Squat profondo e affondi lunghi con il bacino che ruota, leg press con le ginocchia al petto, stretching forzato in flessione d'anca, sit-up con i piedi bloccati.",
+  allena:"Rotazioni interna ed esterna dell'anca da seduti con elastico, 90/90 a terra, ponte con un piede sul gradino, squat al box con i piedi larghi e le punte in fuori fino a dove il bacino resta fermo, ginocchio al muro per la caviglia.",
+  adatta:"Squat al box, stacco dai blocchi, affondi corti all'indietro invece che in avanti, leg press con il sedile alto.",
+  confine:"Dolore inguinale profondo con FADIR positivo e rotazione interna sotto i 15°, anca che si blocca, dolore notturno: valutazione medica (conflitto, artrosi) prima di caricare."},
+ "p-spalla-alta":{evita:"Alzate laterali e scrollate pesanti dal lato alto, borsa e manubrio sempre dalla stessa parte, esercizi unilaterali senza controllo allo specchio.",
+  allena:"Trapezio inferiore e dentato anteriore (Y e W da prono, flessioni al muro con il «plus»), elevatore della scapola e trapezio superiore allungati dal lato alto, quadrato dei lombi del lato opposto; lavoro unilaterale con il lato debole per primo.",
+  adatta:"Rematore e lat machine con il lato alto che parte da una scapola abbassata; spinte con fermo isometrico a scapola «giù e indietro».",
+  confine:"Spalla alta comparsa in poche settimane con dolore o debolezza del braccio, scapola alata evidente, asimmetria in un adolescente con gibbo (Adams): invio."},
+ "p-pettinarsi":{evita:"Qualsiasi spinta o alzata sopra i 90° finché il braccio non sale senza dolore; alzate laterali con il pollice in basso; trazioni alla sbarra a braccia tese.",
+  allena:"Cuffia con elastico (rotazione esterna a gomito al fianco, poi a 90°), full can con 1 kg, ritmo scapolo-omerale allo specchio (scivolamenti al muro con l'asciugamano), trapezio inferiore, allungamento di gran dorsale e pettorali.",
+  adatta:"Landmine press al posto del military, spinte in piano con i manubri, lat machine davanti con presa larga ma senza arrivare in fondo.",
+  confine:"Braccio che non si alza attivamente ma sale se lo solleva un'altra persona (lesione della cuffia), dolore notturno, dopo i 60 anni con debolezza: ecografia e ortopedico."},
+ "p-retromarcia":{evita:"Russian twist e torsioni veloci con carico, estensioni del collo sotto carico (ponte sul collo, military con la testa indietro), dormire e allenarsi con il collo «chiuso» nelle spalle.",
+  allena:"Rotazioni cervicali lente contro una leggerissima resistenza della mano, retrazione del mento, mobilità dorsale (apertura del libro da sdraiati sul fianco, estensioni sul rullo), rotazioni del tronco con elastico da in piedi, flessori profondi del collo.",
+  adatta:"Esercizi di rotazione del tronco a bastone leggero prima delle torsioni con carico; nel sollevamento, collo in linea con la colonna, mai girato.",
+  confine:"Rotazione che scatena vertigine, nausea, formicolio al braccio, visione doppia; rigidità dopo un trauma: medico prima di qualsiasi mobilizzazione."},
+ "p-alzarsi":{evita:"Stacchi e good morning con la schiena curva, sit-up completi, leg press profonda con il bacino che si stacca, stare seduti a lungo tra una serie e l'altra.",
+  allena:"Hip hinge con il bastone, ponte e hip thrust, bird-dog, dead bug, affondi, allungamento dello psoas e del retto femorale (affondo con bacino in retroversione), camminata.",
+  adatta:"Stacco con kettlebell dal rialzo, squat al box con il bacino che non arrotonda, rematore con il petto appoggiato invece che piegato; alzarsi dalla panca con l'hip hinge.",
+  confine:"Dolore che scende sotto il ginocchio con formicolio, debolezza del piede, disturbi urinari, dolore notturno costante, febbre: medico. Lombalgia acuta: prima giorni di cammino, poi il programma."},
+ "p-torcicollo":{evita:"Nei primi giorni: carichi sopra la testa, scrollate, panca pesante (il collo si irrigidisce per stabilizzare), nuoto a rana con la testa fuori.",
+  allena:"Dal terzo giorno: rotazioni lente nel range indolore, retrazione del mento, elevatore della scapola e trapezio superiore allungati con la mano sotto la sedia, mobilità dorsale; poi flessori profondi.",
+  adatta:"Allenare gambe e core senza carico assiale (leg press leggera, ponte, plank) finché il collo non gira; niente esercizi che richiedono di guardare in alto.",
+  confine:"Torcicollo con febbre, rigidità che impedisce di piegare il mento sul petto, dopo un trauma, o con formicolio al braccio: medico."},
+ "p-cefalea":{evita:"Serie a cedimento con il collo che spinge (press, trazioni), plank lungo con la testa che cade, allenarsi con poco sonno e a stomaco vuoto, scrollate pesanti.",
+  allena:"Flessori profondi del collo (retrazione del mento, 10 × 10 secondi), mobilità C0–C1 e dorsale, trapezio inferiore, apertura del torace (pettorali), respiro diaframmatico a fine seduta; attività aerobica regolare moderata (riduce la frequenza delle cefalee).",
+  adatta:"Schermo e specchio all'altezza degli occhi, posizione della testa neutra in ogni esercizio, pause tra le serie con il collo rilassato; niente Valsalva prolungata.",
+  confine:"Cefalea improvvisa e violenta («la peggiore della vita»), con febbre, vomito, disturbi della vista o della parola, dopo i 50 anni se nuova, che peggiora da settimane: medico subito."},
+ "p-braccio-sopra-testa":{evita:"Dormire sulla spalla dolente; in palestra dip, panca con i gomiti aperti, alzate laterali oltre i 90°, trazioni a braccia tese fino al cedimento.",
+  allena:"Cuffia dei rotatori con elastico (rotazione esterna), full can leggero, dentato anteriore (flessioni al muro con il plus), retrazione e depressione della scapola, allungamento di pettorale piccolo e capsula posteriore (sleeper stretch dolce).",
+  adatta:"Spinte con i manubri a presa neutra e gomiti a 45°, rematore con presa neutra, lat machine davanti, landmine press; sotto il dolore, mai «spingere oltre».",
+  confine:"Dolore notturno costante che non cambia con la posizione, debolezza improvvisa del braccio, spalla gonfia e calda: ortopedico."},
+ "p-spalla-congelata":{evita:"Stretching forzato e manovre «a strappo», esercizi con carico sopra la testa, qualsiasi esercizio che superi il dolore: nella fase di congelamento peggiorano l'infiammazione della capsula.",
+  allena:"Mobilità pendolare, scivolamenti con il bastone nel range indolore (flessione, rotazione esterna), rotazioni esterne isometriche leggere, scapola e dorsale; il resto del corpo normalmente (gambe, core, cardio).",
+  adatta:"Allenare l'altro braccio e le gambe; spinte e tirate solo nel range disponibile e senza dolore; la fase di scongelamento (dopo mesi) accetta il carico progressivo.",
+  confine:"È un problema medico-fisioterapico da 12–24 mesi: il trainer accompagna, non cura; diabete e tiroide vanno controllati; dolore acuto e rapido peggioramento: ortopedico."},
+ "p-gomito-tennista":{evita:"Presa pesante con il polso flesso (rematore con presa larga, kettlebell swing, trazioni pronata), curl con il bilanciere dritto, tutto ciò che fa stringere forte con il polso piegato.",
+  allena:"Estensione del polso eccentrica con manubrio leggero (3 × 15, 4 secondi in discesa, ogni giorno per 12 settimane), presa con il polso esteso, supinazione con il martello, cuffia e scapola (una spalla debole sovraccarica il gomito).",
+  adatta:"Presa neutra ovunque (manubri, maniglie), fasce da trazione per non stringere, bilanciere EZ per i curl, bracciale 2–3 cm sotto l'epicondilo durante le serie.",
+  confine:"Formicolio alle dita, dolore notturno, gomito gonfio o rosso, dolore che non migliora dopo 3 mesi di carico graduale: ortopedico."},
+ "p-mano-gonfia-mattino":{evita:"Presa pesante al mattino presto, esercizi con il polso iperesteso (flessioni a mani piatte), carichi che stringono le dita per minuti (farmer walk) nella fase di rigidità.",
+  allena:"Apertura e chiusura delle dita in acqua calda prima della seduta, elastico attorno alle dita, pinza con la pasta morbida, mobilità del polso, lavoro aerobico (le mani si sgonfiano con la circolazione).",
+  adatta:"Manubri con impugnatura grossa, flessioni sulle maniglie, presa a uncino con le fasce; sessioni a metà mattina o pomeriggio.",
+  confine:"Rigidità mattutina oltre un'ora, più articolazioni gonfie e simmetriche, dita «a fuso», febbre o stanchezza: reumatologo prima di qualunque programma (artrite)."},
+ "p-formicolio-braccio":{evita:"Carichi tenuti sopra la testa a lungo (hold con bilanciere), panca con la scapola che cade in avanti, scrollate pesanti con le braccia lungo i fianchi, zaino con le cinghie strette, respiro di torace sotto sforzo.",
+  allena:"Pettorale piccolo e scaleni allungati, prima costa abbassata con il respiro, trapezio inferiore e dentato anteriore, scorrimenti neurali del mediano e dell'ulnare (delicati), respiro diaframmatico.",
+  adatta:"Spinte in piano con fermo a scapola retratta, tirate con presa neutra, niente «hold» prolungati; alternare i lati, pause con le braccia abbassate.",
+  confine:"Mano fredda, bluastra o gonfia, polso che sparisce alzando il braccio con dolore, formicolio costante anche a riposo, debolezza progressiva: medico (vascolare o neurologico)."},
+ "p-dito-scatto":{evita:"Presa a uncino prolungata sulla sbarra o sulle maniglie, kettlebell con la presa stretta, arrampicata; il tendine che scatta si infiamma ogni volta che il dito si chiude sotto carico.",
+  allena:"Scorrimenti dei tendini (pugno a uncino, pugno pieno, pugno dritto, 10 volte, 3 volte al giorno), estensione delle dita contro elastico, mobilità del polso; tutore notturno con il dito dritto per 6 settimane.",
+  adatta:"Presa con le fasce o i ganci, impugnature grosse, spinte con le mani aperte; evitare le serie lunghe di presa finché il dito non scorre liscio.",
+  confine:"Dito bloccato che non si sblocca nemmeno con l'altra mano, più dita coinvolte con diabete, infiammazione che dura oltre 3 mesi: ortopedico della mano (infiltrazione o piccolo intervento)."},
+ "p-click-mandibola":{evita:"Serrare i denti sotto sforzo (serie pesanti, plank, press): è la causa più sottovalutata; masticare gomme durante l'allenamento, boccagli troppo grandi.",
+  allena:"Apertura della bocca controllata davanti allo specchio con la lingua sul palato, lateralità lente, automassaggio di massetere e temporale, flessori profondi del collo (la testa in avanti chiude la mandibola), respiro nasale.",
+  adatta:"Espirare nello sforzo invece di trattenere e serrare; «labbra chiuse, denti separati, lingua sul palato» tra le serie; paradenti sottile se serra comunque.",
+  confine:"Blocco in apertura o chiusura, dolore acuto all'articolazione, click con dolore che peggiora da settimane: gnatologo o fisioterapista dell'ATM."},
+ "p-vertigine-collo":{evita:"Burpee, cambi di posizione rapidi, esercizi con la testa in giù (plank inclinati, rematore con il busto piegato a testa pendente), estensioni del collo sotto carico, sedute a digiuno.",
+  allena:"Esercizi oculo-cervicali (fissare il pollice e muovere la testa), equilibrio su una gamba con occhi aperti poi chiusi, flessori profondi del collo, mobilità C0–C1 dolce, respiro; cardio moderato.",
+  adatta:"Cambiare posizione lentamente, allenarsi seduti o con appoggio nei giorni peggiori, specchio davanti, niente esercizi a testa in giù.",
+  confine:"Vertigine rotatoria violenta, perdita dell'udito, visione doppia, parola impastata, debolezza di un lato, vertigine dopo un trauma: medico subito (orecchio, neurologico, vascolare)."},
+ "p-sciatica":{evita:"Flessioni del tronco con carico (stacchi, good morning), stretching aggressivo degli ischiocrurali (tira il nervo), leg press profonda, stare seduti tra le serie, corsa su asfalto nella fase acuta.",
+  allena:"Camminare ogni giorno, estensioni lombari da prono (McKenzie) se riducono il dolore, scorrimenti del nervo sciatico delicati, gluteo medio e grande (ponte, conchiglia), core isometrico (dead bug, bird-dog), piriforme e piccolo gluteo allungati se il dolore è gluteo senza segni neurologici.",
+  adatta:"Esercizi in piedi o in appoggio piuttosto che seduti, hip hinge con carico leggero, squat al box, rematore con il petto appoggiato; progressione in base ai sintomi («il dolore non deve scendere più in basso»).",
+  confine:"Debolezza del piede o dell'alluce, perdita di sensibilità, difficoltà a urinare, dolore in entrambe le gambe, dolore costante anche sdraiati: medico. Senza questi segni si allena, con pazienza."},
+ "p-crampi-polpaccio":{evita:"Serie lunghe di calf raise a cedimento la sera, allenarsi disidratati o dopo una giornata in piedi con i tacchi, scarpe con il tacco alto in palestra.",
+  allena:"Allungamento di gastrocnemio e soleo ogni sera, calf raise lenti con pausa in allungamento, mobilità della caviglia, pompa muscolare (camminata, bici), idratazione e sali.",
+  adatta:"Calf raise con il range completo ma senza arrivare al cedimento; piede non a punta nei plank; riscaldamento del polpaccio prima della corsa.",
+  confine:"Polpaccio gonfio, caldo e dolente da un lato solo (trombosi: niente allenamento, medico in giornata); crampi frequenti con statine o diuretici: medico."},
+ "p-caviglia-recidiva":{evita:"Salti e cambi di direzione su superfici instabili prima di aver recuperato forza ed equilibrio, scarpe con il tacco alto o la suola morbida, allenare solo il polpaccio.",
+  allena:"Equilibrio su una gamba (occhi aperti, chiusi, su cuscino, con lanci), peronei con elastico (eversione), calf raise su una gamba, salti controllati con atterraggio morbido, forza del gluteo medio (la caviglia gira anche per l'anca).",
+  adatta:"Esercizi unilaterali prima bilaterali; atterraggi su due piedi prima che su uno; tape o cavigliera nelle fasi di gioco per 6–12 settimane.",
+  confine:"Caviglia che cede con dolore e gonfiore ripetuti, scatti dentro l'articolazione, dolore sull'osso: ortopedico (instabilità legamentosa, lesione osteocondrale)."},
+ "p-pubalgia":{evita:"Adduttori a cedimento, stretching aggressivo degli adduttori in fase acuta, calci e cambi di direzione a tutta, sit-up e crunch con i piedi bloccati, squat sumo profondo nei primi tempi.",
+  allena:"Copenhagen plank progressivo (dal ginocchio), squeeze isometrico del pallone, trasverso e obliqui (pallof press), gluteo medio, mobilità dell'anca in rotazione, carico graduale per 8–12 settimane.",
+  adatta:"Squat e stacco con stance normale, corsa in linea prima delle direzioni, calcio solo quando lo squeeze è indolore; progressione +10 % a settimana.",
+  confine:"Dolore inguinale con tosse o bozzo (ernia), dolore che non migliora in 3 mesi di carico, dolore osseo sul pube con febbre o notturno: medico."},
+ "p-sacroiliaca":{evita:"Esercizi su una gamba con carico nella fase acuta (affondi profondi, step-up alti), stretching asimmetrico forzato, torsioni con carico, correre su strade inclinate.",
+  allena:"Force closure: ponte con squeeze del pallone, gluteo massimo e gran dorsale insieme (bird-dog, ponte con tirata dell'elastico), trasverso, Copenhagen leggero; mobilità dell'anca in estensione e rotazione.",
+  adatta:"Esercizi bilaterali e simmetrici prima degli unilaterali, cintura pelvica di sostegno durante le sedute se dà sollievo, carico sul bilanciere solo con il bacino fermo.",
+  confine:"Dolore sacro-iliaco con rigidità mattutina lunga e in un giovane (spondiloartrite), dopo un trauma, in gravidanza avanzata, con febbre: medico."},
+ "p-ginocchio-cede":{evita:"Salti, cambi di direzione, squat profondo e leg extension pesante finché il quadricipite non è tornato; affidarsi alla ginocchiera al posto della forza.",
+  allena:"Isometriche del quadricipite subito, terminal knee extension con elastico, ponte e ischiocrurali (nordic graduale), squat al box, step-down lento, gluteo medio, equilibrio su una gamba, atterraggi controllati.",
+  adatta:"Progressione: isometrico → range parziale → range completo → unilaterale → salti; carico dopo il controllo; niente leg extension a cedimento con la rotula instabile.",
+  confine:"Ginocchio gonfio dopo un trauma con cedimento (crociato, menisco), blocco in flessione, cedimenti ripetuti nonostante la forza: ortopedico e risonanza."},
+ "p-dietro-ginocchio":{evita:"Stretching aggressivo degli ischiocrurali, corsa in discesa, iperestensione del ginocchio negli stacchi (bloccare indietro), leg curl a cedimento nella fase dolente.",
+  allena:"Popliteo (rotazione interna della tibia contro elastico), ischiocrurali eccentrici graduali, polpaccio, controllo dell'estensione finale (terminal knee extension), gluteo medio per il valgo.",
+  adatta:"Stacchi con il ginocchio «morbido» e non bloccato, corsa in piano e in salita leggera, leg curl con range parziale e lento.",
+  confine:"Gonfiore dietro il ginocchio che aumenta (cisti di Baker: ecografia), polpaccio gonfio e caldo (trombosi), blocco articolare: medico."},
+ "p-anca-laterale-notte":{evita:"Stretching della bandelletta in adduzione (gamba incrociata), sdraiarsi sul fianco dolente, esercizi su una gamba con l'anca che cade dentro, stare in piedi su un'anca sola tra le serie, rullo sul trocantere.",
+  allena:"Gluteo medio in isometria (abduzione contro il muro), ponte, conchiglia, abduzione sul fianco con la gamba leggermente indietro, step-up controllato, camminata laterale con elastico; carico progressivo per 12 settimane.",
+  adatta:"Squat con i piedi un po' più larghi e le ginocchia in fuori, affondi corti, evitare l'adduzione sotto carico; cuscino tra le ginocchia di notte.",
+  confine:"Dolore laterale con rotazione interna limitata e dolore inguinale (artrosi dell'anca), dopo una caduta (frattura del collo nell'anziano), dolore notturno che non cambia: medico."},
+ "p-piede-piatto":{evita:"Corsa e salti con scarpe senza sostegno nella fase dolente, calf raise con le caviglie che crollano verso l'interno, stare in piedi a lungo scalzi su pavimenti duri.",
+  allena:"Short foot, sollevamento su una punta con il tallone che va verso l'interno (tibiale posteriore), peroneo lungo (abbassare il primo raggio), intrinseci del piede, gluteo medio (la pronazione parte anche dall'anca), equilibrio.",
+  adatta:"Scarpe con sostegno o plantare temporaneo nelle fasi dolorose, squat con l'arco attivo (tripode del piede), progressione verso il lavoro scalzo su superfici morbide.",
+  confine:"Piede piatto comparso da adulto con gonfiore dietro il malleolo interno (tendine del tibiale posteriore), piede piatto rigido e doloroso in un adolescente (coalizione), formicolio alla pianta: ortopedico."}
+};
+</script>
+<script>
+/* In palestra — parte 2: colonna, piede, mano, generali. Più il rendering nella scheda problema. */
+Object.assign(DB.palestra,{
+ "p-scoliosi":{evita:"Carichi assiali pesanti (squat e stacco con bilanciere) in un adolescente con curva in evoluzione; esercizi simmetrici «a forza» che accentuano la convessità; sport unilaterali senza compenso.",
+  allena:"Core a 360° (plank, side plank soprattutto dal lato concavo, bird-dog), respiro nella concavità, mobilità dorsale, forza simmetrica con esercizi unilaterali (il lato debole per primo), nuoto e attività generali; nelle curve strutturali il programma specifico lo fa il fisioterapista (Schroth, SEAS) e il trainer lo integra.",
+  adatta:"Esercizi con i manubri invece del bilanciere, specchio per il controllo, carico moderato; rematore e tirate con attenzione alla scapola del lato convesso.",
+  confine:"Adolescente in crescita con gibbo al test di Adams: ortopedico entro settimane (il corsetto funziona solo durante la crescita); curva che peggiora, dolore notturno, segni neurologici: medico."},
+ "p-dorso-curvo":{evita:"Panca e spinte come unici esercizi, crunch e addominali in flessione, rematore con le spalle che restano avanti, carichi sopra la testa senza estensione dorsale.",
+  allena:"Estensioni dorsali sul rullo, apertura del libro, face pull, Y-W-T da prono, rematore con fermo a scapole retratte, pettorali allungati, flessori profondi del collo, respiro nelle costole basse; rapporto tirate/spinte 2:1 per mesi.",
+  adatta:"Prima la mobilità dorsale poi le spinte; panca con i piedi a terra e le scapole retratte; military solo quando il dorso si estende; cardio con il petto aperto (no bici con il busto chiuso per ore).",
+  confine:"Cifosi rigida e dolente in un adolescente (Scheuermann: ortopedico), cifosi comparsa in pochi mesi nell'anziano con dolore (frattura da osteoporosi: medico), dolore notturno."},
+ "p-costale":{evita:"Respirazione forzata sotto carico, torsioni con bilanciere, esercizi a terra sul fianco dolente, panca pesante nei primi giorni (la gabbia si irrigidisce).",
+  allena:"Respiro profondo e lento 10 volte all'ora, mobilità dorsale e costale (apertura del libro, inclinazioni con il braccio in alto), intercostali e dentato con elastico leggero, camminata.",
+  adatta:"Allenare gambe e core isometrico; tirate e spinte leggere e nel range indolore; niente Valsalva; tornare ai carichi quando l'inspirazione profonda è indolore.",
+  confine:"Fitta con fiato corto, tosse con sangue, dolore dopo un trauma al torace (costola incrinata: radiografia), dolore che peggiora con lo sforzo e sudore (cuore): medico subito."},
+ "p-torace-chiuso":{evita:"Solo spinte e addominali in flessione, cardio con il busto chiuso, respiro trattenuto nelle serie, allenarsi in apnea di stress.",
+  allena:"Respiro diaframmatico a fine seduta (5 minuti), estensioni dorsali sul rullo, apertura delle braccia con asciugamano lungo la colonna, pettorali allungati, trapezio inferiore e romboidi, mobilità costale; cardio moderato a ritmo di conversazione.",
+  adatta:"Espirazione lunga nello sforzo, pause con le mani sui fianchi e respiro basso, esercizi di tirata con il petto aperto; evitare le serie a cedimento che chiudono il torace.",
+  confine:"Fiato corto improvviso, dolore al petto con sforzo, battito irregolare, gambe gonfie: medico. Il «torace chiuso» da ansia si allena, ma la causa va vista insieme al medico."},
+ "p-alluce-valgo":{evita:"Scarpe strette in palestra, calf raise e salti con il peso sull'alluce dolente, affondi con il piede in rotazione esterna che carica la cipolla, corsa lunga nelle fasi infiammate.",
+  allena:"Abduttore dell'alluce (allargare l'alluce, toe spread), short foot, peroneo lungo, mobilità della prima metatarso-falangea, equilibrio, tibiale posteriore; separatore di dita la sera.",
+  adatta:"Scarpe larghe in punta e suola stabile, squat e stacco con il peso sul tripode (tallone, base del mignolo e dell'alluce senza schiacciare l'alluce), salti su superfici morbide.",
+  confine:"Cipolla rossa e calda (borsite), deformità rigida e dolore a ogni passo, dita a martello che si sovrappongono: ortopedico (l'esercizio rallenta, non raddrizza)."},
+ "p-pollice-base":{evita:"Presa a pinza pesante (kettlebell con il pollice avvolto in trazione, manubri sottili), flessioni sulle mani con il pollice che spinge, arrampicata; stringere con il polso deviato.",
+  allena:"Opposizione e abduzione del pollice con la pasta morbida, eminenza tenar, estensori del pollice con elastico, mobilità del polso; cuffia e scapola (la mano paga quando la spalla non tiene).",
+  adatta:"Presa senza pollice (presa a uncino) o con le fasce, impugnature grosse, flessioni sulle maniglie; tutore del pollice nelle fasi dolorose.",
+  confine:"Base del pollice deformata e dolore anche a riposo (rizoartrosi avanzata), gonfiore caldo, scatto doloroso: ortopedico della mano."},
+ "p-colpo-frusta":{evita:"Nelle prime settimane: carichi sul collo e sopra la testa, scrollate, panca pesante, burpee, stretching aggressivo del collo, collare oltre pochi giorni (indebolisce).",
+  allena:"Dai primi giorni: movimento attivo del collo nel range indolore, camminata, respiro; poi flessori profondi (retrazione del mento), esercizi oculo-cervicali, mobilità dorsale, trapezio inferiore; progressione lenta per 8–12 settimane.",
+  adatta:"Allenare gambe e core senza carico assiale, tirate e spinte leggere con il collo neutro, specchio per controllare la testa; tornare ai carichi in base ai sintomi, non al calendario.",
+  confine:"Dopo l'incidente: sempre valutazione medica; formicolio alle braccia, vertigine, visione doppia, nausea, difficoltà a deglutire, peggioramento: medico subito."},
+ "p-gambe-gonfie":{evita:"Stare in piedi tra le serie, calf raise a cedimento la sera, esercizi isometrici lunghi in piedi, cardio statico (stare fermi sullo step); abbigliamento stretto alle caviglie.",
+  allena:"Pompa muscolare: camminata, bici, nuoto, calf raise a ritmo (non a cedimento), gambe in alto a fine seduta per 5 minuti con respiro diaframmatico, esercizi a terra con le gambe sopra il cuore.",
+  adatta:"Sedute con le gambe che si muovono (circuiti) invece delle attese in piedi; calze a compressione nelle giornate in piedi; idratazione.",
+  confine:"Gonfiore di una gamba sola, caldo e dolente (trombosi: medico in giornata), gonfiore con fiato corto o che lascia l'impronta anche al mattino (cuore, reni), ferite che non guariscono: medico."},
+ "p-accovacciarsi":{evita:"Forzare lo squat profondo con i talloni rialzati molto e la schiena che si arrotonda, stretching violento, leg press profonda che stacca il bacino.",
+  allena:"Caviglia (ginocchio al muro, calf stretch a ginocchio piegato), anca (90/90, squat al box progressivo, affondi laterali), mobilità dorsale, goblet squat con pausa in basso tenendosi a un appoggio; dorsiflessione in carico ogni giorno.",
+  adatta:"Squat al box con altezza decrescente, talloni rialzati 1–2 cm, goblet con il peso davanti come contrappeso; stacco dai blocchi; abbassare il box ogni settimana.",
+  confine:"Anca che si blocca o fa male all'inguine in flessione (FADIR), ginocchio che si blocca (menisco), caviglia con dolore osseo davanti (impingement): valutazione prima di insistere."},
+ "p-mano-notte":{evita:"Flessioni a mani piatte con il polso a 90°, presa stretta prolungata (bici, manubri sottili), esercizi con il polso flesso sotto carico (curl con polso piegato), dormire con il polso sotto il cuscino.",
+  allena:"Scorrimenti del nervo mediano, mobilità del polso, estensori e flessori in equilibrio, pettorale piccolo e scaleni (il formicolio può partire dal collo o dalla spalla), tutore notturno con il polso neutro.",
+  adatta:"Flessioni sulle maniglie o sui pugni, presa neutra, fasce per non stringere, polso dritto in ogni esercizio; pause con la mano che si apre.",
+  confine:"Formicolio costante anche di giorno, perdita di forza nella pinza, base del pollice che si appiattisce (atrofia): neurologo o chirurgo della mano (elettromiografia)."},
+ "p-tallone":{evita:"Corsa e salti su superfici dure nelle fasi dolorose, calf raise a cedimento, stretching violento della pianta, allenarsi scalzi sul pavimento duro, aumentare il volume di corsa oltre il 10 % a settimana.",
+  allena:"Sollevamento sulle punte con le dita estese su un asciugamano arrotolato (carica la fascia), 3 × 12 lenti a giorni alterni per 12 settimane; polpaccio (soleo a ginocchio piegato), short foot, intrinseci, gluteo medio; pallina sotto la pianta al mattino.",
+  adatta:"Bici o nuoto al posto della corsa per qualche settimana, scarpe con un po' di tacco e sostegno in palestra, squat e stacco normali (non caricano il tallone), rialzo del tallone di 1 cm nelle fasi acute.",
+  confine:"Dolore al tallone con formicolio della pianta (nervo), dolore osseo sul calcagno dopo un aumento di corsa (frattura da stress), rossore e gonfiore, in un adolescente (apofisite): medico."},
+ "p-stare-in-piedi":{evita:"Esercizi in estensione lombare caricata (good morning, iperestensioni a cedimento, military con la schiena inarcata), stare fermi in piedi tra le serie, scarpe con il tacco.",
+  allena:"Retroversione del bacino attiva (tilt), addominali profondi e glutei (ponte, dead bug, pallof), psoas e retto femorale allungati (affondo con bacino in retroversione), mobilità dell'anca in estensione; camminare invece di stare fermi.",
+  adatta:"Un piede sul rialzo quando si sta in piedi, carichi sopra la testa solo con il bacino in neutro (glutei attivi), rematore con il petto appoggiato; sedute con pause seduti o in cammino.",
+  confine:"Dolore che peggiora stando in piedi con gambe pesanti e sollievo piegandosi (stenosi: medico per l'imaging), dolore notturno, perdita di peso, febbre: medico."},
+ "p-ginocchio-scale":{evita:"Leg extension pesante nel range 0–30°, squat profondo a cedimento, affondi lunghi con il ginocchio che passa il piede senza controllo, corsa in discesa e salti nelle fasi dolorose.",
+  allena:"Gluteo medio (conchiglia, abduzione, camminata laterale con elastico), vasto mediale (terminal knee extension, squat al muro), step-down lento e controllato, squat al box con il ginocchio sulla linea del secondo dito, mobilità della caviglia; carico progressivo per 8–12 settimane.",
+  adatta:"Range parziale (squat a metà) all'inizio, poi completo; salire le scale con la gamba buona per prima e scendere con quella dolente dopo; bici con il sellino alto; corsa in piano prima delle discese.",
+  confine:"Ginocchio gonfio, blocco, cedimenti con trauma, dolore osseo notturno in un adolescente (Osgood-Schlatter: carico adattato, non stop), dolore che peggiora nonostante 3 mesi di programma: ortopedico."},
+ "p-cervicale-vertigini":{evita:"Esercizi con la testa in estensione (military con lo sguardo in alto, ponte sul collo, nuoto a rana con la testa fuori), cambi di posizione rapidi, carichi che fanno irrigidire il collo.",
+  allena:"Flessori profondi del collo, mobilità dolce di C0–C2, esercizi oculo-cervicali, equilibrio, estensione dorsale (così il collo non deve estendere tutto lui), respiro; cardio moderato.",
+  adatta:"Specchio davanti e non in alto, esercizi seduti con appoggio nei giorni peggiori, estensione del collo graduale e non sotto carico.",
+  confine:"Vertigine con disturbi della vista, della parola, nausea e formicolio alzando lo sguardo (arteria vertebrale), vertigine rotatoria violenta, dopo un trauma: medico prima di qualunque esercizio."},
+ "p-stenosi":{evita:"Estensione lombare caricata (iperestensioni, good morning, military con la schiena inarcata), camminata lunga su tapis roulant in piano senza pause, stare in piedi fermi.",
+  allena:"Esercizi in flessione (ginocchia al petto, posizione del bambino, gatto-cammello), addominali e glutei per tenere il bacino in retroversione, psoas e retto femorale allungati, bici (l'esercizio aerobico migliore: la posizione apre il canale), camminata in salita leggera con passi corti, forza delle gambe (sit-to-stand, leg press).",
+  adatta:"Cardio in bici o con il carrello/deambulatore, esercizi seduti o a terra, carico con il bacino in neutro o leggera retroversione, pause piegati in avanti; tutto il programma per l'anziano con forza ed equilibrio.",
+  confine:"Distanza di cammino sotto i 100–200 metri, debolezza progressiva, disturbi di vescica o intestino, dolore a riposo: medico (è anche un problema chirurgico quando limita la vita)."},
+ "p-morton":{evita:"Scarpe strette in palestra, salti e affondi con il peso sull'avampiede nelle fasi dolorose, calf raise con le dita schiacciate, corsa sulle punte.",
+  allena:"Intrinseci del piede (short foot, toe spread), mobilità dei metatarsi, polpaccio allungato (il polpaccio corto carica l'avampiede), peroneo lungo e primo raggio, equilibrio; cuscinetto metatarsale.",
+  adatta:"Scarpe larghe in punta e suola rigida o a dondolo, carico sul tallone e sul mesopiede (squat, stacco, leg press vanno bene), bici e nuoto per il cardio nelle fasi acute.",
+  confine:"Dolore notturno, gonfiore e rossore dell'avampiede, dolore su un metatarso dopo un aumento di corsa (frattura da stress), nessun miglioramento in 3 mesi: ortopedico."},
+ "p-achille":{evita:"Corsa in salita e salti nella fase irritabile, stretching aggressivo del polpaccio dal gradino nella tendinopatia inserzionale, aumentare il volume di colpo, calf raise a cedimento ogni giorno.",
+  allena:"Calf raise lenti e pesanti (3 secondi su, 3 giù), bilaterali poi su una gamba, a giorni alterni per 12 settimane con dolore accettabile (3–4 su 10 che passa in 24 ore); dal gradino solo nella forma della porzione media, da terra in quella inserzionale; soleo a ginocchio piegato; poi salti con corda progressivi.",
+  adatta:"Corsa ridotta della metà e in piano, +10 % a settimana; rialzo del tallone 1 cm nelle prime settimane; bici e nuoto senza limiti; squat e stacco normali.",
+  confine:"«Frustata» con impossibilità di sollevarsi sulla punta (rottura), dolore durante l'uso di antibiotici chinolonici o cortisone, tendine rosso e caldo: medico subito."},
+ "p-coccige":{evita:"Esercizi seduti su superfici dure (bici con il sellino stretto, rematore seduto a lungo), crunch e sit-up che rotolano sul coccige, glute bridge con il peso che scivola sul sacro.",
+  allena:"Grande gluteo (ponte con il bacino sollevato, hip thrust con il cuscino), pavimento pelvico in rilascio (respiro, squat profondo tenuto, posizione del bambino), mobilità dell'anca, core in piedi (pallof press) invece che a terra.",
+  adatta:"Esercizi in piedi o a quattro zampe, cuscino a cuneo con il vuoto dietro per la bici e le sedute, hip thrust con la panca che non preme sul coccige; alzarsi inclinandosi avanti.",
+  confine:"Dopo una caduta con impossibilità di sedersi (frattura: radiografia), dolore notturno progressivo, sanguinamento, febbre: medico. Dolore pelvico con urgenza o dolore nei rapporti: fisioterapista del pavimento pelvico."},
+ "p-strappo-polpaccio":{evita:"Qualsiasi carico sul polpaccio nei primi 3–5 giorni (calf raise, corsa, salti), stretching, massaggio profondo; dalla seconda settimana niente scatti e salite finché il sollevamento su una punta non è indolore.",
+  allena:"Dal secondo giorno: camminata con il tallone rialzato, isometrici indolori del polpaccio, ciclette leggera; dalla seconda-terza settimana: calf raise bilaterali poi unilaterali, eccentrici lenti; dalla quarta-sesta: corsa leggera, poi skip, infine scatti; nordic hamstring e glutei nel frattempo.",
+  adatta:"Rialzo del tallone in entrambe le scarpe per 1–2 settimane, gambe e core senza coinvolgere il polpaccio (leg press con il tallone, ponte), parte superiore normale; progressione guidata dal dolore e dalla forza su una punta.",
+  confine:"Test di Thompson positivo o impossibilità a sollevarsi sulla punta (rottura dell'Achille), polpaccio gonfio e caldo nei giorni dopo (trombosi), dolore intenso con gamba dura e formicolio (sindrome compartimentale): medico subito."},
+ "p-ginocchio-gonfio":{evita:"Qualsiasi carico sul ginocchio gonfio e caldo (squat, leg press, corsa, salti), ginocchiera come soluzione, «sciogliere» il ginocchio con il rullo.",
+  allena:"Isometriche del quadricipite dal primo giorno (10 secondi × 10, ogni ora), estensione completa passiva (tallone sul rialzo), mobilità della rotula, ponte, ischiocrurali e gluteo medio; poi range progressivo, bici leggera, squat al box.",
+  adatta:"Parte superiore e core normali; gambe solo con isometrici e range indolore finché il gonfiore non cala; riprendere il carico quando il ginocchio si estende e si flette del tutto senza gonfiarsi il giorno dopo.",
+  confine:"Gonfiore teso entro 2 ore da un trauma (sangue: crociato o frattura), ginocchio caldo e rosso con febbre (infezione: urgenza), blocco in flessione, versamenti ricorrenti senza causa: ortopedico o reumatologo."},
+ "p-polso-appoggio":{evita:"Flessioni e plank a mani piatte con il polso a 90°, handstand, clean con il bilanciere che ricade sul polso, burpee nella fase dolorosa.",
+  allena:"Co-contrazione di flessori ed estensori (isometrici in appoggio progressivo: muro, tavolo, ginocchia), estensori eccentrici, mobilità del polso, presa; scapola e cuffia (il polso paga quando la spalla non stabilizza).",
+  adatta:"Appoggio sui pugni o sulle maniglie, supporti inclinati (parallettes), front squat con le fasce o la presa incrociata, plank sugli avambracci; recupero graduale dell'appoggio a palmo.",
+  confine:"Dolore nella tabacchiera anatomica dopo una caduta (scafoide: radiografia anche se la prima è normale), scatto doloroso al polso (lesione legamentosa), polso gonfio e caldo: ortopedico prima di caricare."},
+ "p-sotto-scapola":{evita:"Rematore con le spalle che restano avanti, panca come unico lavoro, stare curvi tra le serie, carichi sopra la testa con il dorso che non si estende.",
+  allena:"Pettorali allungati (porta, asciugamano lungo la colonna), trapezio inferiore e romboidi con fermo isometrico (Y-W-T, face pull, rematore con pausa a scapole retratte), estensione dorsale sul rullo, mobilità costale con il respiro, dentato anteriore.",
+  adatta:"Rapporto tirate/spinte 2:1, schermo e specchio ad altezza occhi, pause con il petto aperto, pallina contro il muro prima della seduta.",
+  confine:"Dolore interscapolare lacerante con sudore o malessere (aorta, cuore: urgenza), dolore legato ai pasti a destra (cistifellea), dolore notturno costante con tosse o perdita di peso: medico."},
+ "p-schiena-gravidanza":{evita:"Esercizi supini prolungati dopo la 20ª settimana, addominali in flessione (crunch), carichi pesanti e Valsalva, esercizi su una gamba con dolore pelvico (affondi profondi, step-up alti), salti, stretching forzato (la relaxina rende lassi i legamenti).",
+  allena:"Respiro diaframmatico e trasverso leggero, pavimento pelvico (contrazione e rilascio), glutei e adduttori per la stabilità del bacino (ponte con squeeze, squat con pallone), camminata, bici da camera, nuoto; mobilità del gatto-cammello; esercizi bilaterali e simmetrici.",
+  adatta:"Carichi moderati, pause frequenti, posizione seduta o in appoggio, cintura pelvica se c'è dolore sacro-iliaco, niente esercizi che richiedono di girarsi nel letto o di stare su una gamba sola; respiro continuo, mai trattenuto.",
+  confine:"Contrazioni, perdite, dolore ritmico, gonfiore di una gamba, mal di testa forte con vista annebbiata, pressione alta: ostetrica o medico subito. Ogni programma in gravidanza va concordato con il ginecologo."},
+ "p-diastasi":{evita:"Crunch, sit-up, plank completi, sollevamenti pesanti con la pancia che spinge in fuori («pinna» al centro), esercizi in Valsalva: ogni volta che la pancia sporge, la linea alba si allarga.",
+  allena:"Trasverso con l'espirazione (ombelico verso la colonna senza spingere) 10 × 10 secondi tre volte al giorno, pavimento pelvico coordinato, dead bug con una gamba, ponte, bird-dog, squat con espirazione, camminata; progressione in 3–6 mesi verso obliqui e carichi.",
+  adatta:"Ogni esercizio «con l'espirazione e senza pinna»: se la pancia sporge, si riduce il carico o la leva; plank in ginocchio o inclinato; sollevare il bambino espirando e con le gambe.",
+  confine:"Bozzo che sporge e non rientra con dolore (ernia strozzata: urgenza), perdite di urina importanti o prolasso (fisioterapista del pavimento pelvico), linea alba ancora molle dopo 6 mesi di lavoro: valutazione chirurgica."}
+});
+
+/* ---- rendering nella scheda problema ---- */
+const _blocchi_conPalestra = blocchi;
+blocchi = function(kind,it){
+  const B=_blocchi_conPalestra(kind,it);
+  if(kind!=="problema") return B;
+  const P=DB.palestra[it.id]; if(!P) return B;
+  const ins=[{t:"dl",h:"In palestra",voci:[["Cosa evitare finché c'è il problema",P.evita],["Cosa allenare",P.allena],["Come adattare gli esercizi",P.adatta],["Quando non è lavoro da trainer",P.confine]]}];
+  const k=B.findIndex(b=>b.t==="segreto");
+  return k<0?B.concat(ins):B.slice(0,k).concat(ins,B.slice(k));
+};
+</script>
+<script>
+/* =========================================================
+   PROFILO: «lavoro con le mani» (massaggiatori, osteopati, posturologi) oppure «alleno» (personal trainer, chinesiologi).
+   Stessi contenuti; cambiano l'ordine delle porte, l'ordine dei blocchi nelle schede e il sottotitolo.
+   ========================================================= */
+let PROFILO = load("profilo", null);
+const PROFILI = {
+  mani:   {n:"Lavoro con le mani", d:"Massaggiatori, massoterapisti, osteopati, posturologi", sig:"l'anatomia di chi lavora con le mani",
+           ordine:["problema","movimento","muscolo","osso","nervo","plesso","articolazione","catena","postura","test","trigger"]},
+  allena: {n:"Alleno", d:"Personal trainer, chinesiologi, istruttori", sig:"l'anatomia di chi allena",
+           ordine:["problema","muscolo","movimento","postura","articolazione","test","trigger","osso","nervo","catena","plesso"]}
+};
+const _PRINCIPALI_base = PRINCIPALI.slice();
+function applicaProfilo(){
+  const p = PROFILO && PROFILI[PROFILO];
+  const ordine = p ? p.ordine.filter(k=>_PRINCIPALI_base.includes(k)).concat(_PRINCIPALI_base.filter(k=>!p.ordine.includes(k))) : _PRINCIPALI_base.slice();
+  PRINCIPALI.splice(0, PRINCIPALI.length, ...ordine);
+  const sig = document.querySelector(".brand .sig");
+  if(sig) sig.textContent = p ? p.sig : "l'anatomia di chi lavora sul corpo";
+  document.documentElement.setAttribute("data-profilo", PROFILO || "");
+}
+applicaProfilo();
+
+/* ordine dei blocchi nelle schede */
+const _blocchi_conProfilo = blocchi;
+blocchi = function(kind,it){
+  const B=_blocchi_conProfilo(kind,it);
+  if(PROFILO!=="allena") return B;
+  const sposta=(lista,titoli,primaDi)=>{
+    const mossi=lista.filter(b=>titoli.includes(b.h)); if(!mossi.length) return lista;
+    const resto=lista.filter(b=>!titoli.includes(b.h));
+    let k=resto.findIndex(b=>primaDi.includes(b.h)); if(k<0) k=resto.findIndex(b=>b.t==="segreto"); if(k<0) k=resto.length;
+    return resto.slice(0,k).concat(mossi,resto.slice(k));
+  };
+  if(kind==="muscolo"){
+    const L=sposta(B,["Come si allunga","Come si rinforza","Da fare a casa"],["Come si palpa"]);
+    return L.map(b=>b.h==="In trattamento"?Object.assign({},b,{h:"In trattamento (per chi lavora con le mani)"}):b);
+  }
+  if(kind==="problema"){
+    const L=sposta(B,["In palestra"],["Come si tratta"]);
+    return L.map(b=>b.h==="Come si tratta"?Object.assign({},b,{h:"Come si tratta con le mani"}):b);
+  }
+  return B;
+};
+
+/* scelta del profilo: in home e nel mio studio */
+function cardProfilo(compatta){
+  const btn=(k)=>'<button class="btn'+(PROFILO===k?' primary':'')+'" data-act="profilo" data-id="'+k+'" style="flex-direction:column;align-items:flex-start;gap:2px;text-align:left"><b>'+PROFILI[k].n+'</b><span style="font-size:12px;font-weight:400;opacity:.8">'+PROFILI[k].d+'</span></button>';
+  if(compatta && PROFILO) return '<p style="font-size:12.5px;color:var(--faint);margin:0 0 14px">Profilo: <b>'+PROFILI[PROFILO].n.toLowerCase()+'</b> · <button class="chip" data-act="profilo" data-id="'+(PROFILO==="mani"?"allena":"mani")+'">passa a «'+PROFILI[PROFILO==="mani"?"allena":"mani"].n.toLowerCase()+'»</button></p>';
+  return '<div class="card" style="margin-bottom:18px;gap:8px"><span class="eyebrow">Come lavori?</span><h3 style="margin:0">Stesso corpo, due modi di usarlo</h3>'+
+    '<p style="margin:0">Scegli il profilo: i contenuti sono gli stessi, cambiano l\'ordine delle porte e che cosa viene prima nelle schede. Puoi cambiarlo quando vuoi.</p>'+
+    '<div class="acts" style="flex-wrap:wrap">'+btn("mani")+btn("allena")+'</div></div>';
+}
+const _vistaHome_conProfilo = vistaHome;
+vistaHome = function(){ return cardProfilo(true) + _vistaHome_conProfilo(); };
+const _vistaStudio_conProfilo = vistaStudio;
+vistaStudio = function(){ return _vistaStudio_conProfilo() + '<div class="seg" style="margin:18px 0 10px">Il tuo profilo</div>' + cardProfilo(false); };
+document.addEventListener("click",function(e){
+  const a=e.target.closest('[data-act="profilo"]'); if(!a) return;
+  PROFILO=a.getAttribute("data-id"); save("profilo",PROFILO); applicaProfilo(); if(typeof render==="function") render();
+});
+</script>
 <style>
 .figsvg{width:100%;max-width:270px;height:auto}
 .fig>*{fill:var(--figure);stroke:none}
