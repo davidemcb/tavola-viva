@@ -136,22 +136,11 @@ collegamenti = function(kind,it){
 };
 /* versione compatta per WhatsApp: titolo, fasi con le righe, da evitare */
 function saTestoCompatto(it){
-  const c=saComponi(it); let s="SCHEDA DI ALLENAMENTO"+(it.cliente?" PER "+it.cliente.toUpperCase():"")+"
-"+it.problemi.map(nomeOf).join(" + ").replace(/[«»]/g,"")+"
-Livello "+(SA_LIVELLI[it.livello]||"")+" · "+it.giorni+" sedut"+(it.giorni===1?"a":"e")+" a settimana
-";
-  SA_FASI.forEach(([f,titolo])=>{ const r=c.righe[f]; if(!r.length) return; s+="
-"+titolo.toUpperCase()+"
-"; const gg=f==="f1"?[["",r]]:saGiorni(r,it.giorni); gg.forEach(([g,items])=>{ if(g&&gg.length>1) s+=g+"
-"; items.forEach(x=>{ s+="• "+x.replace(/ · versione (facile|avanzata):.*$/,"").replace(/ · con quello che hai:.*$/,"")+"
-"; }); }); });
-  const ev=[]; it.problemi.forEach(pid=>{ const P=DB.palestra[pid]; if(P&&P.evita) ev.push(P.evita.split(/[.;]/)[0]); }); if(ev.length) s+="
-DA EVITARE: "+ev.join("; ")+".
-";
-  s+="
-Se un esercizio fa male oltre 3 su 10 o il dolore resta il giorno dopo, torna alla versione più facile e dimmelo.
-
-AnatomiaPratica · "+(typeof ME!=="undefined"&&ME&&ME.utente?ME.utente.nome||"":"Kinesiologia Studio");
+  const c=saComponi(it); const NL="\n";
+  let s="SCHEDA DI ALLENAMENTO"+(it.cliente?" PER "+it.cliente.toUpperCase():"")+NL+it.problemi.map(nomeOf).join(" + ").replace(/[«»]/g,"")+NL+"Livello "+(SA_LIVELLI[it.livello]||"")+" · "+it.giorni+" sedut"+(it.giorni===1?"a":"e")+" a settimana"+NL;
+  SA_FASI.forEach(([f,titolo])=>{ const r=c.righe[f]; if(!r.length) return; s+=NL+titolo.toUpperCase()+NL; const gg=f==="f1"?[["",r]]:saGiorni(r,it.giorni); gg.forEach(([g,items])=>{ if(g&&gg.length>1) s+=g+NL; items.forEach(x=>{ s+="• "+x.replace(/ · versione (facile|avanzata):.*$/,"").replace(/ · con quello che hai:.*$/,"")+NL; }); }); });
+  const ev=[]; it.problemi.forEach(pid=>{ const P=DB.palestra[pid]; if(P&&P.evita) ev.push(P.evita.split(/[.;]/)[0]); }); if(ev.length) s+=NL+"DA EVITARE: "+ev.join("; ")+"."+NL;
+  s+=NL+"Se un esercizio fa male oltre 3 su 10 o il dolore resta il giorno dopo, torna alla versione più facile e dimmelo."+NL+NL+"AnatomiaPratica · "+(typeof ME!=="undefined"&&ME&&ME.utente?ME.utente.nome||"":"Kinesiologia Studio");
   return s;
 }
 /* il testo condiviso di una scheda è la scheda intera */
