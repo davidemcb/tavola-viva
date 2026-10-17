@@ -322,10 +322,10 @@ button.card{transition:transform .15s,border-color .15s}
   }
   function barra(){
     let b=q("#abbo-bar"); if(!b){ b=document.createElement("div"); b.id="abbo-bar"; const page=q("#page"); page.parentNode.insertBefore(b,page); }
-    const a=ME.abbonamento; const admin=ME.utente.ruolo==="admin";
+    const a=ME.abbonamento; const admin=ME.utente.ruolo==="admin"||ME.utente.ruolo==="venditore";
     const giorni=a&&a.attivo?a.giorni:0; const avviso=a&&a.attivo&&giorni<=7;
     b.innerHTML='<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:var(--muted);padding:6px 0 2px">'+
-      '<span>'+h(ME.utente.nome||ME.utente.email)+(admin?' · amministratore':'')+'</span>'+
+      '<span>'+h(ME.utente.nome||ME.utente.email)+(ME.utente.ruolo==="admin"?' · amministratore':ME.utente.ruolo==="venditore"?' · venditore':'')+'</span>'+
       (a?'<span style="'+(avviso?'color:var(--muscle);font-weight:600':'')+'">'+(a.attivo?'accesso fino al '+h(dataIt(a.scadenza))+' ('+giorni+' giorn'+(giorni===1?'o':'i')+')':'abbonamento scaduto')+'</span>':'')+
       (avviso?'<span style="color:var(--muscle)">· rinnova per non interrompere</span>':'')+
       '<span style="margin-left:auto;display:flex;gap:6px">'+(admin?'<button class="btn sm" id="abbo-pannello">Pannello utenti</button>':'')+'<button class="btn sm" id="abbo-pw">Password</button><button class="btn sm" id="abbo-esci">Esci</button></span></div>';
@@ -353,9 +353,9 @@ button.card{transition:transform .15s,border-color .15s}
   function disegnaPannello(msg){
     const o=ov(); const t=new Date().toISOString().slice(0,10);
     const attivi=UT.filter(u=>u.abbonato).length, inScad=UT.filter(u=>u.abbonato&&u.giorni<=7).length, scaduti=UT.filter(u=>!u.abbonato&&u.ruolo!=="admin").length;
-    const riga=u=>'<tr'+(u.attivo?'':' style="opacity:.55"')+'><td><b>'+h(u.nome||"")+'</b><br><span class="mono" style="font-size:12px">'+h(u.email)+'</span>'+(u.ruolo==="admin"?' <span class="eyebrow">admin</span>':'')+'</td>'+
+    const riga=u=>'<tr'+(u.attivo?'':' style="opacity:.55"')+'><td><b>'+h(u.nome||"")+'</b><br><span class="mono" style="font-size:12px">'+h(u.email)+'</span>'+(u.ruolo==="admin"?' <span class="eyebrow">admin</span>':u.ruolo==="venditore"?' <span class="eyebrow">venditore</span>':'')+'</td>'+
       '<td>'+(u.scadenza?h(u.piano)+'<br>'+(u.abbonato?'<span style="color:var(--ok)">fino al '+h(dataIt(u.scadenza))+' ('+u.giorni+' gg)</span>':'<span style="color:var(--muscle)">scaduto il '+h(dataIt(u.scadenza))+'</span>'):'<span style="color:var(--faint)">mai attivato</span>')+'</td>'+
-      '<td style="font-size:12px">'+(u.ultimo_accesso?h(u.ultimo_accesso.slice(0,16).replace("T"," ")):"mai")+(u.cambia_password?'<br><span style="color:var(--faint)">password provvisoria</span>':'')+'</td>'+
+      '<td style="font-size:12px">'+(u.ultimo_accesso?h(u.ultimo_accesso.slice(0,16).replace("T"," ")):"mai")+(u.cambia_password?'<br><span style="color:var(--faint)">password provvisoria</span>':'')+(u.venduto_da?'<br><span style="color:var(--faint)">venduto da '+h(u.venduto_da)+'</span>':'')+'</td>'+
       '<td><div style="display:flex;gap:4px;flex-wrap:wrap"><button class="btn sm" data-adm="attiva" data-id="'+u.id+'">Attiva / prolunga</button>'+
       '<button class="btn sm" data-adm="stato" data-id="'+u.id+'" data-v="'+(u.attivo?0:1)+'">'+(u.attivo?"Blocca":"Sblocca")+'</button>'+
       '<button class="btn sm" data-adm="reset" data-id="'+u.id+'">Nuova password</button>'+
@@ -363,27 +363,42 @@ button.card{transition:transform .15s,border-color .15s}
       '<button class="btn sm" data-adm="elimina" data-id="'+u.id+'" style="color:var(--muscle)">Elimina</button></div><div id="adm-out-'+u.id+'" style="font-size:12.5px;margin-top:4px"></div></td></tr>';
     o.innerHTML='<div style="max-width:1100px;margin:0 auto">'+
       '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px"><h1 style="font-size:24px;margin:0">Pannello utenti</h1><span style="color:var(--muted);font-size:13px">'+UT.length+' utenti · '+attivi+' attivi · '+inScad+' in scadenza entro 7 giorni · '+scaduti+' scaduti o mai attivati</span>'+
-      '<button class="btn sm" id="adm-chiudi" style="margin-left:auto">Chiudi</button></div>'+
+      '<button class="btn sm" id="adm-prova-email" style="margin-left:auto">Prova email</button><button class="btn sm" id="adm-chiudi">Chiudi</button></div>'+
       (msg?'<div class="card" style="margin-bottom:12px;border-color:var(--ok)">'+msg+'</div>':'')+
       '<details class="card" style="margin-bottom:14px"><summary style="cursor:pointer;font-weight:600">Nuovo utente</summary>'+
       '<form id="adm-nuovo" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin-top:10px">'+
       '<input name="email" type="email" required placeholder="email" class="inp"><input name="nome" placeholder="nome e cognome" class="inp">'+
+      (ME.utente.ruolo==="admin"?'<select name="ruolo" class="inp"><option value="allievo">Allievo</option><option value="venditore">Venditore (vende e registra pagamenti)</option><option value="admin">Amministratore</option></select>':'')+
       '<select name="piano" class="inp"><option value="">Solo account (attivo dopo)</option><option value="mensile">Mensile · 19 €</option><option value="annuale">Annuale · 197 €</option><option value="giorni">Giorni (prova)</option><option value="omaggio">Omaggio</option></select>'+
       '<input name="giorni" type="number" min="1" placeholder="giorni (per prova/omaggio)" class="inp"><select name="metodo" class="inp"><option value="contanti">Contanti</option><option value="bonifico">Bonifico</option><option value="omaggio">Omaggio</option></select>'+
       '<input name="importo" type="number" step="0.01" placeholder="importo € (vuoto = listino)" class="inp"><input name="nota" placeholder="nota (es. corso 2026)" class="inp">'+
+      '<label style="display:flex;gap:6px;align-items:center;font-size:13px"><input type="checkbox" name="invia_email" value="true" checked> Invia l\'email con le credenziali</label>'+
       '<button class="btn primary" type="submit">Crea</button></form><p style="font-size:12px;color:var(--faint);margin:8px 0 0">La password provvisoria compare qui sotto: comunicala all\'allievo, che al primo accesso ne sceglie una sua.</p><div id="adm-nuovo-out"></div></details>'+
       '<div class="scroller"><table class="tbl"><thead><tr><th>Utente</th><th>Abbonamento</th><th>Ultimo accesso</th><th>Azioni</th></tr></thead><tbody>'+UT.map(riga).join("")+'</tbody></table></div>'+
+      '<details class="card" style="margin-top:16px" id="adm-vendite"><summary style="cursor:pointer;font-weight:600">Riepilogo vendite e quote</summary><div id="adm-vendite-in" style="margin-top:10px">Carico…</div></details>'+
       '<div id="adm-dialogo"></div></div>';
     q("#adm-chiudi").onclick=()=>{ o.remove(); };
-    q("#adm-nuovo").addEventListener("submit",async e=>{ e.preventDefault(); const f=Object.fromEntries(new FormData(e.target).entries()); const r=await chiama("/api/admin/utente",f);
+    q("#adm-vendite").addEventListener("toggle",()=>{ if(q("#adm-vendite").open) riepilogoVendite(); },{once:false});
+    q("#adm-prova-email").onclick=async()=>{ const b=q("#adm-prova-email"); b.textContent="Invio…"; const r=await chiama("/api/admin/prova-email",{}); b.textContent="Prova email"; disegnaPannello(r.data.inviata?'Email di prova inviata a '+h(ME.utente.email)+': controlla la posta (anche lo spam).':'<span style="color:var(--muscle)">Email non inviata: '+h(r.data.motivo||r.data.errore||"")+'</span>'); };
+    q("#adm-nuovo").addEventListener("submit",async e=>{ e.preventDefault(); const f=Object.fromEntries(new FormData(e.target).entries()); if(!f.invia_email) f.invia_email="false"; const r=await chiama("/api/admin/utente",f);
       if(!r.ok){ q("#adm-nuovo-out").innerHTML='<p style="color:var(--muscle)">'+h(r.data.errore)+'</p>'; return; }
-      await apriPannello(); disegnaPannello('<b>Utente creato.</b> Email: <span class="mono">'+h(f.email)+'</span> · password provvisoria: <b class="mono" style="font-size:16px">'+h(r.data.password)+'</b>'+(r.data.abbonamento?' · attivo fino al '+h(dataIt(r.data.abbonamento.scadenza)):'')+pulsantiCredenziali(f.email,r.data.password,r.data.abbonamento&&r.data.abbonamento.scadenza,f.nome)); });
+      await apriPannello(); disegnaPannello('<b>Utente creato.</b> Email: <span class="mono">'+h(f.email)+'</span> · password provvisoria: <b class="mono" style="font-size:16px">'+h(r.data.password)+'</b>'+(r.data.abbonamento?' · attivo fino al '+h(dataIt(r.data.abbonamento.scadenza)):'')+esitoEmail(r.data.email)+pulsantiCredenziali(f.email,r.data.password,r.data.abbonamento&&r.data.abbonamento.scadenza,f.nome)); });
     o.querySelectorAll("[data-adm]").forEach(b=>b.onclick=()=>azione(b.getAttribute("data-adm"),parseInt(b.getAttribute("data-id"),10),b));
+  }
+  async function riepilogoVendite(mese){
+    const box=q("#adm-vendite-in"); if(!box) return;
+    const r=await chiama("/api/admin/riepilogo"+(mese?"?mese="+mese:"")); if(!r.ok){ box.innerHTML='<span style="color:var(--muscle)">'+h(r.data.errore)+'</span>'; return; }
+    const d=r.data; const eur=x=>(Math.round(Number(x||0)*100)/100).toFixed(2).replace(".",",")+" €";
+    const mesi=(d.mesi.length?d.mesi:[d.mese]); if(mesi.indexOf(d.mese)<0) mesi.unshift(d.mese);
+    box.innerHTML='<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px"><span>Mese</span><select id="adm-mese" class="inp">'+mesi.map(m=>'<option value="'+m+'"'+(m===d.mese?' selected':'')+'>'+m.split("-").reverse().join("/")+'</option>').join("")+'</select><span style="color:var(--faint);font-size:12.5px">quota venditore: '+d.quota+' % degli incassi registrati da lui/lei</span></div>'+
+      (d.righe.length?'<table class="tbl"><tr><th>Chi ha venduto</th><th>Abbonamenti</th><th>Contanti</th><th>Bonifico</th><th>Totale</th><th>Quota ('+d.quota+' %)</th></tr>'+d.righe.map(x=>'<tr><td>'+h(x.venditore)+(x.ruolo==="venditore"?"":" <span class=\"eyebrow\">"+h(x.ruolo||"")+"</span>")+'</td><td>'+x.n+'</td><td>'+eur(x.contanti)+'</td><td>'+eur(x.bonifico)+'</td><td><b>'+eur(x.totale)+'</b></td><td>'+(x.ruolo==="venditore"?'<b>'+eur(x.quota_venditore)+'</b>':'—')+'</td></tr>').join("")+'</table>':'<p class="empty">Nessun abbonamento registrato in questo mese.</p>')+
+      (d.dettaglio.length?'<details style="margin-top:8px"><summary style="cursor:pointer">Dettaglio ('+d.dettaglio.length+')</summary><table class="tbl" style="font-size:12px;margin-top:6px"><tr><th>Data</th><th>Allievo</th><th>Piano</th><th>Metodo</th><th>€</th><th>Dal</th><th>Al</th><th>Venduto da</th><th>Nota</th></tr>'+d.dettaglio.map(x=>'<tr><td>'+h((x.creato||"").slice(0,10).split("-").reverse().join("/"))+'</td><td>'+h(x.nome||x.email)+'</td><td>'+h(x.piano)+'</td><td>'+h(x.metodo||"")+'</td><td>'+eur(x.importo)+'</td><td>'+h(dataIt(x.inizio))+'</td><td>'+h(dataIt(x.scadenza))+'</td><td>'+h(x.venditore||"")+'</td><td>'+h(x.nota||"")+'</td></tr>').join("")+'</table></details>':'');
+    q("#adm-mese").onchange=e=>riepilogoVendite(e.target.value);
   }
   async function azione(a,id,btn){
     const u=UT.find(x=>x.id===id); const out=q("#adm-out-"+id);
     if(a==="stato"){ await chiama("/api/admin/stato",{utente_id:id,attivo:btn.getAttribute("data-v")==="1"}); return apriPannello(); }
-    if(a==="reset"){ if(!confirm("Generare una nuova password provvisoria per "+u.email+"? Quella attuale smette di funzionare.")) return; const r=await chiama("/api/admin/reset",{utente_id:id}); out.innerHTML=r.ok?'Nuova password provvisoria: <b class="mono" style="font-size:15px">'+h(r.data.password)+'</b>'+pulsantiCredenziali(u.email,r.data.password,u.abbonato?u.scadenza:null,u.nome):'<span style="color:var(--muscle)">'+h(r.data.errore)+'</span>'; return; }
+    if(a==="reset"){ if(!confirm("Generare una nuova password provvisoria per "+u.email+"? Quella attuale smette di funzionare.")) return; const r=await chiama("/api/admin/reset",{utente_id:id}); out.innerHTML=r.ok?'Nuova password provvisoria: <b class="mono" style="font-size:15px">'+h(r.data.password)+'</b>'+esitoEmail(r.data.email)+pulsantiCredenziali(u.email,r.data.password,u.abbonato?u.scadenza:null,u.nome):'<span style="color:var(--muscle)">'+h(r.data.errore)+'</span>'; return; }
     if(a==="elimina"){ if(!confirm("Eliminare definitivamente "+u.email+" con tutto lo storico?")) return; await chiama("/api/admin/elimina",{utente_id:id}); return apriPannello(); }
     if(a==="storico"){ const r=await chiama("/api/admin/abbonamenti?utente_id="+id); const L=r.ok?r.data.abbonamenti:[];
       out.innerHTML=L.length?'<table class="tbl" style="font-size:12px"><tr><th>Piano</th><th>Dal</th><th>Al</th><th>Metodo</th><th>€</th><th>Nota</th><th></th></tr>'+L.map(x=>'<tr><td>'+h(x.piano)+'</td><td>'+h(dataIt(x.inizio))+'</td><td>'+h(dataIt(x.scadenza))+'</td><td>'+h(x.metodo||"")+'</td><td>'+(x.importo!=null?x.importo:"")+'</td><td>'+h(x.nota||"")+'</td><td><button class="btn sm" data-sc="'+x.id+'">Cambia scadenza</button></td></tr>').join("")+'</table>':'Nessun abbonamento.';
@@ -394,17 +409,19 @@ button.card{transition:transform .15s,border-color .15s}
         '<input name="giorni" type="number" min="1" placeholder="giorni" class="inp"><input name="inizio" type="date" class="inp" title="inizio (vuoto = oggi, o dal giorno dopo la scadenza attuale)">'+
         '<select name="metodo" class="inp"><option value="contanti">Contanti</option><option value="bonifico">Bonifico</option><option value="omaggio">Omaggio</option></select>'+
         '<input name="importo" type="number" step="0.01" placeholder="importo €" class="inp"><input name="nota" placeholder="nota" class="inp">'+
+        '<label style="display:flex;gap:6px;align-items:center;font-size:12.5px"><input type="checkbox" name="invia_email" value="true" checked> Avvisa per email</label>'+
         '<button class="btn primary sm" type="submit">Conferma</button><button class="btn sm" type="button" data-ann="1">Annulla</button></form>'+
         '<p style="font-size:12px;color:var(--faint);margin:4px 0 0">Se l\'abbonamento è ancora attivo, il nuovo periodo parte dal giorno dopo la scadenza: nessun giorno perso.</p>';
       const f=out.querySelector("form"); f.querySelector("[data-ann]").onclick=()=>{ out.innerHTML=""; };
-      f.addEventListener("submit",async e=>{ e.preventDefault(); const d=Object.fromEntries(new FormData(f).entries()); d.utente_id=id; const r=await chiama("/api/admin/attiva",d);
-        if(!r.ok){ out.innerHTML='<span style="color:var(--muscle)">'+h(r.data.errore)+'</span>'; return; } await apriPannello(); disegnaPannello('<b>'+h(u.email)+'</b>: '+h(d.piano)+' attivo dal '+h(dataIt(r.data.abbonamento.inizio))+' al '+h(dataIt(r.data.abbonamento.scadenza))+'.'); });
+      f.addEventListener("submit",async e=>{ e.preventDefault(); const d=Object.fromEntries(new FormData(f).entries()); d.utente_id=id; if(!d.invia_email) d.invia_email="false"; const r=await chiama("/api/admin/attiva",d);
+        if(!r.ok){ out.innerHTML='<span style="color:var(--muscle)">'+h(r.data.errore)+'</span>'; return; } await apriPannello(); disegnaPannello('<b>'+h(u.email)+'</b>: '+h(d.piano)+' attivo dal '+h(dataIt(r.data.abbonamento.inizio))+' al '+h(dataIt(r.data.abbonamento.scadenza))+'.'+esitoEmail(r.data.email)); });
     }
   }
   function messaggioCredenziali(email,pw,scadenza,nome){
     const link=location.origin+location.pathname;
     return "Ciao "+(nome||"")+"! Ecco il tuo accesso ad AnatomiaPratica, l'atlante del massaggiatore."+"\n"+"\n"+"Apri: "+link+"\n"+"Email: "+email+"\n"+"Password provvisoria: "+pw+"\n"+"\n"+"Al primo accesso scegli la tua password. "+(scadenza?"L'accesso vale fino al "+dataIt(scadenza)+".":"")+"\n"+"Sul telefono: menu del browser > Aggiungi alla schermata Home, e diventa un'app."+"\n"+"\n"+"Buono studio! Davide";
   }
+  function esitoEmail(e){ if(!e) return ""; return e.inviata?' <span style="color:var(--ok)">· email inviata</span>':' <span style="color:var(--faint)">· email non inviata ('+h(e.motivo||"")+')</span>'; }
   function pulsantiCredenziali(email,pw,scadenza,nome){
     const m=messaggioCredenziali(email,pw,scadenza,nome);
     return '<div class="acts" style="margin-top:6px"><a class="btn sm" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(m)+'">Invia su WhatsApp</a>'+

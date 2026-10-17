@@ -21,6 +21,15 @@ id = "267b8a17f4fa4153bd98c8988843693a"
 [vars]
 # Origini autorizzate oltre al sito stesso (per le prove in locale e la versione su GitHub Pages)
 ORIGINI = "https://davidemcb.github.io,http://127.0.0.1:8793,http://localhost:8793"
+URL_APP = "https://anatomiapratica.anatomiapratica-server.workers.dev"
+MITTENTE_EMAIL = "scuderidavide@libero.it"
+MITTENTE_NOME = "Davide Scuderi - AnatomiaPratica"
+RISPONDI_A = "scuderidavide@libero.it"
+QUOTA_VENDITORE = "50"
+# BREVO_API_KEY e' un segreto: Cloudflare > Workers > anatomiapratica > Settings > Variables and Secrets
 # SETUP_KEY (chiave una tantum per creare il primo amministratore con POST /api/setup) NON sta qui:
 # in locale va nel file .dev.vars (ignorato da git), online si imposta con `npx wrangler secret put SETUP_KEY`.
 
+# Promemoria di scadenza: ogni giorno alle 7:00 UTC
+[triggers]
+crons = ["0 7 * * *"]

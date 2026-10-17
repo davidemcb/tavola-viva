@@ -21,7 +21,9 @@ CREATE TABLE IF NOT EXISTS abbonamenti (
   importo REAL,
   nota TEXT,
   creato TEXT NOT NULL DEFAULT (datetime('now')),
-  creato_da INTEGER
+  creato_da INTEGER,
+  avviso3 INTEGER NOT NULL DEFAULT 0,
+  avviso0 INTEGER NOT NULL DEFAULT 0
 );
 CREATE INDEX IF NOT EXISTS idx_abb_utente ON abbonamenti(utente_id, scadenza);
 CREATE TABLE IF NOT EXISTS sessioni (
