@@ -10348,6 +10348,10 @@ DB.programma = {
 .sa-opz label{border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer;font-size:13px}
 .sa-opz input{display:none}
 .sa-opz label:has(input:checked){background:var(--muscle);color:#fff;border-color:var(--muscle)}
+.btn.sa-big{background:var(--muscle);border-color:var(--muscle);color:#fff;font-size:15px;padding:12px 20px;border-radius:10px;font-weight:700;letter-spacing:.02em;box-shadow:0 6px 18px -8px var(--muscle)}
+.btn.sa-big:hover{filter:brightness(1.08)}
+#sa-top{margin-left:8px;white-space:nowrap}
+@media (max-width:640px){#sa-top{padding:8px 10px;font-size:12px}}
 </style>
 <script>
 /* =========================================================
@@ -10471,8 +10475,13 @@ document.addEventListener("click",function(e){
 const _vistaScheda_conFai = vistaScheda;
 vistaScheda = function(kind,id){
   if(kind==="allenamento" && (!id || id==="nuova")){ const base=S.rifai? S.schede.find(x=>x.id===S.rifai) : null; S.rifai=null; return vistaFaiScheda(base); }
-  return _vistaScheda_conFai(kind,id);
+  let h=_vistaScheda_conFai(kind,id);
+  if(kind==="problema" && DB.programma[id]) h=h.replace('<button class="btn primary" data-act="ascolta"','<button class="btn sa-big" data-act="fai-scheda" data-id="'+id+'">⚡ Fai scheda</button><button class="btn primary" data-act="ascolta"');
+  return h;
 };
+/* pulsante sempre visibile nella barra in alto */
+(function(){ const bar=document.querySelector(".topbar-in"); const s=bar&&bar.querySelector(".search"); if(!bar||document.getElementById("sa-top")) return;
+  const b=document.createElement("button"); b.id="sa-top"; b.className="btn sa-big"; b.setAttribute("data-go","allenamento/nuova"); b.textContent="⚡ Fai scheda"; bar.insertBefore(b,s); })();
 /* home e studio */
 const _vistaHome_conFai = vistaHome;
 vistaHome = function(){
@@ -10480,7 +10489,9 @@ vistaHome = function(){
   const card='<button class="card" data-go="allenamento/nuova" style="gap:8px;margin-bottom:18px;border-color:var(--muscle)"><span class="eyebrow" style="color:var(--muscle)">Fai scheda</span><h3>Dai problemi del cliente alla scheda di allenamento</h3>'+
     '<p>Scegli i problemi, il livello e l\'attrezzatura: dodici settimane in tre fasi, con gli esercizi giusti, le versioni facili, cosa evitare e quando fermarsi.'+(S.schede.length?' <b>'+S.schede.length+' sched'+(S.schede.length===1?'a fatta':'e fatte')+'.</b>':'')+'</p></button>';
   const k=h.indexOf('<button class="card" data-go="consulto/"');
-  return k<0? card+h : h.slice(0,k)+card+h.slice(k);
+  let out=k<0? card+h : h.slice(0,k)+card+h.slice(k);
+  const big='<div class="acts" style="margin:14px 0 4px"><button class="btn sa-big" data-go="allenamento/nuova" style="font-size:17px;padding:14px 26px">⚡ Fai scheda</button><span style="font-size:13px;color:var(--muted)">dai problemi del cliente alla scheda di allenamento</span></div>';
+  const j=out.indexOf('</section>'); return j<0? big+out : out.slice(0,j)+big+out.slice(j);
 };
 const _vistaStudio_conFai = vistaStudio;
 vistaStudio = function(){
