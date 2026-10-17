@@ -34,7 +34,7 @@ blocchi = function(kind,it){
   };
   if(kind==="muscolo"){
     const L=sposta(B,["Come si allunga","Come si rinforza","Da fare a casa"],["Come si palpa"]);
-    return L.map(b=>b.h==="In trattamento"?Object.assign({},b,{h:"In trattamento (per chi lavora con le mani)"}):b);
+    return L.filter(b=>b.h!=="In trattamento"); /* per chi allena: le manovre di massaggio non compaiono */
   }
   if(kind==="problema"){
     const L=sposta(B,["In palestra"],["Come si tratta"]);
