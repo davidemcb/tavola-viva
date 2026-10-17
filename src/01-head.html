@@ -1,4 +1,5 @@
 <title>AnatomiaPratica</title>
+<script src="config.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 :root{
@@ -66,6 +67,8 @@ svg{display:block;max-width:100%}
 .res .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);flex:none;width:74px}
 .ico{width:34px;height:34px;flex:none;display:grid;place-items:center;border:1px solid var(--line);background:var(--surface);border-radius:9px}
 .ico:hover{border-color:var(--fascia)}
+.ico.on{border-color:var(--fascia);color:var(--fascia)}
+@media(max-width:430px){#theme-btn{display:none}}
 .ico.badge{position:relative}
 .ico.badge b{position:absolute;top:-6px;right:-6px;background:var(--muscle);color:#fff;font-family:var(--mono);font-size:9.5px;min-width:17px;height:17px;border-radius:999px;display:grid;place-items:center;padding:0 3px}
 
