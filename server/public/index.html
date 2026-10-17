@@ -394,6 +394,18 @@ button.card{transition:transform .15s,border-color .15s}
       (d.righe.length?'<table class="tbl"><tr><th>Chi ha venduto</th><th>Abbonamenti</th><th>Contanti</th><th>Bonifico</th><th>Totale</th><th>Quota ('+d.quota+' %)</th></tr>'+d.righe.map(x=>'<tr><td>'+h(x.venditore)+(x.ruolo==="venditore"?"":" <span class=\"eyebrow\">"+h(x.ruolo||"")+"</span>")+'</td><td>'+x.n+'</td><td>'+eur(x.contanti)+'</td><td>'+eur(x.bonifico)+'</td><td><b>'+eur(x.totale)+'</b></td><td>'+(x.ruolo==="venditore"?'<b>'+eur(x.quota_venditore)+'</b>':'—')+'</td></tr>').join("")+'</table>':'<p class="empty">Nessun abbonamento registrato in questo mese.</p>')+
       (d.dettaglio.length?'<details style="margin-top:8px"><summary style="cursor:pointer">Dettaglio ('+d.dettaglio.length+')</summary><table class="tbl" style="font-size:12px;margin-top:6px"><tr><th>Data</th><th>Allievo</th><th>Piano</th><th>Metodo</th><th>€</th><th>Dal</th><th>Al</th><th>Venduto da</th><th>Nota</th></tr>'+d.dettaglio.map(x=>'<tr><td>'+h((x.creato||"").slice(0,10).split("-").reverse().join("/"))+'</td><td>'+h(x.nome||x.email)+'</td><td>'+h(x.piano)+'</td><td>'+h(x.metodo||"")+'</td><td>'+eur(x.importo)+'</td><td>'+h(dataIt(x.inizio))+'</td><td>'+h(dataIt(x.scadenza))+'</td><td>'+h(x.venditore||"")+'</td><td>'+h(x.nota||"")+'</td></tr>').join("")+'</table></details>':'');
     q("#adm-mese").onchange=e=>riepilogoVendite(e.target.value);
+    const sc=document.createElement("button"); sc.className="btn sm"; sc.textContent="Scarica il mese (Excel)"; sc.style.marginLeft="auto"; q("#adm-mese").parentNode.appendChild(sc);
+    sc.onclick=()=>scaricaMese(d);
+  }
+  function scaricaMese(d){
+    const eur=x=>String(Math.round(Number(x||0)*100)/100).replace(".",",");
+    const cella=v=>'"'+String(v==null?"":v).replace(/"/g,'""')+'"';
+    const righe=[["Data","Allievo","Email","Piano","Metodo","Importo (EUR)","Dal","Al","Venduto da","Nota"]];
+    d.dettaglio.forEach(x=>righe.push([(x.creato||"").slice(0,10).split("-").reverse().join("/"),x.nome||"",x.email||"",x.piano||"",x.metodo||"",eur(x.importo),dataIt(x.inizio),dataIt(x.scadenza),x.venditore||"",x.nota||""]));
+    righe.push([]); righe.push(["Riepilogo "+d.mese.split("-").reverse().join("/")]); righe.push(["Chi ha venduto","Abbonamenti","Contanti (EUR)","Bonifico (EUR)","Totale (EUR)","Quota "+d.quota+"% (EUR)"]);
+    d.righe.forEach(x=>righe.push([x.venditore,x.n,eur(x.contanti),eur(x.bonifico),eur(x.totale),x.ruolo==="venditore"?eur(x.quota_venditore):""]));
+    const csv="\ufeff"+righe.map(r=>r.map(cella).join(";")).join("\r\n");
+    const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"})); a.download="anatomiapratica-vendite-"+d.mese+".csv"; document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); },500);
   }
   async function azione(a,id,btn){
     const u=UT.find(x=>x.id===id); const out=q("#adm-out-"+id);

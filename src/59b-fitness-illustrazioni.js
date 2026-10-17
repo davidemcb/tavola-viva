@@ -47,8 +47,8 @@ const _vistaHome_conFitness = vistaHome;
 vistaHome = function(){
   const h=_vistaHome_conFitness();
   if(PROFILO!=="allena") return h;
-  const hero='<section class="fit-hero"><span class="eyebrow">Per chi allena</span><h1 style="font-size:clamp(28px,6vw,44px)">L\'anatomia che spiega perché il cliente non riesce, e cosa farci in palestra</h1>'+
-    '<p>Squat, stacco, panca e trazioni muscolo per muscolo; i problemi del cliente con il blocco «In palestra»; test, trigger point e postura. Tutto cliccabile e ascoltabile.</p>'+FIT_ICONE.atleta+'</section>';
+  const hero='<section class="fit-hero"><span class="eyebrow">Per chi allena</span><h1 style="font-size:clamp(26px,5.2vw,40px)">Capire perché il cliente non riesce. Sapere cosa fargli fare in palestra.</h1>'+
+    '<p>Squat, stacco, panca e trazioni spiegati muscolo per muscolo. I problemi del cliente, con il blocco «In palestra». Test, trigger point e postura. Tutto da leggere o ascoltare, con ogni nome cliccabile.</p>'+FIT_ICONE.atleta+'</section>';
   const k=h.indexOf('<section style="margin-bottom:22px">');
   return k<0? hero+h : h.slice(0,k)+hero+h.slice(k);
 };
