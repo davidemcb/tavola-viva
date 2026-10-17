@@ -377,13 +377,13 @@ button.card{transition:transform .15s,border-color .15s}
     q("#adm-chiudi").onclick=()=>{ o.remove(); };
     q("#adm-nuovo").addEventListener("submit",async e=>{ e.preventDefault(); const f=Object.fromEntries(new FormData(e.target).entries()); const r=await chiama("/api/admin/utente",f);
       if(!r.ok){ q("#adm-nuovo-out").innerHTML='<p style="color:var(--muscle)">'+h(r.data.errore)+'</p>'; return; }
-      await apriPannello(); disegnaPannello('<b>Utente creato.</b> Email: <span class="mono">'+h(f.email)+'</span> · password provvisoria: <b class="mono" style="font-size:16px">'+h(r.data.password)+'</b>'+(r.data.abbonamento?' · attivo fino al '+h(dataIt(r.data.abbonamento.scadenza)):'')); });
+      await apriPannello(); disegnaPannello('<b>Utente creato.</b> Email: <span class="mono">'+h(f.email)+'</span> · password provvisoria: <b class="mono" style="font-size:16px">'+h(r.data.password)+'</b>'+(r.data.abbonamento?' · attivo fino al '+h(dataIt(r.data.abbonamento.scadenza)):'')+pulsantiCredenziali(f.email,r.data.password,r.data.abbonamento&&r.data.abbonamento.scadenza,f.nome)); });
     o.querySelectorAll("[data-adm]").forEach(b=>b.onclick=()=>azione(b.getAttribute("data-adm"),parseInt(b.getAttribute("data-id"),10),b));
   }
   async function azione(a,id,btn){
     const u=UT.find(x=>x.id===id); const out=q("#adm-out-"+id);
     if(a==="stato"){ await chiama("/api/admin/stato",{utente_id:id,attivo:btn.getAttribute("data-v")==="1"}); return apriPannello(); }
-    if(a==="reset"){ if(!confirm("Generare una nuova password provvisoria per "+u.email+"? Quella attuale smette di funzionare.")) return; const r=await chiama("/api/admin/reset",{utente_id:id}); out.innerHTML=r.ok?'Nuova password provvisoria: <b class="mono" style="font-size:15px">'+h(r.data.password)+'</b> (comunicala all\'utente)':'<span style="color:var(--muscle)">'+h(r.data.errore)+'</span>'; return; }
+    if(a==="reset"){ if(!confirm("Generare una nuova password provvisoria per "+u.email+"? Quella attuale smette di funzionare.")) return; const r=await chiama("/api/admin/reset",{utente_id:id}); out.innerHTML=r.ok?'Nuova password provvisoria: <b class="mono" style="font-size:15px">'+h(r.data.password)+'</b>'+pulsantiCredenziali(u.email,r.data.password,u.abbonato?u.scadenza:null,u.nome):'<span style="color:var(--muscle)">'+h(r.data.errore)+'</span>'; return; }
     if(a==="elimina"){ if(!confirm("Eliminare definitivamente "+u.email+" con tutto lo storico?")) return; await chiama("/api/admin/elimina",{utente_id:id}); return apriPannello(); }
     if(a==="storico"){ const r=await chiama("/api/admin/abbonamenti?utente_id="+id); const L=r.ok?r.data.abbonamenti:[];
       out.innerHTML=L.length?'<table class="tbl" style="font-size:12px"><tr><th>Piano</th><th>Dal</th><th>Al</th><th>Metodo</th><th>€</th><th>Nota</th><th></th></tr>'+L.map(x=>'<tr><td>'+h(x.piano)+'</td><td>'+h(dataIt(x.inizio))+'</td><td>'+h(dataIt(x.scadenza))+'</td><td>'+h(x.metodo||"")+'</td><td>'+(x.importo!=null?x.importo:"")+'</td><td>'+h(x.nota||"")+'</td><td><button class="btn sm" data-sc="'+x.id+'">Cambia scadenza</button></td></tr>').join("")+'</table>':'Nessun abbonamento.';
@@ -401,6 +401,17 @@ button.card{transition:transform .15s,border-color .15s}
         if(!r.ok){ out.innerHTML='<span style="color:var(--muscle)">'+h(r.data.errore)+'</span>'; return; } await apriPannello(); disegnaPannello('<b>'+h(u.email)+'</b>: '+h(d.piano)+' attivo dal '+h(dataIt(r.data.abbonamento.inizio))+' al '+h(dataIt(r.data.abbonamento.scadenza))+'.'); });
     }
   }
+  function messaggioCredenziali(email,pw,scadenza,nome){
+    const link=location.origin+location.pathname;
+    return "Ciao "+(nome||"")+"! Ecco il tuo accesso ad AnatomiaPratica, l'atlante del massaggiatore."+"\n"+"\n"+"Apri: "+link+"\n"+"Email: "+email+"\n"+"Password provvisoria: "+pw+"\n"+"\n"+"Al primo accesso scegli la tua password. "+(scadenza?"L'accesso vale fino al "+dataIt(scadenza)+".":"")+"\n"+"Sul telefono: menu del browser > Aggiungi alla schermata Home, e diventa un'app."+"\n"+"\n"+"Buono studio! Davide";
+  }
+  function pulsantiCredenziali(email,pw,scadenza,nome){
+    const m=messaggioCredenziali(email,pw,scadenza,nome);
+    return '<div class="acts" style="margin-top:6px"><a class="btn sm" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(m)+'">Invia su WhatsApp</a>'+
+      '<a class="btn sm" href="mailto:'+encodeURIComponent(email)+'?subject='+encodeURIComponent("Il tuo accesso ad AnatomiaPratica")+'&body='+encodeURIComponent(m)+'">Invia per e-mail</a>'+
+      '<button class="btn sm" type="button" data-copia="'+h(m)+'">Copia messaggio</button></div>';
+  }
+  document.addEventListener("click",e=>{ const b=e.target.closest("[data-copia]"); if(!b) return; navigator.clipboard.writeText(b.getAttribute("data-copia")).then(()=>{ b.textContent="Copiato"; setTimeout(()=>b.textContent="Copia messaggio",1500); }); });
   window.ACCESSO={esci:esci,me:()=>ME};
   document.addEventListener("DOMContentLoaded",avvio);
 })();
