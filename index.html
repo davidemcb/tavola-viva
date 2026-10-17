@@ -10362,35 +10362,75 @@ S.schede = load("schede",[]);
 S.preProblema = null;
 const SA_FASI=[["f1","Fase 1 · settimane 1–4 · mobilità e attivazione","2 serie, movimenti lenti e controllati, nessun dolore: si impara il gesto e si svegliano i muscoli che dormono."],
                ["f2","Fase 2 · settimane 5–8 · forza","3 serie; il carico sale quando le ultime ripetizioni restano pulite; dolore accettabile fino a 3 su 10, che passa entro il giorno dopo."],
-               ["f3","Fase 3 · settimane 9–12 · carico e gesti reali","3–4 serie, carichi più alti, varianti più difficili e il gesto che il cliente deve riconquistare, provato a ogni seduta."]];
+               ["f3","Fase 3 · settimane 9–12 · carico e gesti reali","3–4 serie (una in più per l'avanzato), carichi più alti, varianti più difficili e il gesto che il cliente deve riconquistare, provato a ogni seduta."]];
 const SA_ATTREZZI={corpo:"Corpo libero ed elastici",manubri:"Manubri, kettlebell ed elastici",palestra:"Palestra completa"};
-const SA_LIVELLI={principiante:"Principiante",intermedio:"Intermedio"};
+const SA_LIVELLI={principiante:"Principiante",intermedio:"Intermedio",avanzato:"Avanzato"};
+const SA_COND={ipertensione:"Pressione alta",cardiopatia:"Problemi di cuore",diabete:"Diabete",osteoporosi:"Osteoporosi",gravidanza:"Gravidanza",protesi:"Protesi d'anca o di ginocchio",ernia:"Ernia del disco nota",sovrappeso:"Sovrappeso importante",intervento:"Intervento chirurgico recente (meno di 6 mesi)",trauma:"Trauma o infortunio recente (meno di 3 mesi)"};
+function saAdattamenti(it){
+  const L=[]; const eta=parseInt(it.eta||0,10); const c=it.condizioni||[];
+  if(eta&&eta>=65) L.push("Oltre i 65 anni: a ogni seduta 5 minuti di equilibrio (su una gamba, con appoggio) e un esercizio di potenza leggera (alzarsi dalla sedia veloce, step-up rapido): sono quelli che prevengono le cadute. Progressione del carico più lenta (+5 % ogni due settimane), recupero di 48–72 ore fra le sedute.");
+  else if(eta&&eta>=50) L.push("Dopo i 50 anni: forza due volte a settimana è la priorità (contro la perdita di massa muscolare), con almeno un esercizio in piedi su una gamba per l'equilibrio; attenzione ai tendini, che si adattano più lentamente del muscolo.");
+  if(eta&&eta<18) L.push("Sotto i 18 anni: tecnica prima del carico, niente massimali; se c'è un gibbo o una curva in crescita, prima la valutazione ortopedica.");
+  if(it.sesso==="F"&&eta>=45&&eta<=60&&!c.includes("gravidanza")) L.push("Donna fra 45 e 60 anni: la forza con carico protegge l'osso e il metabolismo nella menopausa; se ci sono vampate o sonno disturbato, sedute più brevi e regolari.");
+  if(it.sesso==="F"&&!c.includes("gravidanza")) L.push("Pavimento pelvico: se ci sono perdite con tosse o salti, niente salti e carichi in apnea finché non è stato valutato; respirare nello sforzo.");
+  if(c.includes("ipertensione")||c.includes("cardiopatia")) L.push("Pressione alta o cuore: mai trattenere il respiro (Valsalva), niente isometrie lunghe sopra i 20 secondi, carichi moderati con più ripetizioni, pause complete; il cardio a ritmo di conversazione è la medicina migliore. Programma concordato con il medico se la pressione non è controllata.");
+  if(c.includes("diabete")) L.push("Diabete: allenarsi dopo un pasto leggero, controllare i piedi (scarpe, calze, piccole ferite), zuccheri a portata di mano; forza e cardio insieme abbassano la glicemia per 24–48 ore.");
+  if(c.includes("osteoporosi")) L.push("Osteoporosi: niente flessioni del tronco caricate (crunch, sit-up, piegarsi con il peso), niente torsioni veloci; sì carico assiale progressivo (squat al box, step-up, farmer walk) ed equilibrio: sono ciò che rinforza l'osso.");
+  if(c.includes("gravidanza")) L.push("Gravidanza: programma concordato con il ginecologo; niente supino prolungato dopo la 20ª settimana, niente salti, niente apnea, carichi moderati, esercizi simmetrici; fermarsi con contrazioni, perdite, capogiri.");
+  if(c.includes("protesi")) L.push("Protesi d'anca o di ginocchio: rispettare i limiti dati dal chirurgo (nell'anca spesso niente flessione oltre 90° con rotazione interna nei primi mesi); niente salti; squat al box e leg press con range controllato.");
+  if(c.includes("ernia")) L.push("Ernia del disco nota: niente flessione lombare caricata e torsioni con peso; hip hinge con la schiena lunga, core anti-rotazione (Pallof), camminata; se il dolore scende nella gamba, fermarsi.");
+  if(c.includes("sovrappeso")) L.push("Sovrappeso importante: bici, acqua e camminata al posto della corsa e dei salti; esercizi in piedi e seduti più che a terra; progressione lenta per tendini e articolazioni.");
+  if(c.includes("intervento")) L.push("Intervento chirurgico recente: valgono le indicazioni del chirurgo e del fisioterapista, non questa scheda, per la zona operata; nessun carico su quella zona finché non è autorizzato per iscritto; il resto del corpo si allena normalmente (gli esercizi della scheda che coinvolgono la zona operata vanno saltati o sostituiti).");
+  if(c.includes("trauma")) L.push("Trauma o infortunio recente: la zona è in riparazione (muscolo 2–6 settimane, legamento 6 settimane–6 mesi, tendine 3–12 mesi, osso 6–12 settimane): sulla zona solo isometrici e range indolore nelle prime settimane, poi carico progressivo; il dolore non deve aumentare il giorno dopo. Se c'è stato un trauma alla testa o al collo, prima la valutazione medica.");
+  if(it.traumi) L.push("Storia riferita (traumi, interventi): "+it.traumi+". Tenerne conto nella scelta delle varianti e chiedere la documentazione medica se recente.");
+  return L;
+}
+function saConsigli(it){
+  const L=[]; const peso=parseFloat(it.peso||0);
+  if(peso) L.push("Acqua: circa "+Math.round(peso*33/100)/10+" litri al giorno ("+Math.round(peso*33)+" ml: 30–35 ml per kg), di più nelle giornate di allenamento e con il caldo.");
+  else L.push("Acqua: 30–35 ml per chilo di peso al giorno, di più nelle giornate di allenamento e con il caldo.");
+  if(peso) L.push("Proteine: in chi si allena per la forza la letteratura indica 1,2–1,6 g per kg al giorno (per "+Math.round(peso)+" kg: "+Math.round(peso*1.2)+"–"+Math.round(peso*1.6)+" g), distribuite nei pasti. È un'indicazione generale: la dieta vera la fa il nutrizionista o il medico.");
+  else L.push("Proteine: in chi si allena per la forza la letteratura indica 1,2–1,6 g per kg al giorno, distribuite nei pasti; la dieta vera la fa il nutrizionista o il medico.");
+  L.push("Sonno: 7–9 ore; il muscolo e il tendine si riparano di notte, e una settimana di sonno corto vale come una seduta saltata.");
+  L.push("Recupero: 48 ore fra due sedute sullo stesso gruppo; una settimana di scarico (metà volume) ogni 4–6; il battito a riposo del mattino come termometro.");
+  return L;
+}
 
 function saVoce(s){ const p=s.split("|"); return p[0].indexOf("e-")===0?{e:p[0],sr:p[1]||""}:{t:p[0],sr:p[1]||"",m:p[2]||""}; }
 /* adatta una voce al livello e all'attrezzatura; restituisce il testo della riga */
+function saAttr(it){ const a=it.attrezzatura; const L=Array.isArray(a)?a:[a||"manubri"]; return L.length?L:["corpo"]; }
 function saRiga(v,livello,attrezzatura){
+  const A=Array.isArray(attrezzatura)?attrezzatura:[attrezzatura];
+  const primo=s=>(s||"").split(/[.;]/)[0].trim().toLowerCase();
   if(v.e){
     const e=DB.esercizi_schede.find(x=>x.id===v.e); if(!e) return null;
     const attr=(e.attrezzo||"").toLowerCase();
     const corpoOk=/corpo libero|elastico|gradino|box|panca|asciugamano|sbarra/.test(attr);
-    const manubriOk=corpoOk||/manubri|kettlebell|cavo|elastico/.test(attr);
+    const manubriOk=/manubri|kettlebell|cavo|elastico/.test(attr);
+    const palestraOk=true;
+    const disponibile=(A.includes("palestra")&&palestraOk)||(A.includes("manubri")&&(manubriOk||corpoOk))||(A.includes("corpo")&&corpoOk);
     let nota="";
-    if(attrezzatura==="corpo" && !corpoOk) nota=" · senza attrezzi: "+(e.regressioni||"").split(/[.;]/)[0].trim().toLowerCase();
-    else if(attrezzatura==="manubri" && !manubriOk) nota=" · con i manubri: "+(e.regressioni||"").split(/[.;]/)[0].trim().toLowerCase();
-    else if(livello==="principiante") nota=" · versione facile: "+(e.regressioni||"").split(/[.;]/)[0].trim().toLowerCase();
+    if(!disponibile) nota=" · con quello che hai: "+primo(e.regressioni);
+    else if(livello==="principiante") nota=" · versione facile: "+primo(e.regressioni);
+    else if(livello==="avanzato") nota=" · versione avanzata: "+primo(e.progressioni)+" (+1 serie)";
     return e.nome+" · "+v.sr+nota;
   }
-  return v.t+(v.sr?" · "+v.sr:"");
+  return v.t+(v.sr?" · "+v.sr:"")+(livello==="avanzato"&&/×/.test(v.sr)?" (+1 serie)":"");
 }
 function saComponi(it){
   const voci={f1:[],f2:[],f3:[]}, visti={f1:{},f2:{},f3:{}};
   it.problemi.forEach(pid=>{ const P=DB.programma[pid]; if(!P) return;
     ["f1","f2","f3"].forEach(f=>(P[f]||[]).forEach(s=>{ const v=saVoce(s); const k=v.e||v.t.toLowerCase(); if(visti[f][k]) return; visti[f][k]=1; voci[f].push(v); })); });
-  const righe={}; ["f1","f2","f3"].forEach(f=>{ righe[f]=voci[f].map(v=>saRiga(v,it.livello,it.attrezzatura)).filter(Boolean); });
+  const zone=[]; it.problemi.forEach(pid=>{ const pr=DB.problemi.find(x=>x.id===pid); const z=pr?pr.zona:(pid.indexOf("post-")===0?"Postura":null); if(z&&zone.indexOf(z)<0) zone.push(z); });
+  (it.discipline||[]).forEach(dk=>{ const D=DB.discipline&&DB.discipline[dk]; if(!D) return;
+    ["f1","f2","f3"].forEach(f=>{ const lista=(D.gen[f]||[]).concat(...zone.map(z=>(D.zone[z]&&D.zone[z][f])||[]));
+      lista.forEach(s=>{ const v=saVoce(s); const k=v.t.toLowerCase(); if(visti[f][k]) return; visti[f][k]=1; voci[f].push(v); }); }); });
+  const righe={}; ["f1","f2","f3"].forEach(f=>{ righe[f]=voci[f].map(v=>saRiga(v,it.livello,saAttr(it))).filter(Boolean); });
   return {voci,righe};
 }
 function saGiorni(righe,giorni){
-  if(righe.length<=5 || giorni<2) return [["Ogni seduta",righe]];
+  if(giorni<2) return [["L'unica seduta della settimana (scegli 5–6 voci e alternale di settimana in settimana)",righe]];
+  if(righe.length<=5) return [["Ogni seduta",righe]];
   const A=righe.filter((r,i)=>i%2===0), B=righe.filter((r,i)=>i%2===1);
   return giorni>=3 ? [["Giorno A (1ª e 3ª seduta)",A],["Giorno B (2ª seduta)",B]] : [["Giorno A",A],["Giorno B",B]];
 }
@@ -10403,7 +10443,9 @@ const _blocchi_conSchede = blocchi;
 blocchi = function(kind,it){
   if(kind!=="allenamento") return _blocchi_conSchede(kind,it);
   const c=saComponi(it); const B=[];
-  B.push({t:"dl",voci:[["Per",it.cliente||"il cliente"],["Problemi di partenza",it.problemi.map(nomeOf).join("; ")],["Livello",SA_LIVELLI[it.livello]||it.livello],["Sedute a settimana",String(it.giorni)],["Attrezzatura",SA_ATTREZZI[it.attrezzatura]||it.attrezzatura],["Fatta il",it.creato]]});
+  const cond=(it.condizioni||[]).map(k=>SA_COND[k]||k).join(", ");
+  B.push({t:"dl",voci:[["Per",(it.cliente||"il cliente")+(it.eta?", "+it.eta+" anni":"")+(it.sesso?(it.sesso==="F"?", donna":it.sesso==="M"?", uomo":""):"")+(it.peso?", "+it.peso+" kg":"")],["Condizioni da considerare",cond||"nessuna segnalata"],["Traumi e interventi",it.traumi||""],["Note",it.note||""],["Problemi di partenza",it.problemi.map(nomeOf).join("; ")],["Livello",SA_LIVELLI[it.livello]||it.livello],["Sedute a settimana",String(it.giorni)],["Attrezzatura",saAttr(it).map(a=>SA_ATTREZZI[a]||a).join(", ")],["Discipline",(it.discipline&&it.discipline.length?it.discipline.map(d=>DB.discipline[d]?DB.discipline[d].n:d).join(", "):"Allenamento con i pesi e a corpo libero")],["Fatta il",it.creato]]});
+  const ad=saAdattamenti(it); if(ad.length) B.push({t:"lista",h:"Adattamenti per questa persona",items:ad});
   B.push({t:"p",h:"Come si usa",txt:"Dodici settimane in tre fasi. Ogni seduta comincia con dieci minuti di riscaldamento (cinque di cardio leggero e gli esercizi di mobilità della fase 1) e finisce con due minuti di respiro lento. Il carico sale solo quando la tecnica resta pulita; se un esercizio fa male oltre 3 su 10 o il dolore resta il giorno dopo, si torna alla versione più facile. Ogni esercizio sottolineato si apre con esecuzione, errori e varianti."});
   SA_FASI.forEach(([f,titolo,descr])=>{
     const r=c.righe[f]; if(!r.length) return;
@@ -10415,6 +10457,7 @@ blocchi = function(kind,it){
   const evita=[],confine=[]; it.problemi.forEach(pid=>{ const P=DB.palestra[pid]; if(!P) return; if(P.evita) evita.push(nomeOf(pid).replace(/[«»]/g,"")+": "+P.evita); if(P.confine) confine.push(P.confine); });
   if(evita.length) B.push({t:"lista",h:"Da evitare finché c'è il problema",items:evita});
   if(confine.length) B.push({t:"lista",h:"Quando fermarsi e mandare dal medico",items:confine,rosso:true});
+  B.push({t:"lista",h:"Consigli generali (non sostituiscono medico e nutrizionista)",items:saConsigli(it)});
   B.push({t:"segreto",txt:"La scheda migliore non è la più completa: è quella che il cliente fa davvero. Tre esercizi fatti bene tre volte a settimana battono dieci esercizi fatti una volta. E il gesto che il cliente voleva riconquistare va provato a ogni seduta: è lui il vero test, non il carico sul bilanciere."});
   return B;
 };
@@ -10428,7 +10471,7 @@ collegamenti = function(kind,it){
       box("Modifica",'<div class="acts"><button class="btn sm" data-act="sa-rifai" data-id="'+it.id+'">Rifai con altre scelte</button><button class="btn sm" data-act="sa-elimina" data-id="'+it.id+'" style="color:var(--muscle)">Elimina questa scheda</button></div>');
   }
   let h=_collegamenti_conSchede(kind,it);
-  if(kind==="problema" && DB.programma[it.id]) h=box("Allenamento",'<button class="btn primary sm" data-act="fai-scheda" data-id="'+it.id+'">Fai scheda da questo problema</button>')+h;
+  if((kind==="problema"||kind==="postura") && DB.programma[it.id]) h=box("Allenamento",'<button class="btn primary sm" data-act="fai-scheda" data-id="'+it.id+'">Fai scheda da '+(kind==="postura"?"questa postura":"questo problema")+'</button>')+h;
   return h;
 };
 /* il testo condiviso di una scheda è la scheda intera */
@@ -10443,17 +10486,28 @@ testoCondivisione = function(kind,it,id){
 function vistaFaiScheda(base){
   const pre=S.preProblema? [S.preProblema] : (base? base.problemi : []);
   const zone={}; DB.problemi.forEach(p=>{ if(!DB.programma[p.id]) return; (zone[p.zona]=zone[p.zona]||[]).push(p); });
+  const posture=(DB.posture||[]).filter(x=>DB.programma[x.id]).map(x=>({id:x.id,voce:x.nome}));
+  if(posture.length) zone["Postura (alterazioni posturali)"]=posture;
   const opz=(name,vals,sel)=>'<div class="sa-opz">'+Object.keys(vals).map(k=>'<label><input type="radio" name="'+name+'" value="'+k+'"'+(String(sel)===k?' checked':'')+'> '+vals[k]+'</label>').join("")+'</div>';
   return crumbs([["Home","home/"],["Fai scheda",null]])+
    '<h1 style="font-size:clamp(23px,5vw,32px);margin-bottom:6px">Fai scheda</h1>'+
    '<p style="margin:0 0 14px;color:var(--muted);max-width:66ch">Scegli i problemi del cliente, il livello, le sedute a settimana e l\'attrezzatura: la scheda di dodici settimane in tre fasi si compone da sola, con gli esercizi presi dalle schede, le versioni facili per chi comincia, cosa evitare e quando fermarsi.</p>'+
    '<form id="sa-form" class="card" style="gap:14px">'+
-   '<label>Nome del cliente (facoltativo)<br><input name="cliente" class="inp" style="width:100%;max-width:360px" value="'+esc(base?base.cliente||"":"")+'" placeholder="Es. Marco"></label>'+
+   '<div><div class="seg" style="margin-bottom:6px">Il cliente</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px">'+
+   '<input name="cliente" class="inp" value="'+esc(base?base.cliente||"":"")+'" placeholder="Nome (facoltativo)">'+
+   '<input name="eta" type="number" min="10" max="100" class="inp" value="'+esc(base?base.eta||"":"")+'" placeholder="Età">'+
+   '<select name="sesso" class="inp"><option value="">Sesso</option><option value="F"'+(base&&base.sesso==="F"?' selected':'')+'>Donna</option><option value="M"'+(base&&base.sesso==="M"?' selected':'')+'>Uomo</option><option value="X"'+(base&&base.sesso==="X"?' selected':'')+'>Altro</option></select>'+
+   '<input name="peso" type="number" min="30" max="250" step="0.5" class="inp" value="'+esc(base?base.peso||"":"")+'" placeholder="Peso (kg, facoltativo)"></div>'+
+   '<div class="sa-opz" style="margin-top:8px">'+Object.keys(SA_COND).map(k=>'<label><input type="checkbox" name="condizioni" value="'+k+'"'+((base&&base.condizioni||[]).includes(k)?' checked':'')+'> '+SA_COND[k]+'</label>').join("")+'</div>'+
+   '<input name="traumi" class="inp" style="width:100%;margin-top:8px" value="'+esc(base?base.traumi||"":"")+'" placeholder="Traumi e interventi chirurgici: che cosa e quando (es. menisco destro operato nel 2024, distorsione caviglia sinistra 2025)">'+
+   '<input name="note" class="inp" style="width:100%;margin-top:8px" value="'+esc(base?base.note||"":"")+'" placeholder="Note (es. lavora in piedi, gioca a calcetto, dorme male)">'+
+   '<p style="font-size:12px;color:var(--faint);margin:6px 0 0">I dati restano solo su questo dispositivo. Età, sesso, peso, condizioni e traumi cambiano gli adattamenti e i consigli della scheda.</p></div>'+
    '<div><div class="seg" style="margin-bottom:6px">Problemi del cliente (uno o più)</div><div class="sa-griglia">'+
    Object.keys(zone).map(z=>'<div class="sa-zona eyebrow">'+esc(z)+'</div>'+zone[z].map(p=>'<label><input type="checkbox" name="p" value="'+p.id+'"'+(pre.includes(p.id)?' checked':'')+'> '+esc(p.voce)+'</label>').join("")).join("")+'</div></div>'+
    '<div><div class="seg" style="margin-bottom:6px">Livello</div>'+opz("livello",SA_LIVELLI,base?base.livello:"principiante")+'</div>'+
-   '<div><div class="seg" style="margin-bottom:6px">Sedute a settimana</div>'+opz("giorni",{"2":"2","3":"3"},base?base.giorni:"2")+'</div>'+
-   '<div><div class="seg" style="margin-bottom:6px">Attrezzatura</div>'+opz("attrezzatura",SA_ATTREZZI,base?base.attrezzatura:"manubri")+'</div>'+
+   '<div><div class="seg" style="margin-bottom:6px">Sedute a settimana</div>'+opz("giorni",{"1":"1","2":"2","3":"3"},base?base.giorni:"2")+'</div>'+
+   '<div><div class="seg" style="margin-bottom:6px">Attrezzatura (anche più di una)</div><div class="sa-opz">'+Object.keys(SA_ATTREZZI).map(k=>'<label><input type="checkbox" name="attrezzatura" value="'+k+'"'+((base?saAttr(base):["manubri"]).includes(k)?' checked':'')+'> '+SA_ATTREZZI[k]+'</label>').join("")+'</div></div>'+
+   '<div><div class="seg" style="margin-bottom:6px">Discipline da aggiungere (facoltative)</div><div class="sa-opz">'+Object.keys(DB.discipline||{}).map(k=>'<label title="'+esc(DB.discipline[k].d)+'"><input type="checkbox" name="discipline" value="'+k+'"'+((base&&base.discipline||[]).includes(k)?' checked':'')+'> '+DB.discipline[k].n+'</label>').join("")+'</div><p style="font-size:12.5px;color:var(--faint);margin:6px 0 0">Gli esercizi con i pesi e a corpo libero ci sono sempre; qui aggiungi pilates, yoga, cammino, acqua o respiro, con le voci adatte alle zone dei problemi scelti.</p></div>'+
    '<p id="sa-err" style="color:var(--muscle);margin:0"></p>'+
    '<div class="acts"><button class="btn primary" type="submit">Fai scheda</button></div></form>';
 }
@@ -10462,7 +10516,7 @@ document.addEventListener("submit",function(e){
   const fd=new FormData(f); const problemi=fd.getAll("p");
   if(!problemi.length){ document.querySelector("#sa-err").textContent="Scegli almeno un problema."; return; }
   const cliente=(fd.get("cliente")||"").trim(); const d=new Date();
-  const it={id:"sa-"+Date.now().toString(36),nome:"Scheda"+(cliente?" per "+cliente:"")+" · "+problemi.map(p=>nomeOf(p).replace(/[«»]/g,"")).join(" + ").slice(0,90),cliente:cliente,problemi:problemi,livello:fd.get("livello")||"principiante",giorni:parseInt(fd.get("giorni")||"2",10),attrezzatura:fd.get("attrezzatura")||"manubri",creato:d.toLocaleDateString("it-IT")};
+  const it={id:"sa-"+Date.now().toString(36),nome:"Scheda"+(cliente?" per "+cliente:"")+" · "+problemi.map(p=>nomeOf(p).replace(/[«»]/g,"")).join(" + ").slice(0,90),cliente:cliente,problemi:problemi,livello:fd.get("livello")||"principiante",giorni:parseInt(fd.get("giorni")||"2",10),attrezzatura:(fd.getAll("attrezzatura").length?fd.getAll("attrezzatura"):["corpo"]),discipline:fd.getAll("discipline"),eta:(fd.get("eta")||"").trim(),sesso:fd.get("sesso")||"",peso:(fd.get("peso")||"").trim(),condizioni:fd.getAll("condizioni"),traumi:(fd.get("traumi")||"").trim().slice(0,300),note:(fd.get("note")||"").trim().slice(0,300),creato:d.toLocaleDateString("it-IT")};
   S.schede.unshift(it); save("schede",S.schede); S.preProblema=null; vai("allenamento/"+it.id);
 });
 document.addEventListener("click",function(e){
@@ -10476,7 +10530,7 @@ const _vistaScheda_conFai = vistaScheda;
 vistaScheda = function(kind,id){
   if(kind==="allenamento" && (!id || id==="nuova")){ const base=S.rifai? S.schede.find(x=>x.id===S.rifai) : null; S.rifai=null; return vistaFaiScheda(base); }
   let h=_vistaScheda_conFai(kind,id);
-  if(kind==="problema" && DB.programma[id]) h=h.replace('<button class="btn primary" data-act="ascolta"','<button class="btn sa-big" data-act="fai-scheda" data-id="'+id+'">⚡ Fai scheda</button><button class="btn primary" data-act="ascolta"');
+  if((kind==="problema"||kind==="postura") && DB.programma[id]) h=h.replace('<button class="btn primary" data-act="ascolta"','<button class="btn sa-big" data-act="fai-scheda" data-id="'+id+'">⚡ Fai scheda</button><button class="btn primary" data-act="ascolta"');
   return h;
 };
 /* pulsante sempre visibile nella barra in alto */
@@ -10499,6 +10553,111 @@ vistaStudio = function(){
     (S.schede.length?'<div class="grid g3" style="margin-bottom:12px">'+S.schede.map(s=>'<button class="card" data-go="allenamento/'+s.id+'" style="gap:3px"><span class="eyebrow">'+esc(s.creato)+' · '+esc(SA_LIVELLI[s.livello]||"")+'</span><h3 style="font-size:15px">'+esc(s.nome)+'</h3></button>').join("")+'</div>':'<p class="empty">Nessuna scheda ancora. </p>')+
     '<button class="btn sm" data-go="allenamento/nuova">Fai scheda</button>';
 };
+</script>
+<script>
+/* =========================================================
+   DISCIPLINE per «Fai scheda»: pilates, yoga e mobilità, camminata e corsa, acqua, respiro e rilassamento.
+   Ogni disciplina aggiunge voci alle tre fasi: quelle generali sempre, quelle della zona quando un problema
+   scelto appartiene a quella zona. Formato: "Testo|dose|m-id".
+   ========================================================= */
+DB.discipline = {
+ pilates:{n:"Pilates",d:"Controllo del centro, respiro e precisione: ideale per schiena, bacino e postura",
+  gen:{f1:["Pilates · respirazione laterale con le mani sulle costole|2×10 respiri|m-diaframma","Pilates · imprint e neutro del bacino (basculamento lento)|2×10|m-trasverso","Pilates · pelvic curl (ponte vertebra per vertebra)|2×8|m-gluteo-massimo"],
+       f2:["Pilates · hundred modificato (ginocchia piegate)|2×10 respiri|m-retto-addominale","Pilates · single leg stretch|2×10 per gamba|m-trasverso","Pilates · swimming a quattro zampe (bird-dog pilates)|2×8 per lato|m-multifido"],
+       f3:["Pilates · hundred con gambe a 45°|3×10 respiri|m-retto-addominale","Pilates · roll up lento|2×6|m-retto-addominale","Pilates · side kick series|2×10 per lato|m-gluteo-medio"]},
+  zone:{"Lombare":{f1:["Pilates · cat stretch con il respiro|2×8|m-multifido"],f2:["Pilates · dead bug con cerchio o cuscino tra le ginocchia|2×8|m-trasverso"],f3:["Pilates · swan dive modificato (estensione controllata)|2×6|m-erettori"]},
+        "Collo":{f1:["Pilates · nod del capo (sì piccolo) con il respiro|2×10|m-lungo-collo"],f2:["Pilates · arm circles da supino con scapole ferme|2×8|m-dentato"],f3:["Pilates · chest lift con il mento retratto|2×8|m-retto-addominale"]},
+        "Spalla":{f1:["Pilates · scapular reach da supino (allontanare le scapole)|2×10|m-dentato"],f2:["Pilates · arm arcs con elastico|2×10|m-trapezio"],f3:["Pilates · push up pilates con scapole controllate|2×6|m-dentato"]},
+        "Anca":{f1:["Pilates · leg circles piccoli da supino|2×6 per verso|m-ileopsoas"],f2:["Pilates · clam (conchiglia) con respiro|2×12|m-gluteo-medio"],f3:["Pilates · side leg lift series|2×10 per lato|m-gluteo-medio"]},
+        "Ginocchio":{f1:["Pilates · footwork da supino con elastico (estensione del ginocchio)|2×10|m-vasto-mediale"],f2:["Pilates · bridge con una gamba sollevata|2×6 per gamba|m-gluteo-massimo"],f3:["Pilates · squat su una gamba con controllo del bacino|2×6|m-quadricipite"]},
+        "Piede":{f1:["Pilates · foot articulation (rotolare il piede tallone-punta)|2×10|m-intrinseci-piede"],f2:["Pilates · relevé lenti con l'arco attivo|2×12|m-tibiale-post"],f3:["Pilates · relevé su una gamba|2×8|m-soleo"]},
+        "Postura":{f1:["Pilates · roll down al muro vertebra per vertebra|2×5|m-erettori"],f2:["Pilates · spine twist da seduti|2×6 per lato|m-obliqui"],f3:["Pilates · teaser modificato|2×5|m-retto-addominale"]},
+        "Colonna":{f1:["Pilates · roll down al muro|2×5|m-erettori"],f2:["Pilates · spine twist|2×6 per lato|m-obliqui"],f3:["Pilates · swan con braccia a T|2×6|m-trapezio"]}}},
+ yoga:{n:"Yoga e mobilità",d:"Posizioni tenute e flussi lenti: mobilità, respiro, consapevolezza del corpo",
+  gen:{f1:["Yoga · gatto-mucca con il respiro|2×8|m-multifido","Yoga · posizione del bambino|2×45 s|m-erettori","Yoga · respiro a narici alternate o respiro quadrato|3 min|m-diaframma"],
+       f2:["Yoga · cane a testa in giù (ginocchia piegate se serve)|3×30 s|m-ischiocrurali","Yoga · guerriero II|2×30 s per lato|m-gluteo-medio","Yoga · affondo basso (anjaneyasana) per lo psoas|2×30 s per lato|m-ileopsoas"],
+       f3:["Yoga · saluto al sole lento|3 giri|m-erettori","Yoga · sedia (utkatasana)|3×30 s|m-quadricipite","Yoga · posizione dell'albero|2×30 s per lato|m-gluteo-medio"]},
+  zone:{"Lombare":{f1:["Yoga · ginocchia al petto e torsione supina dolce|2×30 s per lato|m-quadrato-lombi"],f2:["Yoga · sfinge (estensione dolce)|2×30 s|m-erettori"],f3:["Yoga · ponte (setu bandha)|2×30 s|m-gluteo-massimo"]},
+        "Collo":{f1:["Yoga · inclinazioni del collo con il respiro|2×30 s per lato|m-trapezio"],f2:["Yoga · gatto-mucca con lo sguardo che guida|2×8|m-splenio"],f3:["Yoga · cobra basso con mento retratto|2×20 s|m-semispinale"]},
+        "Spalla":{f1:["Yoga · braccia dell'aquila (garudasana) per la scapola|2×20 s per lato|m-romboidi"],f2:["Yoga · viso di mucca (gomukhasana) per le braccia|2×30 s per lato|m-rotondi"],f3:["Yoga · cane a testa in giù con spinta delle scapole|3×30 s|m-dentato"]},
+        "Anca":{f1:["Yoga · farfalla (baddha konasana)|2×45 s|m-adduttori"],f2:["Yoga · piccione (eka pada rajakapotasana) modificato|2×30 s per lato|m-piriforme"],f3:["Yoga · ghirlanda (malasana, accovacciata)|3×30 s|m-adduttore-grande"]},
+        "Ginocchio":{f1:["Yoga · montagna con le ginocchia morbide e il piede attivo|2×30 s|m-quadricipite"],f2:["Yoga · guerriero I con il ginocchio sul piede|2×30 s per lato|m-vasto-mediale"],f3:["Yoga · sedia su una gamba (appoggio)|2×20 s per lato|m-gluteo-medio"]},
+        "Piede":{f1:["Yoga · montagna con le dita allargate e il tripode|2×30 s|m-intrinseci-piede"],f2:["Yoga · albero con l'arco attivo|2×30 s per lato|m-tibiale-post"],f3:["Yoga · cane a testa in giù con talloni che scendono|3×30 s|m-gastrocnemio"]},
+        "Postura":{f1:["Yoga · montagna con il filo a piombo|2×30 s|m-erettori"],f2:["Yoga · cammello modificato (apertura del petto)|2×20 s|m-pettorale-grande"],f3:["Yoga · guerriero III|2×15 s per lato|m-gluteo-massimo"]},
+        "Colonna":{f1:["Yoga · torsione da seduti dolce|2×30 s per lato|m-obliqui"],f2:["Yoga · cammello modificato|2×20 s|m-pettorale-grande"],f3:["Yoga · locusta (salabhasana)|2×15 s|m-erettori"]}}},
+ cammino:{n:"Camminata e corsa",d:"Il cardio che serve davvero: progressione del volume, salite e intervalli",
+  gen:{f1:["Camminata a ritmo di conversazione|25–30 min, 3 volte a settimana|m-gluteo-massimo","Camminata con passi lunghi e braccia che oscillano|5 min dentro la camminata|m-ileopsoas"],
+       f2:["Camminata veloce con tratti in salita leggera|30–35 min, 3 volte a settimana|m-gluteo-massimo","Corsa leggera alternata a camminata (1 min / 2 min)|20 min, 2 volte a settimana, se il cliente corre|m-soleo"],
+       f3:["Camminata veloce o corsa continua|35–45 min, 3 volte a settimana|m-gastrocnemio","Intervalli brevi (30 s veloci / 90 s lenti)|8 ripetizioni, 1 volta a settimana|m-quadricipite"]},
+  zone:{"Lombare":{f1:["Camminata con il bacino neutro e l'addome leggermente attivo|ogni uscita|m-trasverso"],f2:["Camminata in salita leggera (apre il canale e attiva i glutei)|10 min|m-gluteo-massimo"],f3:["Nordic walking o camminata con i bastoncini|30 min|m-gran-dorsale"]},
+        "Ginocchio":{f1:["Camminata in piano con scarpe ammortizzate|20 min|m-quadricipite"],f2:["Salita leggera sì, discesa con passi corti|15 min|m-vasto-mediale"],f3:["Corsa su superficie morbida, volume +10 % a settimana|2 volte a settimana|m-gluteo-medio"]},
+        "Piede":{f1:["Camminata su superficie morbida con scarpe con sostegno|20 min|m-plantare"],f2:["Camminata con spinta dell'alluce consapevole|20 min|m-flessore-lungo-alluce"],f3:["Corsa breve a cadenza alta (passi corti e frequenti)|15 min|m-soleo"]},
+        "Anca":{f1:["Camminata con passo lungo dietro (estensione d'anca)|20 min|m-gluteo-massimo"],f2:["Salite leggere|15 min|m-gluteo-massimo"],f3:["Scalinate a passo controllato|10 min|m-gluteo-medio"]},
+        "Postura":{f1:["Camminata con lo sguardo all'orizzonte e le spalle giù|20 min|m-trapezio"],f2:["Camminata veloce con le braccia che oscillano dalle spalle|25 min|m-gran-dorsale"],f3:["Nordic walking|30 min|m-trapezio"]}}},
+ acqua:{n:"Acqua (nuoto e ginnastica in acqua)",d:"Carico ridotto e resistenza dolce: per chi ha dolore, peso o articolazioni delicate",
+  gen:{f1:["Acqua · camminata in acqua all'altezza del petto, avanti, indietro e di lato|15 min|m-gluteo-medio","Acqua · respiro con espirazione nell'acqua|3 min|m-diaframma"],
+       f2:["Acqua · nuoto a dorso o stile libero con la testa in asse|20 min|m-gran-dorsale","Acqua · squat e affondi in acqua|3×12|m-quadricipite"],
+       f3:["Acqua · nuoto continuo con cambi di ritmo|30 min|m-gran-dorsale","Acqua · corsa in acqua profonda con il galleggiante|15 min|m-ileopsoas"]},
+  zone:{"Lombare":{f1:["Acqua · galleggiamento sulla schiena con il respiro|5 min|m-erettori"],f2:["Acqua · dorso (non rana con la testa fuori)|15 min|m-gran-dorsale"],f3:["Acqua · corsa in acqua profonda|15 min|m-trasverso"]},
+        "Spalla":{f1:["Acqua · circonduzioni delle braccia sotto il pelo dell'acqua|2×10|m-deltoide"],f2:["Acqua · dorso con bracciata corta|15 min|m-sottospinato"],f3:["Acqua · stile libero con rollio del tronco|20 min|m-gran-dorsale"]},
+        "Ginocchio":{f1:["Acqua · camminata e sollevamenti del ginocchio|10 min|m-quadricipite"],f2:["Acqua · squat in acqua al petto|3×15|m-vasto-mediale"],f3:["Acqua · salti leggeri in acqua|3×10|m-quadricipite"]},
+        "Anca":{f1:["Acqua · abduzioni e circonduzioni dell'anca|2×10 per lato|m-gluteo-medio"],f2:["Acqua · affondi in acqua|3×10|m-gluteo-massimo"],f3:["Acqua · corsa in acqua profonda|15 min|m-ileopsoas"]},
+        "Collo":{f1:["Acqua · galleggiamento con il collo sostenuto|5 min|m-trapezio"],f2:["Acqua · dorso (mai rana con la testa fuori)|15 min|m-lungo-collo"],f3:["Acqua · stile libero con respiro bilaterale|20 min|m-scom"]}}},
+ respiro:{n:"Respiro e rilassamento",d:"Diaframma, sistema nervoso, sonno: la base di ogni recupero",
+  gen:{f1:["Respiro diaframmatico da supino (4 s dentro, 8 s fuori)|5 min, ogni giorno|m-diaframma","Rilassamento progressivo (contrai e lascia andare dai piedi alla testa)|8 min|m-trapezio"],
+       f2:["Respiro con le costole (mani sui fianchi)|3 min|m-intercostali","Respiro quadrato (4-4-4-4)|5 min|m-diaframma"],
+       f3:["Respiro lento a 6 atti al minuto|10 min|n-vago","Espirazione lunga tra le serie di forza|ogni seduta|m-diaframma"]},
+  zone:{"Collo":{f1:["Respiro basso con le spalle appoggiate (il collo non respira)|5 min|m-scaleni"],f2:["Rilascio suboccipitale con le palline e respiro|3 min|m-suboccipitali"],f3:["Respiro nasale lento durante la camminata|10 min|m-diaframma"]},
+        "Lombare":{f1:["Crocodile breathing (prono, respiro nella schiena)|5 min|m-diaframma"],f2:["Espirazione lunga con trasverso attivo|10×|m-trasverso"],f3:["Respiro 360° in posizione del bambino|3 min|m-diaframma"]},
+        "Colonna":{f1:["Respiro nelle costole basse con la cinghia|3 min|m-intercostali"],f2:["Apertura del torace con il respiro sul rullo|3 min|m-pettorale-grande"],f3:["Respiro con le braccia in alto|2 min|m-dentato"]}}}
+};
+</script>
+<script>
+/* «Fai scheda» per le posture: spalle anteposte, ipercifosi, iperlordosi, sway back, testa anteposta, scapola alata, ginocchio valgo, piede piatto, crociate. */
+Object.assign(DB.programma,{
+ "post-spalle-anteposte":{f1:["Allungamento del pettorale piccolo con l'asciugamano lungo la colonna|3 min|m-pettorale-piccolo","Allungamento del pettorale nel vano della porta alle tre altezze|2×30 s|m-pettorale-grande","Scivolamenti al muro con l'asciugamano|2×10|m-dentato","Retrazione del mento|10×10 s|m-lungo-collo","Estensioni dorsali sul rullo|2×8|m-erettori"],
+  f2:["e-face-pull|3×12","Y-W-T da prono con 1 kg|3×10 s|m-trapezio","e-rematore|3×10 con pausa a scapole retratte","e-flessioni|3×10 con il plus","Apertura del libro|2×8|m-erettori"],
+  f3:["e-rematore|3×8","e-trazioni|3×6 presa neutra","e-pullover|3×10","e-face-pull|3×15","e-farmer-walk|3×30 m con le spalle giù"]},
+ "post-ipercifosi":{f1:["Estensioni dorsali sul rullo|2×8|m-erettori","Asciugamano lungo la colonna con le braccia aperte|3 min|m-pettorale-grande","Respiro nelle costole basse|3 min|m-diaframma","Retrazione del mento|10×10 s|m-lungo-collo","Gatto-cammello|2×8|m-multifido"],
+  f2:["Y-W-T da prono|3×10 s|m-trapezio","e-face-pull|3×12","Estensione dorsale da prono con le mani dietro la nuca|3×8|m-erettori","e-rematore|3×10","Apertura del libro|2×8|m-erettori"],
+  f3:["e-rematore|3×8","e-pullover|3×10","e-trazioni|3×6","e-military-press|3×8 landmine (solo se il dorso si estende)","e-stacco-rumeno|3×8 con la schiena lunga"]},
+ "post-iperlordosi":{f1:["Basculamento del bacino (retroversione attiva)|3×10|m-retto-addominale","Affondo con bacino in retroversione (psoas)|2×30 s per lato|m-ileopsoas","Allungamento del retto femorale in ginocchio|2×30 s per lato|m-vasto-intermedio","e-dead-bug|2×8","e-hip-thrust|2×12 ponte con retroversione"],
+  f2:["e-dead-bug|3×8","e-hip-thrust|3×10","e-plank|3×20 s con il bacino in retroversione","e-pallof-press|3×10","e-squat|3×8 al box con il bacino neutro"],
+  f3:["e-stacco|3×6 con i glutei che chiudono","e-hollow|3×20 s","e-farmer-walk|3×30 m con il bacino neutro","e-squat|3×8","e-military-press|3×8 landmine con i glutei attivi"]},
+ "post-sway":{f1:["Allungamento degli ischiocrurali con la cinghia|2×45 s|m-ischiocrurali","Antiversione attiva del bacino (ritrovare la lordosi)|3×10|m-erettori","e-hip-thrust|2×12 ponte","Retrazione del mento|10×10 s|m-lungo-collo","Respiro diaframmatico|5 min|m-diaframma"],
+  f2:["e-stacco-rumeno|3×10 con la lordosi conservata","e-dead-bug|3×8 bird-dog","Flessione dell'anca contro elastico (psoas che si risveglia)|3×12|m-ileopsoas","e-rematore|3×10","Y da prono|3×10 s|m-trapezio"],
+  f3:["e-stacco|3×6","e-squat|3×8 con il peso al centro del piede","e-step-up|3×8","e-farmer-walk|3×30 m","e-face-pull|3×12"]},
+ "post-rettilineizzazione":{f1:["Retrazione del mento da supino|10×10 s|m-lungo-collo","Rilascio suboccipitale con le palline|3 min|m-suboccipitali","Estensioni dorsali sul rullo|2×8|m-erettori","Allungamento del pettorale piccolo|2×30 s|m-pettorale-piccolo","Scivolamenti al muro|2×10|m-dentato"],
+  f2:["Retrazione con sollevamento della testa di 1 cm|3×8|m-lungo-collo","Estensione del collo da prono con mento retratto|3×8|m-semispinale","Y-W-T da prono|3×10 s|m-trapezio","e-face-pull|3×12","Apertura del libro|2×8|m-erettori"],
+  f3:["e-rematore|3×10 con il collo neutro","e-trazioni|3×6","Retrazione contro elastico da seduti|3×10|m-lungo-collo","e-farmer-walk|3×30 m con lo sguardo all'orizzonte","e-flessioni|3×10 con il plus"]},
+ "post-scapola-alata":{f1:["e-flessioni|3×10 al muro con il plus","Scivolamenti al muro con l'asciugamano|2×10|m-dentato","Pugno al soffitto da supino (protrazione contro un peso leggero)|3×10|m-dentato","Allungamento del pettorale piccolo|2×30 s|m-pettorale-piccolo","Retrazione del mento|10×10 s|m-lungo-collo"],
+  f2:["e-flessioni|3×10 sul tavolo con il plus","Y da prono|3×10 s|m-trapezio","e-face-pull|3×12","Pugno al soffitto con manubrio|3×10|m-dentato","e-rematore|3×10"],
+  f3:["e-flessioni|3×10 a terra con il plus","e-military-press|3×8 landmine","e-plank|3×25 s con scapole spinte via","e-trazioni|3×6 lat machine","Pugno al soffitto con carico|3×8|m-dentato"]},
+ "post-ginocchio":{f1:["Conchiglia con elastico|3×15|m-gluteo-medio","Short foot|10×10 s|m-intrinseci-piede","e-leg-extension|3×15 TKE con elastico","Ginocchio al muro per la caviglia|3×10|m-soleo","e-hip-thrust|2×12 ponte"],
+  f2:["e-step-up|3×8 step-down lento allo specchio","Camminata laterale con elastico|3×12|m-gluteo-medio","e-squat|3×8 al box con il ginocchio sul secondo dito","e-leg-curl|3×8 sliding","e-calf-raise|3×12 con l'arco attivo"],
+  f3:["e-squat-bulgaro|3×8","e-affondi|3×8","e-squat|3×8","Salti con atterraggio controllato|3×6|m-gluteo-medio","Equilibrio su una gamba con perturbazioni|3×30 s|m-tibiale-post"]},
+ "post-piede":{f1:["Short foot|10×10 s|m-intrinseci-piede","Toe spread e alluce che si alza|3×10|m-abduttore-alluce","Inversione contro elastico|3×15|m-tibiale-post","e-calf-raise|2×15 con il tallone verso l'interno","Equilibrio su una gamba|3×20 s|m-peronei"],
+  f2:["e-calf-raise|3×12 su una gamba con l'arco attivo","Eversione contro elastico (per il piede cavo)|3×15|m-peronei","e-squat|3×8 con il tripode del piede","Conchiglia|3×15|m-gluteo-medio","Camminata scalzi su superfici morbide|10 min|m-intrinseci-piede"],
+  f3:["e-calf-raise|3×10 dal gradino su una gamba","e-affondi|3×8","Salti a piedi uniti con atterraggio sull'arco|3×8|m-tibiale-post","e-step-up|3×8","Equilibrio su cuscino con lanci|3×30 s|m-peronei"]},
+ "post-crociata-sup":{f1:["Allungamento del pettorale piccolo e grande|2×30 s|m-pettorale-piccolo","Allungamento del trapezio superiore e dell'elevatore|2×30 s per lato|m-elevatore","Retrazione del mento|10×10 s|m-lungo-collo","Scivolamenti al muro|2×10|m-dentato","Estensioni dorsali sul rullo|2×8|m-erettori"],
+  f2:["Y-W-T da prono|3×10 s|m-trapezio","e-face-pull|3×12","e-flessioni|3×10 con il plus","e-rematore|3×10 con pausa","Estensione del collo da prono con mento retratto|3×8|m-semispinale"],
+  f3:["e-rematore|3×8","e-trazioni|3×6 presa neutra","e-pullover|3×10","e-face-pull|3×15","e-farmer-walk|3×30 m"]},
+ "post-crociata-inf":{f1:["Affondo con bacino in retroversione (psoas)|2×30 s per lato|m-ileopsoas","Allungamento del retto femorale|2×30 s per lato|m-vasto-intermedio","Allungamento degli erettori lombari (ginocchia al petto)|2×30 s|m-erettori","e-hip-thrust|2×12 ponte","e-dead-bug|2×8"],
+  f2:["e-hip-thrust|3×10","e-dead-bug|3×8 bird-dog","e-plank|3×20 s","Conchiglia con elastico|3×15|m-gluteo-medio","e-squat|3×8 al box con il bacino neutro"],
+  f3:["e-stacco|3×6","e-step-up|3×8","e-hollow|3×20 s","e-farmer-walk|3×30 m","e-kettlebell-swing|3×12 (hinge pulito)"]}
+});
+Object.assign(DB.palestra,{
+ "post-spalle-anteposte":{evita:"Panca e spinte come unico lavoro, dip, crunch, cardio con il busto chiuso.",allena:"Pettorali allungati, trapezio inferiore e romboidi forti, dentato anteriore, flessori profondi del collo.",adatta:"Rapporto tirate/spinte 2:1 per mesi; pause con il petto aperto.",confine:"Spalla dolente con debolezza o formicolio al braccio: valutazione prima del programma."},
+ "post-ipercifosi":{evita:"Flessioni del tronco caricate, spinte sopra la testa senza estensione dorsale, stare curvi tra le serie.",allena:"Estensione dorsale, trapezio inferiore, apertura del torace, respiro nelle costole.",adatta:"Mobilità dorsale prima delle spinte; manubri invece del bilanciere sopra la testa.",confine:"Cifosi rigida e dolente in un adolescente o comparsa in pochi mesi nell'anziano con dolore: medico."},
+ "post-iperlordosi":{evita:"Iperestensioni a cedimento, good morning, military con la schiena inarcata, leg raise con la lombare che si stacca.",allena:"Retroversione attiva, glutei e addominali profondi, psoas e retto femorale allungati.",adatta:"Carichi sopra la testa solo con i glutei attivi; squat al box con il bacino neutro.",confine:"Dolore lombare con irradiazione, spondilolistesi nota, dolore notturno: medico."},
+ "post-sway":{evita:"Stretching ulteriore degli ischiocrurali già lunghi, esercizi in retroversione forzata, iperestensione delle ginocchia sotto carico.",allena:"Ritrovare la lordosi (antiversione attiva), psoas e flessori d'anca, ischiocrurali forti ma non più lunghi.",adatta:"Stacco rumeno con la lordosi conservata, ginocchia morbide negli stacchi.",confine:"Sway back con dolore lombare acuto o segni neurologici: medico."},
+ "post-rettilineizzazione":{evita:"Esercizi con la testa in avanti (telefono tra le serie), ponte sul collo, carichi che irrigidiscono il collo.",allena:"Flessori profondi del collo, estensione dorsale, pettorale piccolo allungato, trapezio inferiore.",adatta:"Specchio ad altezza occhi, collo neutro in ogni esercizio.",confine:"Formicolio alle mani o vertigini con i movimenti del collo: medico."},
+ "post-scapola-alata":{evita:"Carichi sopra la testa e panca pesante finché la scapola non resta attaccata nella spinta al muro.",allena:"Dentato anteriore (plus), trapezio inferiore, pettorale piccolo allungato.",adatta:"Spinte prima al muro, poi sul tavolo, poi a terra; carico solo con la scapola stabile.",confine:"Scapola alata comparsa da sola con dolore e debolezza: nervo toracico lungo, medico."},
+ "post-ginocchio":{evita:"Salti e cambi di direzione senza controllo del ginocchio, leg extension pesante nel valgo doloroso, iperestensione sotto carico nel recurvato.",allena:"Gluteo medio, vasto mediale, piede attivo, controllo dello step-down.",adatta:"Squat con i piedi un po' larghi e il ginocchio sul secondo dito; ginocchia morbide negli stacchi (recurvato).",confine:"Ginocchio gonfio, che cede o si blocca; valgo doloroso in un adolescente: medico."},
+ "post-piede":{evita:"Correre con scarpe consumate, salti su superfici dure nelle fasi dolorose, calf raise con la caviglia che crolla dentro.",allena:"Intrinseci del piede, tibiale posteriore e peroneo lungo, gluteo medio, equilibrio.",adatta:"Scarpe con sostegno nelle fasi dolorose; progressione verso il lavoro scalzo su superfici morbide.",confine:"Piede piatto comparso da adulto con gonfiore dietro il malleolo interno, piede rigido e doloroso in un adolescente: ortopedico."},
+ "post-crociata-sup":{evita:"Solo spinte, crunch, cardio con il busto chiuso.",allena:"Pettorali e trapezio superiore allungati; trapezio inferiore, romboidi, dentato e flessori profondi del collo forti.",adatta:"Tirate 2:1 rispetto alle spinte; pause con il petto aperto.",confine:"Dolore cervicale con formicolio al braccio: valutazione."},
+ "post-crociata-inf":{evita:"Iperestensioni caricate, sit-up con i piedi bloccati, leg raise senza controllo.",allena:"Psoas e retto femorale allungati; glutei e addominali profondi forti.",adatta:"Squat al box con il bacino neutro, hip hinge con la schiena lunga.",confine:"Lombalgia con irradiazione o deficit: medico."}
+});
 </script>
 <style>
 .figsvg{width:100%;max-width:270px;height:auto}

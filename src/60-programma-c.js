@@ -1,0 +1,58 @@
+<script>
+/* =========================================================
+   DISCIPLINE per «Fai scheda»: pilates, yoga e mobilità, camminata e corsa, acqua, respiro e rilassamento.
+   Ogni disciplina aggiunge voci alle tre fasi: quelle generali sempre, quelle della zona quando un problema
+   scelto appartiene a quella zona. Formato: "Testo|dose|m-id".
+   ========================================================= */
+DB.discipline = {
+ pilates:{n:"Pilates",d:"Controllo del centro, respiro e precisione: ideale per schiena, bacino e postura",
+  gen:{f1:["Pilates · respirazione laterale con le mani sulle costole|2×10 respiri|m-diaframma","Pilates · imprint e neutro del bacino (basculamento lento)|2×10|m-trasverso","Pilates · pelvic curl (ponte vertebra per vertebra)|2×8|m-gluteo-massimo"],
+       f2:["Pilates · hundred modificato (ginocchia piegate)|2×10 respiri|m-retto-addominale","Pilates · single leg stretch|2×10 per gamba|m-trasverso","Pilates · swimming a quattro zampe (bird-dog pilates)|2×8 per lato|m-multifido"],
+       f3:["Pilates · hundred con gambe a 45°|3×10 respiri|m-retto-addominale","Pilates · roll up lento|2×6|m-retto-addominale","Pilates · side kick series|2×10 per lato|m-gluteo-medio"]},
+  zone:{"Lombare":{f1:["Pilates · cat stretch con il respiro|2×8|m-multifido"],f2:["Pilates · dead bug con cerchio o cuscino tra le ginocchia|2×8|m-trasverso"],f3:["Pilates · swan dive modificato (estensione controllata)|2×6|m-erettori"]},
+        "Collo":{f1:["Pilates · nod del capo (sì piccolo) con il respiro|2×10|m-lungo-collo"],f2:["Pilates · arm circles da supino con scapole ferme|2×8|m-dentato"],f3:["Pilates · chest lift con il mento retratto|2×8|m-retto-addominale"]},
+        "Spalla":{f1:["Pilates · scapular reach da supino (allontanare le scapole)|2×10|m-dentato"],f2:["Pilates · arm arcs con elastico|2×10|m-trapezio"],f3:["Pilates · push up pilates con scapole controllate|2×6|m-dentato"]},
+        "Anca":{f1:["Pilates · leg circles piccoli da supino|2×6 per verso|m-ileopsoas"],f2:["Pilates · clam (conchiglia) con respiro|2×12|m-gluteo-medio"],f3:["Pilates · side leg lift series|2×10 per lato|m-gluteo-medio"]},
+        "Ginocchio":{f1:["Pilates · footwork da supino con elastico (estensione del ginocchio)|2×10|m-vasto-mediale"],f2:["Pilates · bridge con una gamba sollevata|2×6 per gamba|m-gluteo-massimo"],f3:["Pilates · squat su una gamba con controllo del bacino|2×6|m-quadricipite"]},
+        "Piede":{f1:["Pilates · foot articulation (rotolare il piede tallone-punta)|2×10|m-intrinseci-piede"],f2:["Pilates · relevé lenti con l'arco attivo|2×12|m-tibiale-post"],f3:["Pilates · relevé su una gamba|2×8|m-soleo"]},
+        "Postura":{f1:["Pilates · roll down al muro vertebra per vertebra|2×5|m-erettori"],f2:["Pilates · spine twist da seduti|2×6 per lato|m-obliqui"],f3:["Pilates · teaser modificato|2×5|m-retto-addominale"]},
+        "Colonna":{f1:["Pilates · roll down al muro|2×5|m-erettori"],f2:["Pilates · spine twist|2×6 per lato|m-obliqui"],f3:["Pilates · swan con braccia a T|2×6|m-trapezio"]}}},
+ yoga:{n:"Yoga e mobilità",d:"Posizioni tenute e flussi lenti: mobilità, respiro, consapevolezza del corpo",
+  gen:{f1:["Yoga · gatto-mucca con il respiro|2×8|m-multifido","Yoga · posizione del bambino|2×45 s|m-erettori","Yoga · respiro a narici alternate o respiro quadrato|3 min|m-diaframma"],
+       f2:["Yoga · cane a testa in giù (ginocchia piegate se serve)|3×30 s|m-ischiocrurali","Yoga · guerriero II|2×30 s per lato|m-gluteo-medio","Yoga · affondo basso (anjaneyasana) per lo psoas|2×30 s per lato|m-ileopsoas"],
+       f3:["Yoga · saluto al sole lento|3 giri|m-erettori","Yoga · sedia (utkatasana)|3×30 s|m-quadricipite","Yoga · posizione dell'albero|2×30 s per lato|m-gluteo-medio"]},
+  zone:{"Lombare":{f1:["Yoga · ginocchia al petto e torsione supina dolce|2×30 s per lato|m-quadrato-lombi"],f2:["Yoga · sfinge (estensione dolce)|2×30 s|m-erettori"],f3:["Yoga · ponte (setu bandha)|2×30 s|m-gluteo-massimo"]},
+        "Collo":{f1:["Yoga · inclinazioni del collo con il respiro|2×30 s per lato|m-trapezio"],f2:["Yoga · gatto-mucca con lo sguardo che guida|2×8|m-splenio"],f3:["Yoga · cobra basso con mento retratto|2×20 s|m-semispinale"]},
+        "Spalla":{f1:["Yoga · braccia dell'aquila (garudasana) per la scapola|2×20 s per lato|m-romboidi"],f2:["Yoga · viso di mucca (gomukhasana) per le braccia|2×30 s per lato|m-rotondi"],f3:["Yoga · cane a testa in giù con spinta delle scapole|3×30 s|m-dentato"]},
+        "Anca":{f1:["Yoga · farfalla (baddha konasana)|2×45 s|m-adduttori"],f2:["Yoga · piccione (eka pada rajakapotasana) modificato|2×30 s per lato|m-piriforme"],f3:["Yoga · ghirlanda (malasana, accovacciata)|3×30 s|m-adduttore-grande"]},
+        "Ginocchio":{f1:["Yoga · montagna con le ginocchia morbide e il piede attivo|2×30 s|m-quadricipite"],f2:["Yoga · guerriero I con il ginocchio sul piede|2×30 s per lato|m-vasto-mediale"],f3:["Yoga · sedia su una gamba (appoggio)|2×20 s per lato|m-gluteo-medio"]},
+        "Piede":{f1:["Yoga · montagna con le dita allargate e il tripode|2×30 s|m-intrinseci-piede"],f2:["Yoga · albero con l'arco attivo|2×30 s per lato|m-tibiale-post"],f3:["Yoga · cane a testa in giù con talloni che scendono|3×30 s|m-gastrocnemio"]},
+        "Postura":{f1:["Yoga · montagna con il filo a piombo|2×30 s|m-erettori"],f2:["Yoga · cammello modificato (apertura del petto)|2×20 s|m-pettorale-grande"],f3:["Yoga · guerriero III|2×15 s per lato|m-gluteo-massimo"]},
+        "Colonna":{f1:["Yoga · torsione da seduti dolce|2×30 s per lato|m-obliqui"],f2:["Yoga · cammello modificato|2×20 s|m-pettorale-grande"],f3:["Yoga · locusta (salabhasana)|2×15 s|m-erettori"]}}},
+ cammino:{n:"Camminata e corsa",d:"Il cardio che serve davvero: progressione del volume, salite e intervalli",
+  gen:{f1:["Camminata a ritmo di conversazione|25–30 min, 3 volte a settimana|m-gluteo-massimo","Camminata con passi lunghi e braccia che oscillano|5 min dentro la camminata|m-ileopsoas"],
+       f2:["Camminata veloce con tratti in salita leggera|30–35 min, 3 volte a settimana|m-gluteo-massimo","Corsa leggera alternata a camminata (1 min / 2 min)|20 min, 2 volte a settimana, se il cliente corre|m-soleo"],
+       f3:["Camminata veloce o corsa continua|35–45 min, 3 volte a settimana|m-gastrocnemio","Intervalli brevi (30 s veloci / 90 s lenti)|8 ripetizioni, 1 volta a settimana|m-quadricipite"]},
+  zone:{"Lombare":{f1:["Camminata con il bacino neutro e l'addome leggermente attivo|ogni uscita|m-trasverso"],f2:["Camminata in salita leggera (apre il canale e attiva i glutei)|10 min|m-gluteo-massimo"],f3:["Nordic walking o camminata con i bastoncini|30 min|m-gran-dorsale"]},
+        "Ginocchio":{f1:["Camminata in piano con scarpe ammortizzate|20 min|m-quadricipite"],f2:["Salita leggera sì, discesa con passi corti|15 min|m-vasto-mediale"],f3:["Corsa su superficie morbida, volume +10 % a settimana|2 volte a settimana|m-gluteo-medio"]},
+        "Piede":{f1:["Camminata su superficie morbida con scarpe con sostegno|20 min|m-plantare"],f2:["Camminata con spinta dell'alluce consapevole|20 min|m-flessore-lungo-alluce"],f3:["Corsa breve a cadenza alta (passi corti e frequenti)|15 min|m-soleo"]},
+        "Anca":{f1:["Camminata con passo lungo dietro (estensione d'anca)|20 min|m-gluteo-massimo"],f2:["Salite leggere|15 min|m-gluteo-massimo"],f3:["Scalinate a passo controllato|10 min|m-gluteo-medio"]},
+        "Postura":{f1:["Camminata con lo sguardo all'orizzonte e le spalle giù|20 min|m-trapezio"],f2:["Camminata veloce con le braccia che oscillano dalle spalle|25 min|m-gran-dorsale"],f3:["Nordic walking|30 min|m-trapezio"]}}},
+ acqua:{n:"Acqua (nuoto e ginnastica in acqua)",d:"Carico ridotto e resistenza dolce: per chi ha dolore, peso o articolazioni delicate",
+  gen:{f1:["Acqua · camminata in acqua all'altezza del petto, avanti, indietro e di lato|15 min|m-gluteo-medio","Acqua · respiro con espirazione nell'acqua|3 min|m-diaframma"],
+       f2:["Acqua · nuoto a dorso o stile libero con la testa in asse|20 min|m-gran-dorsale","Acqua · squat e affondi in acqua|3×12|m-quadricipite"],
+       f3:["Acqua · nuoto continuo con cambi di ritmo|30 min|m-gran-dorsale","Acqua · corsa in acqua profonda con il galleggiante|15 min|m-ileopsoas"]},
+  zone:{"Lombare":{f1:["Acqua · galleggiamento sulla schiena con il respiro|5 min|m-erettori"],f2:["Acqua · dorso (non rana con la testa fuori)|15 min|m-gran-dorsale"],f3:["Acqua · corsa in acqua profonda|15 min|m-trasverso"]},
+        "Spalla":{f1:["Acqua · circonduzioni delle braccia sotto il pelo dell'acqua|2×10|m-deltoide"],f2:["Acqua · dorso con bracciata corta|15 min|m-sottospinato"],f3:["Acqua · stile libero con rollio del tronco|20 min|m-gran-dorsale"]},
+        "Ginocchio":{f1:["Acqua · camminata e sollevamenti del ginocchio|10 min|m-quadricipite"],f2:["Acqua · squat in acqua al petto|3×15|m-vasto-mediale"],f3:["Acqua · salti leggeri in acqua|3×10|m-quadricipite"]},
+        "Anca":{f1:["Acqua · abduzioni e circonduzioni dell'anca|2×10 per lato|m-gluteo-medio"],f2:["Acqua · affondi in acqua|3×10|m-gluteo-massimo"],f3:["Acqua · corsa in acqua profonda|15 min|m-ileopsoas"]},
+        "Collo":{f1:["Acqua · galleggiamento con il collo sostenuto|5 min|m-trapezio"],f2:["Acqua · dorso (mai rana con la testa fuori)|15 min|m-lungo-collo"],f3:["Acqua · stile libero con respiro bilaterale|20 min|m-scom"]}}},
+ respiro:{n:"Respiro e rilassamento",d:"Diaframma, sistema nervoso, sonno: la base di ogni recupero",
+  gen:{f1:["Respiro diaframmatico da supino (4 s dentro, 8 s fuori)|5 min, ogni giorno|m-diaframma","Rilassamento progressivo (contrai e lascia andare dai piedi alla testa)|8 min|m-trapezio"],
+       f2:["Respiro con le costole (mani sui fianchi)|3 min|m-intercostali","Respiro quadrato (4-4-4-4)|5 min|m-diaframma"],
+       f3:["Respiro lento a 6 atti al minuto|10 min|n-vago","Espirazione lunga tra le serie di forza|ogni seduta|m-diaframma"]},
+  zone:{"Collo":{f1:["Respiro basso con le spalle appoggiate (il collo non respira)|5 min|m-scaleni"],f2:["Rilascio suboccipitale con le palline e respiro|3 min|m-suboccipitali"],f3:["Respiro nasale lento durante la camminata|10 min|m-diaframma"]},
+        "Lombare":{f1:["Crocodile breathing (prono, respiro nella schiena)|5 min|m-diaframma"],f2:["Espirazione lunga con trasverso attivo|10×|m-trasverso"],f3:["Respiro 360° in posizione del bambino|3 min|m-diaframma"]},
+        "Colonna":{f1:["Respiro nelle costole basse con la cinghia|3 min|m-intercostali"],f2:["Apertura del torace con il respiro sul rullo|3 min|m-pettorale-grande"],f3:["Respiro con le braccia in alto|2 min|m-dentato"]}}}
+};
+</script>
