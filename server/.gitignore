@@ -1,0 +1,5 @@
+node_modules/
+.wrangler/
+app-bundle.js
+public/tavole/
+.dev.vars

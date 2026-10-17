@@ -1,0 +1,25 @@
+name = "anatomiapratica"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+# Il sito (pagina di accesso, icone, tavole) è servito come file statici; il Worker risponde solo a /api/*
+[assets]
+directory = "./public"
+binding = "ASSETS"
+
+# Base dati: utenti, abbonamenti, sessioni
+[[d1_databases]]
+binding = "DB"
+database_name = "anatomiapratica"
+database_id = "DA-COMPILARE-DOPO-wrangler-d1-create"
+
+# Contenuti dell'app (il bundle JS), consegnati solo a chi ha un abbonamento attivo
+[[kv_namespaces]]
+binding = "DATI"
+id = "DA-COMPILARE-DOPO-wrangler-kv-namespace-create"
+
+[vars]
+# Origini autorizzate oltre al sito stesso (per le prove in locale e la versione su GitHub Pages)
+ORIGINI = "https://davidemcb.github.io,http://127.0.0.1:8793,http://localhost:8793"
+# SETUP_KEY (chiave una tantum per creare il primo amministratore con POST /api/setup) NON sta qui:
+# in locale va nel file .dev.vars (ignorato da git), online si imposta con `npx wrangler secret put SETUP_KEY`.
