@@ -9561,25 +9561,27 @@ function applicaProfilo(){
 }
 applicaProfilo();
 
-/* ordine dei blocchi nelle schede */
+/* ordine e filtro dei blocchi nelle schede, secondo il profilo */
 const _blocchi_conProfilo = blocchi;
 blocchi = function(kind,it){
   const B=_blocchi_conProfilo(kind,it);
-  if(PROFILO!=="allena") return B;
+  if(!PROFILO) return B;
   const sposta=(lista,titoli,primaDi)=>{
     const mossi=lista.filter(b=>titoli.includes(b.h)); if(!mossi.length) return lista;
     const resto=lista.filter(b=>!titoli.includes(b.h));
     let k=resto.findIndex(b=>primaDi.includes(b.h)); if(k<0) k=resto.findIndex(b=>b.t==="segreto"); if(k<0) k=resto.length;
     return resto.slice(0,k).concat(mossi,resto.slice(k));
   };
-  if(kind==="muscolo"){
-    const L=sposta(B,["Come si allunga","Come si rinforza","Da fare a casa"],["Come si palpa"]);
-    return L.filter(b=>b.h!=="In trattamento"); /* per chi allena: le manovre di massaggio non compaiono */
+  if(PROFILO==="mani"){
+    /* chi lavora con le mani: niente blocco palestra nei problemi */
+    if(kind==="problema") return B.filter(b=>b.h!=="In palestra");
+    return B;
   }
-  if(kind==="problema"){
-    const L=sposta(B,["In palestra"],["Come si tratta"]);
-    return L.map(b=>b.h==="Come si tratta"?Object.assign({},b,{h:"Come si tratta con le mani"}):b);
-  }
+  /* chi allena: niente manovre di trattamento manuale */
+  const manuali=["In trattamento","Come si tratta","Come si tratta con le mani"];
+  if(kind==="muscolo") return sposta(B.filter(b=>!manuali.includes(b.h)),["Come si allunga","Come si rinforza","Da fare a casa"],["Come si palpa"]);
+  if(kind==="problema") return B.filter(b=>!manuali.includes(b.h));
+  if(kind==="trigger"||kind==="postura"||kind==="catena") return B.filter(b=>!manuali.includes(b.h));
   return B;
 };
 
