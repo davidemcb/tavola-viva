@@ -10184,6 +10184,311 @@ vistaLista = function(k){
   return h.replace(/<button class="card" data-go="esercizio\/([a-z0-9-]+)" style="gap:3px">/g,(m,id)=>{ const it=DB.esercizi_schede.find(e=>e.id===id); return '<button class="card fit-porta" data-go="esercizio/'+id+'" style="gap:3px">'+(it?FIT_ICONE[fitIconaPer(it)]:""); });
 };
 </script>
+<script>
+/* =========================================================
+   PROGRAMMA DI ALLENAMENTO dai problemi del cliente: per ogni problema, esercizi per fase.
+   Formato di ogni voce: "e-id|serie×rip"  (scheda esercizio)  oppure  "Testo|serie×rip|m-id"  (esercizio senza scheda, collegato al muscolo).
+   f1 = settimane 1–4 (mobilità e attivazione) · f2 = 5–8 (forza) · f3 = 9–12 (carico e gesti reali)
+   ========================================================= */
+DB.programma = {
+ "p-reggiseno":{f1:["Scivolamento della mano dietro la schiena con l'asciugamano|2×10 lenti|m-sottoscapolare","Sleeper stretch dolce|2×30 s|m-sottospinato","Rotazione esterna con elastico, gomito al fianco|2×15|m-sottospinato","Allungamento del pettorale piccolo nel vano della porta|2×30 s|m-pettorale-piccolo","e-face-pull|2×12"],
+  f2:["e-face-pull|3×12","Rotazione interna ed esterna con elastico a 90° di abduzione|3×12|m-sottospinato","e-rematore|3×10","Y da prono con 1 kg|3×10 s|m-trapezio","e-pullover|3×10"],
+  f3:["e-rematore|3×8","e-trazioni|3×6 (lat machine presa neutra)","e-military-press|3×8 (landmine)","Mano dietro la schiena contro elastico leggero|3×12|m-sottoscapolare","e-face-pull|3×15"]},
+ "p-calzino":{f1:["90/90 a terra, cambi di lato lenti|2×8|m-rotatori-anca","Rotazione interna ed esterna dell'anca da seduti con elastico|2×12|m-gluteo-medio","Ginocchio al muro per la caviglia|2×10|m-soleo","e-hip-thrust|2×12 (ponte)","e-squat|2×8 al box alto"],
+  f2:["e-squat|3×8 al box","e-hip-thrust|3×10","e-step-up|3×8 per gamba","e-affondi|3×8 indietro","Conchiglia con elastico|3×15|m-gluteo-medio"],
+  f3:["e-front-squat|3×8 goblet con pausa","e-stacco|3×6 dai blocchi","e-affondo-laterale|3×8 per lato","e-squat-bulgaro|3×8","Prova del gesto: mettersi il calzino da seduto, poi in piedi con appoggio|ogni seduta|m-ileopsoas"]},
+ "p-spalla-alta":{f1:["Allungamento del trapezio superiore e dell'elevatore (mano sotto la sedia)|2×30 s per lato|m-elevatore","Scivolamenti al muro con l'asciugamano|2×10|m-dentato","e-flessioni|2×10 al muro con il plus","Retrazione del mento|10×10 s|m-lungo-collo","Side plank sulle ginocchia dal lato opposto|2×20 s|m-quadrato-lombi"],
+  f2:["e-face-pull|3×12","Y-W-T da prono|3×10 s ciascuna|m-trapezio","e-rematore|3×10 con pausa (lato alto per primo)","e-farmer-walk|3×30 m (suitcase, lato basso)","e-plank|3×25 s (side plank)"],
+  f3:["e-trazioni|3×6 presa neutra","e-rematore|3×8 a un braccio","e-military-press|3×8 landmine, un braccio","e-farmer-walk|3×40 m","e-face-pull|3×15"]},
+ "p-pettinarsi":{f1:["Pendolari e scivolamenti con il bastone nel range indolore|2×10|m-sovraspinato","Rotazione esterna con elastico, gomito al fianco|2×15|m-sottospinato","e-alzate-laterali|2×15 full can con 0,5 kg","Scivolamenti al muro con l'asciugamano|2×10|m-dentato","Allungamento del gran dorsale alla sedia|2×30 s|m-gran-dorsale"],
+  f2:["e-alzate-laterali|3×12 full can 1 kg","e-face-pull|3×12","e-flessioni|3×10 con il plus","e-rematore|3×10","Y da prono|3×10 s|m-trapezio"],
+  f3:["e-military-press|3×8 landmine","e-trazioni|3×6 lat machine","e-pullover|3×10","e-panca|3×8 con manubri a presa neutra","Prova del gesto: mano alla nuca e sullo scaffale alto|ogni seduta|m-deltoide"]},
+ "p-retromarcia":{f1:["Rotazioni cervicali lente nel range indolore|2×10|m-splenio","Retrazione del mento|10×10 s|m-lungo-collo","Apertura del libro da sdraiati sul fianco|2×8 per lato|m-erettori","Estensioni dorsali sul rullo|2×8|m-erettori","Rotazioni del tronco con il bastone da seduti|2×10|m-obliqui"],
+  f2:["e-pallof-press|3×10 per lato","e-dead-bug|3×8 per lato (bird-dog)","e-face-pull|3×12","Rotazione del tronco con elastico da in piedi|3×12 per lato|m-obliqui","Estensione del collo da prono con mento retratto|3×8|m-semispinale"],
+  f3:["e-farmer-walk|3×30 m suitcase","e-pallof-press|3×10 in affondo","e-rematore|3×8 a un braccio con rotazione controllata","e-kettlebell-swing|3×12 (se l'hinge è pulito)","Prova del gesto: rotazione per la retromarcia da seduto in auto|ogni seduta|m-scom"]},
+ "p-alzarsi":{f1:["Hip hinge con il bastone|2×10|m-gluteo-massimo","e-hip-thrust|2×12 ponte","e-dead-bug|2×8 per lato","Affondo con bacino in retroversione (psoas)|2×30 s per lato|m-ileopsoas","Gatto-cammello|2×8|m-multifido"],
+  f2:["e-stacco-rumeno|3×10 con manubri","e-hip-thrust|3×10","e-squat|3×8 al box","e-dead-bug|3×8 bird-dog","e-plank|3×20 s side plank"],
+  f3:["e-stacco|3×6 kettlebell o trap bar","e-squat|3×8","e-kettlebell-swing|3×12","e-farmer-walk|3×30 m","Prova del gesto: sit-to-stand senza mani, 5 volte veloci|ogni seduta|m-quadricipite"]},
+ "p-torcicollo":{f1:["Rotazioni e inclinazioni lente nel range indolore|3×8|m-elevatore","Allungamento dell'elevatore (naso verso la tasca)|2×30 s|m-elevatore","Retrazione del mento|10×10 s|m-lungo-collo","Apertura del libro|2×8 per lato|m-erettori","Camminata 20 minuti|ogni giorno|m-trapezio"],
+  f2:["e-face-pull|3×12","Y da prono|3×10 s|m-trapezio","e-dead-bug|3×8","e-plank|3×20 s in ginocchio","Estensione del collo da prono con mento retratto|3×8|m-semispinale"],
+  f3:["e-rematore|3×10 con pausa","e-farmer-walk|3×30 m","e-trazioni|3×6 lat machine","e-flessioni|3×10","Mobilità cervicale completa in tutte le direzioni|ogni seduta|m-splenio"]},
+ "p-cefalea":{f1:["Retrazione del mento|10×10 s|m-lungo-collo","Rilascio suboccipitale con le palline|3 min|m-suboccipitali","Allungamento del trapezio superiore|2×30 s per lato|m-trapezio","Respiro diaframmatico|5 min|m-diaframma","Estensioni dorsali sul rullo|2×8|m-erettori"],
+  f2:["Y-W-T da prono|3×10 s|m-trapezio","e-face-pull|3×12","Allungamento del pettorale nel vano della porta|2×30 s|m-pettorale-grande","Esercizi oculo-cervicali|2 min|m-suboccipitali","Camminata veloce|30 min, 3 volte a settimana|m-gluteo-massimo"],
+  f3:["e-rematore|3×10","e-flessioni|3×10 con il plus","e-dead-bug|3×8","Cardio moderato a ritmo di conversazione|30–40 min, 3 volte a settimana|m-diaframma","Retrazione del mento contro resistenza leggera|3×10|m-lungo-collo"]},
+ "p-braccio-sopra-testa":{f1:["Rotazione esterna con elastico, gomito al fianco|2×15|m-sottospinato","e-alzate-laterali|2×15 full can 0,5 kg","Scivolamenti al muro|2×10|m-dentato","Sleeper stretch dolce|2×30 s|m-sottospinato","Allungamento del pettorale piccolo|2×30 s|m-pettorale-piccolo"],
+  f2:["e-face-pull|3×12","e-alzate-laterali|3×12 full can 1 kg","e-flessioni|3×10 con il plus","e-rematore|3×10 presa neutra","Rotazione esterna a 90° di abduzione con elastico|3×10|m-sottospinato"],
+  f3:["e-military-press|3×8 landmine","e-panca|3×8 manubri presa neutra","e-trazioni|3×6 lat machine presa neutra","e-pullover|3×10 leggero","e-face-pull|3×15"]},
+ "p-spalla-congelata":{f1:["Pendolari|2×1 min|m-deltoide","Scivolamenti con il bastone in flessione e rotazione esterna nel range indolore|3×10|m-sottoscapolare","Rotazione esterna isometrica leggera|5×10 s|m-sottospinato","Scapola: retrazione e depressione|2×10|m-trapezio","e-squat|2×10 al box (gambe e core, mentre la spalla recupera)"],
+  f2:["Scivolamenti con il bastone, range in aumento|3×10|m-sottoscapolare","Rotazione esterna con elastico nel range disponibile|3×12|m-sottospinato","e-rematore|3×10 nel range indolore","e-hip-thrust|3×12","e-dead-bug|3×8"],
+  f3:["e-alzate-laterali|3×12 full can leggero","e-face-pull|3×12","e-flessioni|3×10 al muro con il plus","e-trazioni|3×8 lat machine leggera","e-stacco|3×8 (gambe e core normali)"]},
+ "p-gomito-tennista":{f1:["Estensione del polso eccentrica con manubrio leggero|3×15 (4 s in discesa)|m-estensori-radiali-carpo","Allungamento degli estensori (polso flesso, gomito teso)|3×30 s|m-estensori-polso","Isometrico in estensione del polso|5×45 s|m-estensori-radiali-carpo","Rotazione esterna della spalla con elastico|2×15|m-sottospinato","e-face-pull|2×12"],
+  f2:["Estensione del polso eccentrica|3×15|m-estensori-radiali-carpo","Rotazioni con il martello|3×15|m-supinatore","e-curl|3×12 a martello","e-rematore|3×10 presa neutra","Presa con il polso esteso contro elastico|3×12|m-estensori-polso"],
+  f3:["e-rematore|3×8 presa neutra","e-trazioni|3×6 presa neutra con fasce","e-farmer-walk|3×30 m con impugnature grosse","Estensione del polso con carico crescente|3×12|m-estensori-radiali-carpo","e-flessioni|3×10 sulle maniglie"]},
+ "p-mano-gonfia-mattino":{f1:["Apertura e chiusura delle dita in acqua calda|3 min|m-flessori-dita","Elastico attorno alle dita|3×15|m-lombricali-interossei","Mobilità del polso in tutte le direzioni|2×10|m-flessori-polso","Camminata|20 min|m-gastrocnemio","Pinza con la pasta morbida|2×10|m-tenar"],
+  f2:["e-curl|3×12 a martello con impugnature grosse","e-rematore|3×10 con le fasce","e-flessioni|3×10 sulle maniglie","Elastico attorno alle dita|3×15|m-lombricali-interossei","Cardio moderato|30 min|m-diaframma"],
+  f3:["e-farmer-walk|3×30 m con impugnature grosse","e-trazioni|3×6 lat machine con fasce","e-panca|3×8 manubri","Presa e pinza con carico crescente|3×10|m-flessori-dita","e-dead-bug|3×8"]},
+ "p-formicolio-braccio":{f1:["Allungamento del pettorale piccolo con l'asciugamano lungo la colonna|3 min|m-pettorale-piccolo","Allungamento degli scaleni con espirazione|2×30 s per lato|m-scaleni","Respiro diaframmatico|5 min|m-diaframma","Scorrimenti neurali del mediano, delicati|2×10|m-pronatori","Scivolamenti al muro con l'asciugamano|2×10|m-dentato"],
+  f2:["Y da prono|3×10 s|m-trapezio","e-face-pull|3×12","e-flessioni|3×10 con il plus","e-rematore|3×10 presa neutra","Abbassamento della prima costa con il respiro|2×10|m-scaleni"],
+  f3:["e-rematore|3×8","e-trazioni|3×6 presa neutra","e-panca|3×8 manubri con scapole retratte","e-pallof-press|3×10","e-farmer-walk|3×30 m (spalle giù)"]},
+ "p-dito-scatto":{f1:["Scorrimenti dei tendini (uncino, pugno pieno, pugno dritto)|3×10, 3 volte al giorno|m-flessori-dita","Estensione delle dita contro elastico|3×15|m-estensori-dita","Mobilità del polso|2×10|m-flessori-polso","Allungamento dei flessori con il palmo al muro|2×30 s|m-flessori-dita","Tutore notturno con il dito dritto|ogni notte|m-flessori-dita"],
+  f2:["e-curl|3×12 a martello con le fasce","e-rematore|3×10 con le fasce","e-flessioni|3×10 sulle maniglie","Estensione delle dita contro elastico|3×15|m-estensori-dita","e-dead-bug|3×8"],
+  f3:["e-trazioni|3×6 lat machine con fasce","e-panca|3×8 manubri","e-farmer-walk|3×20 m con presa leggera","Scorrimenti dei tendini|ogni giorno|m-flessori-dita","e-plank|3×25 s sugli avambracci"]},
+ "p-click-mandibola":{f1:["Apertura controllata con la lingua sul palato davanti allo specchio|3×10|m-pterigoidei","Lateralità lente|2×10 per lato|m-pterigoidei","Automassaggio di massetere e temporale|2 min|m-massetere","Retrazione del mento|10×10 s|m-lungo-collo","Respiro nasale diaframmatico|5 min|m-diaframma"],
+  f2:["e-face-pull|3×12","Y da prono|3×10 s|m-trapezio","e-dead-bug|3×8 espirando (senza serrare)","Apertura contro lieve resistenza della mano|3×8|m-sopraioidei","Camminata|30 min|m-gluteo-massimo"],
+  f3:["e-rematore|3×10 espirando, denti separati","e-squat|3×8 goblet senza serrare","e-plank|3×25 s con respiro","Lateralità contro resistenza del dito|3×8 per lato|m-pterigoidei","Controllo del serramento tra le serie|ogni seduta|m-massetere"]},
+ "p-vertigine-collo":{f1:["Esercizi oculo-cervicali (occhi fermi, testa che ruota)|2 min|m-suboccipitali","Retrazione del mento|10×10 s|m-lungo-collo","Equilibrio su una gamba, occhi aperti|3×20 s|m-gluteo-medio","Mobilità C0–C1 dolce|2×8|m-suboccipitali","Respiro diaframmatico|5 min|m-diaframma"],
+  f2:["Equilibrio su una gamba a occhi chiusi|3×15 s|m-peronei","e-step-up|3×8 lento","e-dead-bug|3×8","Y da prono|3×10 s|m-trapezio","Camminata con la testa che ruota|5 min|m-splenio"],
+  f3:["e-squat|3×8 goblet","e-affondi|3×8 indietro","Equilibrio su cuscino con lanci|3×30 s|m-tibiale-post","e-farmer-walk|3×30 m","Cambi di posizione controllati (da terra a in piedi)|3×5|m-gluteo-massimo"]},
+ "p-sciatica":{f1:["Camminata|20–30 min ogni giorno|m-gluteo-massimo","Estensioni da prono se riducono il dolore|3×10|m-erettori","Scorrimenti del nervo sciatico, delicati|2×10|m-ischiocrurali","e-hip-thrust|2×12 ponte","e-dead-bug|2×8"],
+  f2:["e-dead-bug|3×8 bird-dog","Conchiglia con elastico|3×15|m-gluteo-medio","e-hip-thrust|3×10","e-squat|3×8 al box","e-plank|3×20 s side plank"],
+  f3:["e-stacco|3×6 kettlebell (hinge pulito)","e-squat|3×8","e-step-up|3×8","e-farmer-walk|3×30 m","e-pallof-press|3×10"]},
+ "p-crampi-polpaccio":{f1:["Allungamento di gastrocnemio e soleo|2×45 s ciascuno, ogni sera|m-soleo","e-calf-raise|2×15 lenti da terra","Mobilità della caviglia (ginocchio al muro)|2×10|m-tibiale-ant","Camminata o bici|20 min|m-gastrocnemio","Idratazione e sali|ogni giorno|m-soleo"],
+  f2:["e-calf-raise|3×12 dal gradino con pausa in allungamento","e-calf-raise|3×15 seduti (soleo)","e-squat|3×10","Camminata sui talloni|3×30 s|m-tibiale-ant","Bici o nuoto|30 min|m-gastrocnemio"],
+  f3:["e-calf-raise|3×10 su una gamba","e-stacco-rumeno|3×10","e-affondi|3×8","Saltelli con la corda|3×30 s|m-soleo","Allungamento serale|ogni sera|m-gastrocnemio"]},
+ "p-caviglia-recidiva":{f1:["Equilibrio su una gamba, occhi aperti poi chiusi|3×30 s|m-peronei","Eversione contro elastico|3×15|m-peronei","e-calf-raise|2×15","Alfabeto con il piede|2 volte|m-tibiale-ant","Conchiglia con elastico|2×15|m-gluteo-medio"],
+  f2:["Equilibrio su cuscino con lanci|3×30 s|m-peronei","e-calf-raise|3×12 su una gamba","e-step-up|3×8","e-squat-bulgaro|3×8","Salti sul posto con atterraggio morbido|3×8|m-gastrocnemio"],
+  f3:["Salti laterali con atterraggio su una gamba|3×6 per lato|m-peronei","e-affondo-laterale|3×8","e-squat|3×8","Cambi di direzione a velocità crescente|3×5|m-gluteo-medio","Equilibrio su una gamba con perturbazioni|3×30 s|m-tibiale-post"]},
+ "p-pubalgia":{f1:["Squeeze isometrico del pallone tra le ginocchia|5×10 s|m-adduttori","e-plank|2×20 s (Copenhagen dal ginocchio, breve)","e-dead-bug|2×8","Conchiglia con elastico|2×15|m-gluteo-medio","Mobilità dell'anca in rotazione (90/90)|2×8|m-rotatori-anca"],
+  f2:["Copenhagen plank dal ginocchio|3×15 s|m-adduttori","e-pallof-press|3×10","e-hip-thrust|3×10","e-squat|3×8","Adduzione con elastico da in piedi|3×12|m-adduttore-lungo"],
+  f3:["Copenhagen plank completo|3×20 s|m-adduttori","e-affondo-laterale|3×8","e-sumo-squat|3×8","Corsa in linea, poi cambi di direzione graduali|2 volte a settimana|m-adduttori","e-stacco|3×6"]},
+ "p-sacroiliaca":{f1:["e-hip-thrust|2×12 ponte con squeeze del pallone","e-dead-bug|2×8 bird-dog","Attivazione del trasverso con l'espirazione|10×10 s|m-trasverso","Allungamento del piriforme|2×30 s|m-piriforme","Camminata|20 min|m-gluteo-massimo"],
+  f2:["e-hip-thrust|3×10 con squeeze","e-dead-bug|3×8 bird-dog con tirata dell'elastico","e-pallof-press|3×10","Conchiglia con elastico|3×15|m-gluteo-medio","e-squat|3×8 al box"],
+  f3:["e-stacco|3×6 kettlebell","e-step-up|3×8","e-farmer-walk|3×30 m suitcase","e-plank|3×25 s side plank","e-kettlebell-swing|3×12 se indolore"]},
+ "p-ginocchio-cede":{f1:["Isometriche del quadricipite a ginocchio teso|10×10 s|m-vasto-mediale","e-leg-extension|3×15 TKE con elastico","e-hip-thrust|2×12 ponte","Conchiglia con elastico|2×15|m-gluteo-medio","Mobilità della rotula e estensione completa|ogni giorno|m-quadricipite"],
+  f2:["e-squat|3×8 al box","e-step-up|3×8 step-down lento","e-leg-curl|3×8 sliding","e-leg-press|3×10 leggera","e-squat-bulgaro|3×6"],
+  f3:["e-squat|3×8","e-stacco-rumeno|3×8","e-leg-curl|3×5 nordic","Salti e atterrazioni controllati|3×6|m-quadricipite","Equilibrio su una gamba con perturbazioni|3×30 s|m-gluteo-medio"]},
+ "p-dietro-ginocchio":{f1:["Rotazione interna della tibia contro elastico da seduti|3×15|m-popliteo","e-leg-extension|2×15 TKE","e-calf-raise|2×15","Allungamento dolce degli ischiocrurali|2×30 s|m-ischiocrurali","Conchiglia|2×15|m-gluteo-medio"],
+  f2:["e-leg-curl|3×8 sliding","e-stacco-rumeno|3×10 con il ginocchio morbido","e-step-up|3×8 step-down","e-squat|3×8 al box","e-calf-raise|3×12"],
+  f3:["e-leg-curl|3×5 nordic","e-stacco|3×6","e-affondi|3×8","Corsa in piano, poi in salita leggera|2 volte a settimana|m-popliteo","e-squat|3×8"]},
+ "p-anca-laterale-notte":{f1:["Abduzione isometrica contro il muro|5×30 s|m-gluteo-medio","e-hip-thrust|2×12 ponte","Conchiglia con elastico leggero|2×12|m-gluteo-medio","e-dead-bug|2×8","Camminata su terreno piano|20 min|m-gluteo-medio"],
+  f2:["Abduzione sul fianco con la gamba leggermente indietro|3×12|m-gluteo-medio","e-hip-thrust|3×10 su una gamba","e-step-up|3×8 controllato","Camminata laterale con elastico|3×12 passi|m-gluteo-medio","e-squat|3×8 con i piedi un po' larghi"],
+  f3:["e-squat-bulgaro|3×8","e-step-up|3×8 step-down","e-farmer-walk|3×30 m suitcase","e-affondi|3×8 corti","e-hip-thrust|3×8 con carico"]},
+ "p-piede-piatto":{f1:["Short foot|10×10 s|m-intrinseci-piede","e-calf-raise|2×15 con il tallone verso l'interno","Inversione contro elastico|3×15|m-tibiale-post","Conchiglia|2×15|m-gluteo-medio","Equilibrio su una gamba con l'arco attivo|3×20 s|m-tibiale-post"],
+  f2:["e-calf-raise|3×12 su una gamba con l'arco attivo","Toe spread e alluce che si alza|3×10|m-abduttore-alluce","e-step-up|3×8","e-squat|3×8 con il tripode del piede","Camminata laterale con elastico|3×12|m-gluteo-medio"],
+  f3:["e-calf-raise|3×10 su una gamba dal gradino","e-affondi|3×8","Salti a piedi uniti con atterraggio sull'arco|3×8|m-tibiale-post","e-squat-bulgaro|3×8","Camminata scalzi su superfici morbide|10 min|m-intrinseci-piede"]},
+ "p-scoliosi":{f1:["Respiro nella concavità con le mani del terapista o la cinghia|5 min|m-diaframma","e-plank|2×20 s side plank dal lato concavo","e-dead-bug|2×8 bird-dog","Apertura del libro|2×8 per lato|m-erettori","Camminata o nuoto|30 min|m-gluteo-massimo"],
+  f2:["e-plank|3×25 s side plank (concavo 2, convesso 1)","e-dead-bug|3×8","e-rematore|3×10 unilaterale, lato debole per primo","e-squat|3×8 goblet allo specchio","e-pallof-press|3×10"],
+  f3:["e-farmer-walk|3×30 m suitcase (lato scelto dal fisioterapista)","e-stacco|3×8 con manubri","e-trazioni|3×6 lat machine","e-plank|3×30 s side plank","e-hip-thrust|3×10"]},
+ "p-dorso-curvo":{f1:["Estensioni dorsali sul rullo|2×8|m-erettori","Asciugamano lungo la colonna con le braccia aperte|3 min|m-pettorale-grande","Allungamento del pettorale piccolo nel vano della porta|2×30 s|m-pettorale-piccolo","Retrazione del mento|10×10 s|m-lungo-collo","Scivolamenti al muro|2×10|m-dentato"],
+  f2:["e-face-pull|3×12","Y-W-T da prono|3×10 s|m-trapezio","e-rematore|3×10 con pausa","Apertura del libro|2×8|m-erettori","e-flessioni|3×10 con il plus"],
+  f3:["e-rematore|3×8","e-trazioni|3×6","e-pullover|3×10","e-military-press|3×8 landmine","Respiro nelle costole basse|ogni seduta|m-diaframma"]},
+ "p-costale":{f1:["Respiro profondo e lento|10 volte all'ora|m-diaframma","Inclinazioni laterali con il braccio in alto e inspirazione|2×8|m-intercostali","Apertura del libro|2×8|m-erettori","Camminata|20 min|m-diaframma","Gatto-cammello|2×8|m-multifido"],
+  f2:["e-dead-bug|3×8","e-plank|3×20 s in ginocchio","e-hip-thrust|3×10","e-rematore|3×10 leggero","Rotazioni del tronco con il bastone|2×10|m-obliqui"],
+  f3:["e-squat|3×8","e-rematore|3×8","e-pallof-press|3×10","e-panca|3×8 manubri leggeri","Respiro profondo sotto carico leggero|ogni seduta|m-intercostali"]},
+ "p-torace-chiuso":{f1:["Respiro diaframmatico|5 min, due volte al giorno|m-diaframma","Estensioni dorsali sul rullo|2×8|m-erettori","Asciugamano lungo la colonna con le braccia aperte|3 min|m-pettorale-grande","Allungamento del pettorale nel vano della porta|2×30 s|m-pettorale-grande","Camminata a ritmo di conversazione|20 min|m-diaframma"],
+  f2:["e-face-pull|3×12","Y-W-T da prono|3×10 s|m-trapezio","e-rematore|3×10 con il petto aperto","Cardio zona 2|30 min, 3 volte a settimana|m-diaframma","e-dead-bug|3×8 espirando"],
+  f3:["e-rematore|3×8","e-pullover|3×10","e-trazioni|3×6","Cardio con intervalli leggeri|20 min|m-diaframma","e-squat|3×8 espirando nello sforzo"]},
+ "p-alluce-valgo":{f1:["Toe spread e abduzione dell'alluce|3×10|m-abduttore-alluce","Short foot|10×10 s|m-intrinseci-piede","Mobilità della prima metatarso-falangea|2×10|m-flessore-lungo-alluce","e-calf-raise|2×15 con il peso sul tripode","Separatore di dita|la sera|m-abduttore-alluce"],
+  f2:["e-calf-raise|3×12 con il peso distribuito","Inversione contro elastico|3×15|m-tibiale-post","e-squat|3×8 con il tripode del piede","Equilibrio su una gamba|3×30 s|m-peronei","Camminata scalzi su superfici morbide|10 min|m-intrinseci-piede"],
+  f3:["e-step-up|3×8","e-calf-raise|3×10 su una gamba","e-affondi|3×8 corti","e-stacco|3×8 con manubri","Salti su superficie morbida|3×8|m-gastrocnemio"]},
+ "p-pollice-base":{f1:["Opposizione del pollice con la pasta morbida|2×10|m-tenar","Abduzione del pollice contro elastico|3×15|m-abduttore-lungo-pollice","Mobilità del polso|2×10|m-flessori-polso","Rotazione esterna della spalla con elastico|2×15|m-sottospinato","Allungamento degli estensori|2×30 s|m-estensori-polso"],
+  f2:["e-curl|3×12 a martello con impugnature grosse","e-rematore|3×10 presa senza pollice","e-flessioni|3×10 sulle maniglie","Pinza con carico leggero|3×10|m-tenar","e-face-pull|3×12"],
+  f3:["e-trazioni|3×6 con fasce","e-farmer-walk|3×30 m con impugnature grosse","e-panca|3×8 manubri","e-dead-bug|3×8","Presa e pinza con carico crescente|3×10|m-tenar"]},
+ "p-colpo-frusta":{f1:["Movimento attivo del collo nel range indolore|3×8 ogni direzione|m-splenio","Camminata|20 min ogni giorno|m-gluteo-massimo","Respiro diaframmatico|5 min|m-diaframma","Retrazione del mento dolce|10×5 s|m-lungo-collo","Esercizi oculo-cervicali|2 min|m-suboccipitali"],
+  f2:["Retrazione del mento con sollevamento della testa|3×8|m-lungo-collo","Y da prono|3×10 s|m-trapezio","e-dead-bug|3×8","e-hip-thrust|3×10","Apertura del libro|2×8|m-erettori"],
+  f3:["e-rematore|3×10 con il collo neutro","e-squat|3×8 goblet","e-plank|3×25 s","e-face-pull|3×12","Equilibrio su una gamba con rotazioni della testa|3×30 s|m-suboccipitali"]},
+ "p-gambe-gonfie":{f1:["Gambe in alto con respiro diaframmatico|5 min, due volte al giorno|m-diaframma","e-calf-raise|3×20 a ritmo, senza cedimento","Camminata|30 min|m-gastrocnemio","Circonduzioni delle caviglie da sdraiati|2×20|m-tibiale-ant","Bici o nuoto|20 min|m-soleo"],
+  f2:["e-squat|3×12 a corpo libero, in circuito senza pause in piedi","e-calf-raise|3×15","e-step-up|3×10","Bici|30 min|m-quadricipite","Gambe in alto a fine seduta|5 min|m-soleo"],
+  f3:["e-squat|3×10","e-affondi|3×10 camminati","e-calf-raise|3×15 su una gamba","Cardio a intervalli leggeri|25 min|m-gastrocnemio","e-stacco-rumeno|3×10"]},
+ "p-accovacciarsi":{f1:["Ginocchio al muro per la caviglia|3×10|m-soleo","90/90 a terra|2×8|m-rotatori-anca","e-squat|2×8 al box con i talloni rialzati","Estensioni dorsali sul rullo|2×8|m-erettori","Goblet squat tenendosi a un appoggio, pausa in basso|2×5×5 s|m-quadricipite"],
+  f2:["e-front-squat|3×8 goblet con pausa","e-squat|3×8 al box più basso","e-affondo-laterale|3×8","e-hip-thrust|3×10","e-calf-raise|3×12 dal gradino in allungamento"],
+  f3:["e-squat|3×8 completo","e-front-squat|3×6","e-affondo-laterale|3×8 cosacco","e-stacco|3×6","Accovacciata tenuta a terra|3×30 s|m-adduttore-grande"]},
+ "p-mano-notte":{f1:["Scorrimenti del nervo mediano|2×10, 3 volte al giorno|m-pronatori","Mobilità del polso|2×10|m-flessori-polso","Allungamento del pettorale piccolo|2×30 s|m-pettorale-piccolo","Allungamento degli scaleni|2×30 s|m-scaleni","Tutore notturno con il polso neutro|ogni notte|m-flessori-dita"],
+  f2:["e-curl|3×12 a martello","Estensione del polso con manubrio leggero|3×15|m-estensori-polso","e-rematore|3×10 presa neutra","e-flessioni|3×10 sulle maniglie","e-face-pull|3×12"],
+  f3:["e-trazioni|3×6 presa neutra","e-farmer-walk|3×30 m con impugnature grosse","e-panca|3×8 manubri","e-dead-bug|3×8","Presa con il polso dritto, carico crescente|3×10|m-flessori-dita"]},
+ "p-tallone":{f1:["Pallina sotto la pianta al mattino|3 min|m-plantare","Allungamento del polpaccio a ginocchio teso e piegato|2×45 s|m-soleo","e-calf-raise|2×12 da terra con le dita su un asciugamano arrotolato","Short foot|10×10 s|m-intrinseci-piede","Bici o nuoto al posto della corsa|30 min|m-gastrocnemio"],
+  f2:["e-calf-raise|3×12 con le dita rialzate, a giorni alterni","e-calf-raise|3×15 seduti (soleo)","e-squat|3×8","Conchiglia|3×15|m-gluteo-medio","Camminata su superfici morbide|20 min|m-plantare"],
+  f3:["e-calf-raise|3×10 su una gamba","e-step-up|3×8","Corsa a volume ridotto, +10 % a settimana|2 volte a settimana|m-gastrocnemio","e-affondi|3×8","Saltelli con la corda|3×30 s|m-soleo"]},
+ "p-stare-in-piedi":{f1:["Basculamento del bacino (retroversione attiva)|3×10|m-retto-addominale","Affondo con bacino in retroversione (psoas)|2×30 s per lato|m-ileopsoas","e-dead-bug|2×8","e-hip-thrust|2×12 ponte","Camminata invece di stare fermi|20 min|m-gluteo-massimo"],
+  f2:["e-dead-bug|3×8","e-hip-thrust|3×10","e-pallof-press|3×10","e-plank|3×20 s side plank","e-squat|3×8 al box con il bacino neutro"],
+  f3:["e-stacco|3×6 kettlebell","e-farmer-walk|3×30 m","e-squat|3×8","e-military-press|3×8 landmine con i glutei attivi","e-hollow|3×20 s"]},
+ "p-ginocchio-scale":{f1:["Conchiglia con elastico|3×15|m-gluteo-medio","e-leg-extension|3×15 TKE con elastico","Squat al muro isometrico|3×30 s|m-vasto-mediale","Ginocchio al muro per la caviglia|3×10|m-soleo","e-hip-thrust|2×12 ponte"],
+  f2:["e-step-up|3×8 step-down lento","e-squat|3×8 al box, ginocchio sul secondo dito","Camminata laterale con elastico|3×12|m-gluteo-medio","e-hip-thrust|3×10 su una gamba","e-leg-press|3×10 range parziale"],
+  f3:["e-squat-bulgaro|3×8","e-step-up|3×8 step-down con carico","e-squat|3×8 completo","e-affondi|3×8 indietro","Discesa delle scale controllata|ogni seduta|m-quadricipite"]},
+ "p-cervicale-vertigini":{f1:["Retrazione del mento|10×10 s|m-lungo-collo","Mobilità C0–C1 dolce|2×8|m-suboccipitali","Esercizi oculo-cervicali|2 min|m-suboccipitali","Estensioni dorsali sul rullo|2×8|m-erettori","Equilibrio su una gamba|3×20 s|m-gluteo-medio"],
+  f2:["Estensione del collo da prono con mento retratto|3×8|m-semispinale","Y da prono|3×10 s|m-trapezio","e-dead-bug|3×8","e-rematore|3×10 con lo specchio davanti","Equilibrio a occhi chiusi|3×15 s|m-peronei"],
+  f3:["e-squat|3×8 goblet","e-face-pull|3×12","e-farmer-walk|3×30 m","Estensione graduale del collo non sotto carico|3×8|m-splenio","Cardio moderato|30 min|m-diaframma"]},
+ "p-stenosi":{f1:["Ginocchia al petto|3×30 s|m-erettori","Gatto-cammello|2×10|m-multifido","Affondo con bacino in retroversione (psoas)|2×30 s|m-ileopsoas","Bici|15–20 min|m-quadricipite","e-dead-bug|2×8"],
+  f2:["Sit-to-stand|3×10|m-quadricipite","e-hip-thrust|3×10 con bacino in retroversione","e-leg-press|3×10","e-dead-bug|3×8","Camminata in salita leggera con passi corti|15 min|m-gluteo-massimo"],
+  f3:["e-squat|3×8 al box","e-step-up|3×8 basso","e-pallof-press|3×10 in ginocchio","Bici|30 min|m-quadricipite","e-farmer-walk|3×20 m leggero"]},
+ "p-morton":{f1:["Short foot e toe spread|3×10|m-intrinseci-piede","Mobilità dei metatarsi con le mani|2 min|m-intrinseci-piede","Allungamento del polpaccio|2×45 s|m-gastrocnemio","Bici o nuoto|30 min|m-soleo","Inversione contro elastico|3×15|m-tibiale-post"],
+  f2:["e-calf-raise|3×12 con il carico sul mesopiede","e-squat|3×8","e-stacco-rumeno|3×10","Equilibrio su una gamba|3×30 s|m-peronei","e-hip-thrust|3×10"],
+  f3:["e-step-up|3×8","e-affondi|3×8 corti","e-calf-raise|3×10 su una gamba","Corsa su superficie morbida, volume ridotto|2 volte a settimana|m-intrinseci-piede","e-leg-press|3×10"]},
+ "p-achille":{f1:["e-calf-raise|3×12 lenti da terra, bilaterali, a giorni alterni","e-calf-raise|3×15 seduti (soleo)","Rialzo del tallone nelle scarpe|prime settimane|m-soleo","Bici o nuoto|30 min|m-gastrocnemio","Conchiglia|3×15|m-gluteo-medio"],
+  f2:["e-calf-raise|3×10 pesanti, 3 s su e 3 s giù","e-calf-raise|3×8 su una gamba (dal gradino solo nella forma della porzione media)","e-squat|3×8","e-stacco-rumeno|3×10","Camminata veloce|20 min|m-soleo"],
+  f3:["e-calf-raise|4×8 pesanti su una gamba","Saltelli con la corda|3×30 s|m-soleo","Corsa in piano a volume ridotto|2 volte a settimana|m-gastrocnemio","e-step-up|3×8","e-affondi|3×8"]},
+ "p-coccige":{f1:["Respiro con rilascio del perineo|5 min|m-pavimento-pelvico","Posizione del bambino con le ginocchia larghe|2×1 min|m-pavimento-pelvico","e-hip-thrust|2×12 ponte con il bacino ben sollevato","Mobilità dell'anca (90/90)|2×8|m-rotatori-anca","Camminata|20 min|m-gluteo-massimo"],
+  f2:["e-hip-thrust|3×10 con il cuscino","e-pallof-press|3×10 in piedi","e-dead-bug|3×8 bird-dog","e-squat|3×8 goblet","Squat profondo tenuto con appoggio|3×20 s|m-pavimento-pelvico"],
+  f3:["e-stacco-rumeno|3×10","e-step-up|3×8","e-farmer-walk|3×30 m","e-hip-thrust|3×8 con carico","e-plank|3×25 s side plank"]},
+ "p-strappo-polpaccio":{f1:["Camminata con tallone rialzato|ogni giorno|m-gastrocnemio","Isometrici del polpaccio indolori|5×10 s|m-soleo","Ciclette leggera|15 min|m-quadricipite","e-hip-thrust|2×12 ponte","e-leg-press|2×12 spingendo con il tallone"],
+  f2:["e-calf-raise|3×12 bilaterali lenti","e-calf-raise|3×15 seduti","e-leg-curl|3×8 sliding","e-squat|3×8","Camminata veloce|20 min|m-gastrocnemio"],
+  f3:["e-calf-raise|3×10 su una gamba","Corsa leggera, poi skip, poi scatti progressivi|2 volte a settimana|m-gastrocnemio","e-leg-curl|3×5 nordic","e-affondi|3×8","Saltelli con la corda|3×30 s|m-soleo"]},
+ "p-ginocchio-gonfio":{f1:["Isometriche del quadricipite a ginocchio teso|10×10 s ogni ora|m-vasto-mediale","Estensione completa passiva (tallone sul rialzo)|3×2 min|m-quadricipite","Mobilità della rotula|2 min|m-quadricipite","e-hip-thrust|2×12 ponte","Bici leggera senza resistenza|10 min|m-quadricipite"],
+  f2:["e-leg-extension|3×15 TKE","e-squat|3×8 al box alto","e-leg-curl|3×8 sliding","e-step-up|3×8 basso","Conchiglia|3×15|m-gluteo-medio"],
+  f3:["e-squat|3×8","e-step-up|3×8 step-down","e-leg-press|3×10","e-squat-bulgaro|3×8","Bici con resistenza|20 min|m-quadricipite"]},
+ "p-polso-appoggio":{f1:["Isometrici in appoggio al muro con il polso a 45°|5×20 s|m-estensori-radiali-carpo","Mobilità del polso|2×10|m-flessori-polso","Estensione del polso eccentrica leggera|3×15|m-estensori-radiali-carpo","Rotazione esterna della spalla con elastico|2×15|m-sottospinato","e-face-pull|2×12"],
+  f2:["e-flessioni|3×10 sui pugni o sulle maniglie","e-plank|3×25 s sugli avambracci","e-rematore|3×10","Appoggio sul tavolo con il peso crescente|3×20 s|m-flessori-polso","e-curl|3×12 a martello"],
+  f3:["e-flessioni|3×10 a palmo con le mani ruotate in fuori","e-plank|3×30 s sulle mani","e-panca|3×8","e-trazioni|3×6","Appoggio a terra progressivo|ogni seduta|m-estensori-polso"]},
+ "p-sotto-scapola":{f1:["Allungamento del pettorale nel vano della porta alle tre altezze|2×30 s|m-pettorale-grande","Estensioni dorsali sul rullo|2×8|m-erettori","Pallina contro il muro fra scapola e colonna|2 min|m-romboidi","Retrazione del mento|10×10 s|m-lungo-collo","Respiro nelle costole con rotazione|2×8|m-intercostali"],
+  f2:["e-face-pull|3×12","e-rematore|3×10 con pausa a scapole retratte","Y-W-T da prono|3×10 s|m-trapezio","e-flessioni|3×10 con il plus","Apertura del libro|2×8|m-erettori"],
+  f3:["e-rematore|3×8","e-trazioni|3×6","e-pullover|3×10","e-military-press|3×8 landmine","e-face-pull|3×15"]},
+ "p-schiena-gravidanza":{f1:["Respiro diaframmatico con il pavimento pelvico|5 min|m-pavimento-pelvico","Gatto-cammello|2×10|m-multifido","e-hip-thrust|2×12 ponte con squeeze del pallone (breve)","Attivazione del trasverso con l'espirazione|10×10 s|m-trasverso","Camminata|20 min|m-gluteo-massimo"],
+  f2:["e-squat|3×10 al box con il pallone tra le ginocchia","e-pallof-press|3×10 in ginocchio","e-dead-bug|3×8 bird-dog","Abduzione sul fianco|3×12|m-gluteo-medio","Bici da camera|20 min|m-quadricipite"],
+  f3:["e-squat|3×10 goblet leggero","e-rematore|3×12 con elastico seduta","e-step-up|3×8 basso con appoggio","e-pallof-press|3×10","Nuoto o camminata|30 min|m-diaframma"]},
+ "p-diastasi":{f1:["Trasverso con l'espirazione (ombelico verso la colonna)|10×10 s, 3 volte al giorno|m-trasverso","Pavimento pelvico coordinato con il respiro|10×5 s|m-pavimento-pelvico","e-hip-thrust|2×12 ponte espirando","e-dead-bug|2×8 con una gamba sola","Camminata|20 min|m-gluteo-massimo"],
+  f2:["e-dead-bug|3×8 bird-dog espirando","e-squat|3×10 goblet espirando","e-pallof-press|3×10 in ginocchio","e-plank|3×20 s in ginocchio, senza pinna","e-rematore|3×12 con elastico"],
+  f3:["e-crunch|3×10 s curl-up di McGill","e-plank|3×25 s side plank","e-stacco-rumeno|3×10 espirando","e-farmer-walk|3×20 m","e-squat|3×8"]}
+};
+</script>
+<style>
+.sa-griglia{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:4px 14px}
+.sa-griglia label{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;padding:4px 0;cursor:pointer}
+.sa-zona{grid-column:1/-1;margin-top:8px}
+.sa-opz{display:flex;gap:6px;flex-wrap:wrap}
+.sa-opz label{border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer;font-size:13px}
+.sa-opz input{display:none}
+.sa-opz label:has(input:checked){background:var(--muscle);color:#fff;border-color:var(--muscle)}
+</style>
+<script>
+/* =========================================================
+   FAI SCHEDA — dai problemi del cliente alla scheda di allenamento in tre fasi.
+   Le schede fatte sono un tipo a sé (prefisso sa-), salvate sul dispositivo: si leggono, si ascoltano, si condividono.
+   ========================================================= */
+S.schede = load("schede",[]);
+S.preProblema = null;
+const SA_FASI=[["f1","Fase 1 · settimane 1–4 · mobilità e attivazione","2 serie, movimenti lenti e controllati, nessun dolore: si impara il gesto e si svegliano i muscoli che dormono."],
+               ["f2","Fase 2 · settimane 5–8 · forza","3 serie; il carico sale quando le ultime ripetizioni restano pulite; dolore accettabile fino a 3 su 10, che passa entro il giorno dopo."],
+               ["f3","Fase 3 · settimane 9–12 · carico e gesti reali","3–4 serie, carichi più alti, varianti più difficili e il gesto che il cliente deve riconquistare, provato a ogni seduta."]];
+const SA_ATTREZZI={corpo:"Corpo libero ed elastici",manubri:"Manubri, kettlebell ed elastici",palestra:"Palestra completa"};
+const SA_LIVELLI={principiante:"Principiante",intermedio:"Intermedio"};
+
+function saVoce(s){ const p=s.split("|"); return p[0].indexOf("e-")===0?{e:p[0],sr:p[1]||""}:{t:p[0],sr:p[1]||"",m:p[2]||""}; }
+/* adatta una voce al livello e all'attrezzatura; restituisce il testo della riga */
+function saRiga(v,livello,attrezzatura){
+  if(v.e){
+    const e=DB.esercizi_schede.find(x=>x.id===v.e); if(!e) return null;
+    const attr=(e.attrezzo||"").toLowerCase();
+    const corpoOk=/corpo libero|elastico|gradino|box|panca|asciugamano|sbarra/.test(attr);
+    const manubriOk=corpoOk||/manubri|kettlebell|cavo|elastico/.test(attr);
+    let nota="";
+    if(attrezzatura==="corpo" && !corpoOk) nota=" · senza attrezzi: "+(e.regressioni||"").split(/[.;]/)[0].trim().toLowerCase();
+    else if(attrezzatura==="manubri" && !manubriOk) nota=" · con i manubri: "+(e.regressioni||"").split(/[.;]/)[0].trim().toLowerCase();
+    else if(livello==="principiante") nota=" · versione facile: "+(e.regressioni||"").split(/[.;]/)[0].trim().toLowerCase();
+    return e.nome+" · "+v.sr+nota;
+  }
+  return v.t+(v.sr?" · "+v.sr:"");
+}
+function saComponi(it){
+  const voci={f1:[],f2:[],f3:[]}, visti={f1:{},f2:{},f3:{}};
+  it.problemi.forEach(pid=>{ const P=DB.programma[pid]; if(!P) return;
+    ["f1","f2","f3"].forEach(f=>(P[f]||[]).forEach(s=>{ const v=saVoce(s); const k=v.e||v.t.toLowerCase(); if(visti[f][k]) return; visti[f][k]=1; voci[f].push(v); })); });
+  const righe={}; ["f1","f2","f3"].forEach(f=>{ righe[f]=voci[f].map(v=>saRiga(v,it.livello,it.attrezzatura)).filter(Boolean); });
+  return {voci,righe};
+}
+function saGiorni(righe,giorni){
+  if(righe.length<=5 || giorni<2) return [["Ogni seduta",righe]];
+  const A=righe.filter((r,i)=>i%2===0), B=righe.filter((r,i)=>i%2===1);
+  return giorni>=3 ? [["Giorno A (1ª e 3ª seduta)",A],["Giorno B (2ª seduta)",B]] : [["Giorno A",A],["Giorno B",B]];
+}
+
+/* ---- registrazione del tipo ---- */
+KINDS.allenamento={label:"Scheda di allenamento",cls:"m",db:()=>S.schede};
+const _anyById_conSchede = anyById;
+anyById = function(id){ if(id && id.indexOf("sa-")===0){ const it=S.schede.find(x=>x.id===id); return it?{kind:"allenamento",item:it}:null; } return _anyById_conSchede(id); };
+const _blocchi_conSchede = blocchi;
+blocchi = function(kind,it){
+  if(kind!=="allenamento") return _blocchi_conSchede(kind,it);
+  const c=saComponi(it); const B=[];
+  B.push({t:"dl",voci:[["Per",it.cliente||"il cliente"],["Problemi di partenza",it.problemi.map(nomeOf).join("; ")],["Livello",SA_LIVELLI[it.livello]||it.livello],["Sedute a settimana",String(it.giorni)],["Attrezzatura",SA_ATTREZZI[it.attrezzatura]||it.attrezzatura],["Fatta il",it.creato]]});
+  B.push({t:"p",h:"Come si usa",txt:"Dodici settimane in tre fasi. Ogni seduta comincia con dieci minuti di riscaldamento (cinque di cardio leggero e gli esercizi di mobilità della fase 1) e finisce con due minuti di respiro lento. Il carico sale solo quando la tecnica resta pulita; se un esercizio fa male oltre 3 su 10 o il dolore resta il giorno dopo, si torna alla versione più facile. Ogni esercizio sottolineato si apre con esecuzione, errori e varianti."});
+  SA_FASI.forEach(([f,titolo,descr])=>{
+    const r=c.righe[f]; if(!r.length) return;
+    if(f==="f1"){ B.push({t:"lista",h:titolo,items:[descr].concat(r)}); return; }
+    const gg=saGiorni(r,it.giorni);
+    B.push({t:"p",h:titolo,txt:descr+(gg.length>1?" Riscaldamento con gli esercizi della fase 1, poi la seduta del giorno.":"")});
+    gg.forEach(([g,items])=>B.push({t:"lista",h:g,items:items}));
+  });
+  const evita=[],confine=[]; it.problemi.forEach(pid=>{ const P=DB.palestra[pid]; if(!P) return; if(P.evita) evita.push(nomeOf(pid).replace(/[«»]/g,"")+": "+P.evita); if(P.confine) confine.push(P.confine); });
+  if(evita.length) B.push({t:"lista",h:"Da evitare finché c'è il problema",items:evita});
+  if(confine.length) B.push({t:"lista",h:"Quando fermarsi e mandare dal medico",items:confine,rosso:true});
+  B.push({t:"segreto",txt:"La scheda migliore non è la più completa: è quella che il cliente fa davvero. Tre esercizi fatti bene tre volte a settimana battono dieci esercizi fatti una volta. E il gesto che il cliente voleva riconquistare va provato a ogni seduta: è lui il vero test, non il carico sul bilanciere."});
+  return B;
+};
+const _collegamenti_conSchede = collegamenti;
+collegamenti = function(kind,it){
+  const box=(titolo,html)=>'<section><div class="seg" style="margin-bottom:8px">'+titolo+'</div>'+html+'</section>';
+  if(kind==="allenamento"){
+    const c=saComponi(it); const E=[],M=[];
+    ["f1","f2","f3"].forEach(f=>c.voci[f].forEach(v=>{ if(v.e&&E.indexOf(v.e)<0) E.push(v.e); if(v.m&&M.indexOf(v.m)<0&&anyById(v.m)) M.push(v.m); }));
+    return box("Problemi di partenza",pills(it.problemi))+box("Esercizi della scheda",pills(E))+box("Muscoli al centro del lavoro",pills(M))+
+      box("Modifica",'<div class="acts"><button class="btn sm" data-act="sa-rifai" data-id="'+it.id+'">Rifai con altre scelte</button><button class="btn sm" data-act="sa-elimina" data-id="'+it.id+'" style="color:var(--muscle)">Elimina questa scheda</button></div>');
+  }
+  let h=_collegamenti_conSchede(kind,it);
+  if(kind==="problema" && DB.programma[it.id]) h=box("Allenamento",'<button class="btn primary sm" data-act="fai-scheda" data-id="'+it.id+'">Fai scheda da questo problema</button>')+h;
+  return h;
+};
+/* il testo condiviso di una scheda è la scheda intera */
+const _testoCondivisione_base = testoCondivisione;
+testoCondivisione = function(kind,it,id){
+  if(kind!=="allenamento") return _testoCondivisione_base(kind,it,id);
+  const r=renderBlocchi(blocchi(kind,it),id).speak;
+  return (it.nome||"").toUpperCase()+"\n\n"+r.join("\n")+"\n\nAnatomiaPratica · Kinesiologia Studio";
+};
+
+/* ---- il modulo «Fai scheda» ---- */
+function vistaFaiScheda(base){
+  const pre=S.preProblema? [S.preProblema] : (base? base.problemi : []);
+  const zone={}; DB.problemi.forEach(p=>{ if(!DB.programma[p.id]) return; (zone[p.zona]=zone[p.zona]||[]).push(p); });
+  const opz=(name,vals,sel)=>'<div class="sa-opz">'+Object.keys(vals).map(k=>'<label><input type="radio" name="'+name+'" value="'+k+'"'+(String(sel)===k?' checked':'')+'> '+vals[k]+'</label>').join("")+'</div>';
+  return crumbs([["Home","home/"],["Fai scheda",null]])+
+   '<h1 style="font-size:clamp(23px,5vw,32px);margin-bottom:6px">Fai scheda</h1>'+
+   '<p style="margin:0 0 14px;color:var(--muted);max-width:66ch">Scegli i problemi del cliente, il livello, le sedute a settimana e l\'attrezzatura: la scheda di dodici settimane in tre fasi si compone da sola, con gli esercizi presi dalle schede, le versioni facili per chi comincia, cosa evitare e quando fermarsi.</p>'+
+   '<form id="sa-form" class="card" style="gap:14px">'+
+   '<label>Nome del cliente (facoltativo)<br><input name="cliente" class="inp" style="width:100%;max-width:360px" value="'+esc(base?base.cliente||"":"")+'" placeholder="Es. Marco"></label>'+
+   '<div><div class="seg" style="margin-bottom:6px">Problemi del cliente (uno o più)</div><div class="sa-griglia">'+
+   Object.keys(zone).map(z=>'<div class="sa-zona eyebrow">'+esc(z)+'</div>'+zone[z].map(p=>'<label><input type="checkbox" name="p" value="'+p.id+'"'+(pre.includes(p.id)?' checked':'')+'> '+esc(p.voce)+'</label>').join("")).join("")+'</div></div>'+
+   '<div><div class="seg" style="margin-bottom:6px">Livello</div>'+opz("livello",SA_LIVELLI,base?base.livello:"principiante")+'</div>'+
+   '<div><div class="seg" style="margin-bottom:6px">Sedute a settimana</div>'+opz("giorni",{"2":"2","3":"3"},base?base.giorni:"2")+'</div>'+
+   '<div><div class="seg" style="margin-bottom:6px">Attrezzatura</div>'+opz("attrezzatura",SA_ATTREZZI,base?base.attrezzatura:"manubri")+'</div>'+
+   '<p id="sa-err" style="color:var(--muscle);margin:0"></p>'+
+   '<div class="acts"><button class="btn primary" type="submit">Fai scheda</button></div></form>';
+}
+document.addEventListener("submit",function(e){
+  const f=e.target.closest("#sa-form"); if(!f) return; e.preventDefault();
+  const fd=new FormData(f); const problemi=fd.getAll("p");
+  if(!problemi.length){ document.querySelector("#sa-err").textContent="Scegli almeno un problema."; return; }
+  const cliente=(fd.get("cliente")||"").trim(); const d=new Date();
+  const it={id:"sa-"+Date.now().toString(36),nome:"Scheda"+(cliente?" per "+cliente:"")+" · "+problemi.map(p=>nomeOf(p).replace(/[«»]/g,"")).join(" + ").slice(0,90),cliente:cliente,problemi:problemi,livello:fd.get("livello")||"principiante",giorni:parseInt(fd.get("giorni")||"2",10),attrezzatura:fd.get("attrezzatura")||"manubri",creato:d.toLocaleDateString("it-IT")};
+  S.schede.unshift(it); save("schede",S.schede); S.preProblema=null; vai("allenamento/"+it.id);
+});
+document.addEventListener("click",function(e){
+  const a=e.target.closest('[data-act="fai-scheda"],[data-act="sa-rifai"],[data-act="sa-elimina"]'); if(!a) return;
+  const act=a.getAttribute("data-act"), id=a.getAttribute("data-id");
+  if(act==="fai-scheda"){ S.preProblema=id; vai("allenamento/nuova"); }
+  else if(act==="sa-rifai"){ S.preProblema=null; S.rifai=id; vai("allenamento/nuova"); }
+  else if(act==="sa-elimina"){ if(!confirm("Eliminare questa scheda?")) return; S.schede=S.schede.filter(x=>x.id!==id); save("schede",S.schede); vai("studio/"); }
+});
+const _vistaScheda_conFai = vistaScheda;
+vistaScheda = function(kind,id){
+  if(kind==="allenamento" && (!id || id==="nuova")){ const base=S.rifai? S.schede.find(x=>x.id===S.rifai) : null; S.rifai=null; return vistaFaiScheda(base); }
+  return _vistaScheda_conFai(kind,id);
+};
+/* home e studio */
+const _vistaHome_conFai = vistaHome;
+vistaHome = function(){
+  const h=_vistaHome_conFai();
+  const card='<button class="card" data-go="allenamento/nuova" style="gap:8px;margin-bottom:18px;border-color:var(--muscle)"><span class="eyebrow" style="color:var(--muscle)">Fai scheda</span><h3>Dai problemi del cliente alla scheda di allenamento</h3>'+
+    '<p>Scegli i problemi, il livello e l\'attrezzatura: dodici settimane in tre fasi, con gli esercizi giusti, le versioni facili, cosa evitare e quando fermarsi.'+(S.schede.length?' <b>'+S.schede.length+' sched'+(S.schede.length===1?'a fatta':'e fatte')+'.</b>':'')+'</p></button>';
+  const k=h.indexOf('<button class="card" data-go="consulto/"');
+  return k<0? card+h : h.slice(0,k)+card+h.slice(k);
+};
+const _vistaStudio_conFai = vistaStudio;
+vistaStudio = function(){
+  return _vistaStudio_conFai()+'<div class="seg" style="margin:18px 0 10px">Schede di allenamento · '+S.schede.length+'</div>'+
+    (S.schede.length?'<div class="grid g3" style="margin-bottom:12px">'+S.schede.map(s=>'<button class="card" data-go="allenamento/'+s.id+'" style="gap:3px"><span class="eyebrow">'+esc(s.creato)+' · '+esc(SA_LIVELLI[s.livello]||"")+'</span><h3 style="font-size:15px">'+esc(s.nome)+'</h3></button>').join("")+'</div>':'<p class="empty">Nessuna scheda ancora. </p>')+
+    '<button class="btn sm" data-go="allenamento/nuova">Fai scheda</button>';
+};
+</script>
 <style>
 .figsvg{width:100%;max-width:270px;height:auto}
 .fig>*{fill:var(--figure);stroke:none}
