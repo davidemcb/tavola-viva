@@ -91,10 +91,10 @@ const DEMO_VETRINA=["p-reggiseno","p-calzino","m-bicipite","m-trapezio","q-neer-
 const DEMO_PER_TIPO=2;
 const DEMO_APERTE=(function(){ if(!DEMO) return null; const s=new Set(DEMO_VETRINA); for(const k in KINDS){ let db=[]; try{ db=KINDS[k].db()||[]; }catch(e){} db.slice(0,DEMO_PER_TIPO).forEach(x=>s.add(x.id)); } return s; })();
 function demoAperta(id){ return !DEMO || DEMO_APERTE.has(id) || /^sa-/.test(id); }
-const DEMO_PROVA='https://wa.me/393481514382?text='+encodeURIComponent("Ciao Davide, ho provato la demo di AnatomiaPratica e vorrei l'accesso completo per 14 giorni.");
+const DEMO_PROVA='https://wa.me/393481514382?text='+encodeURIComponent("Ciao Davide, ho provato la demo di AnatomiaPratica e vorrei l'accesso completo per 24 ore.");
 const DEMO_PREZZI=location.pathname.replace(/[^/]*$/,"")+"prova.html#prezzi";
 function demoRichiamo(nome){
-  return '<div class="sblocca demo-box"><span class="lbl">Scheda chiusa nella demo</span><p>'+(nome?'«'+esc(nome)+'» è una delle oltre 600 schede di AnatomiaPratica. ':'')+'Nella demo ne vedi due per ogni tipo, intere e con tutti i collegamenti. Per averle tutte: <a href="'+DEMO_PROVA+'" target="_blank" rel="noopener">prova gratis 14 giorni</a> oppure <a href="'+DEMO_PREZZI+'">guarda i prezzi</a>, da 19 € al mese.</p></div>';
+  return '<div class="sblocca demo-box"><span class="lbl">Scheda chiusa nella demo</span><p>'+(nome?'«'+esc(nome)+'» è una delle oltre 600 schede di AnatomiaPratica. ':'')+'Nella demo ne vedi due per ogni tipo, intere e con tutti i collegamenti. Per averle tutte: <a href="'+DEMO_PROVA+'" target="_blank" rel="noopener">prova gratis 24 ore</a> oppure <a href="'+DEMO_PREZZI+'">guarda i prezzi</a>, da 19 € al mese.</p></div>';
 }
 if(DEMO){
   CSS_VERSIONI.textContent+='.demo-box{margin:14px 0}.demo-box .lbl{color:var(--muscle)}.demo-box p{font-size:14.5px}[data-lock] h3:after,[data-lock] .t:after{content:" 🔒";font-size:.8em;opacity:.6}'+
@@ -116,7 +116,7 @@ if(DEMO){
   const _vistaLista_demo = vistaLista; vistaLista = function(k){ return _lock(_vistaLista_demo(k)); };
   const _vistaScheda_lock = vistaScheda; vistaScheda = function(kind,id){ return _lock(_vistaScheda_lock(kind,id)); };
   const _vistaHome_demo = vistaHome;
-  vistaHome = function(){ return '<div class="demo-bar" style="border-radius:10px;margin-bottom:14px">Stai usando la demo: due schede per tipo, intere. <a href="'+DEMO_PROVA+'" target="_blank" rel="noopener">Prova gratis 14 giorni</a> · <a href="'+DEMO_PREZZI+'">prezzi</a></div>'+_vistaHome_demo(); };
+  vistaHome = function(){ return '<div class="demo-bar" style="border-radius:10px;margin-bottom:14px">Stai usando la demo: due schede per tipo, intere. <a href="'+DEMO_PROVA+'" target="_blank" rel="noopener">Prova gratis 24 ore</a> · <a href="'+DEMO_PREZZI+'">prezzi</a></div>'+_vistaHome_demo(); };
   cardProfilo = function(compatta){ return _cardProfilo_conVersione(compatta); };
 }
 </script>
