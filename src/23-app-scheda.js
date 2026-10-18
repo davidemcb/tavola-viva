@@ -129,6 +129,9 @@ function renderBlocchi(bs,selfId){
       html+='<section><div class="seg" style="margin-bottom:7px">'+esc(b.h)+'</div>'+
         '<ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px'+(b.rosso?';color:var(--muscle)':'')+'">'+
         items.map(x=>'<li>'+sp(spezza(x),null)+'</li>').join("")+'</ul></section>';
+    } else if(b.t==="sblocca"){
+      if(!b.txt) return;
+      html+='<div class="sblocca"><span class="lbl">Nella versione Completa</span><p>'+esc(b.txt)+' Per passare alla Completa: <a href="mailto:scuderidavide@libero.it?subject=AnatomiaPratica%20versione%20Completa">scrivi a Davide</a>.</p></div>';
     } else if(b.t==="segreto"){
       if(!b.txt) return;
       html+='<div class="secret"><span class="lbl">◆ Il segreto del mestiere</span><p>'+sp(spezza(b.txt),"Il segreto del mestiere.")+'</p></div>';

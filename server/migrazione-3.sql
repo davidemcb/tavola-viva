@@ -1,0 +1,1 @@
+ALTER TABLE utenti ADD COLUMN versione TEXT NOT NULL DEFAULT 'completa';

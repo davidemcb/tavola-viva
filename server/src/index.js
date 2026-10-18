@@ -5,6 +5,8 @@
 
 const GIORNI_SESSIONE = 30;
 const PIANI = { mensile: { mesi: 1 }, annuale: { mesi: 12 }, giorni: {}, omaggio: {} };
+/* versioni: Mani (chi lavora con le mani), Allena (trainer), Completa (tutte e due) con il listino di ciascuna */
+const VERSIONI = { mani: { nome: "Mani", mensile: 19, annuale: 149 }, allena: { nome: "Allena", mensile: 19, annuale: 149 }, completa: { nome: "Completa", mensile: 27, annuale: 199 } };
 
 export default {
   async scheduled(ev, env, ctx) { ctx.waitUntil(promemoria(env)); },
@@ -73,7 +75,7 @@ async function stato(env, u) {
   const ult = abb || await ultimoAbbonamento(env, u.id);
   const admin = u.ruolo === "admin";
   return {
-    utente: { id: u.id, email: u.email, nome: u.nome, ruolo: u.ruolo, cambia_password: !!u.cambia_password },
+    utente: { id: u.id, email: u.email, nome: u.nome, ruolo: u.ruolo, versione: VERSIONI[u.versione] ? u.versione : "completa", cambia_password: !!u.cambia_password },
     abbonamento: ult ? { piano: ult.piano, inizio: ult.inizio, scadenza: ult.scadenza, metodo: ult.metodo, attivo: !!abb, giorni: abb ? giorniRimasti(abb.scadenza) : 0 } : null,
     accesso: admin || !!abb
   };
@@ -138,7 +140,7 @@ async function api(req, env, url) {
   const soloAdmin = () => json({ errore: "Solo l'amministratore può farlo" }, 403);
 
   if (p === "/api/admin/utenti" && m === "GET") {
-    const r = await env.DB.prepare(`SELECT u.id,u.email,u.nome,u.ruolo,u.attivo,u.creato,u.ultimo_accesso,u.cambia_password,
+    const r = await env.DB.prepare(`SELECT u.id,u.email,u.nome,u.ruolo,u.versione,u.attivo,u.creato,u.ultimo_accesso,u.cambia_password,
       (SELECT scadenza FROM abbonamenti a WHERE a.utente_id=u.id ORDER BY scadenza DESC LIMIT 1) AS scadenza,
       (SELECT piano FROM abbonamenti a WHERE a.utente_id=u.id ORDER BY scadenza DESC LIMIT 1) AS piano,
       (SELECT v.nome FROM abbonamenti a JOIN utenti v ON v.id=a.creato_da WHERE a.utente_id=u.id ORDER BY a.scadenza DESC LIMIT 1) AS venduto_da
@@ -156,12 +158,13 @@ async function api(req, env, url) {
     const salt = randHex(16), h = await hashPw(pw, salt);
     const ruolo = (b.ruolo === "admin" || b.ruolo === "venditore") ? b.ruolo : "allievo";
     if (ruolo !== "allievo" && u.ruolo !== "admin") return soloAdmin();
-    const ins = await env.DB.prepare("INSERT INTO utenti(email,nome,pass_hash,salt,ruolo,cambia_password) VALUES(?,?,?,?,?,1)").bind(email, (b.nome || "").trim(), h, salt, ruolo).run();
+    const versione = VERSIONI[b.versione] ? b.versione : "completa";
+    const ins = await env.DB.prepare("INSERT INTO utenti(email,nome,pass_hash,salt,ruolo,versione,cambia_password) VALUES(?,?,?,?,?,?,1)").bind(email, (b.nome || "").trim(), h, salt, ruolo, versione).run();
     const id = ins.meta.last_row_id;
     let abb = null;
     if (b.piano && PIANI[b.piano]) abb = await attiva(env, u, { utente_id: id, piano: b.piano, giorni: b.giorni, inizio: b.inizio, metodo: b.metodo, importo: b.importo, nota: b.nota });
     let esito = { inviata: false, motivo: "non richiesta" };
-    if (b.invia_email !== false && b.invia_email !== "false") esito = await inviaEmail(env, emailBenvenuto(env, req, { email, nome: (b.nome || "").trim() }, pw, abb));
+    if (b.invia_email !== false && b.invia_email !== "false") esito = await inviaEmail(env, emailBenvenuto(env, req, { email, nome: (b.nome || "").trim(), versione }, pw, abb));
     return json({ ok: true, id, password: pw, abbonamento: abb, email: esito });
   }
   if (p === "/api/admin/attiva" && m === "POST") {
@@ -171,6 +174,13 @@ async function api(req, env, url) {
     let email = { inviata: false, motivo: "non richiesta" };
     if (b.invia_email !== false && b.invia_email !== "false") { const ut = await env.DB.prepare("SELECT email,nome FROM utenti WHERE id=?").bind(b.utente_id).first(); if (ut) email = await inviaEmail(env, emailRinnovo(env, req, ut, { ...abb, metodo: b.metodo })); }
     return json({ ok: true, abbonamento: abb, email });
+  }
+  if (p === "/api/admin/versione" && m === "POST") {
+    const b = await leggiJSON(req);
+    if (!VERSIONI[b.versione]) return json({ errore: "Versione non valida (mani, allena, completa)" }, 400);
+    if (u.ruolo !== "admin") { const x = await env.DB.prepare("SELECT ruolo FROM utenti WHERE id=?").bind(b.utente_id).first(); if (!x || x.ruolo !== "allievo") return soloAdmin(); }
+    await env.DB.prepare("UPDATE utenti SET versione=? WHERE id=?").bind(b.versione, b.utente_id).run();
+    return json({ ok: true });
   }
   if (p === "/api/admin/stato" && m === "POST") {
     const b = await leggiJSON(req);
@@ -234,6 +244,9 @@ async function api(req, env, url) {
 
 /* Attiva o prolunga: se c'è un abbonamento ancora valido, il nuovo parte dal giorno dopo la scadenza (non si perdono giorni). */
 async function attiva(env, admin, b) {
+  if (b.versione && VERSIONI[b.versione]) await env.DB.prepare("UPDATE utenti SET versione=? WHERE id=?").bind(b.versione, b.utente_id).run();
+  const ut = await env.DB.prepare("SELECT versione FROM utenti WHERE id=?").bind(b.utente_id).first();
+  const listino = VERSIONI[ut && ut.versione] || VERSIONI.completa;
   const corrente = await abbonamentoAttivo(env, b.utente_id);
   let inizio = b.inizio && /^\d{4}-\d{2}-\d{2}$/.test(b.inizio) ? b.inizio : oggi();
   if (corrente && !b.inizio && corrente.scadenza >= inizio) inizio = aggiungi(corrente.scadenza, { giorni: 1 });
@@ -241,10 +254,10 @@ async function attiva(env, admin, b) {
   if (b.piano === "mensile") scadenza = aggiungi(inizio, { mesi: 1, giorni: -1 });
   else if (b.piano === "annuale") scadenza = aggiungi(inizio, { mesi: 12, giorni: -1 });
   else scadenza = aggiungi(inizio, { giorni: Math.max(1, parseInt(b.giorni || 30, 10)) - 1 });
-  const importo = b.importo != null && b.importo !== "" ? Number(b.importo) : (b.piano === "mensile" ? 19 : b.piano === "annuale" ? 149 : 0);
+  const importo = b.importo != null && b.importo !== "" ? Number(b.importo) : (b.piano === "mensile" ? listino.mensile : b.piano === "annuale" ? listino.annuale : 0);
   const r = await env.DB.prepare("INSERT INTO abbonamenti(utente_id,piano,inizio,scadenza,metodo,importo,nota,creato_da) VALUES(?,?,?,?,?,?,?,?)")
     .bind(b.utente_id, b.piano, inizio, scadenza, b.metodo || (b.piano === "omaggio" ? "omaggio" : "contanti"), importo, (b.nota || "").slice(0, 300), admin.id).run();
-  return { id: r.meta.last_row_id, piano: b.piano, inizio, scadenza, importo, giorni: giorniRimasti(scadenza), rinnovo: !!corrente };
+  return { id: r.meta.last_row_id, piano: b.piano, inizio, scadenza, importo, versione: listino.nome, giorni: giorniRimasti(scadenza), rinnovo: !!corrente };
 }
 
 /* ---------- e-mail (Brevo) ---------- */
@@ -272,7 +285,7 @@ function emailBenvenuto(env, req, u, pw, abb) {
   return { a: u.email, nome: u.nome, oggetto: "Il tuo accesso ad AnatomiaPratica",
     html: "<p>Ciao " + (u.nome || "") + ",</p><p>ecco il tuo accesso ad <b>AnatomiaPratica</b>, l'atlante del massaggiatore: anatomia, biomeccanica, posturologia, test clinici e trigger point, da leggere e da ascoltare.</p>" +
       '<p><b>Indirizzo:</b> <a href="' + link + '">' + link + '</a><br><b>Email:</b> ' + u.email + '<br><b>Password provvisoria:</b> <span style="font-family:monospace;font-size:17px">' + pw + '</span></p>' +
-      "<p>Al primo accesso ti verrà chiesto di scegliere una password tua." + (abb ? " L'accesso è attivo fino al <b>" + dataIt(abb.scadenza) + "</b>." : "") + "</p>" +
+      "<p>Al primo accesso ti verrà chiesto di scegliere una password tua." + (abb ? " L'accesso è attivo fino al <b>" + dataIt(abb.scadenza) + "</b>." : "") + (u.versione && VERSIONI[u.versione] ? " Versione <b>" + VERSIONI[u.versione].nome + "</b>" + (u.versione === "completa" ? "" : ": la versione Completa ha anche " + (u.versione === "mani" ? "tutto il lato allenamento (In palestra, schede degli esercizi, Fai scheda)" : "tutto il lato manuale (come si tratta, trigger point, posturologia con trattamento)") + ", quando vorrai basta chiedere") + "." : "") + "</p>" +
       "<p>Sul telefono: apri il link, poi dal menu del browser scegli <b>Aggiungi alla schermata Home</b>: diventa un'app, con le tavole disponibili anche senza rete.</p><p>Buono studio!<br>Davide</p>" };
 }
 function emailRinnovo(env, req, u, abb) {
@@ -291,7 +304,7 @@ function emailScadenza(env, u, abb, giorni) {
   const quando = giorni > 0 ? "scade fra " + giorni + " giorni, il " + dataIt(abb.scadenza) : "è scaduto il " + dataIt(abb.scadenza);
   return { a: u.email, nome: u.nome, oggetto: giorni > 0 ? "AnatomiaPratica: il tuo accesso scade fra " + giorni + " giorni" : "AnatomiaPratica: accesso scaduto",
     html: "<p>Ciao " + (u.nome || "") + ",</p><p>il tuo accesso ad <b>AnatomiaPratica</b> " + quando + ".</p>" +
-      "<p>Per continuare: <b>19 € al mese</b> oppure <b>149 € all'anno</b>, con bonifico o in contanti in studio. Appena il pagamento è registrato l'accesso riparte da solo, senza perdere giorni.</p>" +
+      "<p>Per continuare: <b>19 € al mese</b> o <b>149 € all'anno</b> (versione Mani o Allena), <b>27 € al mese</b> o <b>199 € all'anno</b> (versione Completa), con bonifico o in contanti in studio. Appena il pagamento è registrato l'accesso riparte da solo, senza perdere giorni.</p>" +
       "<p>Rispondi a questa email o scrivi su WhatsApp per rinnovare." + (link ? ' L\'app è qui: <a href="' + link + '">' + link + "</a>" : "") + "</p><p>Davide</p>" };
 }
 

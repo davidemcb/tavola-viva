@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS utenti (
   nome TEXT,
   pass_hash TEXT NOT NULL,
   salt TEXT NOT NULL,
-  ruolo TEXT NOT NULL DEFAULT 'allievo',      -- 'allievo' | 'admin'
+  ruolo TEXT NOT NULL DEFAULT 'allievo',      -- 'allievo' | 'venditore' | 'admin'
+  versione TEXT NOT NULL DEFAULT 'completa',  -- 'mani' | 'allena' | 'completa'
   attivo INTEGER NOT NULL DEFAULT 1,           -- 0 = bloccato dall'amministratore
   cambia_password INTEGER NOT NULL DEFAULT 1,  -- 1 = deve cambiare la password provvisoria
   creato TEXT NOT NULL DEFAULT (datetime('now')),
