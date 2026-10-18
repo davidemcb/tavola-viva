@@ -28,7 +28,7 @@ a{color:var(--muscle)}
 .top{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
 .brand{font-family:var(--display);font-weight:600;font-size:22px;text-decoration:none;color:var(--ink)}
 .brand small{display:block;font-family:var(--body);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:600}
-.top .btn{margin-left:auto}
+.top .btn:nth-of-type(1){margin-left:auto}
 .btn{display:inline-block;padding:12px 20px;border-radius:10px;font-weight:700;text-decoration:none;border:1.5px solid var(--line);color:var(--ink);background:var(--surface);font-size:15px;line-height:1.2}
 .btn.primary{background:var(--muscle);border-color:var(--muscle);color:#fff;box-shadow:0 8px 24px -10px var(--muscle)}
 .btn.big{font-size:17px;padding:15px 26px}
@@ -91,7 +91,7 @@ footer a{color:var(--muted)}
 <div class="wrap">
   <div class="top">
     <a class="brand" href="./">AnatomiaPratica<small>l'anatomia di chi lavora sul corpo</small></a>
-    <a class="btn primary" href="#prezzi">Prova gratis</a>
+    <a class="btn" href="https://davidemcb.github.io/tavola-viva/?versione=demo#/home/">Usalo subito</a><a class="btn primary" href="#prezzi" style="margin-left:8px">Prova gratis</a>
   </div>
 </div>
 
@@ -102,9 +102,9 @@ footer a{color:var(--muted)}
     <p class="lead">AnatomiaPratica è l'atlante che parte dal problema del cliente («non riesco ad allacciarmi il reggiseno») e ti porta al muscolo, al test da fare, al trattamento o all'esercizio giusto. Tutto collegato, tutto in italiano, da leggere e da ascoltare. In tasca, anche in studio e in sala.</p>
     <div class="acts">
       <a class="btn primary big" href="https://wa.me/393481514382?text=Ciao%20Davide%2C%20vorrei%20provare%20AnatomiaPratica%20per%2014%20giorni." target="_blank" rel="noopener">Prova gratis 14 giorni</a>
-      <a class="btn big" href="#come">Come funziona</a>
+      <a class="btn big" href="https://davidemcb.github.io/tavola-viva/?versione=demo#/home/">Usalo subito, senza registrarti</a>
     </div>
-    <p class="fine">Nessuna carta di credito. Mi scrivi, ti attivo l'accesso, lo usi per 14 giorni. Se ti serve, continui da 19 € al mese.</p>
+    <p class="fine">La demo si apre adesso e mostra due schede intere per ogni tipo. La prova di 14 giorni apre tutto: nessuna carta di credito, mi scrivi e ti attivo l'accesso. Se ti serve, continui da 19 € al mese.</p>
   </div>
 </section>
 
@@ -145,7 +145,7 @@ footer a{color:var(--muted)}
   <div class="wrap">
     <span class="eyebrow">Guarda una scheda vera</span>
     <h2>Non una presentazione: il programma, così com'è</h2>
-    <p style="max-width:680px;color:var(--muted)">Scegli un tipo di scheda. Quella che compare sotto è l'app vera, non un'immagine: scorrila, premi «Ascolta», clicca una parola e vedi dove ti porta.</p>
+    <p style="max-width:680px;color:var(--muted)">Scegli un tipo di scheda. Quella che compare sotto è l'app vera, non un'immagine: scorrila, premi «Ascolta», clicca una parola e vedi dove ti porta. È la demo: due schede intere per ogni tipo, le altre si aprono con l'accesso.</p>
     <div class="tabs" id="demo-tabs">
       <button class="tab on" type="button" data-h="problema/p-reggiseno">Problema del cliente</button>
       <button class="tab" type="button" data-h="muscolo/m-bicipite">Muscolo</button>
@@ -154,13 +154,13 @@ footer a{color:var(--muted)}
       <button class="tab" type="button" data-h="esercizio/e-squat">Esercizio</button>
       <button class="tab" type="button" data-h="postura/post-spalle-anteposte">Postura</button>
     </div>
-    <div class="frame"><iframe id="demo-if" loading="lazy" src="https://davidemcb.github.io/tavola-viva/#/problema/p-reggiseno" title="AnatomiaPratica, scheda di esempio"></iframe></div>
-    <p style="margin-top:10px;font-size:14px"><a id="demo-apri" href="https://davidemcb.github.io/tavola-viva/#/problema/p-reggiseno" target="_blank" rel="noopener">Apri questa scheda a schermo intero</a> <span style="color:var(--faint)">· sul telefono si usa meglio a schermo intero</span></p>
+    <div class="frame"><iframe id="demo-if" loading="lazy" src="https://davidemcb.github.io/tavola-viva/?versione=demo#/problema/p-reggiseno" title="AnatomiaPratica, scheda di esempio"></iframe></div>
+    <p style="margin-top:10px;font-size:14px"><a id="demo-apri" href="https://davidemcb.github.io/tavola-viva/?versione=demo#/problema/p-reggiseno" target="_blank" rel="noopener">Apri questa scheda a schermo intero</a> <span style="color:var(--faint)">· sul telefono si usa meglio a schermo intero</span></p>
   </div>
 </section>
 <script>
 (function(){
-  var base="https://davidemcb.github.io/tavola-viva/#/", f=document.getElementById("demo-if"), a=document.getElementById("demo-apri");
+  var base="https://davidemcb.github.io/tavola-viva/?versione=demo#/", f=document.getElementById("demo-if"), a=document.getElementById("demo-apri");
   document.getElementById("demo-tabs").addEventListener("click",function(e){
     var b=e.target.closest(".tab"); if(!b) return;
     document.querySelectorAll("#demo-tabs .tab").forEach(function(x){ x.classList.toggle("on",x===b); });
@@ -289,6 +289,7 @@ footer a{color:var(--muted)}
     <h2>Il prossimo cliente ti dirà dove fa male.</h2>
     <p style="color:var(--muted);font-size:18px;margin:12px 0 24px">Questa volta sai dove guardare.</p>
     <div class="acts" style="justify-content:center">
+      <a class="btn big" href="https://davidemcb.github.io/tavola-viva/?versione=demo#/home/">Usalo subito</a>
       <a class="btn primary big" href="https://wa.me/393481514382?text=Ciao%20Davide%2C%20vorrei%20provare%20AnatomiaPratica%20per%2014%20giorni." target="_blank" rel="noopener">Prova gratis 14 giorni su WhatsApp</a>
       <a class="btn big" href="mailto:scuderidavide@libero.it?subject=Prova%20AnatomiaPratica&body=Ciao%20Davide%2C%20vorrei%20provare%20AnatomiaPratica%20per%2014%20giorni.">Scrivi per email</a>
     </div>
