@@ -79,6 +79,12 @@ footer a{color:var(--muted)}
 .rec .chi b{display:block;color:var(--ink);font-size:14.5px}
 .rec .ini{width:38px;height:38px;border-radius:50%;background:var(--muscle-soft);color:var(--muscle);display:grid;place-items:center;font-weight:700;font-family:var(--display);font-size:17px}
 .stelle{color:#D9A21B;letter-spacing:2px;font-size:14px;margin-bottom:8px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 12px}
+.tab{padding:9px 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.tab.on{background:var(--muscle);border-color:var(--muscle);color:#fff}
+.frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface);box-shadow:0 24px 60px -36px rgba(0,0,0,.45)}
+.frame iframe{display:block;width:100%;height:680px;border:0;background:var(--paper)}
+@media (max-width:600px){.frame iframe{height:72vh}}
 </style>
 </head>
 <body>
@@ -134,6 +140,34 @@ footer a{color:var(--muted)}
     <p style="margin-top:14px;color:var(--muted)">Ogni scheda ha il suo. È il dettaglio che fa la differenza fra chi ha studiato e chi ha le mani addosso al cliente da vent'anni.</p>
   </div>
 </section>
+
+<section id="demo">
+  <div class="wrap">
+    <span class="eyebrow">Guarda una scheda vera</span>
+    <h2>Non una presentazione: il programma, così com'è</h2>
+    <p style="max-width:680px;color:var(--muted)">Scegli un tipo di scheda. Quella che compare sotto è l'app vera, non un'immagine: scorrila, premi «Ascolta», clicca una parola e vedi dove ti porta.</p>
+    <div class="tabs" id="demo-tabs">
+      <button class="tab on" type="button" data-h="problema/p-reggiseno">Problema del cliente</button>
+      <button class="tab" type="button" data-h="muscolo/m-bicipite">Muscolo</button>
+      <button class="tab" type="button" data-h="test/q-neer-hawkins">Test clinico</button>
+      <button class="tab" type="button" data-h="trigger/tp-trapezio-sup">Trigger point</button>
+      <button class="tab" type="button" data-h="esercizio/e-squat">Esercizio</button>
+      <button class="tab" type="button" data-h="postura/post-spalle-anteposte">Postura</button>
+    </div>
+    <div class="frame"><iframe id="demo-if" loading="lazy" src="https://davidemcb.github.io/tavola-viva/#/problema/p-reggiseno" title="AnatomiaPratica, scheda di esempio"></iframe></div>
+    <p style="margin-top:10px;font-size:14px"><a id="demo-apri" href="https://davidemcb.github.io/tavola-viva/#/problema/p-reggiseno" target="_blank" rel="noopener">Apri questa scheda a schermo intero</a> <span style="color:var(--faint)">· sul telefono si usa meglio a schermo intero</span></p>
+  </div>
+</section>
+<script>
+(function(){
+  var base="https://davidemcb.github.io/tavola-viva/#/", f=document.getElementById("demo-if"), a=document.getElementById("demo-apri");
+  document.getElementById("demo-tabs").addEventListener("click",function(e){
+    var b=e.target.closest(".tab"); if(!b) return;
+    document.querySelectorAll("#demo-tabs .tab").forEach(function(x){ x.classList.toggle("on",x===b); });
+    f.src=base+b.getAttribute("data-h"); a.href=f.src;
+  });
+})();
+</script>
 
 <section class="alt">
   <div class="wrap">
