@@ -241,7 +241,7 @@ async function attiva(env, admin, b) {
   if (b.piano === "mensile") scadenza = aggiungi(inizio, { mesi: 1, giorni: -1 });
   else if (b.piano === "annuale") scadenza = aggiungi(inizio, { mesi: 12, giorni: -1 });
   else scadenza = aggiungi(inizio, { giorni: Math.max(1, parseInt(b.giorni || 30, 10)) - 1 });
-  const importo = b.importo != null && b.importo !== "" ? Number(b.importo) : (b.piano === "mensile" ? 19 : b.piano === "annuale" ? 197 : 0);
+  const importo = b.importo != null && b.importo !== "" ? Number(b.importo) : (b.piano === "mensile" ? 19 : b.piano === "annuale" ? 149 : 0);
   const r = await env.DB.prepare("INSERT INTO abbonamenti(utente_id,piano,inizio,scadenza,metodo,importo,nota,creato_da) VALUES(?,?,?,?,?,?,?,?)")
     .bind(b.utente_id, b.piano, inizio, scadenza, b.metodo || (b.piano === "omaggio" ? "omaggio" : "contanti"), importo, (b.nota || "").slice(0, 300), admin.id).run();
   return { id: r.meta.last_row_id, piano: b.piano, inizio, scadenza, importo, giorni: giorniRimasti(scadenza), rinnovo: !!corrente };
@@ -291,7 +291,7 @@ function emailScadenza(env, u, abb, giorni) {
   const quando = giorni > 0 ? "scade fra " + giorni + " giorni, il " + dataIt(abb.scadenza) : "è scaduto il " + dataIt(abb.scadenza);
   return { a: u.email, nome: u.nome, oggetto: giorni > 0 ? "AnatomiaPratica: il tuo accesso scade fra " + giorni + " giorni" : "AnatomiaPratica: accesso scaduto",
     html: "<p>Ciao " + (u.nome || "") + ",</p><p>il tuo accesso ad <b>AnatomiaPratica</b> " + quando + ".</p>" +
-      "<p>Per continuare: <b>19 € al mese</b> oppure <b>197 € all'anno</b>, con bonifico o in contanti in studio. Appena il pagamento è registrato l'accesso riparte da solo, senza perdere giorni.</p>" +
+      "<p>Per continuare: <b>19 € al mese</b> oppure <b>149 € all'anno</b>, con bonifico o in contanti in studio. Appena il pagamento è registrato l'accesso riparte da solo, senza perdere giorni.</p>" +
       "<p>Rispondi a questa email o scrivi su WhatsApp per rinnovare." + (link ? ' L\'app è qui: <a href="' + link + '">' + link + "</a>" : "") + "</p><p>Davide</p>" };
 }
 

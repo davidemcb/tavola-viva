@@ -10,7 +10,7 @@
   const q=s=>document.querySelector(s);
   const h=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const dataIt=s=>{ if(!s) return ""; const [a,m,g]=s.split("-"); return g+"/"+m+"/"+a; };
-  const TESTO_RINNOVO='<p>Per rinnovare: <b>19 € al mese</b> oppure <b>197 € all\'anno</b>.</p><ul style="margin:0;padding-left:18px"><li><b>Bonifico</b>: chiedi l\'IBAN a Davide e indica la tua email nella causale.</li><li><b>Contanti</b>: in studio o a lezione.</li></ul><p>Appena il pagamento è registrato, l\'accesso riparte da solo: non devi fare altro. Scrivi a <a href="mailto:scuderidavide@libero.it">scuderidavide@libero.it</a> o su WhatsApp.</p>';
+  const TESTO_RINNOVO='<p>Per rinnovare: <b>19 € al mese</b> oppure <b>149 € all\'anno</b>.</p><ul style="margin:0;padding-left:18px"><li><b>Bonifico</b>: chiedi l\'IBAN a Davide e indica la tua email nella causale.</li><li><b>Contanti</b>: in studio o a lezione.</li></ul><p>Appena il pagamento è registrato, l\'accesso riparte da solo: non devi fare altro. Scrivi a <a href="mailto:scuderidavide@libero.it">scuderidavide@libero.it</a> o su WhatsApp.</p>';
 
   async function chiama(path,corpo,metodo){
     const r=await fetch(API+path,{method:metodo||(corpo?"POST":"GET"),headers:Object.assign({"Content-Type":"application/json"},TOKEN?{"Authorization":"Bearer "+TOKEN}:{}),body:corpo?JSON.stringify(corpo):undefined});
@@ -29,7 +29,7 @@
       '<label>Password<br><input name="password" type="password" required autocomplete="current-password" class="inp" style="width:100%"></label>'+
       (msg?'<p style="color:var(--muscle);margin:0">'+h(msg)+'</p>':'')+
       '<button class="btn primary" type="submit">Entra</button></form>'+
-      '<p style="font-size:12.5px;color:var(--faint);margin:0">Non hai ancora le credenziali o hai dimenticato la password? Scrivi a <a href="mailto:scuderidavide@libero.it">scuderidavide@libero.it</a>: l\'accesso costa 19 € al mese o 197 € all\'anno.</p>'));
+      '<p style="font-size:12.5px;color:var(--faint);margin:0">Non hai ancora le credenziali o hai dimenticato la password? Scrivi a <a href="mailto:scuderidavide@libero.it">scuderidavide@libero.it</a>: l\'accesso costa 19 € al mese o 149 € all\'anno.</p>'));
     q("#acc-form").addEventListener("submit",async e=>{
       e.preventDefault(); const f=new FormData(e.target); const b=e.target.querySelector("button"); b.disabled=true; b.textContent="Un momento…";
       const r=await chiama("/api/login",{email:f.get("email"),password:f.get("password")});
@@ -128,7 +128,7 @@
       '<form id="adm-nuovo" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin-top:10px">'+
       '<input name="email" type="email" required placeholder="email" class="inp"><input name="nome" placeholder="nome e cognome" class="inp">'+
       (ME.utente.ruolo==="admin"?'<select name="ruolo" class="inp"><option value="allievo">Allievo</option><option value="venditore">Venditore (vende e registra pagamenti)</option><option value="admin">Amministratore</option></select>':'')+
-      '<select name="piano" class="inp"><option value="">Solo account (attivo dopo)</option><option value="mensile">Mensile · 19 €</option><option value="annuale">Annuale · 197 €</option><option value="giorni">Giorni (prova)</option><option value="omaggio">Omaggio</option></select>'+
+      '<select name="piano" class="inp"><option value="">Solo account (attivo dopo)</option><option value="mensile">Mensile · 19 €</option><option value="annuale">Annuale · 149 €</option><option value="giorni">Giorni (prova)</option><option value="omaggio">Omaggio</option></select>'+
       '<input name="giorni" type="number" min="1" placeholder="giorni (per prova/omaggio)" class="inp"><select name="metodo" class="inp"><option value="contanti">Contanti</option><option value="bonifico">Bonifico</option><option value="omaggio">Omaggio</option></select>'+
       '<input name="importo" type="number" step="0.01" placeholder="importo € (vuoto = listino)" class="inp"><input name="nota" placeholder="nota (es. corso 2026)" class="inp">'+
       '<label style="display:flex;gap:6px;align-items:center;font-size:13px"><input type="checkbox" name="invia_email" value="true" checked> Invia l\'email con le credenziali</label>'+
@@ -176,7 +176,7 @@
       out.querySelectorAll("[data-sc]").forEach(b=>b.onclick=async()=>{ const d=prompt("Nuova data di scadenza (AAAA-MM-GG):"); if(!d) return; const r2=await chiama("/api/admin/scadenza",{abbonamento_id:parseInt(b.getAttribute("data-sc"),10),scadenza:d}); if(!r2.ok) alert(r2.data.errore); apriPannello(); }); return; }
     if(a==="attiva"){
       out.innerHTML='<form class="adm-att" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:6px;margin-top:6px">'+
-        '<select name="piano" class="inp"><option value="mensile">Mensile · 19 €</option><option value="annuale">Annuale · 197 €</option><option value="giorni">Giorni</option><option value="omaggio">Omaggio</option></select>'+
+        '<select name="piano" class="inp"><option value="mensile">Mensile · 19 €</option><option value="annuale">Annuale · 149 €</option><option value="giorni">Giorni</option><option value="omaggio">Omaggio</option></select>'+
         '<input name="giorni" type="number" min="1" placeholder="giorni" class="inp"><input name="inizio" type="date" class="inp" title="inizio (vuoto = oggi, o dal giorno dopo la scadenza attuale)">'+
         '<select name="metodo" class="inp"><option value="contanti">Contanti</option><option value="bonifico">Bonifico</option><option value="omaggio">Omaggio</option></select>'+
         '<input name="importo" type="number" step="0.01" placeholder="importo €" class="inp"><input name="nota" placeholder="nota" class="inp">'+
