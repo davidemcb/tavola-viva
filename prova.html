@@ -158,15 +158,15 @@ footer a{color:var(--muted)}
   </div>
 </section>
 
-<!-- RECENSIONI: togliere l'attributo hidden quando ci sono tre recensioni vere (nome, mestiere, città, frase detta davvero). -->
-<section id="recensioni" hidden>
+<!-- RECENSIONI: le carte con hidden sono posti liberi per recensioni vere (nome, mestiere, città, frase detta davvero). -->
+<section id="recensioni">
   <div class="wrap">
     <span class="eyebrow">Chi la usa</span>
     <h2>Dicono di AnatomiaPratica</h2>
-    <div class="rec">
-      <div class="card"><div class="stelle">★★★★★</div><p class="quote">«[frase della recensione, con le parole sue]»</p><div class="chi"><span class="ini">A</span><span><b>[Nome Cognome]</b>[mestiere], [città]</span></div></div>
-      <div class="card"><div class="stelle">★★★★★</div><p class="quote">«[frase della recensione, con le parole sue]»</p><div class="chi"><span class="ini">B</span><span><b>[Nome Cognome]</b>[mestiere], [città]</span></div></div>
-      <div class="card"><div class="stelle">★★★★★</div><p class="quote">«[frase della recensione, con le parole sue]»</p><div class="chi"><span class="ini">C</span><span><b>[Nome Cognome]</b>[mestiere], [città]</span></div></div>
+    <div class="rec" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+      <div class="card"><div class="stelle">★★★★★</div><p class="quote">«Per me è stata una bella scoperta, soprattutto per il tempo che mi fa risparmiare. Riesco a preparare schede personalizzate per i miei clienti in pochi minuti, con indicazioni ed esercizi più mirati alle loro esigenze, senza dover perdere ore a cercare informazioni in fonti diverse. È pratica, immediata e utile nel lavoro di tutti i giorni. Considerando quante informazioni offre, quanto mi permette di imparare e il tempo che mi fa risparmiare, il costo è davvero contenuto. Sinceramente, per quello che costa, è un super affare per chi lavora nel settore del benessere e del movimento.»</p><div class="chi"><span class="ini">M</span><span><b>Morena Anastasi</b>chinesiologa e personal trainer, Modena</span></div></div>
+      <div class="card" hidden><div class="stelle">★★★★★</div><p class="quote">«[frase della recensione, con le parole sue]»</p><div class="chi"><span class="ini">B</span><span><b>[Nome Cognome]</b>[mestiere], [città]</span></div></div>
+      <div class="card" hidden><div class="stelle">★★★★★</div><p class="quote">«[frase della recensione, con le parole sue]»</p><div class="chi"><span class="ini">C</span><span><b>[Nome Cognome]</b>[mestiere], [città]</span></div></div>
     </div>
     <p style="margin-top:14px;font-size:13.5px;color:var(--faint)">Recensioni raccolte dal modulo dentro l'app, pubblicate con il consenso di chi le ha scritte.</p>
   </div>
