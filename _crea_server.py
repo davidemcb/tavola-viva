@@ -39,7 +39,7 @@ bundle = bundle.replace("\r\n", "\n")
 io.open(os.path.join(SERVER, "app-bundle.js"), "w", encoding="utf-8", newline="\n").write(bundle)
 
 # 3) file statici
-for f in ["manifest.webmanifest", "icona-192.png", "icona-512.png", "icona.svg", "trainer.html", "massaggiatori.html"]:
+for f in ["manifest.webmanifest", "icona-192.png", "icona-512.png", "icona.svg", "trainer.html", "massaggiatori.html", "prova.html"]:
     p = os.path.join(BASE, f)
     if os.path.exists(p): shutil.copy2(p, os.path.join(PUB, f))
 dst_t = os.path.join(PUB, "tavole"); os.makedirs(dst_t, exist_ok=True)

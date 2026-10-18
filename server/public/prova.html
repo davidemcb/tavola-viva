@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AnatomiaPratica · prova gratis 14 giorni</title>
+<meta name="description" content="L'atlante che parte dal problema del cliente e ti porta al muscolo, al test, al trattamento o all'esercizio giusto. Per massaggiatori e personal trainer. Da leggere e da ascoltare. Prova gratis 14 giorni.">
+<meta property="og:title" content="AnatomiaPratica · il cliente ti dice dove fa male. Tu devi sapere perché.">
+<meta property="og:description" content="Oltre 600 schede collegate: problemi del cliente, muscoli, test, trigger point, esercizi e schede di allenamento. Per massaggiatori e personal trainer. Prova gratis 14 giorni.">
+<meta property="og:image" content="https://davidemcb.github.io/tavola-viva/icona-512.png">
+<meta property="og:type" content="website">
+<link rel="icon" href="icona.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,600&family=Archivo:wght@400;500;600;700&display=swap">
+<style>
+:root{--paper:#EEF1F0;--surface:#FFFFFF;--surface-2:#F7F9F8;--ink:#141D1C;--muted:#5B6B68;--faint:#8A9996;--line:#D9E0DE;--muscle:#A62B3F;--muscle-soft:#F2DEE2;--ok:#2E7D5B;--ok-soft:#DDEFE6;--display:"Newsreader",Georgia,serif;--body:"Archivo",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#0E1413;--surface:#161F1D;--surface-2:#1C2725;--ink:#E7EEEB;--muted:#9BAAA6;--faint:#76857F;--line:#2A3633;--muscle:#E3697C;--muscle-soft:#372024;--ok:#5CC497;--ok-soft:#1C3129}}
+:root[data-theme="dark"]{--paper:#0E1413;--surface:#161F1D;--surface-2:#1C2725;--ink:#E7EEEB;--muted:#9BAAA6;--faint:#76857F;--line:#2A3633;--muscle:#E3697C;--muscle-soft:#372024;--ok:#5CC497;--ok-soft:#1C3129}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:600;margin:0;letter-spacing:-.012em;text-wrap:balance;line-height:1.12}
+h1{font-size:clamp(34px,6vw,58px)}
+h2{font-size:clamp(26px,4vw,38px);margin-bottom:14px}
+h3{font-size:21px;margin-bottom:6px}
+p{margin:0 0 12px}
+a{color:var(--muscle)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+.eyebrow{display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--muscle);margin-bottom:12px}
+.top{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.brand{font-family:var(--display);font-weight:600;font-size:22px;text-decoration:none;color:var(--ink)}
+.brand small{display:block;font-family:var(--body);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:600}
+.top .btn{margin-left:auto}
+.btn{display:inline-block;padding:12px 20px;border-radius:10px;font-weight:700;text-decoration:none;border:1.5px solid var(--line);color:var(--ink);background:var(--surface);font-size:15px;line-height:1.2}
+.btn.primary{background:var(--muscle);border-color:var(--muscle);color:#fff;box-shadow:0 8px 24px -10px var(--muscle)}
+.btn.big{font-size:17px;padding:15px 26px}
+.btn.wa{background:#25D366;border-color:#25D366;color:#fff}
+.acts{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+section{padding:56px 0}
+.hero{padding:64px 0 48px}
+.hero p.lead{font-size:clamp(18px,2.4vw,22px);color:var(--muted);max-width:640px;margin:18px 0 26px}
+.hero .fine{font-size:13.5px;color:var(--faint);margin-top:12px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.card h3{font-size:20px}
+.card p{color:var(--muted);margin:0}
+.quote{font-family:var(--display);font-style:italic;font-size:19px;color:var(--ink);margin:0 0 8px}
+.num{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:8px}
+.num div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center}
+.num b{display:block;font-family:var(--display);font-size:38px;line-height:1;color:var(--muscle)}
+.num span{font-size:13px;color:var(--muted)}
+.alt{background:var(--surface-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.secret{border:1px solid color-mix(in srgb,var(--muscle) 40%,var(--line));background:var(--muscle-soft);border-radius:14px;padding:18px 20px;margin-top:14px}
+.secret .lbl{display:block;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--muscle);margin-bottom:6px}
+.secret p{margin:0;font-family:var(--display);font-size:18px}
+ul.check{list-style:none;padding:0;margin:0 0 12px}
+ul.check li{padding-left:26px;position:relative;margin-bottom:8px}
+ul.check li:before{content:"✓";position:absolute;left:0;top:0;color:var(--ok);font-weight:700}
+.prezzi{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;align-items:stretch}
+.prezzo{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:8px;position:relative}
+.prezzo.top{border-color:var(--muscle);box-shadow:0 14px 40px -24px var(--muscle)}
+.prezzo .tag{position:absolute;top:-12px;left:20px;background:var(--muscle);color:#fff;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:4px 10px;border-radius:999px}
+.prezzo .cifra{font-family:var(--display);font-size:44px;line-height:1;margin-top:6px}
+.prezzo .cifra small{font-family:var(--body);font-size:14px;color:var(--muted);font-weight:500}
+.prezzo .mese{font-size:14px;color:var(--muted)}
+.prezzo ul.check{font-size:14.5px;margin:10px 0 14px;flex:1}
+.prezzo .btn{text-align:center}
+details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:600;font-size:16.5px}
+details p{margin:10px 0 0;color:var(--muted)}
+.cta-fin{text-align:center;padding:72px 0}
+.cta-fin h2{font-size:clamp(28px,4.5vw,44px)}
+footer{padding:28px 0 40px;border-top:1px solid var(--line);font-size:13px;color:var(--faint)}
+footer a{color:var(--muted)}
+@media (max-width:600px){section{padding:40px 0}.hero{padding:44px 0 36px}.top .btn{padding:10px 14px;font-size:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="./">AnatomiaPratica<small>l'anatomia di chi lavora sul corpo</small></a>
+    <a class="btn primary" href="#prezzi">Prova gratis</a>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Per massaggiatori, massoterapisti e personal trainer</span>
+    <h1>Il cliente ti dice dove fa male.<br>Tu devi sapere perché.</h1>
+    <p class="lead">AnatomiaPratica è l'atlante che parte dal problema del cliente («non riesco ad allacciarmi il reggiseno») e ti porta al muscolo, al test da fare, al trattamento o all'esercizio giusto. Tutto collegato, tutto in italiano, da leggere e da ascoltare. In tasca, anche in studio e in sala.</p>
+    <div class="acts">
+      <a class="btn primary big" href="https://wa.me/393481514382?text=Ciao%20Davide%2C%20vorrei%20provare%20AnatomiaPratica%20per%2014%20giorni." target="_blank" rel="noopener">Prova gratis 14 giorni</a>
+      <a class="btn big" href="#come">Come funziona</a>
+    </div>
+    <p class="fine">Nessuna carta di credito. Mi scrivi, ti attivo l'accesso, lo usi per 14 giorni. Se ti serve, continui da 19 € al mese.</p>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <span class="eyebrow">Ti è mai capitato?</span>
+    <h2>Sapere tanto e non trovarlo nel momento in cui serve</h2>
+    <div class="grid g3">
+      <div class="card"><p class="quote">«Ho trattato la spalla per tre settimane. Il problema era il piccolo pettorale.»</p><p>Il dolore sta in un posto, la causa in un altro. Se non hai sotto mano la catena che li collega, lavori dove fa male e il cliente torna uguale.</p></div>
+      <div class="card"><p class="quote">«Ha mal di schiena. Gli faccio fare lo stacco o no?»</p><p>Il trainer che sbaglia una scelta perde il cliente, o peggio. Serve sapere cosa evitare, cosa allenare e quando non è più lavoro tuo.</p></div>
+      <div class="card"><p class="quote">«Ho studiato 700 pagine. A lezione non mi ricordo niente.»</p><p>I libri sono in latino, le foto hanno il copyright, le app sono in inglese. Nessuno parte da quello che ti chiede davvero il cliente.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="come">
+  <div class="wrap">
+    <span class="eyebrow">Come funziona</span>
+    <h2>Stesso corpo, sei porte per entrarci</h2>
+    <p style="max-width:680px;color:var(--muted)">Scegli da dove partire. Ogni scheda è collegata a tutte le altre: dal problema arrivi al movimento, dal movimento al muscolo, dal muscolo all'osso, al nervo, alla catena, al test, all'esercizio. Ogni parola che vedi si apre e si studia.</p>
+    <div class="grid g3" style="margin-top:18px">
+      <div class="card"><h3>Dal problema del cliente</h3><p>49 problemi scritti come li dice lui: «mi sveglio con il collo bloccato», «non riesco a infilarmi il calzino». Cause in ordine di probabilità, come si verifica ciascuna, come si tratta, cosa fare in palestra, quando mandare dal medico.</p></div>
+      <div class="card"><h3>Dal muscolo</h3><p>103 muscoli con origine, inserzione, azioni, come si palpa, dolore riferito, come si tratta con le mani, come si allunga e si rinforza, un esercizio da dare a casa. E il segreto del mestiere che nei libri non c'è.</p></div>
+      <div class="card"><h3>Dal test clinico</h3><p>36 test ortopedici spiegati passo per passo: cosa cerchi, come lo fai, cosa vuol dire se è positivo. Collegati ai problemi e ai muscoli che mettono in discussione.</p></div>
+      <div class="card"><h3>Dal trigger point</h3><p>47 trigger point e i tender point sulla mappa del corpo: dove sta, dove riferisce il dolore, cosa lo attiva, come si cerca, come si tratta, cosa far fare a casa.</p></div>
+      <div class="card"><h3>Dagli esercizi</h3><p>Squat, stacco, panca, trazioni e gli altri 28: muscolo per muscolo, gradi articolari che servono, errori e la loro causa, versioni più facili e più difficili, chi deve fare attenzione.</p></div>
+      <div class="card"><h3>Dalla postura</h3><p>Spalle anteposte, ipercifosi, iperlordosi, scoliosi, piede piatto e cavo: cosa si vede, perché succede, come si valuta, test, trattamento e programma in palestra.</p></div>
+    </div>
+    <div class="secret">
+      <span class="lbl">Un esempio di «segreto del mestiere», dal bicipite brachiale</span>
+      <p>Il tendine del capo lungo si trova nel solco bicipitale: braccio a 90° di rotazione esterna, si sente rotolare sotto il dito. Sede classica di tendinite.</p>
+    </div>
+    <p style="margin-top:14px;color:var(--muted)">Ogni scheda ha il suo. È il dettaglio che fa la differenza fra chi ha studiato e chi ha le mani addosso al cliente da vent'anni.</p>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <span class="eyebrow">Quanto c'è dentro</span>
+    <h2>Più di 600 schede, tutte collegate fra loro</h2>
+    <div class="num">
+      <div><b>103</b><span>muscoli</span></div>
+      <div><b>49</b><span>problemi del cliente</span></div>
+      <div><b>36</b><span>test clinici</span></div>
+      <div><b>47</b><span>trigger point</span></div>
+      <div><b>32</b><span>esercizi da palestra</span></div>
+      <div><b>23</b><span>posture</span></div>
+      <div><b>131</b><span>tavole anatomiche</span></div>
+      <div><b>12</b><span>catene miofasciali</span></div>
+    </div>
+    <div class="grid g2" style="margin-top:22px">
+      <div class="card"><h3>Si ascolta, non solo si legge</h3><p>Ogni scheda è anche audio: metti in coda i muscoli della spalla e li ripassi in macchina, in bici, mentre ti alleni. Le frasi sono le stesse della pagina.</p></div>
+      <div class="card"><h3>Percorso di studio e ripasso</h3><p>Dodici tappe guidate con quiz, e le flashcard che tornano finché non le sai. Per chi prepara l'esame e per chi vuole smettere di dimenticare.</p></div>
+      <div class="card"><h3>Il mio studio</h3><p>Salvi le schede che ti servono, alleghi vocali, foto e referti del cliente, condividi una scheda su WhatsApp con un tocco.</p></div>
+      <div class="card"><h3>Funziona sul telefono</h3><p>Si installa dal browser come un'app, senza store: le tavole restano disponibili anche senza rete.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Due mestieri, un'anatomia</span>
+    <h2>Scegli il tuo lato. O prendili tutti e due.</h2>
+    <div class="grid g2" style="margin-top:6px">
+      <div class="card">
+        <h3>Versione Mani</h3>
+        <p style="margin-bottom:10px">Per chi tratta: massaggiatori, massoterapisti, operatori olistici, osteopati, posturologi.</p>
+        <ul class="check">
+          <li>Come si tratta con le mani, muscolo per muscolo e problema per problema</li>
+          <li>Palpazione, dolore riferito, trigger e tender point con il trattamento</li>
+          <li>Posturologia con valutazione e trattamento</li>
+          <li>Consulto: descrivi il problema e l'app ti dice cosa guardare e cosa testare</li>
+          <li>Un esercizio semplice da dare a casa per ogni muscolo</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Versione Allena</h3>
+        <p style="margin-bottom:10px">Per chi allena: personal trainer, chinesiologi, istruttori, insegnanti di pilates e yoga.</p>
+        <ul class="check">
+          <li>Blocco «In palestra» in ogni problema: cosa evitare, cosa allenare, come adattare, quando non è lavoro tuo</li>
+          <li>Le schede degli esercizi per intero, con errori, cause, regressioni e progressioni</li>
+          <li><b>Fai scheda</b>: dai problemi del cliente alla scheda di 12 settimane in tre fasi, con adattamenti per età e condizioni, da mandare su WhatsApp o stampare</li>
+          <li>Fisiologia dell'allenamento: forza, ipertrofia, recupero, riscaldamento</li>
+          <li>Veste grafica fitness, con gli attrezzi disegnati</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin-top:16px;color:var(--muted)">La versione <b>Completa</b> ha tutti e due i lati. È quella giusta se massaggi e alleni, o se vuoi capire anche l'altra metà del lavoro.</p>
+  </div>
+</section>
+
+<section class="alt" id="prezzi">
+  <div class="wrap">
+    <span class="eyebrow">Prezzi</span>
+    <h2>Meno di tre euro alla settimana. Meno di una seduta persa.</h2>
+    <p style="max-width:680px;color:var(--muted);margin-bottom:24px">Un cliente che torna perché hai capito il suo problema vale più di un anno di abbonamento. Nessun contratto: il mensile si disdice quando vuoi, l'annuale costa come otto mesi.</p>
+    <div class="prezzi">
+      <div class="prezzo">
+        <h3>Mani</h3>
+        <div class="cifra">149 €<small> /anno</small></div>
+        <div class="mese">oppure 19 € al mese</div>
+        <ul class="check"><li>Tutto il lato manuale</li><li>Audio, percorso di studio, flashcard</li><li>Il mio studio e gli allegati</li><li>Aggiornamenti inclusi</li></ul>
+        <a class="btn primary" href="https://wa.me/393481514382?text=Ciao%20Davide%2C%20vorrei%20provare%20AnatomiaPratica%20versione%20Mani%20per%2014%20giorni." target="_blank" rel="noopener">Prova gratis 14 giorni</a>
+      </div>
+      <div class="prezzo top">
+        <span class="tag">Tutti e due i lati</span>
+        <h3>Completa</h3>
+        <div class="cifra">199 €<small> /anno</small></div>
+        <div class="mese">oppure 27 € al mese</div>
+        <ul class="check"><li>Lato manuale e lato allenamento</li><li>Fai scheda e Consulto</li><li>Audio, percorso di studio, flashcard</li><li>Aggiornamenti inclusi</li></ul>
+        <a class="btn primary" href="https://wa.me/393481514382?text=Ciao%20Davide%2C%20vorrei%20provare%20AnatomiaPratica%20versione%20Completa%20per%2014%20giorni." target="_blank" rel="noopener">Prova gratis 14 giorni</a>
+      </div>
+      <div class="prezzo">
+        <h3>Allena</h3>
+        <div class="cifra">149 €<small> /anno</small></div>
+        <div class="mese">oppure 19 € al mese</div>
+        <ul class="check"><li>Tutto il lato allenamento</li><li>Fai scheda</li><li>Audio, percorso di studio, flashcard</li><li>Aggiornamenti inclusi</li></ul>
+        <a class="btn primary" href="https://wa.me/393481514382?text=Ciao%20Davide%2C%20vorrei%20provare%20AnatomiaPratica%20versione%20Allena%20per%2014%20giorni." target="_blank" rel="noopener">Prova gratis 14 giorni</a>
+      </div>
+    </div>
+    <p style="margin-top:18px;font-size:14px;color:var(--muted)">Si paga con bonifico o in contanti in studio. Attivo io l'accesso, ricevi le credenziali per email, e quando scade ti avviso tre giorni prima: nessun rinnovo a sorpresa. Frequenti un corso di Kinesiologia Studio? Chiedimi la convenzione allievi.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Domande</span>
+    <h2>Prima di scrivermi</h2>
+    <details><summary>Devo installare qualcosa?</summary><p>No. Si apre dal browser, sul telefono e sul computer. Sul telefono, con «Aggiungi alla schermata Home», diventa un'app con la sua icona.</p></details>
+    <details><summary>Le immagini sono vere?</summary><p>Sono le 131 tavole dell'anatomia del Gray, ridisegnate per essere nitide anche sul telefono, con le didascalie in italiano. Niente foto rubate, niente modelli 3D che girano a vuoto.</p></details>
+    <details><summary>È per studenti o per professionisti?</summary><p>Per tutti e due. Lo studente la usa per capire e ripassare; il professionista per avere la risposta in tre tocchi mentre il cliente è sul lettino o in sala.</p></details>
+    <details><summary>Cosa succede dopo i 14 giorni?</summary><p>Niente, se non vuoi. L'accesso si ferma da solo e non ti chiedo nulla. Se ti è servita, scegli il piano e ti riattivo lo stesso giorno.</p></details>
+    <details><summary>Posso disdire?</summary><p>Il mensile sì, quando vuoi: non c'è nessun rinnovo automatico, sei tu a decidere se continuare. L'annuale vale dodici mesi e costa come otto.</p></details>
+    <details><summary>Chi l'ha fatta?</summary><p>Davide Scuderi, massoterapista, Kinesiologia Studio a Modena. L'ho costruita per i miei allievi, perché l'anatomia che serve a chi lavora sul corpo non è quella dei libri di medicina. Ogni scheda la rileggo come la userei io con un cliente davanti.</p></details>
+  </div>
+</section>
+
+<section class="cta-fin alt">
+  <div class="wrap">
+    <h2>Il prossimo cliente ti dirà dove fa male.</h2>
+    <p style="color:var(--muted);font-size:18px;margin:12px 0 24px">Questa volta sai dove guardare.</p>
+    <div class="acts" style="justify-content:center">
+      <a class="btn primary big" href="https://wa.me/393481514382?text=Ciao%20Davide%2C%20vorrei%20provare%20AnatomiaPratica%20per%2014%20giorni." target="_blank" rel="noopener">Prova gratis 14 giorni su WhatsApp</a>
+      <a class="btn big" href="mailto:scuderidavide@libero.it?subject=Prova%20AnatomiaPratica&body=Ciao%20Davide%2C%20vorrei%20provare%20AnatomiaPratica%20per%2014%20giorni.">Scrivi per email</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">AnatomiaPratica · Kinesiologia Studio, Modena · <a href="mailto:scuderidavide@libero.it">scuderidavide@libero.it</a> · I dati dei tuoi clienti restano sul tuo dispositivo.</div>
+</footer>
+</body>
+</html>
