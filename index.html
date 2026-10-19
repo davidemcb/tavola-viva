@@ -10402,28 +10402,59 @@ function saConsigli(it){
 
 function saVoce(s){ const p=s.split("|"); return p[0].indexOf("e-")===0?{e:p[0],sr:p[1]||""}:{t:p[0],sr:p[1]||"",m:p[2]||""}; }
 /* adatta una voce al livello e all'attrezzatura; restituisce il testo della riga */
+/* che cosa prende il posto di un esercizio quando manca l'attrezzo: un altro esercizio (e-id) o un testo */
+const SA_SOST={
+  "e-panca":{corpo:"e-flessioni"},
+  "e-stacco":{corpo:"Stacco rumeno a una gamba, senza peso o con elastico sotto il piede"},
+  "e-stacco-rumeno":{corpo:"Stacco rumeno con elastico sotto i piedi"},
+  "e-front-squat":{corpo:"e-squat"},
+  "e-leg-press":{corpo:"e-squat",manubri:"e-squat"},
+  "e-sumo-squat":{corpo:"Squat largo a corpo libero, pausa di 2 secondi in basso"},
+  "e-kettlebell-swing":{corpo:"e-hip-thrust"},
+  "e-farmer-walk":{corpo:"Camminata con due borse pesanti o uno zaino carico"},
+  "e-curl":{corpo:"Curl con elastico sotto i piedi"},
+  "e-pullover":{corpo:"Pullover con elastico ancorato in basso"},
+  "e-military-press":{corpo:"Spinta sopra la testa con elastico sotto i piedi"},
+  "e-trazioni":{corpo:"Rematore con elastico ancorato alla porta (se non c'è una sbarra)"}
+};
+/* con solo corpo libero ed elastici il nome dell'esercizio dice l'attrezzo giusto */
+const SA_NOME_CORPO={"e-rematore":"Rematore con elastico ancorato alla porta","e-trazioni":"Trazioni alla sbarra, oppure rematore con elastico alla porta","e-face-pull":"Face pull con elastico","e-alzate-laterali":"Alzate laterali con elastico","e-pallof-press":"Pallof press con elastico","e-good-morning":"Good morning con elastico sotto i piedi","e-leg-extension":"Estensione del ginocchio con elastico","e-leg-curl":"Leg curl con asciugamano sul pavimento (sliding)","e-dip":"Dip su sedia o panca","e-squat-bulgaro":"Squat bulgaro a corpo libero, piede dietro su una sedia","e-step-up":"Step-up sul gradino","e-calf-raise":"Calf raise sul gradino","e-affondi":"Affondi a corpo libero","e-squat":"Squat a corpo libero","e-hip-thrust":"Hip thrust a corpo libero, spalle sul divano"};
+function saDisponibile(e,A){
+  const attr=(e.attrezzo||"").toLowerCase();
+  const corpoOk=/corpo libero|elastico|gradino|box|panca|asciugamano|sbarra/.test(attr);
+  const manubriOk=/manubri|kettlebell|cavo|elastico/.test(attr);
+  return A.includes("palestra")||(A.includes("manubri")&&(manubriOk||corpoOk))||(A.includes("corpo")&&corpoOk);
+}
+/* risolve una voce secondo l'attrezzatura: se l'esercizio non si può fare, al suo posto va il sostituto */
+function saRisolvi(v,A){
+  if(!v.e) return v;
+  const e=DB.esercizi_schede.find(x=>x.id===v.e); if(!e) return v;
+  if(saDisponibile(e,A)) return v;
+  const S=SA_SOST[v.e]||{}; const s=(A.includes("manubri")&&S.manubri)||S.corpo||S.manubri;
+  if(!s) return v;
+  if(s.indexOf("e-")===0){ const v2={e:s,sr:v.sr}; return saRisolvi(v2,A); }
+  return {t:s,sr:v.sr,m:(e.primari&&e.primari[0])||""};
+}
 function saAttr(it){ const a=it.attrezzatura; const L=Array.isArray(a)?a:[a||"manubri"]; return L.length?L:["corpo"]; }
 function saRiga(v,livello,attrezzatura){
   const A=Array.isArray(attrezzatura)?attrezzatura:[attrezzatura];
   const primo=s=>(s||"").split(/[.;]/)[0].trim().toLowerCase();
   if(v.e){
     const e=DB.esercizi_schede.find(x=>x.id===v.e); if(!e) return null;
-    const attr=(e.attrezzo||"").toLowerCase();
-    const corpoOk=/corpo libero|elastico|gradino|box|panca|asciugamano|sbarra/.test(attr);
-    const manubriOk=/manubri|kettlebell|cavo|elastico/.test(attr);
-    const palestraOk=true;
-    const disponibile=(A.includes("palestra")&&palestraOk)||(A.includes("manubri")&&(manubriOk||corpoOk))||(A.includes("corpo")&&corpoOk);
+    const disponibile=saDisponibile(e,A);
     let nota="";
     if(!disponibile) nota=" · con quello che hai: "+primo(e.regressioni);
     else if(livello==="principiante") nota=" · versione facile: "+primo(e.regressioni);
     else if(livello==="avanzato") nota=" · versione avanzata: "+primo(e.progressioni)+" (+1 serie)";
-    return e.nome+" · "+v.sr+nota;
+    const soloCorpo=A.length===1&&A[0]==="corpo"; const nome=(soloCorpo&&SA_NOME_CORPO[v.e])||e.nome;
+    return nome+" · "+v.sr+nota;
   }
   return v.t+(v.sr?" · "+v.sr:"")+(livello==="avanzato"&&/×/.test(v.sr)?" (+1 serie)":"");
 }
 function saComponi(it){
   const voci={f1:[],f2:[],f3:[]}, visti={f1:{},f2:{},f3:{}};
-  const metti=(P)=>{ if(!P) return; ["f1","f2","f3"].forEach(f=>(P[f]||[]).forEach(s=>{ const v=saVoce(s); const k=v.e||v.t.toLowerCase(); if(visti[f][k]) return; visti[f][k]=1; voci[f].push(v); })); };
+  const A=saAttr(it);
+  const metti=(P)=>{ if(!P) return; ["f1","f2","f3"].forEach(f=>(P[f]||[]).forEach(s=>{ const v=saRisolvi(saVoce(s),A); const k=v.e||v.t.toLowerCase(); if(visti[f][k]) return; visti[f][k]=1; voci[f].push(v); })); };
   (it.problemi||[]).forEach(pid=>metti(DB.programma[pid]));
   if(it.altro && DB.programmaZona) metti(DB.programmaZona[it.altroZona]||DB.programmaZona["Altro"]);
   if(it.obiettivo && DB.obiettivi && DB.obiettivi[it.obiettivo]) metti(DB.obiettivi[it.obiettivo]);
@@ -10432,8 +10463,23 @@ function saComponi(it){
   (it.discipline||[]).forEach(dk=>{ const D=DB.discipline&&DB.discipline[dk]; if(!D) return;
     ["f1","f2","f3"].forEach(f=>{ const lista=(D.gen[f]||[]).concat(...zone.map(z=>(D.zone[z]&&D.zone[z][f])||[]));
       lista.forEach(s=>{ const v=saVoce(s); const k=v.t.toLowerCase(); if(visti[f][k]) return; visti[f][k]=1; voci[f].push(v); }); }); });
-  const righe={}; ["f1","f2","f3"].forEach(f=>{ righe[f]=voci[f].map(v=>saRiga(v,it.livello,saAttr(it))).filter(Boolean); });
-  return {voci,righe};
+  const righe={}; ["f1","f2","f3"].forEach(f=>{ const visti2={}; righe[f]=voci[f].map(v=>saRiga(v,it.livello,A)).filter(Boolean).filter(r=>{ const k=r.split(" · ")[0].toLowerCase(); if(visti2[k]) return false; visti2[k]=1; return true; }); });
+  return {voci,righe,zone};
+}
+/* riscaldamento: 6–8 minuti, mobilità e attivazione, niente cardio obbligatorio */
+function saRiscaldamento(it,c){
+  const zone=c.zone||[]; const L=[];
+  const ha=z=>zone.indexOf(z)>=0;
+  L.push("Un minuto di respiro lento in piedi, mani sulle costole, poi 10 cerchi lenti delle spalle avanti e indietro.");
+  if(ha("Collo")||ha("Postura")) L.push("Collo: 8 rotazioni lente per lato a occhi aperti, 8 retrazioni del mento.");
+  if(ha("Spalla")||ha("Arto superiore")||ha("Postura")) L.push("Spalle: 10 scivolamenti delle scapole al muro (wall slide) e 10 rotazioni esterne con elastico leggero o senza.");
+  if(ha("Lombare")||ha("Colonna")||ha("Postura")) L.push("Schiena: 10 cat-camel lenti e 10 basculamenti del bacino in piedi.");
+  if(ha("Anca")||ha("Ginocchio")||ha("Arto inferiore")||ha("Piede")||!zone.length) L.push("Anche e caviglie: 10 cerchi d'anca per lato in piedi con una mano al muro, 10 flessioni della caviglia al muro per lato, 10 sedute e rialzate dalla sedia senza mani.");
+  const primo=(c.righe.f1||[])[0]; const primaFase=(c.righe.f2||[])[0];
+  L.push("Attivazione: "+(primo?primo.replace(/ · (versione|con quello che hai).*$/,"")+", a metà delle ripetizioni e senza fatica":"due esercizi della fase 1 a metà delle ripetizioni")+".");
+  L.push("Serie di avvicinamento: il primo esercizio della seduta"+(primaFase?" ("+primaFase.split(" · ")[0]+")":"")+" con metà del carico per 6–8 ripetizioni, poi con tre quarti per 3–4.");
+  L.push("Cardio facoltativo: solo se il cliente è abituato e lo vuole, 3–5 minuti a ritmo di conversazione, mai di più: le energie servono per la seduta. Chi non può farlo (cuore, articolazioni, poco fiato) salta questa voce senza perdere nulla.");
+  return L;
 }
 function saGiorni(righe,giorni){
   if(giorni<2) return [["L'unica seduta della settimana (scegli 5–6 voci e alternale di settimana in settimana)",righe]];
@@ -10455,12 +10501,13 @@ blocchi = function(kind,it){
   const ad=saAdattamenti(it); if(ad.length) B.push({t:"lista",h:"Adattamenti per questa persona",items:ad});
   if(it.obiettivo && DB.obiettivi && DB.obiettivi[it.obiettivo]) B.push({t:"p",h:"Sull'obiettivo: "+DB.obiettivi[it.obiettivo].n,txt:DB.obiettivi[it.obiettivo].nota});
   if(it.altro) B.push({t:"p",h:"Sul problema scritto a mano",txt:"«"+it.altro+"» non ha una scheda sua in AnatomiaPratica: la scheda usa il lavoro generale della zona"+(it.altroZona&&it.altroZona!=="Altro"?" ("+it.altroZona.toLowerCase()+")":"")+", da adattare a quello che il trainer vede. Se il problema è un dolore, vale la regola di sempre: niente esercizio oltre 3 su 10, niente dolore che resta il giorno dopo, e se peggiora o si aggiungono formicolii, perdita di forza o febbre, prima il medico."});
-  B.push({t:"p",h:"Come si usa",txt:"Dodici settimane in tre fasi. Ogni seduta comincia con dieci minuti di riscaldamento (cinque di cardio leggero e gli esercizi di mobilità della fase 1) e finisce con due minuti di respiro lento. Il carico sale solo quando la tecnica resta pulita; se un esercizio fa male oltre 3 su 10 o il dolore resta il giorno dopo, si torna alla versione più facile. Ogni esercizio sottolineato si apre con esecuzione, errori e varianti."});
+  B.push({t:"p",h:"Come si usa",txt:"Dodici settimane in tre fasi. Ogni seduta comincia con il riscaldamento qui sotto (6–8 minuti di mobilità e attivazione, il cardio non è obbligatorio) e finisce con due minuti di respiro lento. Il carico sale solo quando la tecnica resta pulita; se un esercizio fa male oltre 3 su 10 o il dolore resta il giorno dopo, si torna alla versione più facile. Ogni esercizio sottolineato si apre con esecuzione, errori e varianti."});
+  B.push({t:"lista",h:"Riscaldamento (6–8 minuti, a ogni seduta)",items:saRiscaldamento(it,c)});
   SA_FASI.forEach(([f,titolo,descr])=>{
     const r=c.righe[f]; if(!r.length) return;
     if(f==="f1"){ B.push({t:"lista",h:titolo,items:[descr].concat(r)}); return; }
     const gg=saGiorni(r,it.giorni);
-    B.push({t:"p",h:titolo,txt:descr+(gg.length>1?" Riscaldamento con gli esercizi della fase 1, poi la seduta del giorno.":"")});
+    B.push({t:"p",h:titolo,txt:descr+(gg.length>1?" Prima il riscaldamento, poi la seduta del giorno.":"")});
     gg.forEach(([g,items])=>B.push({t:"lista",h:g,items:items}));
   });
   const evita=[],confine=[]; (it.problemi||[]).forEach(pid=>{ const P=DB.palestra[pid]; if(!P) return; if(P.evita) evita.push(nomeOf(pid).replace(/[«»]/g,"")+": "+P.evita); if(P.confine) confine.push(P.confine); });
@@ -10488,6 +10535,7 @@ collegamenti = function(kind,it){
 function saTestoCompatto(it){
   const c=saComponi(it); const NL="\n";
   let s="SCHEDA DI ALLENAMENTO"+(it.cliente?" PER "+it.cliente.toUpperCase():"")+NL+(it.problemi||[]).map(nomeOf).concat(it.altro?[it.altro]:[]).concat(it.obiettivo&&DB.obiettivi&&DB.obiettivi[it.obiettivo]?["Obiettivo: "+DB.obiettivi[it.obiettivo].n]:[]).join(" + ").replace(/[«»]/g,"")+NL+"Livello "+(SA_LIVELLI[it.livello]||"")+" · "+it.giorni+" sedut"+(it.giorni===1?"a":"e")+" a settimana"+NL;
+  s+=NL+"RISCALDAMENTO (6–8 minuti, a ogni seduta)"+NL+saRiscaldamento(it,c).slice(0,-1).map(x=>"• "+x).join(NL)+NL+"• Cardio facoltativo: 3–5 minuti a ritmo di conversazione, solo se abituato."+NL;
   SA_FASI.forEach(([f,titolo])=>{ const r=c.righe[f]; if(!r.length) return; s+=NL+titolo.toUpperCase()+NL; const gg=f==="f1"?[["",r]]:saGiorni(r,it.giorni); gg.forEach(([g,items])=>{ if(g&&gg.length>1) s+=g+NL; items.forEach(x=>{ s+="• "+x.replace(/ · versione (facile|avanzata):.*$/,"").replace(/ · con quello che hai:.*$/,"")+NL; }); }); });
   const ev=[]; (it.problemi||[]).forEach(pid=>{ const P=DB.palestra[pid]; if(P&&P.evita) ev.push(P.evita.split(/[.;]/)[0]); }); if(ev.length) s+=NL+"DA EVITARE: "+ev.join("; ")+"."+NL;
   s+=NL+"Se un esercizio fa male oltre 3 su 10 o il dolore resta il giorno dopo, torna alla versione più facile e dimmelo."+NL+NL+"AnatomiaPratica · "+(typeof ME!=="undefined"&&ME&&ME.utente?ME.utente.nome||"":"Kinesiologia Studio");
