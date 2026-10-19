@@ -78,9 +78,12 @@ function saRiga(v,livello,attrezzatura){
 }
 function saComponi(it){
   const voci={f1:[],f2:[],f3:[]}, visti={f1:{},f2:{},f3:{}};
-  it.problemi.forEach(pid=>{ const P=DB.programma[pid]; if(!P) return;
-    ["f1","f2","f3"].forEach(f=>(P[f]||[]).forEach(s=>{ const v=saVoce(s); const k=v.e||v.t.toLowerCase(); if(visti[f][k]) return; visti[f][k]=1; voci[f].push(v); })); });
-  const zone=[]; it.problemi.forEach(pid=>{ const pr=DB.problemi.find(x=>x.id===pid); const z=pr?pr.zona:(pid.indexOf("post-")===0?"Postura":null); if(z&&zone.indexOf(z)<0) zone.push(z); });
+  const metti=(P)=>{ if(!P) return; ["f1","f2","f3"].forEach(f=>(P[f]||[]).forEach(s=>{ const v=saVoce(s); const k=v.e||v.t.toLowerCase(); if(visti[f][k]) return; visti[f][k]=1; voci[f].push(v); })); };
+  (it.problemi||[]).forEach(pid=>metti(DB.programma[pid]));
+  if(it.altro && DB.programmaZona) metti(DB.programmaZona[it.altroZona]||DB.programmaZona["Altro"]);
+  if(it.obiettivo && DB.obiettivi && DB.obiettivi[it.obiettivo]) metti(DB.obiettivi[it.obiettivo]);
+  const zone=[]; (it.problemi||[]).forEach(pid=>{ const pr=DB.problemi.find(x=>x.id===pid); const z=pr?pr.zona:(pid.indexOf("post-")===0?"Postura":null); if(z&&zone.indexOf(z)<0) zone.push(z); });
+  if(it.altro && it.altroZona && it.altroZona!=="Altro" && zone.indexOf(it.altroZona)<0) zone.push(it.altroZona);
   (it.discipline||[]).forEach(dk=>{ const D=DB.discipline&&DB.discipline[dk]; if(!D) return;
     ["f1","f2","f3"].forEach(f=>{ const lista=(D.gen[f]||[]).concat(...zone.map(z=>(D.zone[z]&&D.zone[z][f])||[]));
       lista.forEach(s=>{ const v=saVoce(s); const k=v.t.toLowerCase(); if(visti[f][k]) return; visti[f][k]=1; voci[f].push(v); }); }); });
@@ -103,8 +106,10 @@ blocchi = function(kind,it){
   if(kind!=="allenamento") return _blocchi_conSchede(kind,it);
   const c=saComponi(it); const B=[];
   const cond=(it.condizioni||[]).map(k=>SA_COND[k]||k).join(", ");
-  B.push({t:"dl",voci:[["Per",(it.cliente||"il cliente")+(it.eta?", "+it.eta+" anni":"")+(it.sesso?(it.sesso==="F"?", donna":it.sesso==="M"?", uomo":""):"")+(it.peso?", "+it.peso+" kg":"")],["Condizioni da considerare",cond||"nessuna segnalata"],["Traumi e interventi",it.traumi||""],["Note",it.note||""],["Problemi di partenza",it.problemi.map(nomeOf).join("; ")],["Livello",SA_LIVELLI[it.livello]||it.livello],["Sedute a settimana",String(it.giorni)],["Attrezzatura",saAttr(it).map(a=>SA_ATTREZZI[a]||a).join(", ")],["Discipline",(it.discipline&&it.discipline.length?it.discipline.map(d=>DB.discipline[d]?DB.discipline[d].n:d).join(", "):"Allenamento con i pesi e a corpo libero")],["Fatta il",it.creato]]});
+  B.push({t:"dl",voci:[["Per",(it.cliente||"il cliente")+(it.eta?", "+it.eta+" anni":"")+(it.sesso?(it.sesso==="F"?", donna":it.sesso==="M"?", uomo":""):"")+(it.peso?", "+it.peso+" kg":"")],["Condizioni da considerare",cond||"nessuna segnalata"],["Traumi e interventi",it.traumi||""],["Note",it.note||""],["Problemi di partenza",(it.problemi||[]).map(nomeOf).concat(it.altro?["«"+it.altro+"» (scritto dal trainer"+(it.altroZona?", zona: "+it.altroZona.toLowerCase():"")+")"]:[]).join("; ")||"nessuno: scheda per obiettivo"],["Obiettivo",it.obiettivo&&DB.obiettivi&&DB.obiettivi[it.obiettivo]?DB.obiettivi[it.obiettivo].n:""],["Livello",SA_LIVELLI[it.livello]||it.livello],["Sedute a settimana",String(it.giorni)],["Attrezzatura",saAttr(it).map(a=>SA_ATTREZZI[a]||a).join(", ")],["Discipline",(it.discipline&&it.discipline.length?it.discipline.map(d=>DB.discipline[d]?DB.discipline[d].n:d).join(", "):"Allenamento con i pesi e a corpo libero")],["Fatta il",it.creato]]});
   const ad=saAdattamenti(it); if(ad.length) B.push({t:"lista",h:"Adattamenti per questa persona",items:ad});
+  if(it.obiettivo && DB.obiettivi && DB.obiettivi[it.obiettivo]) B.push({t:"p",h:"Sull'obiettivo: "+DB.obiettivi[it.obiettivo].n,txt:DB.obiettivi[it.obiettivo].nota});
+  if(it.altro) B.push({t:"p",h:"Sul problema scritto a mano",txt:"«"+it.altro+"» non ha una scheda sua in AnatomiaPratica: la scheda usa il lavoro generale della zona"+(it.altroZona&&it.altroZona!=="Altro"?" ("+it.altroZona.toLowerCase()+")":"")+", da adattare a quello che il trainer vede. Se il problema è un dolore, vale la regola di sempre: niente esercizio oltre 3 su 10, niente dolore che resta il giorno dopo, e se peggiora o si aggiungono formicolii, perdita di forza o febbre, prima il medico."});
   B.push({t:"p",h:"Come si usa",txt:"Dodici settimane in tre fasi. Ogni seduta comincia con dieci minuti di riscaldamento (cinque di cardio leggero e gli esercizi di mobilità della fase 1) e finisce con due minuti di respiro lento. Il carico sale solo quando la tecnica resta pulita; se un esercizio fa male oltre 3 su 10 o il dolore resta il giorno dopo, si torna alla versione più facile. Ogni esercizio sottolineato si apre con esecuzione, errori e varianti."});
   SA_FASI.forEach(([f,titolo,descr])=>{
     const r=c.righe[f]; if(!r.length) return;
@@ -113,7 +118,7 @@ blocchi = function(kind,it){
     B.push({t:"p",h:titolo,txt:descr+(gg.length>1?" Riscaldamento con gli esercizi della fase 1, poi la seduta del giorno.":"")});
     gg.forEach(([g,items])=>B.push({t:"lista",h:g,items:items}));
   });
-  const evita=[],confine=[]; it.problemi.forEach(pid=>{ const P=DB.palestra[pid]; if(!P) return; if(P.evita) evita.push(nomeOf(pid).replace(/[«»]/g,"")+": "+P.evita); if(P.confine) confine.push(P.confine); });
+  const evita=[],confine=[]; (it.problemi||[]).forEach(pid=>{ const P=DB.palestra[pid]; if(!P) return; if(P.evita) evita.push(nomeOf(pid).replace(/[«»]/g,"")+": "+P.evita); if(P.confine) confine.push(P.confine); });
   if(evita.length) B.push({t:"lista",h:"Da evitare finché c'è il problema",items:evita});
   if(confine.length) B.push({t:"lista",h:"Quando fermarsi e mandare dal medico",items:confine,rosso:true});
   B.push({t:"lista",h:"Consigli generali (non sostituiscono medico e nutrizionista)",items:saConsigli(it)});
@@ -126,7 +131,7 @@ collegamenti = function(kind,it){
   if(kind==="allenamento"){
     const c=saComponi(it); const E=[],M=[];
     ["f1","f2","f3"].forEach(f=>c.voci[f].forEach(v=>{ if(v.e&&E.indexOf(v.e)<0) E.push(v.e); if(v.m&&M.indexOf(v.m)<0&&anyById(v.m)) M.push(v.m); }));
-    return box("Problemi di partenza",pills(it.problemi))+box("Esercizi della scheda",pills(E))+box("Muscoli al centro del lavoro",pills(M))+
+    return ((it.problemi||[]).length?box("Problemi di partenza",pills(it.problemi)):"")+box("Esercizi della scheda",pills(E))+box("Muscoli al centro del lavoro",pills(M))+
       box("Manda la scheda al cliente",'<div class="acts" style="flex-wrap:wrap"><a class="btn sa-big" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(saTestoCompatto(it))+'">Invia su WhatsApp</a><a class="btn" href="mailto:?subject='+encodeURIComponent("La tua scheda di allenamento"+(it.cliente?" · "+it.cliente:""))+'&body='+encodeURIComponent(saTestoCompatto(it))+'">Invia per e-mail</a><button class="btn" data-act="sa-copia" data-id="'+it.id+'">Copia tutto</button><button class="btn" data-act="sa-stampa">Stampa / salva PDF</button></div><p style="font-size:12px;color:var(--faint);margin:6px 0 0">Su WhatsApp e per e-mail parte la versione compatta (fasi ed esercizi). Per la scheda completa: «Stampa / salva PDF» e poi allega il PDF, oppure «Copia tutto» e incolla.</p>')+
       box("Modifica",'<div class="acts"><button class="btn sm" data-act="sa-rifai" data-id="'+it.id+'">Rifai con altre scelte</button><button class="btn sm" data-act="sa-elimina" data-id="'+it.id+'" style="color:var(--muscle)">Elimina questa scheda</button></div>');
   }
@@ -137,9 +142,9 @@ collegamenti = function(kind,it){
 /* versione compatta per WhatsApp: titolo, fasi con le righe, da evitare */
 function saTestoCompatto(it){
   const c=saComponi(it); const NL="\n";
-  let s="SCHEDA DI ALLENAMENTO"+(it.cliente?" PER "+it.cliente.toUpperCase():"")+NL+it.problemi.map(nomeOf).join(" + ").replace(/[«»]/g,"")+NL+"Livello "+(SA_LIVELLI[it.livello]||"")+" · "+it.giorni+" sedut"+(it.giorni===1?"a":"e")+" a settimana"+NL;
+  let s="SCHEDA DI ALLENAMENTO"+(it.cliente?" PER "+it.cliente.toUpperCase():"")+NL+(it.problemi||[]).map(nomeOf).concat(it.altro?[it.altro]:[]).concat(it.obiettivo&&DB.obiettivi&&DB.obiettivi[it.obiettivo]?["Obiettivo: "+DB.obiettivi[it.obiettivo].n]:[]).join(" + ").replace(/[«»]/g,"")+NL+"Livello "+(SA_LIVELLI[it.livello]||"")+" · "+it.giorni+" sedut"+(it.giorni===1?"a":"e")+" a settimana"+NL;
   SA_FASI.forEach(([f,titolo])=>{ const r=c.righe[f]; if(!r.length) return; s+=NL+titolo.toUpperCase()+NL; const gg=f==="f1"?[["",r]]:saGiorni(r,it.giorni); gg.forEach(([g,items])=>{ if(g&&gg.length>1) s+=g+NL; items.forEach(x=>{ s+="• "+x.replace(/ · versione (facile|avanzata):.*$/,"").replace(/ · con quello che hai:.*$/,"")+NL; }); }); });
-  const ev=[]; it.problemi.forEach(pid=>{ const P=DB.palestra[pid]; if(P&&P.evita) ev.push(P.evita.split(/[.;]/)[0]); }); if(ev.length) s+=NL+"DA EVITARE: "+ev.join("; ")+"."+NL;
+  const ev=[]; (it.problemi||[]).forEach(pid=>{ const P=DB.palestra[pid]; if(P&&P.evita) ev.push(P.evita.split(/[.;]/)[0]); }); if(ev.length) s+=NL+"DA EVITARE: "+ev.join("; ")+"."+NL;
   s+=NL+"Se un esercizio fa male oltre 3 su 10 o il dolore resta il giorno dopo, torna alla versione più facile e dimmelo."+NL+NL+"AnatomiaPratica · "+(typeof ME!=="undefined"&&ME&&ME.utente?ME.utente.nome||"":"Kinesiologia Studio");
   return s;
 }
@@ -160,7 +165,7 @@ function vistaFaiScheda(base){
   const opz=(name,vals,sel)=>'<div class="sa-opz">'+Object.keys(vals).map(k=>'<label><input type="radio" name="'+name+'" value="'+k+'"'+(String(sel)===k?' checked':'')+'> '+vals[k]+'</label>').join("")+'</div>';
   return crumbs([["Home","home/"],["Fai scheda",null]])+
    '<h1 style="font-size:clamp(23px,5vw,32px);margin-bottom:6px">Fai scheda</h1>'+
-   '<p style="margin:0 0 14px;color:var(--muted);max-width:66ch">Scegli i problemi del cliente, il livello, le sedute a settimana e l\'attrezzatura: la scheda di dodici settimane in tre fasi si compone da sola, con gli esercizi presi dalle schede, le versioni facili per chi comincia, cosa evitare e quando fermarsi.</p>'+
+   '<p style="margin:0 0 14px;color:var(--muted);max-width:66ch">Scegli i problemi del cliente, oppure un obiettivo se non ha problemi, il livello, le sedute a settimana e l\'attrezzatura: la scheda di dodici settimane in tre fasi si compone da sola, con gli esercizi presi dalle schede, le versioni facili per chi comincia, cosa evitare e quando fermarsi.</p>'+
    '<form id="sa-form" class="card" style="gap:14px">'+
    '<div><div class="seg" style="margin-bottom:6px">Il cliente</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px">'+
    '<input name="cliente" class="inp" value="'+esc(base?base.cliente||"":"")+'" placeholder="Nome (facoltativo)">'+
@@ -172,21 +177,34 @@ function vistaFaiScheda(base){
    '<input name="note" class="inp" style="width:100%;margin-top:8px" value="'+esc(base?base.note||"":"")+'" placeholder="Note (es. lavora in piedi, gioca a calcetto, dorme male)">'+
    '<p style="font-size:12px;color:var(--faint);margin:6px 0 0">I dati restano solo su questo dispositivo. Età, sesso, peso, condizioni e traumi cambiano gli adattamenti e i consigli della scheda.</p></div>'+
    '<div><div class="seg" style="margin-bottom:6px">Problemi del cliente (uno o più)</div><div class="sa-griglia">'+
-   Object.keys(zone).map(z=>'<div class="sa-zona eyebrow">'+esc(z)+'</div>'+zone[z].map(p=>'<label><input type="checkbox" name="p" value="'+p.id+'"'+(pre.includes(p.id)?' checked':'')+'> '+esc(p.voce)+'</label>').join("")).join("")+'</div></div>'+
+   Object.keys(zone).map(z=>'<div class="sa-zona eyebrow">'+esc(z)+'</div>'+zone[z].map(p=>'<label><input type="checkbox" name="p" value="'+p.id+'"'+(pre.includes(p.id)?' checked':'')+'> '+esc(p.voce)+'</label>').join("")).join("")+'</div>'+
+   '<div style="display:grid;grid-template-columns:2fr 1fr;gap:8px;margin-top:10px"><input name="altro" class="inp" maxlength="120" value="'+esc(base?base.altro||"":"")+'" placeholder="Altro problema, non in elenco (scrivilo tu: es. «dolore al gomito quando serve a tennis»)">'+
+   '<select name="altroZona" class="inp">'+["Altro","Collo","Spalla","Arto superiore","Colonna","Lombare","Anca","Ginocchio","Arto inferiore","Piede","Postura"].map(z=>'<option value="'+z+'"'+((base&&base.altroZona)===z?' selected':'')+'>'+(z==="Altro"?"Zona: non so / altro":"Zona: "+z.toLowerCase())+'</option>').join("")+'</select></div>'+
+   '<p style="font-size:12.5px;color:var(--faint);margin:6px 0 0">Per il problema scritto a mano la scheda usa il lavoro generale della zona scelta: il resto lo metti tu.</p></div>'+
+   '<div><div class="seg" style="margin-bottom:6px">Obiettivo (per una scheda senza problemi, o in aggiunta)</div><div class="sa-opz">'+
+   '<label><input type="radio" name="obiettivo" value=""'+(base&&base.obiettivo?'':' checked')+'> Nessuno in particolare</label>'+
+   Object.keys(DB.obiettivi||{}).map(k=>'<label title="'+esc(DB.obiettivi[k].d)+'"><input type="radio" name="obiettivo" value="'+k+'"'+((base&&base.obiettivo)===k?' checked':'')+'> '+esc(DB.obiettivi[k].n)+'</label>').join("")+'</div></div>'+
    '<div><div class="seg" style="margin-bottom:6px">Livello</div>'+opz("livello",SA_LIVELLI,base?base.livello:"principiante")+'</div>'+
    '<div><div class="seg" style="margin-bottom:6px">Sedute a settimana</div>'+opz("giorni",{"1":"1","2":"2","3":"3"},base?base.giorni:"2")+'</div>'+
    '<div><div class="seg" style="margin-bottom:6px">Attrezzatura (anche più di una)</div><div class="sa-opz">'+Object.keys(SA_ATTREZZI).map(k=>'<label><input type="checkbox" name="attrezzatura" value="'+k+'"'+((base?saAttr(base):["manubri"]).includes(k)?' checked':'')+'> '+SA_ATTREZZI[k]+'</label>').join("")+'</div></div>'+
    '<div><div class="seg" style="margin-bottom:6px">Discipline da aggiungere (facoltative)</div><div class="sa-opz">'+Object.keys(DB.discipline||{}).map(k=>'<label title="'+esc(DB.discipline[k].d)+'"><input type="checkbox" name="discipline" value="'+k+'"'+((base&&base.discipline||[]).includes(k)?' checked':'')+'> '+DB.discipline[k].n+'</label>').join("")+'</div><p style="font-size:12.5px;color:var(--faint);margin:6px 0 0">Gli esercizi con i pesi e a corpo libero ci sono sempre; qui aggiungi pilates, yoga, cammino, acqua o respiro, con le voci adatte alle zone dei problemi scelti.</p></div>'+
+   '<div><div class="seg" style="margin-bottom:6px">Allega un file (facoltativo)</div><input name="file" type="file" multiple class="inp" style="width:100%" accept="audio/*,image/*,video/*,.pdf,.txt,.doc,.docx">'+
+   '<p style="font-size:12.5px;color:var(--faint);margin:6px 0 0">Referto, certificato medico, foto della postura, vocale del cliente: restano su questo dispositivo, allegati alla scheda, e non vengono inviati a nessuno.</p></div>'+
    '<p id="sa-err" style="color:var(--muscle);margin:0"></p>'+
    '<div class="acts"><button class="btn primary" type="submit">Fai scheda</button></div></form>';
 }
 document.addEventListener("submit",function(e){
   const f=e.target.closest("#sa-form"); if(!f) return; e.preventDefault();
   const fd=new FormData(f); const problemi=fd.getAll("p");
-  if(!problemi.length){ document.querySelector("#sa-err").textContent="Scegli almeno un problema."; return; }
+  const altro=(fd.get("altro")||"").trim().slice(0,120), obiettivo=fd.get("obiettivo")||"";
+  if(!problemi.length && !altro && !obiettivo){ document.querySelector("#sa-err").textContent="Scegli almeno un problema, oppure scrivine uno, oppure scegli un obiettivo."; return; }
   const cliente=(fd.get("cliente")||"").trim(); const d=new Date();
-  const it={id:"sa-"+Date.now().toString(36),nome:"Scheda"+(cliente?" per "+cliente:"")+" · "+problemi.map(p=>nomeOf(p).replace(/[«»]/g,"")).join(" + ").slice(0,90),cliente:cliente,problemi:problemi,livello:fd.get("livello")||"principiante",giorni:parseInt(fd.get("giorni")||"2",10),attrezzatura:(fd.getAll("attrezzatura").length?fd.getAll("attrezzatura"):["corpo"]),discipline:fd.getAll("discipline"),eta:(fd.get("eta")||"").trim(),sesso:fd.get("sesso")||"",peso:(fd.get("peso")||"").trim(),condizioni:fd.getAll("condizioni"),traumi:(fd.get("traumi")||"").trim().slice(0,300),note:(fd.get("note")||"").trim().slice(0,300),creato:d.toLocaleDateString("it-IT")};
-  S.schede.unshift(it); save("schede",S.schede); S.preProblema=null; vai("allenamento/"+it.id);
+  const titolo=problemi.map(p=>nomeOf(p).replace(/[«»]/g,"")).concat(altro?[altro]:[]).concat(obiettivo&&DB.obiettivi[obiettivo]?[DB.obiettivi[obiettivo].n]:[]).join(" + ").slice(0,90);
+  const it={id:"sa-"+Date.now().toString(36),nome:"Scheda"+(cliente?" per "+cliente:"")+" · "+titolo,cliente:cliente,problemi:problemi,altro:altro,altroZona:fd.get("altroZona")||"Altro",obiettivo:obiettivo,livello:fd.get("livello")||"principiante",giorni:parseInt(fd.get("giorni")||"2",10),attrezzatura:(fd.getAll("attrezzatura").length?fd.getAll("attrezzatura"):["corpo"]),discipline:fd.getAll("discipline"),eta:(fd.get("eta")||"").trim(),sesso:fd.get("sesso")||"",peso:(fd.get("peso")||"").trim(),condizioni:fd.getAll("condizioni"),traumi:(fd.get("traumi")||"").trim().slice(0,300),note:(fd.get("note")||"").trim().slice(0,300),creato:d.toLocaleDateString("it-IT")};
+  S.schede.unshift(it); save("schede",S.schede); S.preProblema=null;
+  const files=(fd.getAll("file")||[]).filter(x=>x&&x.size);
+  if(files.length && typeof allSalva==="function"){ Promise.all(files.map(x=>allSalva(it.id,x,"Allegato alla scheda").catch(()=>null))).then(()=>vai("allenamento/"+it.id)); }
+  else vai("allenamento/"+it.id);
 });
 document.addEventListener("click",function(e){
   const a=e.target.closest('[data-act="fai-scheda"],[data-act="sa-rifai"],[data-act="sa-elimina"],[data-act="sa-copia"],[data-act="sa-stampa"]'); if(!a) return;
