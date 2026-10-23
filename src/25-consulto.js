@@ -29,7 +29,7 @@ const CONS_SINONIMI = {
  "formicolio":"nervo formicolii addormenta parestesie plesso","formicolii":"nervo addormenta","addormenta":"formicolio nervo","scossa":"nervo elettrico",
  "bruciore":"nervo brucia","intorpidita":"formicolio nervo","rigido":"rigidità limitazione","rigidita":"rigidità","bloccato":"blocco limitazione",
  "cede":"cedimento debolezza","debole":"debolezza forza","gonfio":"gonfiore versamento borsa","gonfia":"gonfiore","scatto":"click schiocco",
- "scale":"gradini salire scendere","sedia":"alzarsi seduto","letto":"notte girarsi","notte":"notturno dormire","dormire":"notte fianco",
+ "scale":"gradini salire scendere","sedia":"alzarsi seduto","letto":"notte girarsi","notte":"notturno dormire","dormire":"notte","pancia":"addome",
  "guidare":"auto volante retromarcia","auto":"guidare retromarcia","computer":"scrivania seduto postura","telefono":"smartphone testa protratta",
  "corsa":"correre corridore","correre":"corsa","camminare":"passo cammino","respiro":"respirare diaframma scaleni","fiato":"respiro diaframma",
  "vertigini":"vertigine sotto-occipitali","gira":"vertigine","piegarmi":"flessione","piegare":"flessione","alzare":"elevazione flessione",
@@ -37,6 +37,81 @@ const CONS_SINONIMI = {
  "calzino":"anca flessione","scarpe":"flessione anca calzino","accovacciarmi":"squat caviglia dorsiflessione","raccogliere":"accovacciarsi flessione",
  "mattino":"primo passo rigidità mattutina","mattina":"mattino","spalla alta":"asimmetria spalla","storto":"asimmetria scoliosi","asimmetrica":"asimmetria",
  "stretto":"tunnel compressione","pizzica":"nervo compressione","dolore":"dolente dolore","male":"dolore","fa male":"dolore"
+};
+/* Frasi che da sole dicono molto: si leggono prima delle singole parole, cosi' «a pancia in giu'»
+   non diventa «pancia» + «giu'», e «in piedi fermo» non diventa «piedi». */
+const CONS_FRASI = [
+ [/pancia in giu|a pancia sotto|bocconi|prono|proni/, "prono pancia-in-giu estensione lombare iperlordosi faccette psoas"],
+ [/pancia in su|supino|supina|sulla schiena/, "supino sulla-schiena gambe distese psoas"],
+ [/sul fianco|su un fianco|su quel fianco|di fianco|di lato/, "fianco decubito-laterale trocantere spalla-sotto"],
+ [/in piedi (fermo|ferma|a lungo|per molto|tanto|molto|per ore)|stare in piedi|sto in piedi|stando in piedi|in fila|alla cassa|al lavandino|ai fornelli|stiro|stirare/, "stare-in-piedi fermo estensione lombare iperlordosi faccette psoas glutei"],
+ [/seduto|seduta|sedut[oa] a lungo|in ufficio|alla scrivania|in macchina|in auto/, "seduto scrivania flessione lombare disco"],
+ [/alzarmi|alzarsi|quando mi alzo|tirarmi su/, "alzarsi seduto flessione estensione"],
+ [/piegarmi in avanti|piegandomi|chinarmi|lavarmi i denti|lavandino/, "flessione in-avanti disco"],
+ [/girarmi nel letto|girarmi di notte|cambiare posizione/, "girarsi letto notte rotazione"],
+ [/salire le scale|salendo le scale|in salita/, "salire scale gradini"],
+ [/scendere le scale|scendendo le scale|in discesa/, "scendere scale discesa gradini"],
+ [/primo passo|primi passi|appena mi alzo dal letto|appena sveglio/, "primo-passo mattino rigidita"],
+ [/sopra la testa|in alto|sulla mensola|pettinarmi/, "elevazione sopra-la-testa abduzione"],
+ [/dietro la schiena|allacciare|reggiseno|dietro la nuca/, "rotazione-interna dietro-la-schiena"],
+ [/un fianco piu alto|una spalla piu alta|storta|storto|asimmetric/, "asimmetria scoliosi atteggiamento"],
+ [/mi cede|cede all'improvviso|mi manca|senza forza/, "cedimento debolezza"],
+ [/dalla nuca|parte dalla nuca|dietro gli occhi|dietro l'occhio/, "cefalea nuca sotto-occipitali"],
+ [/giu per la gamba|lungo la gamba|fino al piede|scende nella gamba|scende lungo/, "irradiazione sciatica gamba radice"],
+ [/giu per il braccio|lungo il braccio|fino alla mano|scende nel braccio/, "irradiazione braccio radice cervicale"],
+ [/dopo il parto|ho partorito|incinta|gravidanza/, "parto gravidanza bacino diastasi"]
+];
+/* Le parole con cui i clienti raccontano ogni quadro: pesano come la frase della scheda. */
+const CONS_CHIAVI = {
+ "p-reggiseno":"allacciare reggiseno dietro la schiena rotazione interna mano dietro grattarmi",
+ "p-calzino":"calzino scarpe allacciare le scarpe piegare anca flessione tagliare le unghie dei piedi",
+ "p-spalla-alta":"spalla piu alta asimmetria storto specchio fotografia postura",
+ "p-pettinarsi":"pettinarmi piatti in alto mensola sopra la testa elevazione braccio",
+ "p-retromarcia":"girarmi retromarcia guidare rotazione collo tronco specchietto",
+ "p-alzarsi":"alzarmi dalla sedia alzarsi seduto divano auto blocco lombare schiena bassa",
+ "p-accovacciarsi":"accovacciarmi raccogliere da terra squat caviglia ginocchio profondo",
+ "p-mano-notte":"mano addormentata di notte formicolio dita pollice scuotere la mano tunnel carpale",
+ "p-tallone":"tallone primo passo mattino pianta del piede fascite plantare",
+ "p-stare-in-piedi":"stare in piedi fermo a lungo fila coda cassa lavandino cucina stirare blocco schiena bassa lombare estensione pancia in giu prono dormire a pancia in giu iperlordosi inarcare mi devo sedere piegarmi in avanti per stare meglio",
+ "p-ginocchio-scale":"scendere le scale ginocchio davanti rotula discesa accovacciarmi seduto a lungo cinema",
+ "p-cervicale-vertigini":"alzare lo sguardo gira la testa vertigine guardare in alto collo",
+ "p-torcicollo":"collo bloccato svegliato torcicollo girare la testa colpo d'aria",
+ "p-cefalea":"mal di testa nuca parte dalla nuca dietro gli occhi cefalea tensione",
+ "p-braccio-sopra-testa":"dormire sul fianco spalla fa male di notte sopra la spalla alzare il braccio",
+ "p-spalla-congelata":"spalla bloccata rigida tutte le direzioni congelata non va",
+ "p-gomito-tennista":"gomito stringere sollevare presa epicondilite tennis mouse borsa della spesa",
+ "p-mano-gonfia-mattino":"mani gonfie rigide mattino pugno dita rigidita mattutina",
+ "p-formicolio-braccio":"braccio formicola mani in alto telefono asciugare i capelli zaino stretto toracico",
+ "p-dito-scatto":"dito bloccato scatta piegato dito a scatto",
+ "p-click-mandibola":"mandibola click mascella stanca mattino denti digrigno serro bruxismo bocca",
+ "p-vertigine-collo":"instabilita barca ondeggio collo sbandamento",
+ "p-sciatica":"gluteo gamba scende sciatica dietro la coscia polpaccio piede formicolio tossire starnutire",
+ "p-crampi-polpaccio":"crampi polpaccio notte gambe pesanti",
+ "p-caviglia-recidiva":"caviglia gira distorsione cede storta sempre",
+ "p-pubalgia":"inguine correre calcio salire in auto pubalgia adduttori",
+ "p-sacroiliaca":"sopra il sedere fossetta un lato sacro bacino alzarmi dalla sedia girarmi nel letto",
+ "p-ginocchio-cede":"ginocchio cede manca instabile crociato",
+ "p-dietro-ginocchio":"dietro il ginocchio discesa cisti popliteo",
+ "p-anca-laterale-notte":"dormire sul fianco anca di lato trocantere lato esterno coscia sdraiarsi sul fianco salire le scale",
+ "p-piede-piatto":"piede piatto appiattito caviglia cede verso l'interno arco",
+ "p-scoliosi":"figlio figlia schiena storta fianco piu alto scoliosi gibbo adolescente",
+ "p-dorso-curvo":"dorso curvo gobba fra le scapole brucia spalle in avanti computer",
+ "p-costale":"fitta al fianco respirare a fondo girarmi costa costola intercostale",
+ "p-torace-chiuso":"respiro corto torace chiuso peso sul petto ansia fiato",
+ "p-alluce-valgo":"alluce storto cipolla scarpe strette",
+ "p-pollice-base":"base del pollice barattolo aprire presa rizoartrosi",
+ "p-colpo-frusta":"incidente tamponamento colpo di frusta collo rigido",
+ "p-gambe-gonfie":"gambe gonfie pesanti sera caviglie gonfie",
+ "p-stenosi":"camminando devo fermarmi piegarmi in avanti carrello riparto gambe pesanti camminare",
+ "p-morton":"dita del piede bruciano sasso nella scarpa avampiede",
+ "p-achille":"tendine d'achille rigido dolente mattino si scioglie dietro la caviglia",
+ "p-coccige":"coccige seduto alzarmi osso sacro sedere cuscino",
+ "p-strappo-polpaccio":"frustata polpaccio zoppico strappo scatto corsa",
+ "p-ginocchio-gonfio":"ginocchio gonfio gonfiato versamento",
+ "p-polso-appoggio":"polso appoggiarmi mano flessioni yoga spingere",
+ "p-sotto-scapola":"sotto la scapola chiodo dolore fisso fra le scapole",
+ "p-schiena-gravidanza":"incinta gravidanza schiena bacino pube",
+ "p-diastasi":"dopo il parto pancia non tiene solco al centro diastasi addome"
 };
 const CONS_ROSSE = [
  [/febbre|brivid/,"Febbre o brividi insieme al dolore"],[/perdita di peso|dimagri/,"Perdita di peso non voluta"],
@@ -55,15 +130,17 @@ function consNorm(s){
 function consTermini(testo){
   const base=consNorm(testo);
   let esp=base;
+  CONS_FRASI.forEach(f=>{ if(f[0].test(base)) esp+=" "+f[1]; });
   Object.keys(CONS_SINONIMI).forEach(k=>{ if(base.indexOf(consNorm(k))>=0) esp+=" "+CONS_SINONIMI[k]; });
-  const stop=new Set(["non","riesco","quando","sono","dello","della","delle","degli","con","per","che","una","uno","gli","del","dal","mi","si","ho","ha","il","la","le","lo","un","e","a","o","di","da","in","su","al","ai","mio","mia","molto","poco","sempre","anche","come","cosa","fare","fa","male","dolore"]);
+  const stop=new Set(["non","riesco","riesce","quando","sono","dello","della","delle","degli","con","per","che","una","uno","gli","del","dal","mi","si","ho","ha","il","la","le","lo","un","e","a","o","di","da","in","su","al","ai","mio","mia","molto","poco","sempre","anche","come","cosa","fare","fa","male","dolore",
+    "mal","sto","sta","stai","sti","stare","stato","viene","vengo","venire","giu","poi","ogni","tutto","tutta","tutti","dopo","prima","volta","volte","anni","mesi","giorni","giorno","settimane","sento","senti","sentire","tanto","tanta","troppo","appena","verso","tipo","pero","perche","mentre","quasi","ancora","piu","meno","essere","devo","posso","puo","fatico","tengo","tiene","questo","questa","quello","quella","quel","suo","sua","nel","nella","alla","allo","sul","sulla","sulle","sui","ore","ora"]);
   const out={};
-  consNorm(esp).split(/\s+/).forEach(w=>{ if(w.length<3||stop.has(w)) return; const r=w.length>6?w.slice(0,6):w; out[r]=(out[r]||0)+1; });
+  consNorm(esp).replace(/-/g," ").split(/\s+/).forEach(w=>{ if(w.length<3||stop.has(w)) return; const r=w.length>6?w.slice(0,6):w; out[r]=(out[r]||0)+1; });
   return out;
 }
 function consScore(terms,testo,peso){
-  const t=consNorm(testo); let s=0;
-  Object.keys(terms).forEach(r=>{ if(t.indexOf(r)>=0) s+=peso*(1+Math.min(terms[r],2)*0.25); });
+  const t=" "+consNorm(testo).replace(/[\s'-]+/g," ")+" "; let s=0;
+  Object.keys(terms).forEach(r=>{ if(t.indexOf(" "+r)>=0) s+=peso*(1+Math.min(terms[r],2)*0.25); });
   return s;
 }
 function consAnalizza(testo){
@@ -71,8 +148,10 @@ function consAnalizza(testo){
   const base=consNorm(testo);
   const probl=DB.problemi.map(p=>{
     const corpo=[p.sintesi,p.zona,(p.gesto||[]).join(" "),(p.cause||[]).map(c=>c.t+" "+c.perche+" "+c.test).join(" ")].join(" ");
-    return {p:p,s:consScore(terms,p.voce,3)+consScore(terms,corpo,1)};
+    return {p:p,s:consScore(terms,p.voce,3)+consScore(terms,CONS_CHIAVI[p.id]||"",2.5)+consScore(terms,corpo,1)};
   }).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,3);
+  /* un'ipotesi che vale meno della meta' della prima e' rumore: meglio non mostrarla */
+  if(probl.length>1){ const top=probl[0].s; for(let i=probl.length-1;i>0;i--) if(probl[i].s<top*0.55) probl.splice(i,1); }
   const musc=DB.muscoli.map(m=>({m:m,s:consScore(terms,m.trigger,2.2)+consScore(terms,(m.azioni||[]).join(" ")+" "+m.palpazione+" "+m.segreto,0.6)}))
     .filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,6);
   const mov=DB.movimenti.map(v=>({v:v,s:consScore(terms,v.serve+" "+v.limite+" "+v.nome,1.2)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,4);
