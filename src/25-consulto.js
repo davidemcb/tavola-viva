@@ -59,7 +59,8 @@ const CONS_FRASI = [
  [/dalla nuca|parte dalla nuca|dietro gli occhi|dietro l'occhio/, "cefalea nuca sotto-occipitali"],
  [/giu per la gamba|lungo la gamba|fino al piede|scende nella gamba|scende lungo/, "irradiazione sciatica gamba radice"],
  [/giu per il braccio|lungo il braccio|fino alla mano|scende nel braccio/, "irradiazione braccio radice cervicale"],
- [/dopo il parto|ho partorito|incinta|gravidanza/, "parto gravidanza bacino diastasi"]
+ [/dopo il parto|ho partorito|incinta|gravidanza/, "parto gravidanza bacino diastasi"],
+ [/colpo di frusta|tamponamento|tamponat|incidente stradale/, "whiplash colpo-di-frusta incidente collo rigido cervicale"]
 ];
 /* Le parole con cui i clienti raccontano ogni quadro: pesano come la frase della scheda. */
 const CONS_CHIAVI = {
@@ -113,6 +114,81 @@ const CONS_CHIAVI = {
  "p-schiena-gravidanza":"incinta gravidanza schiena bacino pube",
  "p-diastasi":"dopo il parto pancia non tiene solco al centro diastasi addome"
 };
+/* I nomi clinici di ogni quadro: chi scrive «trocanterite» o «lombosciatalgia» arriva alla scheda
+   come chi scrive «non riesco a dormire sul fianco». Pesano come la frase del cliente. */
+const CONS_MEDICI = {
+ "p-reggiseno":"deficit di rotazione interna gleno-omerale rigidita capsulare posteriore conflitto subacromiale impingement cuffia dei rotatori",
+ "p-calzino":"coxartrosi artrosi dell'anca rigidita coxo-femorale deficit di flessione anca conflitto femoro-acetabolare fai",
+ "p-spalla-alta":"asimmetria del cingolo scapolare scapola alata discinesia scapolare dismetria elevatore della scapola contratto",
+ "p-pettinarsi":"deficit di elevazione abduzione conflitto subacromiale impingement tendinopatia del sovraspinato cuffia dei rotatori capsulite",
+ "p-retromarcia":"deficit di rotazione cervicale cervicalgia artrosi cervicale uncoartrosi rotazione toracica limitata",
+ "p-alzarsi":"lombalgia meccanica lombalgia acuta discopatia protrusione discale ernia lombare dolore discogenico flessione",
+ "p-accovacciarsi":"deficit di dorsiflessione caviglia rigidita tibio-tarsica squat profondo esiti di distorsione",
+ "p-mano-notte":"sindrome del tunnel carpale compressione del nervo mediano parestesie notturne phalen tinel",
+ "p-tallone":"fascite plantare fasciopatia plantare talalgia sperone calcaneare entesopatia",
+ "p-stare-in-piedi":"lombalgia da estensione iperlordosi sindrome delle faccette sindrome faccettale spondilolistesi spondilolisi stenosi psoas retratto sindrome crociata inferiore",
+ "p-ginocchio-scale":"sindrome femoro-rotulea condropatia rotulea condromalacia dolore anteriore di ginocchio maltracking rotuleo",
+ "p-cervicale-vertigini":"vertigine cervicogenica vertigine cervicale insufficienza vertebro-basilare cervicalgia con vertigini",
+ "p-torcicollo":"torcicollo acuto cervicalgia acuta blocco cervicale spasmo dello sternocleidomastoideo",
+ "p-cefalea":"cefalea cervicogenica cefalea tensiva cefalea muscolo-tensiva nevralgia occipitale grande occipitale",
+ "p-braccio-sopra-testa":"conflitto subacromiale impingement tendinopatia della cuffia borsite subacromiale sovraspinato dolore notturno di spalla",
+ "p-spalla-congelata":"capsulite adesiva spalla congelata frozen shoulder rigidita capsulare",
+ "p-gomito-tennista":"epicondilite laterale epicondilalgia tendinopatia degli estensori gomito del tennista epitrocleite gomito del golfista",
+ "p-mano-gonfia-mattino":"rigidita mattutina artrite reumatoide artrosi delle mani sinovite poliartrite",
+ "p-formicolio-braccio":"sindrome dello stretto toracico superiore tos compressione del plesso brachiale scaleni piccolo pettorale",
+ "p-dito-scatto":"dito a scatto tenosinovite stenosante dei flessori puleggia a1",
+ "p-click-mandibola":"disfunzione temporo-mandibolare dtm atm bruxismo serramento click articolare dislocazione del disco",
+ "p-vertigine-collo":"instabilita posturale disfunzione cervicale propriocettiva vertigine cervicogenica disequilibrio",
+ "p-sciatica":"lombosciatalgia sciatalgia radicolopatia lombare ernia discale l4-l5 l5-s1 sindrome del piriforme lasegue positivo",
+ "p-crampi-polpaccio":"crampi notturni insufficienza venosa sindrome delle gambe senza riposo carenza di magnesio",
+ "p-caviglia-recidiva":"instabilita cronica di caviglia lassita del legamento peroneo-astragalico esiti di distorsione deficit propriocettivo",
+ "p-pubalgia":"pubalgia tendinopatia degli adduttori osteite pubica sports hernia dolore inguinale dell'atleta",
+ "p-sacroiliaca":"disfunzione sacro-iliaca sacroileite dolore sacro-iliaco fortin",
+ "p-ginocchio-cede":"instabilita di ginocchio lesione del crociato anteriore lca cedimento giving way inibizione del quadricipite",
+ "p-dietro-ginocchio":"cisti di baker tendinopatia degli ischiocrurali distale popliteo dolore posteriore di ginocchio",
+ "p-anca-laterale-notte":"sindrome dolorosa del grande trocantere trocanterite borsite trocanterica tendinopatia glutea gluteo medio",
+ "p-piede-piatto":"piede piatto piede pronato disfunzione del tibiale posteriore cedimento dell'arco plantare pronazione",
+ "p-scoliosi":"scoliosi idiopatica scoliosi strutturale atteggiamento scoliotico gibbo test di adams",
+ "p-dorso-curvo":"ipercifosi dorsale dorso curvo cifosi sindrome crociata superiore dorsalgia interscapolare",
+ "p-costale":"nevralgia intercostale disfunzione costo-vertebrale blocco costale dolore toracico meccanico",
+ "p-torace-chiuso":"respiro disfunzionale respirazione apicale iperventilazione torace rigido diaframma ipomobile",
+ "p-alluce-valgo":"alluce valgo borsite dell'alluce metatarsalgia",
+ "p-pollice-base":"rizoartrosi artrosi trapezio-metacarpale",
+ "p-colpo-frusta":"colpo di frusta whiplash distorsione cervicale wad",
+ "p-gambe-gonfie":"insufficienza venosa edema declive linfedema stasi venosa",
+ "p-stenosi":"stenosi del canale lombare claudicatio neurogena stenosi spinale",
+ "p-morton":"neuroma di morton metatarsalgia nevralgia interdigitale",
+ "p-achille":"tendinopatia achillea tendinosi dell'achille tendinite achillea entesopatia calcaneare",
+ "p-coccige":"coccigodinia dolore coccigeo",
+ "p-strappo-polpaccio":"tennis leg lesione del gemello mediale strappo del gastrocnemio lesione muscolare",
+ "p-ginocchio-gonfio":"versamento articolare idrartro emartro sinovite gonartrosi",
+ "p-polso-appoggio":"dolore ulnare di polso lesione della fibrocartilagine triangolare tfcc instabilita scafo-lunato",
+ "p-sotto-scapola":"dorsalgia trigger point del romboide del dentato posteriore disfunzione costo-vertebrale",
+ "p-schiena-gravidanza":"lombalgia gravidica dolore pelvico in gravidanza disfunzione sacro-iliaca sinfisi pubica",
+ "p-diastasi":"diastasi dei retti diastasi addominale post partum"
+};
+/* termini medici -> parole comuni, cosi' pesano anche su sintesi e cause delle schede */
+const CONS_SINONIMI_MEDICI = {
+ "lombalgia":"schiena lombare","lombosciatalgia":"sciatica gluteo gamba","sciatalgia":"sciatica gluteo gamba","cervicalgia":"collo cervicale","dorsalgia":"dorso scapole",
+ "gonalgia":"ginocchio","coxalgia":"anca","parestes":"formicolio addormenta","ipostenia":"debolezza","rachide":"colonna","cefalea":"testa nuca",
+ "capsulite":"spalla bloccata congelata","borsite":"gonfio borsa","tendinopatia":"tendine","tendinosi":"tendine","tendinite":"tendine","entesopatia":"tendine inserzione",
+ "impingement":"conflitto spalla cuffia","conflitto":"spalla cuffia","radicolopatia":"nervo radice formicolio gamba braccio","cruralgia":"femorale coscia davanti",
+ "sacroileite":"sacroiliaca sedere fossetta","coccigodinia":"coccige seduto","fascite":"tallone plantare","metatarsalgia":"avampiede dita","neuroma":"morton dita bruciano",
+ "femoro-rotulea":"ginocchio davanti rotula scale","condropatia":"rotula ginocchio scale","condromalacia":"rotula ginocchio","gonartrosi":"ginocchio","coxartrosi":"anca inguine calzino",
+ "trocanterite":"anca lato fianco notte","periartrite":"spalla cuffia","epicondilite":"gomito stringere","epitrocleite":"gomito","rizoartrosi":"pollice base barattolo",
+ "tunnel carpale":"mano notte formicolio","stretto toracico":"braccio formicolio mani in alto","bruxismo":"mandibola denti mascella","serramento":"mandibola denti",
+ "whiplash":"colpo di frusta incidente collo","cervicogenica":"collo nuca","pubalgia":"inguine adduttori","diastasi":"parto pancia","stenosi":"camminando fermarmi piegarmi",
+ "claudicatio":"camminando fermarmi gambe","iperlordosi":"stare in piedi pancia in giu lombare estensione","spondilolistesi":"stare in piedi lombare estensione instabilita",
+ "ipercifosi":"dorso curvo scapole","insufficienza venosa":"gambe gonfie pesanti","linfedema":"gambe gonfie","distorsione":"caviglia gira storta","instabilita":"cede",
+ "versamento":"gonfio","tenosinovite":"dito scatto tendine","frozen":"spalla congelata bloccata","piriforme":"gluteo sciatica gamba","ernia":"disco radice sciatica gamba schiena",
+ "protrusione":"disco schiena","discopatia":"disco schiena alzarsi","faccett":"stare in piedi estensione lombare","sinovite":"gonfio rigido mattino","artrite":"gonfie rigide mattino mani",
+ "artrosi":"rigidita","adesiva":"spalla congelata bloccata","trigger point":"dolore riferito muscolo","tfcc":"polso appoggio","baker":"dietro il ginocchio",
+ "crociato":"ginocchio cede","lca":"ginocchio cede","menisco":"ginocchio blocco gonfio","de quervain":"pollice polso","tennis leg":"frustata polpaccio"
+};
+/* nomi di schede da non riconoscere nel testo libero, perche' troppo generici */
+const CONS_GENERICI = new Set(["gl-testa","gl-collo","gl-osso","gl-dolore","gl-test","gl-forza","gl-carico","gl-spina","gl-cresta","gl-fossa","gl-tono","gl-postura","gl-coste","gl-corpo-vertebrale","gl-resistenza","gl-mobilita","gl-flessibilita","gl-legamento","gl-legamento-2","gl-tendine","gl-fascia","gl-muscolo-scheletrico","gl-vertebra","gl-cartilagine","gl-articolazione","gl-trigger-point","gl-compenso","gl-progressione"]);
+/* nomi troppo generici per valere come «hai nominato la scheda X» */
+const CONS_GENERICI_NOMI = new Set(["dolore","testa","collo","piede","mano","spalla","anca","ginocchio","schiena","gluteo","caviglia","polso","gomito","plantare","gamba","coscia","braccio","bacino","torace","addome","sacro","nuca","pancia"]);
 const CONS_ROSSE = [
  [/febbre|brivid/,"Febbre o brividi insieme al dolore"],[/perdita di peso|dimagri/,"Perdita di peso non voluta"],
  [/incontinen|urin|vescica|intestin|sfinter|sella/,"Disturbi di vescica, intestino o sensibilità a sella: invio urgente"],
@@ -132,6 +208,7 @@ function consTermini(testo){
   let esp=base;
   CONS_FRASI.forEach(f=>{ if(f[0].test(base)) esp+=" "+f[1]; });
   Object.keys(CONS_SINONIMI).forEach(k=>{ if(base.indexOf(consNorm(k))>=0) esp+=" "+CONS_SINONIMI[k]; });
+  Object.keys(CONS_SINONIMI_MEDICI).forEach(k=>{ if(base.indexOf(consNorm(k))>=0) esp+=" "+CONS_SINONIMI_MEDICI[k]; });
   const stop=new Set(["non","riesco","riesce","quando","sono","dello","della","delle","degli","con","per","che","una","uno","gli","del","dal","mi","si","ho","ha","il","la","le","lo","un","e","a","o","di","da","in","su","al","ai","mio","mia","molto","poco","sempre","anche","come","cosa","fare","fa","male","dolore",
     "mal","sto","sta","stai","sti","stare","stato","viene","vengo","venire","giu","poi","ogni","tutto","tutta","tutti","dopo","prima","volta","volte","anni","mesi","giorni","giorno","settimane","sento","senti","sentire","tanto","tanta","troppo","appena","verso","tipo","pero","perche","mentre","quasi","ancora","piu","meno","essere","devo","posso","puo","fatico","tengo","tiene","questo","questa","quello","quella","quel","suo","sua","nel","nella","alla","allo","sul","sulla","sulle","sui","ore","ora"]);
   const out={};
@@ -146,9 +223,21 @@ function consScore(terms,testo,peso){
 function consAnalizza(testo){
   const terms=consTermini(testo);
   const base=consNorm(testo);
+  const nomi=consRiconosci(testo);
+  /* se nel testo c'e' il nome di una struttura (un muscolo, un tendine, un nervo...), i quadri
+     che la citano fra le cause o nei loro nomi clinici salgono: «tendinosi del sovraspinato» e' la spalla, non l'Achille */
+  const nomiTesto=nomi.map(x=>" "+consNorm(nomeOf(x.id)).replace(/[\s'-]+/g," ").trim()+" ");
+  const bonus=p=>{
+    let b=0;
+    const ids=[].concat.apply([],(p.cause||[]).map(c=>c.muscoli||[])).concat(p.movimenti||[],p.catene||[]);
+    nomi.forEach(x=>{ if(ids.indexOf(x.id)>=0) b+=4; });
+    const txt=" "+consNorm(p.voce+" "+(CONS_MEDICI[p.id]||"")+" "+(CONS_CHIAVI[p.id]||"")+" "+(p.cause||[]).map(c=>c.t).join(" ")).replace(/[\s'-]+/g," ")+" ";
+    nomiTesto.forEach(n=>{ const w=n.trim().split(" ")[0]; if(w.length>=5&&txt.indexOf(" "+w)>=0) b+=3; });
+    return b;
+  };
   const probl=DB.problemi.map(p=>{
     const corpo=[p.sintesi,p.zona,(p.gesto||[]).join(" "),(p.cause||[]).map(c=>c.t+" "+c.perche+" "+c.test).join(" ")].join(" ");
-    return {p:p,s:consScore(terms,p.voce,3)+consScore(terms,CONS_CHIAVI[p.id]||"",2.5)+consScore(terms,corpo,1)};
+    return {p:p,s:consScore(terms,p.voce,3)+consScore(terms,CONS_MEDICI[p.id]||"",3)+consScore(terms,CONS_CHIAVI[p.id]||"",2.5)+consScore(terms,corpo,1)+bonus(p)};
   }).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,3);
   /* un'ipotesi che vale meno della meta' della prima e' rumore: meglio non mostrarla */
   if(probl.length>1){ const top=probl[0].s; for(let i=probl.length-1;i>0;i--) if(probl[i].s<top*0.55) probl.splice(i,1); }
@@ -157,7 +246,29 @@ function consAnalizza(testo){
   const mov=DB.movimenti.map(v=>({v:v,s:consScore(terms,v.serve+" "+v.limite+" "+v.nome,1.2)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,4);
   const nervi=DB.nervi.map(n=>({n:n,s:consScore(terms,n.segno+" "+n.sensitivo,1.5)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,3);
   const rosse=CONS_ROSSE.filter(r=>r[0].test(base)).map(r=>r[1]);
-  return {probl:probl,musc:musc,mov:mov,nervi:nervi,rosse:rosse,terms:terms};
+  return {probl:probl,musc:musc,mov:mov,nervi:nervi,rosse:rosse,terms:terms,nomi:nomi};
+}
+/* Se il testo contiene il nome esatto di una scheda (un muscolo, un nervo, un tendine, un test,
+   un concetto, un termine del glossario) la si propone subito: chi scrive «tendinosi del sovraspinato»
+   trova il tendine del sovraspinato e la voce sulle tendinopatie, non solo le ipotesi. */
+function consRiconosci(testo){
+  const t=" "+consNorm(testo).replace(/[\s'-]+/g," ").trim()+" ";
+  const trovati=[], usati=[];
+  const cand=[];
+  const ok=n=>!CONS_GENERICI_NOMI.has(consNorm(n).trim());
+  (typeof TERMINI!=="undefined"?TERMINI:[]).forEach(v=>{ if(v.kind!=="problema"&&ok(v.t)) cand.push({n:v.t,kind:v.kind,id:v.id}); });
+  (DB.glossario||[]).forEach(g=>{ if(CONS_GENERICI.has(g.id)) return; if(ok(g.nome)) cand.push({n:g.nome,kind:"glossario",id:g.id}); (g.alias||[]).forEach(a=>{ if(a.length>=6&&ok(a)) cand.push({n:a,kind:"glossario",id:g.id}); }); });
+  /* la fascite plantare e' la fascia, non il muscolo plantare */
+  cand.push({n:"fascite plantare",kind:"glossario",id:"gl-fascia-plantare"},{n:"fascite",kind:"glossario",id:"gl-fascia-plantare"});
+  cand.sort((a,b)=>b.n.length-a.n.length);  /* prima i nomi lunghi: «tendine d'achille» vince su «achille» */
+  cand.forEach(c=>{
+    const k=" "+consNorm(c.n).replace(/[\s'-]+/g," ").trim()+" "; if(k.trim().length<5) return;
+    const i=t.indexOf(k); if(i<0) return;
+    if(usati.some(u=>i<u[1]&&i+k.length>u[0])) return;
+    usati.push([i,i+k.length]);
+    if(!trovati.some(x=>x.id===c.id)) trovati.push({kind:c.kind,id:c.id});
+  });
+  return trovati.slice(0,10);
 }
 function consUnici(liste){ const o=[]; liste.forEach(l=>l.forEach(x=>{ if(o.indexOf(x)<0) o.push(x); })); return o; }
 function consHTML(testo){
@@ -166,7 +277,14 @@ function consHTML(testo){
   let h='<div class="cons-res">';
   if(r.rosse.length) h+='<div class="cons-card rosso"><h3>Prima di tutto</h3><p style="margin:0;font-size:13.5px">Nel racconto ci sono segnali che vanno chiariti prima di trattare:</p>'+
      '<ul style="margin:0;padding-left:18px;font-size:13.5px">'+r.rosse.map(x=>'<li>'+esc(x)+'</li>').join("")+'</ul></div>';
-  if(!r.probl.length && !r.musc.length) return h+'<div class="cons-card"><h3>Non ho trovato appigli</h3><p style="margin:0;font-size:13.5px;color:var(--muted)">Prova a dire <b>dove</b> fa male, <b>quale gesto</b> non riesce e <b>quando</b> peggiora (notte, scale, seduto, al mattino).</p></div></div>';
+  if(r.nomi.length){
+    const riga=x=>{ const it=anyById(x.id).item; const d=it.definizione||it.cosa||it.trigger||it.segno||it.patologia||it.dove||it.sintesi||it.cerca||"";
+      return '<div class="cons-step"><i>●</i><div><b>'+pill(x.id)+'</b> <span style="font-size:11px;color:var(--faint);font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase">'+esc(KINDS[x.kind].label)+'</span>'+
+        (d?'<small>'+esc(String(d).split(/(?<=[.!?])\s/)[0]).slice(0,180)+'</small>':'')+'</div></div>'; };
+    h+='<div class="cons-card"><h3>Hai nominato</h3><p style="margin:0;font-size:13px;color:var(--muted)">Le schede che corrispondono ai termini usati.</p>'+r.nomi.map(riga).join("")+'</div>';
+  }
+  if(!r.probl.length && !r.musc.length && !r.nomi.length) return h+'<div class="cons-card"><h3>Non ho trovato appigli</h3><p style="margin:0;font-size:13.5px;color:var(--muted)">Prova a dire <b>dove</b> fa male, <b>quale gesto</b> non riesce e <b>quando</b> peggiora (notte, scale, seduto, al mattino). Oppure scrivi il nome della struttura o del quadro clinico: il consulto riconosce i nomi delle schede.</p></div></div>';
+  if(!r.probl.length && !r.musc.length) return h+'</div>';
   r.probl.forEach((x,i)=>{
     const p=x.p, pct=Math.round(100*x.s/max);
     h+='<div class="cons-card"><span class="pct">Ipotesi '+(i+1)+' · affinità '+pct+'%</span><h3>'+esc(p.voce)+'</h3>'+
