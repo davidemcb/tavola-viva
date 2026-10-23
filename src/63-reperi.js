@@ -109,7 +109,8 @@ KINDS.repere={label:"Punto di repere",cls:"o",db:()=>DB.reperi};
 const _anyById_conReperi = anyById;
 anyById = function(id){ if(id && id.indexOf("r-")===0){ const it=DB.reperi.find(x=>x.id===id); return it?{kind:"repere",item:it}:null; } return _anyById_conReperi(id); };
 PORTE.push({k:"repere",n:"Dai punti di repere",d:"Dove mettere le dita: le sporgenze e gli incavi che si trovano sotto la pelle, zona per zona dalla testa ai piedi. Come si palpa ognuno, a cosa serve da riferimento, il trucco del mestiere.",c:"var(--bone)",i:"porta-osso"});
-if(typeof SEZIONI_HOME!=="undefined"){ const an=SEZIONI_HOME.find(s=>s.k.indexOf("osso")>=0); if(an&&an.k.indexOf("repere")<0) an.k.splice(an.k.indexOf("osso")+1,0,"repere"); }
+/* in home sta nel primo gruppo, subito dopo i test clinici: e' una cosa che si fa con le mani */
+if(typeof SEZIONI_HOME!=="undefined"){ const pr=SEZIONI_HOME.find(s=>s.k.indexOf("test")>=0); if(pr&&pr.k.indexOf("repere")<0) pr.k.splice(pr.k.indexOf("test")+1,0,"repere"); }
 
 /* ricerca in alto: i reperi si trovano per nome e per zona */
 const _buildIndex_conReperi = buildIndex;

@@ -217,7 +217,11 @@ const _anyById_conEsercizi = anyById;
 anyById = function(id){ if(id && id.indexOf("e-")===0){ const it=DB.esercizi_schede.find(x=>x.id===id); return it?{kind:"esercizio",item:it}:null; } return _anyById_conEsercizi(id); };
 PORTE.push({k:"esercizio",n:"Dagli esercizi",d:"Squat, stacco, panca, trazioni, affondi, plank…: quali muscoli lavorano, che gradi servono, gli errori e la loro causa, regressioni e progressioni, chi deve fare attenzione.",c:"var(--muscle)",i:"porta-mus"});
 PRINCIPALI.push("esercizio");
-if(typeof _PRINCIPALI_base!=="undefined"){ _PRINCIPALI_base.push("esercizio"); PROFILI.allena.ordine.unshift("esercizio"); PROFILI.mani.ordine.splice(3,0,"esercizio"); applicaProfilo(); }
+if(typeof _PRINCIPALI_base!=="undefined"){ _PRINCIPALI_base.push("esercizio");
+  /* gli esercizi stanno gia' nell'ordine dei profili (57-profilo.js): qui si aggiungono solo se mancano */
+  if(PROFILI.allena.ordine.indexOf("esercizio")<0) PROFILI.allena.ordine.unshift("esercizio");
+  if(PROFILI.mani.ordine.indexOf("esercizio")<0) PROFILI.mani.ordine.splice(3,0,"esercizio");
+  applicaProfilo(); }
 const _blocchi_conSchedeEsercizi = blocchi;
 blocchi = function(kind,it){
   if(kind!=="esercizio") return _blocchi_conSchedeEsercizi(kind,it);
