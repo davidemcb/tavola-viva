@@ -298,6 +298,10 @@ vistaLista = function(k){
   if(k!=="trigger") return _vistaLista_conTrigger(k);
   const chip=(v,n)=>'<button class="chip'+(TP_FILTRO===v?" on":"")+'" data-act="tp-filtro" data-id="'+v+'">'+n+'</button>';
   const gruppi={}; DB.trigger.forEach(t=>{ (gruppi[t.regione]=gruppi[t.regione]||[]).push(t); });
+  /* le regioni dalla testa ai piedi; una regione nuova non in lista va in fondo */
+  const ORDINE_REGIONI_TP=["Testa","Collo e spalla","Spalla","Torace","Schiena","Addome","Braccio","Avambraccio","Mano","Bacino","Coscia","Ginocchio","Gamba","Piede"];
+  const chiaviTP=Object.keys(gruppi); const posR=r=>{ const i=ORDINE_REGIONI_TP.indexOf(r); return i<0?ORDINE_REGIONI_TP.length+chiaviTP.indexOf(r):i; };
+  const regioniTP=chiaviTP.slice().sort((a,b)=>posR(a)-posR(b));
   const card=t=>'<button class="card" data-go="trigger/'+t.id+'" style="gap:3px"><span class="eyebrow">'+esc(nomeOf(t.muscolo))+'</span><h3 style="font-size:15px">'+esc(t.nome.replace("Trigger point del ","").replace("Trigger point dello ","").replace("Trigger point dei ","").replace("Trigger point degli ","").replace("Trigger point della ","").replace("Trigger point dell'",""))+'</h3><p style="font-size:12.8px">'+esc(t.riferito.split(/[.;]/)[0])+'.</p></button>';
   return crumbs([["Home","home/"],["Trigger point",null]])+
    '<h1 style="font-size:clamp(23px,5vw,32px);margin-bottom:6px">Mappa dei trigger point</h1>'+
@@ -308,7 +312,7 @@ vistaLista = function(k){
    '<div class="stage">'+mappaTriggerSVG("post",TP_FILTRO)+'<span class="eyebrow" style="margin-top:6px">Vista posteriore</span></div></div>'+
    '<div class="tplegend"><span><i style="background:var(--muscle)"></i>Trigger point</span><span><i style="background:var(--joint)"></i>Tender point (fibromialgia)</span><span>I punti sono indicativi: la posizione esatta si trova con le mani.</span></div></div></div>'+
    '<div class="seg" style="margin:18px 0 8px">Che cosa sono</div><div class="pills">'+pills(["z-trigger-point","z-dolore","z-sensibilizzazione-centrale"].filter(x=>anyById(x)))+'</div>'+
-   Object.keys(gruppi).map(r=>'<div class="seg" style="margin:18px 0 10px">'+esc(r)+' · '+gruppi[r].length+'</div><div class="grid g3">'+gruppi[r].map(card).join("")+'</div>').join("")+
+   regioniTP.map(r=>'<div class="seg" style="margin:18px 0 10px">'+esc(r)+' · '+gruppi[r].length+'</div><div class="grid g3">'+gruppi[r].map(card).join("")+'</div>').join("")+
    '<div class="seg" style="margin:18px 0 10px">Tender point della fibromialgia · '+DB.tender.length+'</div><div class="grid g3">'+DB.tender.map(t=>'<button class="card" data-go="trigger/'+t.id+'" style="gap:3px"><span class="eyebrow">Tender point</span><h3 style="font-size:15px">'+esc(t.nome.replace("Tender point: ",""))+'</h3><p style="font-size:12.8px">'+esc(t.dove)+'</p></button>').join("")+'</div>';
 };
 document.addEventListener("click",function(e){

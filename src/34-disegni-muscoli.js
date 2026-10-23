@@ -128,9 +128,13 @@ tavolaScheda = function(kind,it){
 };
 
 /* ---- galleria: una tavola con tutti i muscoli disegnati ---- */
+/* le tavole dalla testa ai piedi; una tavola nuova non in lista va in fondo */
+const ORDINE_TAVOLE=["collo","rachide","torace","spalla","gomito","mano","bacino","ginocchio","piede"];
 function vistaTavole(arg){
-  const ids=Object.keys(DB.tavole);
-  const tid=DB.tavole[arg]?arg:"spalla";
+  const tutte=Object.keys(DB.tavole);
+  const pos=k=>{ const i=ORDINE_TAVOLE.indexOf(k); return i<0? ORDINE_TAVOLE.length+tutte.indexOf(k) : i; };
+  const ids=tutte.slice().sort((a,b)=>pos(a)-pos(b));
+  const tid=DB.tavole[arg]?arg:ids[0];
   const mids=muscoliDellaTavola(tid);
   const chips=mids.map(mid=>{ const r=anyById(mid); const deep=DB.disegni[mid].filter(x=>x.tav===tid).every(x=>x.deep);
     return '<button class="pill m" data-go="muscolo/'+mid+'" data-hl="'+mid+'">'+esc(r.item.nome)+(deep?' ·':'')+'</button>'; }).join("");

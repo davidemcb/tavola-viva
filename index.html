@@ -4500,7 +4500,7 @@ function vistaHome(){
         '<span class="eyebrow">Perché fa male lontano</span><h3>I collegamenti</h3>'+
         '<p>Dal massetere alla nuca, dal gran dorsale al gluteo opposto, dal piede alla lombare: i percorsi dei «segreti», tappa per tappa.</p>'+
       '</button>'+
-      '<button class="card" data-go="tavole/spalla" style="gap:10px">'+
+      '<button class="card" data-go="tavole/collo" style="gap:10px">'+
         '<span class="eyebrow">Tavole disegnate</span><h3>Tavole dei muscoli</h3>'+
         '<p>Nove tavole ossee con i muscoli posturali disegnati sopra: passa il mouse per vedere chi è chi, tocca per aprire la scheda.</p>'+
       '</button>'+
@@ -4571,7 +4571,8 @@ function crumbs(list){
 function vistaAtlante(arg){
   const vista = (arg==="post")?"post":"ant";
   const cat = S.arg && S.arg.indexOf("c-")===0 ? DB.catene.find(c=>c.id===S.arg) : null;
-  const lista=DB.muscoli.filter(m=>m.vista===vista||m.vista==="both");
+  const posG=m=>{ const i=ORDINE_GRUPPI_MUSCOLI.indexOf(m.gruppo||""); return i<0?ORDINE_GRUPPI_MUSCOLI.length:i; };
+  const lista=DB.muscoli.filter(m=>m.vista===vista||m.vista==="both").map((m,i)=>({m:m,i:i})).sort((a,b)=>(posG(a.m)-posG(b.m))||(a.i-b.i)).map(x=>x.m);
   return crumbs([["Home","home/"],["Atlante del corpo",null]])+
    '<h1 style="font-size:clamp(23px,5vw,32px);margin-bottom:6px">Atlante del corpo</h1>'+
    '<p style="margin:0 0 16px;color:var(--muted);max-width:62ch">Tocca un muscolo per aprirne la scheda. La figura è volutamente schematica: serve a collegare, non a sostituire una tavola anatomica.</p>'+
@@ -5593,9 +5594,13 @@ tavolaScheda = function(kind,it){
 };
 
 /* ---- galleria: una tavola con tutti i muscoli disegnati ---- */
+/* le tavole dalla testa ai piedi; una tavola nuova non in lista va in fondo */
+const ORDINE_TAVOLE=["collo","rachide","torace","spalla","gomito","mano","bacino","ginocchio","piede"];
 function vistaTavole(arg){
-  const ids=Object.keys(DB.tavole);
-  const tid=DB.tavole[arg]?arg:"spalla";
+  const tutte=Object.keys(DB.tavole);
+  const pos=k=>{ const i=ORDINE_TAVOLE.indexOf(k); return i<0? ORDINE_TAVOLE.length+tutte.indexOf(k) : i; };
+  const ids=tutte.slice().sort((a,b)=>pos(a)-pos(b));
+  const tid=DB.tavole[arg]?arg:ids[0];
   const mids=muscoliDellaTavola(tid);
   const chips=mids.map(mid=>{ const r=anyById(mid); const deep=DB.disegni[mid].filter(x=>x.tav===tid).every(x=>x.deep);
     return '<button class="pill m" data-go="muscolo/'+mid+'" data-hl="'+mid+'">'+esc(r.item.nome)+(deep?' ·':'')+'</button>'; }).join("");
@@ -9311,6 +9316,10 @@ vistaLista = function(k){
   if(k!=="trigger") return _vistaLista_conTrigger(k);
   const chip=(v,n)=>'<button class="chip'+(TP_FILTRO===v?" on":"")+'" data-act="tp-filtro" data-id="'+v+'">'+n+'</button>';
   const gruppi={}; DB.trigger.forEach(t=>{ (gruppi[t.regione]=gruppi[t.regione]||[]).push(t); });
+  /* le regioni dalla testa ai piedi; una regione nuova non in lista va in fondo */
+  const ORDINE_REGIONI_TP=["Testa","Collo e spalla","Spalla","Torace","Schiena","Addome","Braccio","Avambraccio","Mano","Bacino","Coscia","Ginocchio","Gamba","Piede"];
+  const chiaviTP=Object.keys(gruppi); const posR=r=>{ const i=ORDINE_REGIONI_TP.indexOf(r); return i<0?ORDINE_REGIONI_TP.length+chiaviTP.indexOf(r):i; };
+  const regioniTP=chiaviTP.slice().sort((a,b)=>posR(a)-posR(b));
   const card=t=>'<button class="card" data-go="trigger/'+t.id+'" style="gap:3px"><span class="eyebrow">'+esc(nomeOf(t.muscolo))+'</span><h3 style="font-size:15px">'+esc(t.nome.replace("Trigger point del ","").replace("Trigger point dello ","").replace("Trigger point dei ","").replace("Trigger point degli ","").replace("Trigger point della ","").replace("Trigger point dell'",""))+'</h3><p style="font-size:12.8px">'+esc(t.riferito.split(/[.;]/)[0])+'.</p></button>';
   return crumbs([["Home","home/"],["Trigger point",null]])+
    '<h1 style="font-size:clamp(23px,5vw,32px);margin-bottom:6px">Mappa dei trigger point</h1>'+
@@ -9321,7 +9330,7 @@ vistaLista = function(k){
    '<div class="stage">'+mappaTriggerSVG("post",TP_FILTRO)+'<span class="eyebrow" style="margin-top:6px">Vista posteriore</span></div></div>'+
    '<div class="tplegend"><span><i style="background:var(--muscle)"></i>Trigger point</span><span><i style="background:var(--joint)"></i>Tender point (fibromialgia)</span><span>I punti sono indicativi: la posizione esatta si trova con le mani.</span></div></div></div>'+
    '<div class="seg" style="margin:18px 0 8px">Che cosa sono</div><div class="pills">'+pills(["z-trigger-point","z-dolore","z-sensibilizzazione-centrale"].filter(x=>anyById(x)))+'</div>'+
-   Object.keys(gruppi).map(r=>'<div class="seg" style="margin:18px 0 10px">'+esc(r)+' · '+gruppi[r].length+'</div><div class="grid g3">'+gruppi[r].map(card).join("")+'</div>').join("")+
+   regioniTP.map(r=>'<div class="seg" style="margin:18px 0 10px">'+esc(r)+' · '+gruppi[r].length+'</div><div class="grid g3">'+gruppi[r].map(card).join("")+'</div>').join("")+
    '<div class="seg" style="margin:18px 0 10px">Tender point della fibromialgia · '+DB.tender.length+'</div><div class="grid g3">'+DB.tender.map(t=>'<button class="card" data-go="trigger/'+t.id+'" style="gap:3px"><span class="eyebrow">Tender point</span><h3 style="font-size:15px">'+esc(t.nome.replace("Tender point: ",""))+'</h3><p style="font-size:12.8px">'+esc(t.dove)+'</p></button>').join("")+'</div>';
 };
 document.addEventListener("click",function(e){

@@ -78,7 +78,7 @@ function vistaHome(){
         '<span class="eyebrow">Perché fa male lontano</span><h3>I collegamenti</h3>'+
         '<p>Dal massetere alla nuca, dal gran dorsale al gluteo opposto, dal piede alla lombare: i percorsi dei «segreti», tappa per tappa.</p>'+
       '</button>'+
-      '<button class="card" data-go="tavole/spalla" style="gap:10px">'+
+      '<button class="card" data-go="tavole/collo" style="gap:10px">'+
         '<span class="eyebrow">Tavole disegnate</span><h3>Tavole dei muscoli</h3>'+
         '<p>Nove tavole ossee con i muscoli posturali disegnati sopra: passa il mouse per vedere chi è chi, tocca per aprire la scheda.</p>'+
       '</button>'+
@@ -149,7 +149,8 @@ function crumbs(list){
 function vistaAtlante(arg){
   const vista = (arg==="post")?"post":"ant";
   const cat = S.arg && S.arg.indexOf("c-")===0 ? DB.catene.find(c=>c.id===S.arg) : null;
-  const lista=DB.muscoli.filter(m=>m.vista===vista||m.vista==="both");
+  const posG=m=>{ const i=ORDINE_GRUPPI_MUSCOLI.indexOf(m.gruppo||""); return i<0?ORDINE_GRUPPI_MUSCOLI.length:i; };
+  const lista=DB.muscoli.filter(m=>m.vista===vista||m.vista==="both").map((m,i)=>({m:m,i:i})).sort((a,b)=>(posG(a.m)-posG(b.m))||(a.i-b.i)).map(x=>x.m);
   return crumbs([["Home","home/"],["Atlante del corpo",null]])+
    '<h1 style="font-size:clamp(23px,5vw,32px);margin-bottom:6px">Atlante del corpo</h1>'+
    '<p style="margin:0 0 16px;color:var(--muted);max-width:62ch">Tocca un muscolo per aprirne la scheda. La figura è volutamente schematica: serve a collegare, non a sostituire una tavola anatomica.</p>'+
