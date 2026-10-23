@@ -135,8 +135,10 @@ function vistaLista(k){
     (gruppi[g]=gruppi[g]||[]).push(it);
   });
   let chiavi=Object.keys(gruppi);
-  if(k==="muscolo"){
-    const pos=g=>{ const i=ORDINE_GRUPPI_MUSCOLI.indexOf(g); return i<0? ORDINE_GRUPPI_MUSCOLI.length+chiavi.indexOf(g) : i; };
+  const ORDINI={muscolo:ORDINE_GRUPPI_MUSCOLI, problema:["Collo","Spalla","Colonna","Lombare","Arto superiore","Anca","Ginocchio","Arto inferiore","Piede","Postura","Dolore diffuso"]};
+  if(ORDINI[k]){
+    const ord=ORDINI[k];
+    const pos=g=>{ const i=ord.indexOf(g); return i<0? ord.length+chiavi.indexOf(g) : i; };
     chiavi=chiavi.slice().sort((a,b)=>pos(a)-pos(b));
   }
   const body=chiavi.map(g=>

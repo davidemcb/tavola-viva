@@ -60,7 +60,8 @@ const CONS_FRASI = [
  [/giu per la gamba|lungo la gamba|fino al piede|scende nella gamba|scende lungo/, "irradiazione sciatica gamba radice"],
  [/giu per il braccio|lungo il braccio|fino alla mano|scende nel braccio/, "irradiazione braccio radice cervicale"],
  [/dopo il parto|ho partorito|incinta|gravidanza/, "parto gravidanza bacino diastasi"],
- [/colpo di frusta|tamponamento|tamponat|incidente stradale/, "whiplash colpo-di-frusta incidente collo rigido cervicale"]
+ [/colpo di frusta|tamponamento|tamponat|incidente stradale/, "whiplash colpo-di-frusta incidente collo rigido cervicale"],
+ [/davanti alla coscia|coscia davanti|anteriore della coscia|sulla coscia davanti|coscia anteriore/, "cruralgia femorale coscia-anteriore radice"]
 ];
 /* Le parole con cui i clienti raccontano ogni quadro: pesano come la frase della scheda. */
 const CONS_CHIAVI = {
