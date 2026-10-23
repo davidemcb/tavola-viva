@@ -47,7 +47,7 @@ const porta=k=>PORTE.find(p=>p.k===k);
 function conta(k){ return KINDS[k].db().length; }
 
 function vistaHome(){
-  const tot = Object.keys(KINDS).reduce((n,k)=>n+KINDS[k].db().length,0);
+  const tot = Object.keys(KINDS).reduce((n,k)=>n+(KINDS[k].conta===false?0:KINDS[k].db().length),0);
   const studiate = S.done.length;
   return '<section style="margin-bottom:22px">'+
     '<span class="eyebrow">Il corpo non si studia dall\'inizio: si entra da dove serve</span>'+
@@ -104,6 +104,12 @@ function vistaHome(){
 }
 
 /* ---------- liste per ogni porta ---------- */
+/* I muscoli stanno nell'archivio nell'ordine in cui sono stati scritti; nell'elenco
+   le sezioni vanno dall'alto verso il basso. Una sezione nuova non in lista finisce in fondo. */
+const ORDINE_GRUPPI_MUSCOLI=["Testa","Masticazione","Collo","Collo (profondo)","Cingolo scapolare","Spalla","Cuffia dei rotatori",
+  "Torace","Respirazione","Dorso","Dorso (profondo)","Braccio","Gomito","Avambraccio","Avambraccio (profondo)","Mano",
+  "Addome","Addome (profondo)","Pelvi","Anca","Anca (profondo)","Anca (rotatori profondi)",
+  "Coscia anteriore","Coscia posteriore","Coscia mediale","Ginocchio","Gamba anteriore","Gamba laterale","Gamba posteriore","Gamba profonda","Piede"];
 function vistaLista(k){
   const items=KINDS[k].db().slice();
   const p=PORTE.find(x=>x.k===k)||{n:KINDS[k].label,d:""};
@@ -112,7 +118,12 @@ function vistaLista(k){
     const g = it.gruppo || it.regione || it.zona || it.classe || it.piano || (it.sigla? "Meridiani miofasciali":"Schemi");
     (gruppi[g]=gruppi[g]||[]).push(it);
   });
-  const body=Object.keys(gruppi).map(g=>
+  let chiavi=Object.keys(gruppi);
+  if(k==="muscolo"){
+    const pos=g=>{ const i=ORDINE_GRUPPI_MUSCOLI.indexOf(g); return i<0? ORDINE_GRUPPI_MUSCOLI.length+chiavi.indexOf(g) : i; };
+    chiavi=chiavi.slice().sort((a,b)=>pos(a)-pos(b));
+  }
+  const body=chiavi.map(g=>
     '<section style="margin-bottom:18px"><div class="seg" style="margin-bottom:9px">'+esc(g)+'</div>'+
     '<div class="grid g3">'+gruppi[g].map(it=>{
       const nome=it.nome||it.voce;
@@ -159,7 +170,7 @@ function vistaAtlante(arg){
 
 /* ---------- il mio studio ---------- */
 function vistaStudio(){
-  const tot=Object.keys(KINDS).reduce((n,k)=>n+KINDS[k].db().length,0);
+  const tot=Object.keys(KINDS).reduce((n,k)=>n+(KINDS[k].conta===false?0:KINDS[k].db().length),0);
   const card=(id)=>{ const r=anyById(id); if(!r) return "";
     return '<button class="card" data-go="'+r.kind+'/'+id+'" style="gap:3px"><span class="eyebrow">'+KINDS[r.kind].label+'</span>'+
       '<h3 style="font-size:15.5px">'+esc(r.item.nome||r.item.voce)+'</h3></button>'; };
