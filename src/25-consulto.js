@@ -41,7 +41,7 @@ const CONS_SINONIMI = {
 /* Frasi che da sole dicono molto: si leggono prima delle singole parole, cosi' «a pancia in giu'»
    non diventa «pancia» + «giu'», e «in piedi fermo» non diventa «piedi». */
 const CONS_FRASI = [
- [/pancia in giu|a pancia sotto|bocconi|prono|proni/, "prono pancia-in-giu estensione lombare iperlordosi faccette psoas"],
+ [/pancia in giu|a pancia sotto|bocconi|prono|proni|sulla pancia/, "prono pancia-in-giu sonno dormire estensione lombare iperlordosi faccette psoas"],
  [/pancia in su|supino|supina|sulla schiena/, "supino sulla-schiena gambe distese psoas"],
  [/sul fianco|su un fianco|su quel fianco|di fianco|di lato/, "fianco decubito-laterale trocantere spalla-sotto"],
  [/in piedi (fermo|ferma|a lungo|per molto|tanto|molto|per ore)|stare in piedi|sto in piedi|stando in piedi|in fila|alla cassa|al lavandino|ai fornelli|stiro|stirare/, "stare-in-piedi fermo estensione lombare iperlordosi faccette psoas glutei"],
@@ -73,7 +73,8 @@ const CONS_CHIAVI = {
  "p-accovacciarsi":"accovacciarmi raccogliere da terra squat caviglia ginocchio profondo",
  "p-mano-notte":"mano addormentata di notte formicolio dita pollice scuotere la mano tunnel carpale",
  "p-tallone":"tallone primo passo mattino pianta del piede fascite plantare",
- "p-stare-in-piedi":"stare in piedi fermo a lungo fila coda cassa lavandino cucina stirare blocco schiena bassa lombare estensione pancia in giu prono dormire a pancia in giu iperlordosi inarcare mi devo sedere piegarmi in avanti per stare meglio",
+ "p-stare-in-piedi":"stare in piedi fermo a lungo fila coda cassa lavandino cucina stirare blocco schiena bassa lombare estensione iperlordosi inarcare mi devo sedere piegarmi in avanti per stare meglio",
+ "p-pancia-in-giu":"dormire a pancia in giu pancia sotto bocconi prono proni posizione del sonno sveglio con la schiena bloccata risveglio mattino cuscino materasso dormire sulla pancia collo girato di notte",
  "p-ginocchio-scale":"scendere le scale ginocchio davanti rotula discesa accovacciarmi seduto a lungo cinema",
  "p-cervicale-vertigini":"alzare lo sguardo gira la testa vertigine guardare in alto collo",
  "p-torcicollo":"collo bloccato svegliato torcicollo girare la testa colpo d'aria",
@@ -127,6 +128,7 @@ const CONS_MEDICI = {
  "p-mano-notte":"sindrome del tunnel carpale compressione del nervo mediano parestesie notturne phalen tinel",
  "p-tallone":"fascite plantare fasciopatia plantare talalgia sperone calcaneare entesopatia",
  "p-stare-in-piedi":"lombalgia da estensione iperlordosi sindrome delle faccette sindrome faccettale spondilolistesi spondilolisi stenosi psoas retratto sindrome crociata inferiore",
+ "p-pancia-in-giu":"lombalgia posturale notturna lombalgia da estensione decubito prono iperlordosi sindrome delle faccette psoas retratto cervicalgia da rotazione mantenuta",
  "p-ginocchio-scale":"sindrome femoro-rotulea condropatia rotulea condromalacia dolore anteriore di ginocchio maltracking rotuleo",
  "p-cervicale-vertigini":"vertigine cervicogenica vertigine cervicale insufficienza vertebro-basilare cervicalgia con vertigini",
  "p-torcicollo":"torcicollo acuto cervicalgia acuta blocco cervicale spasmo dello sternocleidomastoideo",
