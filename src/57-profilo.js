@@ -8,9 +8,9 @@ let PROFILO = load("profilo", null);
 (function(){ const m=(location.search||"").match(/profilo=(mani|allena)/); if(m){ PROFILO=m[1]; save("profilo",PROFILO); } })();
 const PROFILI = {
   mani:   {n:"Lavoro con le mani", d:"Massaggiatori, massoterapisti, osteopati, posturologi", sig:"l'anatomia di chi lavora con le mani",
-           ordine:["problema","movimento","muscolo","osso","nervo","plesso","articolazione","catena","postura","test","trigger"]},
+           ordine:["problema","movimento","test","esercizio","muscolo","osso","nervo","plesso","articolazione","catena","postura","trigger"]},
   allena: {n:"Alleno", d:"Personal trainer, chinesiologi, istruttori", sig:"l'anatomia di chi allena",
-           ordine:["problema","muscolo","movimento","postura","articolazione","test","trigger","osso","nervo","catena","plesso"]}
+           ordine:["esercizio","problema","movimento","test","muscolo","postura","articolazione","trigger","osso","nervo","catena","plesso"]}
 };
 const _PRINCIPALI_base = PRINCIPALI.slice();
 function applicaProfilo(){

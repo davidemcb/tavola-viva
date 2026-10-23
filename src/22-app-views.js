@@ -38,6 +38,7 @@ function glifo(nome){
    "porta-borsa":'<ellipse cx="24" cy="28" rx="15" ry="8" stroke="currentColor" stroke-width="3.5" fill="none"/><path d="M14 16c4-6 16-6 20 0" stroke="currentColor" stroke-width="3.5" fill="none" stroke-linecap="round"/>',
    "porta-tipo":'<circle cx="14" cy="14" r="7" stroke="currentColor" stroke-width="3.5" fill="none"/><rect x="26" y="6" width="16" height="16" rx="3" stroke="currentColor" stroke-width="3.5" fill="none"/><path d="M8 32h32M8 40h20" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>'
   };
+  g["porta-mus"]=g["porta-muscolo"];
   return '<svg class="gl" viewBox="0 0 48 48" aria-hidden="true">'+(g[nome]||"")+'</svg>';
 }
 
@@ -45,6 +46,25 @@ const PRINCIPALI=["problema","movimento","muscolo","osso","nervo","plesso","arti
 const RIFERIMENTI=["tendine","borsa","legamento","fascia","arteria","tipo"];
 const porta=k=>PORTE.find(p=>p.k===k);
 function conta(k){ return KINDS[k].db().length; }
+
+/* La home per argomento: prima la pratica, poi l'anatomia, poi catene, punti e postura.
+   Una porta aggiunta da un modulo e non in lista finisce nell'ultimo gruppo.
+   Il profilo (mani / alleno) decide l'ordine solo nel primo gruppo. */
+const SEZIONI_HOME=[
+ {t:"Parti dalla pratica", d:"Dalla frase del cliente, dal gesto, dall'esercizio, dal test.", k:["problema","movimento","esercizio","test"]},
+ {t:"Anatomia", d:"Muscoli, ossa, articolazioni e tutto quello che le tiene insieme.", k:["muscolo","osso","articolazione","tipo","legamento","tendine","borsa","fascia","nervo","plesso","arteria"]},
+ {t:"Catene, punti e postura", d:"Come il corpo si collega, dove riferisce dolore, come si legge in piedi. E le parole per dirlo.", k:["catena","trigger","postura","concetto","glossario"]}
+];
+function sezioniHome(){
+  const viste={};
+  const out=SEZIONI_HOME.map(s=>({t:s.t,d:s.d,k:s.k.filter(k=>KINDS[k]&&PORTE.some(p=>p.k===k))}));
+  out.forEach(s=>s.k.forEach(k=>viste[k]=1));
+  const resto=PORTE.map(p=>p.k).filter(k=>!viste[k]&&KINDS[k]);
+  if(resto.length) out[out.length-1].k=out[out.length-1].k.concat(resto);
+  const prof=(typeof PROFILO!=="undefined"&&PROFILO&&typeof PROFILI!=="undefined"&&PROFILI[PROFILO])?PROFILI[PROFILO].ordine:null;
+  if(prof){ const pos=k=>{ const i=prof.indexOf(k); return i<0?99:i; }; out[0].k=out[0].k.slice().sort((a,b)=>pos(a)-pos(b)); }
+  return out;
+}
 
 function vistaHome(){
   const tot = Object.keys(KINDS).reduce((n,k)=>n+(KINDS[k].conta===false?0:KINDS[k].db().length),0);
@@ -58,20 +78,16 @@ function vistaHome(){
     '<button class="card" data-go="consulto/" style="gap:8px;margin-bottom:18px;border-color:var(--fascia);background:var(--fascia-soft)">'+
       '<span class="eyebrow" style="color:var(--fascia)">Consulto</span><h3>Descrivi il problema, ti dico cosa guardare</h3>'+
       '<p>Scrivi la frase del cliente: ricevi le ipotesi da verificare, i test da fare, i muscoli che possono riferire dolore lì e che cosa trattare, in ordine.</p></button>'+
-    '<div class="grid g3" style="margin-bottom:18px">'+
-      PRINCIPALI.map(porta).map((p,i)=>'<button class="card porta" data-go="lista/'+p.k+'" style="color:'+p.c+'">'+
-        glifo(p.i)+'<span class="num">'+String(i+1).padStart(2,"0")+'</span>'+
-        '<span class="tag" style="color:'+p.c+'">'+conta(p.k)+' schede</span>'+
-        '<h3 style="color:var(--ink)">'+p.n+'</h3>'+
-        '<p>'+esc(p.d)+'</p></button>').join("")+
-    '</div>'+
-    '<div class="seg" style="margin:0 0 10px">Riferimenti</div>'+
-    '<div class="grid g3" style="margin-bottom:26px">'+
-      RIFERIMENTI.map(porta).map(p=>'<button class="card" data-go="lista/'+p.k+'" style="gap:4px;color:'+p.c+'">'+
-        '<span class="tag eyebrow" style="color:'+p.c+'">'+conta(p.k)+' schede</span>'+
-        '<h3 style="color:var(--ink);font-size:16px">'+p.n+'</h3>'+
-        '<p style="font-size:12.8px">'+esc(p.d)+'</p></button>').join("")+
-    '</div>'+
+    (function(){ let n=0; return sezioniHome().map((s,si)=>
+      '<div class="seg" style="margin:0 0 4px">'+esc(s.t)+'</div>'+
+      '<p style="margin:0 0 10px;color:var(--muted);font-size:13.5px">'+esc(s.d)+'</p>'+
+      '<div class="grid g3" style="margin-bottom:'+(si===2?26:20)+'px">'+
+        s.k.map(porta).map(p=>'<button class="card porta" data-go="lista/'+p.k+'" style="color:'+p.c+'">'+
+          glifo(p.i)+'<span class="num">'+String(++n).padStart(2,"0")+'</span>'+
+          '<span class="tag" style="color:'+p.c+'">'+conta(p.k)+' schede</span>'+
+          '<h3 style="color:var(--ink)">'+p.n+'</h3>'+
+          '<p>'+esc(p.d)+'</p></button>').join("")+
+      '</div>').join(""); })()+
 
     '<div class="grid g2" style="margin-bottom:22px">'+
       '<button class="card" data-go="collegamenti/" style="gap:10px">'+
