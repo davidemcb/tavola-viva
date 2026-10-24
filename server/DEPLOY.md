@@ -26,7 +26,12 @@ Poi si crea l'amministratore (una volta sola), sostituendo chiave, email e passw
 curl -X POST https://anatomiapratica.<sottodominio>.workers.dev/api/setup -H "Content-Type: application/json" -d "{\"chiave\":\"LA-CHIAVE\",\"email\":\"email@esempio.it\",\"password\":\"una-password-lunga\",\"nome\":\"Davide\"}"
 ```
 
-## Ogni volta che cambiano i contenuti o il codice dell'app
+## Caricamento automatico da GitHub (senza PC)
+Il flusso `.github/workflows/pubblica-bundle.yml` ricostruisce il bundle a ogni modifica dei contenuti e lo carica nel KV.
+Serve una volta sola il segreto `CLOUDFLARE_API_TOKEN` nel repository (Settings > Secrets and variables > Actions),
+un token API di Cloudflare con permesso "Workers KV Storage: Edit". Finché manca, il flusso si ferma senza caricare.
+
+## Ogni volta che cambiano i contenuti o il codice dell'app (dal PC)
 ```
 cd "C:\Users\utente\Desktop\TAVOLA VIVA"
 python _crea_sito.py && python _crea_server.py

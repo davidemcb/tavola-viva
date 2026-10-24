@@ -1,0 +1,35 @@
+name: Pubblica il bundle su Cloudflare
+
+# A ogni modifica dei contenuti ricostruisce il bundle della versione a pagamento e lo carica
+# nel KV "DATI" del Worker, senza passare dal PC. Serve una sola cosa, una volta:
+# il segreto CLOUDFLARE_API_TOKEN nelle impostazioni del repository
+# (Settings > Secrets and variables > Actions), con permesso "Workers KV Storage: Edit".
+# Finché il segreto manca, il flusso costruisce il bundle e si ferma senza errori.
+on:
+  push:
+    branches: [main]
+    paths: ['src/**', 'tavole/**', '_crea_sito.py', '_crea_server.py', '.github/workflows/pubblica-bundle.yml']
+  workflow_dispatch:
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Costruisce il bundle
+        run: python3 _crea_server.py
+      - name: Carica il bundle nel KV
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          set -e
+          NS=$(python3 -c "import re;t=open('server/wrangler.toml',encoding='utf-8-sig').read();print(re.search(r'kv_namespaces.*?\bid\s*=\s*\"([0-9a-f]+)\"',t,re.S).group(1))")
+          ACC=$(curl -sf -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" https://api.cloudflare.com/client/v4/accounts | python3 -c 'import json,sys;print(json.load(sys.stdin)["result"][0]["id"])')
+          curl -sf -X PUT "https://api.cloudflare.com/client/v4/accounts/$ACC/storage/kv/namespaces/$NS/values/bundle" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/javascript" \
+            --data-binary @server/app-bundle.js | python3 -c 'import json,sys;r=json.load(sys.stdin);print("caricato" if r.get("success") else r);sys.exit(0 if r.get("success") else 1)'
+          echo "Bundle caricato: $(wc -c < server/app-bundle.js) byte"
+      - name: Senza token
+        if: env.CLOUDFLARE_API_TOKEN == ''
+        run: echo "Manca il segreto CLOUDFLARE_API_TOKEN nel repository: il bundle è stato costruito ma non caricato."
